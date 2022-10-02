@@ -184,11 +184,7 @@ public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListen
 
 		JPanel panelFila2 = new JPanel();
 
-<<<<<<< HEAD
 		JLabel lblPasswordLogin = new JLabel("Contraseña:");
-=======
-		JLabel lblPasswordLogin = new JLabel("Contrase�a:");
->>>>>>> b6e27876a1a30336421e4b81507659d8a643b5e2
 
 		this.campoAdminPassword = new JPasswordField();
 		this.campoAdminPassword.setColumns(10);
