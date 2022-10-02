@@ -74,10 +74,9 @@ INSERT INTO Cliente VALUES ("tinchito",04,md5('78DEHI8'),"Torres", "Sofia", "198
 INSERT INTO Cliente VALUES ("didicito",05,md5('4567UNHJ'),"Rodriguez", "Matias", "1970/12/12","Gorriti 302", "0116578635", "matirod78@gmail.com",26783645);
 
 #--------------Empleado (legajo, apellido, nombre, edad, direccion, telefono, nro_doc, fecha_nac, correo, password)-------------#
-INSERT INTO Empleado VALUES (121943,"Maslein", "Ana", "Salliquelo 2009","0112377489", 44567789,"1999/11/05" , "anamaslein@gmail.com",md5('Cl123'));
-INSERT INTO Empleado VALUES (108976,"Hughes", "Leonardo", "Colon 230", "0117822983", 42556333, "1945/09/09","leohughes@gmail.com",md5('456GHDJ'));
-INSERT INTO Empleado VALUES (89027,"Gonzalo", "Pedro", "DNI", "Roca 1500", "291674523", 10287364, "1989/03/02","gonzalopedro@yahoo.com", md5('AGJEU64'));
-INSERT INTO Empleado VALUES (134579,"Villafaña", "Rocio", "DNI", "Tucuman 567", "296786543", 32897654, "2002/07/01","rovillafania@gmail.com", md5('F56892'));
-INSERT INTO Empleado VALUES (126667,"Alvarez", "Selene", "DNI", "Viamonte 120", "298765432", 221987365, "2000/07/02","selenealv@gmail.com",md5('C66728'));
-
+INSERT INTO Empleado VALUES ("Anita",121943,"Maslein", "Ana", "Salliquelo 2009","0112377489", 44567789,"1999/11/05" , "anamaslein@gmail.com",md5('Cl123'));
+INSERT INTO Empleado VALUES ("Leonardito",108976,"Hughes", "Leonardo", "Colon 230", "0117822983", 42556333, "1945/09/09","leohughes@gmail.com",md5('456GHDJ'));
+INSERT INTO Empleado VALUES ("Pedrito",89027,"Gonzalo", "Pedro", "DNI", "Roca 1500", "291674523", 10287364, "1989/03/02","gonzalopedro@yahoo.com", md5('AGJEU64'));
+INSERT INTO Empleado VALUES ("Rochi",134579,"Villafaña", "Rocio", "DNI", "Tucuman 567", "296786543", 32897654, "2002/07/01","rovillafania@gmail.com", md5('F56892'));
+INSERT INTO Empleado VALUES ("Selenita",126667,"Alvarez", "Selene", "DNI", "Viamonte 120", "298765432", 221987365, "2000/07/02","selenealv@gmail.com",md5('C66728'));
 
