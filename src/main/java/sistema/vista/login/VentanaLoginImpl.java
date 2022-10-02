@@ -184,7 +184,11 @@ public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListen
 
 		JPanel panelFila2 = new JPanel();
 
+<<<<<<< HEAD
 		JLabel lblPasswordLogin = new JLabel("Contraseña:");
+=======
+		JLabel lblPasswordLogin = new JLabel("Contrase�a:");
+>>>>>>> b6e27876a1a30336421e4b81507659d8a643b5e2
 
 		this.campoAdminPassword = new JPasswordField();
 		this.campoAdminPassword.setColumns(10);
@@ -263,8 +267,13 @@ public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListen
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (getUsuarioSeleccionado().equals("Cliente")) {
-					controlador.ingresar(getUserName(), getPassword());
-				} else {
+					controlador.ingresar(getUserName(), getPassword(), "Cliente");
+				} else if (getUsuarioSeleccionado().equals("Empleado")) {
+					controlador.ingresar(getUserName(), getPassword(), "Empleado");
+				} else if (getUsuarioSeleccionado().equals("Administrador")) {
+					controlador.ingresar(getUserName(), getPassword(), "Administrador");
+				}			
+				else {
 					System.out.println("Intenta ingresar con un valor erroneo de usuario");
 				}
 			}

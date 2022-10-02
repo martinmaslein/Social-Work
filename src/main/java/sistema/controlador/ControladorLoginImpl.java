@@ -31,9 +31,9 @@ public class ControladorLoginImpl implements ControladorLogin {
 		}
 	}
 
-	public void ingresar(String username, char[] password) {
+	public void ingresar(String username, char[] password, String rol) {
 
-		Usuario usuario = this.modelo.obtenerUsuario("Cliente");
+		Usuario usuario = this.modelo.obtenerUsuario(rol);
 
 		if (usuario != null) {
 
@@ -51,6 +51,7 @@ public class ControladorLoginImpl implements ControladorLogin {
 					this.ventana.eliminarVentana();
 
 				} else {
+
 					this.ventana.informar("El usuario o contrase�a ingresados son incorrectos.");
 				}
 			} else {
