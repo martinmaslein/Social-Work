@@ -1,7 +1,5 @@
 package sistema.vista.login;
 
-import java.util.List;
-
 import sistema.controlador.ControladorLogin;
 import sistema.vista.Ventana;
 

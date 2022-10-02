@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 
 import sistema.controlador.ControladorCliente;
 import sistema.vista.cliente.VentanaCliente;
+import sistema.vista.login.VentanaLogin;
+import sistema.vista.login.VentanaLoginImpl;
+
 import javax.swing.JTextField;
 import javax.swing.text.AttributeSet.ColorAttribute;
 
@@ -15,16 +18,21 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 
-	public VentanaRegistroImpl() {
+	public VentanaRegistroImpl(VentanaLoginImpl login) {
 		setSize (new Dimension(700,700));
 		this.inicializar();
+		this.login = login;
+		
 	}
 	
-	public void mostrarVentana() throws Exception {
-		this.setVisible(true);
+	public void mostrarVentana(boolean m) throws Exception {
+		this.setVisible(m);
 	}
 
 	public void eliminarVentana() {
@@ -37,7 +45,7 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 	}
 	
 	protected JPanel PanelRegistro;
-	
+	protected VentanaLogin login;
 	protected JTextField campoNombre;
 	protected JTextField campoApellido;
 	protected JTextField campoNombreDeUsuario;
@@ -143,13 +151,29 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		lblUsuario.setBounds(60, 360, 46, 14);
 		PanelRegistro.add(lblUsuario);
 		
-		JLabel lblContrasenia = new JLabel("Contrase\u00F1a");
+		JLabel lblContrasenia = new JLabel("Contraseña");
 		lblContrasenia.setBounds(60, 397, 76, 14);
 		PanelRegistro.add(lblContrasenia);
 		
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setBounds(223, 446, 102, 26);
 		PanelRegistro.add(btnConfirmar);
+		
+		JButton btnVolver = new JButton("");
+		btnVolver.setIcon(new ImageIcon("img\\flechi.png"));
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				eliminarVentana();
+				try {
+					login.mostrarVentana(true);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnVolver.setBounds(10, 11, 35, 31);
+		PanelRegistro.add(btnVolver);
 		this.pack();
 		this.setVisible(true);
 	}

@@ -20,7 +20,7 @@ public class ControladorClienteImpl implements ControladorCliente {
 	
 	public void ejecutar() {
 		try {
-			this.ventana.mostrarVentana();
+			this.ventana.mostrarVentana(true);
 		} catch (Exception e) {
 			String s = "Se produjo un error al intentar crear la ventana";
 			this.ventana.informar(e.getMessage());

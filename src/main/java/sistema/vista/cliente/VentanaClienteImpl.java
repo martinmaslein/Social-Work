@@ -114,9 +114,9 @@ private void registrarEventos() {
 		this.frameLayout.show(this.frame.getContentPane(), panel);
 	}	
 	
-	public void mostrarVentana() throws Exception {
+	public void mostrarVentana(boolean m) throws Exception {
 		if (this.frame != null) {
-			this.frame.setVisible(true);
+			this.frame.setVisible(m);
 			
 		}
 		else{

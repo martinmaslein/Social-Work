@@ -2,7 +2,7 @@ package sistema.vista;
 
 public interface Ventana {
 
-	public void mostrarVentana() throws Exception; 
+	public void mostrarVentana(boolean m) throws Exception; 
 	
 	public void eliminarVentana();
 

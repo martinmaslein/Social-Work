@@ -36,8 +36,8 @@ public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListen
 		JOptionPane.showMessageDialog(null, mensaje);
 	}
 
-	public void mostrarVentana() throws Exception {
-		this.setVisible(true);
+	public void mostrarVentana(boolean m) throws Exception {
+		this.setVisible(m);
 	}
 
 	public void itemStateChanged(ItemEvent e) {
@@ -83,6 +83,7 @@ public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListen
 		return password;
 	}
 
+	protected VentanaLoginImpl este = this;
 	protected ControladorLogin controlador;
 
 	protected JPanel mainPanel;
@@ -183,7 +184,7 @@ public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListen
 
 		JPanel panelFila2 = new JPanel();
 
-		JLabel lblPasswordLogin = new JLabel("Contraseña:");
+		JLabel lblPasswordLogin = new JLabel("ContraseÃ±a:");
 
 		this.campoAdminPassword = new JPasswordField();
 		this.campoAdminPassword.setColumns(10);
@@ -246,12 +247,12 @@ public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListen
 	protected ActionListener getRegistrarseListener() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaRegistro registrarse = new VentanaRegistroImpl();
+				VentanaRegistro registrarse = new VentanaRegistroImpl(este);
 				try {
-					registrarse.mostrarVentana();
-					eliminarVentana();
+					registrarse.mostrarVentana(true);
+					mostrarVentana(false);
+					
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
