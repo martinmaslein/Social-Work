@@ -1,11 +1,17 @@
 package sistema.controlador;
 
 import sistema.modelo.Usuario;
+import sistema.modelo.admin.ModeloAdminImpl;
 import sistema.modelo.ModeloLogin;
 import sistema.modelo.cliente.ModeloUsuario;
+import sistema.modelo.empleado.ModeloEmpleadoImpl;
 import sistema.modelo.cliente.ModeloClienteImpl;
+import sistema.vista.VentanaAdmin.VentanaAdmin;
+import sistema.vista.VentanaAdmin.VentanaAdminImpl;
 import sistema.vista.cliente.VentanaCliente;
 import sistema.vista.cliente.VentanaClienteImpl;
+import sistema.vista.empleado.VentanaEmpleado;
+import sistema.vista.empleado.VentanaEmpleadoImpl;
 import sistema.vista.login.VentanaLogin;
 
 public class ControladorLoginImpl implements ControladorLogin {
@@ -34,19 +40,38 @@ public class ControladorLoginImpl implements ControladorLogin {
 	public void ingresar(String username, char[] password, String rol) {
 
 		Usuario usuario = this.modelo.obtenerUsuario(rol);
+		ModeloUsuario usuarioRol;
 
 		if (usuario != null) {
+			if(rol.equals("Cliente")) 		
+				usuarioRol = new ModeloClienteImpl();
+			else if(rol.equals("Empleado")) {
+				usuarioRol = new ModeloEmpleadoImpl();}
+			else {
+				usuarioRol = new ModeloAdminImpl();}
 
-			ModeloUsuario cliente = new ModeloClienteImpl();
+			if (usuarioRol.conectar(usuario.getUsername(), usuario.getPassword())) {
 
-			if (cliente.conectar(usuario.getUsername(), usuario.getPassword())) {
+				if (usuarioRol.autenticarUsuarioAplicacion(usuarioRol.getNombreUsuario(), usuarioRol.getContrasena())) {
 
-				if (cliente.autenticarUsuarioAplicacion(cliente.getNombreUsuario(), cliente.getContrasena())) {
-
-					VentanaCliente ventanaCliente = new VentanaClienteImpl();
-					ControladorCliente controladorCliente = new ControladorClienteImpl(ventanaCliente, cliente);
-
-					controladorCliente.ejecutar();
+					if(rol.equals("Cliente")) {
+						VentanaCliente ventanaCliente = new VentanaClienteImpl();
+						ControladorCliente controladorCliente = new ControladorClienteImpl(ventanaCliente, usuarioRol);
+	
+						controladorCliente.ejecutar();
+					}
+					else if(rol.equals("Empleado")) {
+						VentanaEmpleado ventanaEmpleado = new VentanaEmpleadoImpl();
+						ControladorEmpleado controladorEmp = new ControladorEmpleadoImpl(ventanaEmpleado, usuarioRol);
+	
+						controladorEmp.ejecutar();
+					}
+					else {
+						VentanaAdmin ventanaAdmin = new VentanaAdminImpl();
+						ControladorAdmin controladorAdmin = new ControladorAdminImpl(ventanaAdmin, usuarioRol);
+	
+						controladorAdmin.ejecutar();
+					}
 
 					this.ventana.eliminarVentana();
 
