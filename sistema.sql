@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS Empleado(
     nombre VARCHAR(128) NOT NULL, 
     direccion VARCHAR(128) NOT NULL, 
     telefono VARCHAR(128) NOT NULL, 
-    fecha_nac DATE NOT NULL,
+    fecha_nac VARCHAR(128) NOT NULL,
     correo VARCHAR(128) NOT NULL, 
     nro_doc INT UNSIGNED NOT NULL,
     PRIMARY KEY(legajo)
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS Cliente(
     password CHAR(32) NOT NULL,
     apellido VARCHAR(128) NOT NULL, 
     nombre VARCHAR(128) NOT NULL, 
-    fecha_nac DATE NOT NULL,
+    fecha_nac VARCHAR(128) NOT NULL,
     direccion VARCHAR(128) NOT NULL,
     telefono VARCHAR(128) NOT NULL,
     correo VARCHAR(128) NOT NULL, 

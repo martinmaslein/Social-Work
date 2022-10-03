@@ -14,7 +14,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	private String direccion;
 	private String mail;
 	private String telefono;
-	private Date fechaNacimiento;
+	private String fechaNacimiento;
 	private String nombreUsuario;
 	private String contrasena;
 	private String plan;
@@ -72,11 +72,11 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		this.telefono = telefono;
 	}
 
-	public Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

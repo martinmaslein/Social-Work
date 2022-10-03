@@ -22,9 +22,9 @@ public interface ModeloUsuario extends Modelo {
 
 	public void setMail(String mail);
 
-	public Date getFechaNacimiento();
+	public String getFechaNacimiento();
 
-	public void setFechaNacimiento(Date fechaNacimiento);
+	public void setFechaNacimiento(String fechaNacimiento);
 
 	public String getNombreUsuario();
 

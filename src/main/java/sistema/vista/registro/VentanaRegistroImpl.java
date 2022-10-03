@@ -5,8 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import sistema.modelo.ModeloRegistro;
 import sistema.modelo.cliente.ModeloClienteImpl;
-import sistema.modelo.cliente.ModeloUsuario;
 import sistema.vista.login.VentanaLogin;
 import sistema.vista.login.VentanaLoginImpl;
 import javax.swing.JTextField;
@@ -27,6 +27,7 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		setSize(new Dimension(700, 700));
 		this.inicializar();
 		this.login = login;
+		modeloRegistro = new ModeloRegistro();
 	}
 
 	public void mostrarVentana(boolean m) throws Exception {
@@ -53,6 +54,7 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 	protected JTextField campoTelefono;
 	protected JTextField campoContrasena;
 	protected JComboBox<String> comboPlan ;
+	protected ModeloRegistro modeloRegistro;
 	
 	private void inicializar() {
 		this.setTitle("Registrarse");
@@ -172,7 +174,12 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				try {
+					modeloRegistro.cargarCliente(crearCliente());
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 
@@ -232,7 +239,7 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 	protected JTextField campoContrasena;
 	 * @throws Exception 
 	 * 
-	 * */
+-	 * */
 
 	public ModeloClienteImpl crearCliente() throws Exception {
 		ModeloClienteImpl nuevoCliente = new ModeloClienteImpl();
@@ -240,7 +247,7 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		nuevoCliente.setApellido(campoApellido.getText());
 		nuevoCliente.setDireccion(campoDireccion.getText());
 		nuevoCliente.setTelefono(campoTelefono.getText());
-		nuevoCliente.setFechaNacimiento(convertirStringADate(campoFechaNacimiento.getText()));
+		nuevoCliente.setFechaNacimiento(campoFechaNacimiento.getText());
 		nuevoCliente.setNroDocumento(Integer.parseInt(campoDni.getText()));
 		nuevoCliente.setMail(campoCorreo.getText());
 		nuevoCliente.setPlan(comboPlan.getItemAt(comboPlan.getSelectedIndex()));
@@ -254,6 +261,7 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 	public static java.util.Date convertirStringADate(String p_fecha) throws Exception {
 		java.util.Date retorno = null;
 		if ((p_fecha != null)) {
+			System.out.println(p_fecha);
 			try {
 				retorno = (new SimpleDateFormat("yyyy-MM-dd")).parse(p_fecha);
 			} catch (ParseException ex) {

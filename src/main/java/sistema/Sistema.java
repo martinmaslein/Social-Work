@@ -18,6 +18,7 @@ public class Sistema {
 					ModeloLogin modelo = new ModeloLoginImpl();  
 					VentanaLogin ventana = new VentanaLoginImpl();
 					ControladorLogin controlador = new ControladorLoginImpl(ventana, modelo);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

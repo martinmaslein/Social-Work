@@ -27,6 +27,8 @@ public class ModeloImpl implements Modelo {
 
 	public ResultSet consulta(String sql){
 		try{
+			if(conexion == null)
+				conectar("admin","admin");
 			Statement stmt = conexion.createStatement();			
 			ResultSet rs = stmt.executeQuery(sql);
 			
@@ -40,6 +42,8 @@ public class ModeloImpl implements Modelo {
 	
 	public void actualizacion (String sql){
 		try{
+			if(conexion == null)
+				conectar("admin","admin");
 			Statement stmt = conexion.createStatement();
 			stmt.executeUpdate(sql);
 			
