@@ -18,6 +18,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	private Date fechaNacimiento;
 	private String nombreUsuario;
 	private String contrasena;
+	private String plan;
 	
 	public ModeloClienteImpl() {	
 		nombre = getNombre();
@@ -29,6 +30,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		fechaNacimiento = getFechaNacimiento();
 		nombreUsuario = getNombreUsuario();
 		contrasena = getContrasena();
+		plan = getPlan();
 	}
 	
 	public String getApellido() {
@@ -138,4 +140,16 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
 		return salida;
 	}
+	@Override
+	public String getPlan() {
+		return plan;
+	}
+
+	@Override
+	public void setPlan(String plan) {
+		this.plan = plan;
+	}
+	
+	
+	
 }
