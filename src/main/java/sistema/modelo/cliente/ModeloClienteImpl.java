@@ -115,22 +115,19 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return this.nombreUsuario == usuario && this.contrasena == contrasena;
 	}*/
 	
-	public boolean autenticarUsuarioAplicacion(String username, char[] password) throws Exception {		
-		
-		String sql = "SELECT * FROM empleado WHERE username=? AND password= md5(?)"; // ver si ta bien esto
-
+	public boolean autenticarUsuarioAplicacion(String username, char [] password) throws Exception {		
+		boolean salida;
 		try {
-			PreparedStatement select = conexion.prepareStatement(sql);
-			select.setString(1,username);
-			select.setString(2,password.toString());
-			ResultSet rs = select.executeQuery();
-				
+			String quimey = String.valueOf(password);
+			String sql = "SELECT * FROM empleado WHERE username='"+ username +"' AND password= md5('"+ quimey +"')"; // ver si ta bien esto
+			ResultSet rs = this.consulta(sql);
+			
 			if (rs.next()) {
-				this.nombreUsuario = rs.getString("username");
-			} else return false;
+				salida = true;
+			} else 
+				salida = false;
 			
 			rs.close();
-			select.close();
 
 		}catch (SQLException ex) {
 			throw new Exception("Error inesperado al consultar la B.D.");
@@ -139,6 +136,6 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 			throw new Exception("El legajo ingresado no tiene formato valido");
 		}
 
-		return true;
+		return salida;
 	}
 }
