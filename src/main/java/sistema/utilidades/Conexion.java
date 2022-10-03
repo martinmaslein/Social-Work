@@ -23,8 +23,6 @@ public class Conexion {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 	            try {
 	            	
-	            	
-	            	
 	            	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistema?serverTimezone=America/Argentina/Buenos_Aires",
 	                		usuario,
 	                		password);

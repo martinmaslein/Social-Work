@@ -34,5 +34,9 @@ public interface ModeloUsuario extends Modelo {
 
 	public void setContrasena(String contrasena);
 
+	public String getPlan();
+	
+	public void setPlan(String plan);
+	
 	public boolean autenticarUsuarioAplicacion(String usuario, String contrasena);
 }

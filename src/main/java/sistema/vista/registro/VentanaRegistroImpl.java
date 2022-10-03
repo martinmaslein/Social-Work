@@ -4,12 +4,17 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import sistema.modelo.cliente.ModeloClienteImpl;
+import sistema.modelo.cliente.ModeloUsuario;
 import sistema.vista.login.VentanaLogin;
 import sistema.vista.login.VentanaLoginImpl;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -47,7 +52,8 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 	protected JTextField campoCorreo;
 	protected JTextField campoTelefono;
 	protected JTextField campoContrasena;
-
+	protected JComboBox<String> comboPlan ;
+	
 	private void inicializar() {
 		this.setTitle("Registrarse");
 		this.setResizable(false);
@@ -75,7 +81,6 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		campoNombreDeUsuario.setPreferredSize(new Dimension(70, 50));
 		campoNombreDeUsuario.setBorder(null);
 
-
 		campoDni = new JTextField();
 		campoDni.setBounds(146, 114, 295, 26);
 		campoDni.setPreferredSize(new Dimension(70, 50));
@@ -95,7 +100,7 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		campoFechaNacimiento.setBounds(146, 188, 295, 26);
 		campoFechaNacimiento.setPreferredSize(new Dimension(70, 50));
 		campoFechaNacimiento.setBorder(null);
-		
+
 		campoTelefono = new JTextField();
 		campoTelefono.setBounds(146, 262, 295, 26);
 		campoTelefono.setPreferredSize(new Dimension(70, 50));
@@ -164,6 +169,13 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		PanelRegistro.add(lblContrasenia);
 
 		JButton btnConfirmar = new JButton("Confirmar");
+
+		btnConfirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+
 		btnConfirmar.setForeground(new Color(255, 255, 255));
 		btnConfirmar.setBackground(new Color(119, 193, 181));
 		btnConfirmar.setBounds(426, 463, 102, 26);
@@ -184,8 +196,8 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		});
 		btnVolver.setBounds(10, 11, 35, 31);
 		PanelRegistro.add(btnVolver);
-
-		JComboBox<String> comboPlan = new JComboBox();
+		
+		comboPlan = new JComboBox<String>();
 		comboPlan.setBackground(new Color(255, 255, 255));
 		comboPlan.setForeground(new Color(0, 0, 0));
 		comboPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 11));
@@ -199,12 +211,55 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		lblPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 11));
 		lblPlan.setBounds(60, 304, 73, 14);
 		PanelRegistro.add(lblPlan);
-		
+
 		JLabel lblNacimiento = new JLabel("nacimiento");
 		lblNacimiento.setFont(new Font("Yu Gothic UI", Font.BOLD, 11));
 		lblNacimiento.setBounds(60, 193, 113, 21);
 		PanelRegistro.add(lblNacimiento);
 		this.pack();
 		this.setVisible(true);
+	}
+	
+	/**
+	 *	protected JTextField campoNombre;--
+	protected JTextField campoApellido;--
+	protected JTextField campoNombreDeUsuario;
+	protected JTextField campoFechaNacimiento;
+	protected JTextField campoDni;
+	protected JTextField campoDireccion;
+	protected JTextField campoCorreo;
+	protected JTextField campoTelefono;
+	protected JTextField campoContrasena;
+	 * @throws Exception 
+	 * 
+	 * */
+
+	public ModeloClienteImpl crearCliente() throws Exception {
+		ModeloClienteImpl nuevoCliente = new ModeloClienteImpl();
+		nuevoCliente.setNombre(campoNombre.getText());
+		nuevoCliente.setApellido(campoApellido.getText());
+		nuevoCliente.setDireccion(campoDireccion.getText());
+		nuevoCliente.setTelefono(campoTelefono.getText());
+		nuevoCliente.setFechaNacimiento(convertirStringADate(campoFechaNacimiento.getText()));
+		nuevoCliente.setNroDocumento(Integer.parseInt(campoDni.getText()));
+		nuevoCliente.setMail(campoCorreo.getText());
+		nuevoCliente.setPlan(comboPlan.getItemAt(comboPlan.getSelectedIndex()));
+
+		nuevoCliente.setNombreUsuario(campoNombreDeUsuario.getText());
+		nuevoCliente.setContrasena(campoContrasena.getText());
+		
+		return nuevoCliente;
+	}
+
+	public static java.util.Date convertirStringADate(String p_fecha) throws Exception {
+		java.util.Date retorno = null;
+		if ((p_fecha != null)) {
+			try {
+				retorno = (new SimpleDateFormat("yyyy-MM-dd")).parse(p_fecha);
+			} catch (ParseException ex) {
+				throw new Exception("Se produjo un error en la conversión del string a fecha.");
+			}
+		}
+		return retorno;
 	}
 }
