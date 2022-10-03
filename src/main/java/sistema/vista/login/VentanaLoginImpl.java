@@ -17,13 +17,16 @@ import sistema.vista.registro.VentanaRegistro;
 import sistema.vista.registro.VentanaRegistroImpl;
 
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Cursor;
 
 public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListener {
 
 	private static final long serialVersionUID = 1L;
 
 	public VentanaLoginImpl() {
-		setSize(new Dimension(372, 223));
+		setBackground(new Color(202, 228, 255));
+		setSize(new Dimension(700, 700));
 		this.inicializar();
 	}
 
@@ -131,11 +134,20 @@ public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListen
 	private JPanel crearPanelButtons() {
 
 		JPanel panelButtons = new JPanel();
+		panelButtons.setBackground(new Color(224, 241, 238));
 
 		btnAceptarLogin = new JButton("Aceptar");
+		btnAceptarLogin.setBackground(new Color(119, 193, 181));
+		btnAceptarLogin.setForeground(new Color(255, 255, 255));
+		btnAceptarLogin.setFont(new Font("Segoe UI Variable", Font.BOLD, 11));
+		btnAceptarLogin.setBorderPainted(false);
 		panelButtons.add(btnAceptarLogin);
 
 		btnCancelarLogin = new JButton("Cancelar");
+		btnCancelarLogin.setForeground(new Color(255, 255, 255));
+		btnCancelarLogin.setBackground(new Color(119, 193, 181));
+		btnCancelarLogin.setFont(new Font("Segoe UI Variable", Font.BOLD, 11));
+		btnCancelarLogin.setBorderPainted(false);
 		panelButtons.add(btnCancelarLogin);
 
 		return panelButtons;
@@ -144,11 +156,22 @@ public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListen
 	private JPanel crearPanelTipoUsuario() {
 
 		JPanel panelTipoLogin = new JPanel();
+		panelTipoLogin.setBackground(new Color(224, 241, 238));
 		((FlowLayout) panelTipoLogin.getLayout()).setHgap(25);
 
 		comboTipoUsuario = new JComboBox<String>();
+		comboTipoUsuario.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		comboTipoUsuario.setForeground(new Color(0, 0, 0));
+		comboTipoUsuario.setFont(new Font("Segoe UI Variable", Font.BOLD, 11));
+		comboTipoUsuario.setBackground(new Color(255, 255, 255));
+		comboTipoUsuario.setBorder(null);
 		panelTipoLogin.add(comboTipoUsuario);
+		comboTipoUsuario.setFocusable(false);
 		btnRegistrarse = new JButton("Registrarse");
+		btnRegistrarse.setBackground(new Color(119, 193, 181));
+		btnRegistrarse.setForeground(new Color(255, 255, 255));
+		btnRegistrarse.setFont(new Font("Segoe UI Variable", Font.BOLD, 11));
+		btnRegistrarse.setBorderPainted(false);
 		panelTipoLogin.add(btnRegistrarse);
 		comboTipoUsuario.addItemListener(this);
 
@@ -173,21 +196,27 @@ public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListen
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 
 		JPanel panelFila1 = new JPanel();
+		panelFila1.setBackground(new Color(224, 241, 238));
 		((FlowLayout) panelFila1.getLayout()).setHgap(25);
 
 		JLabel lblUsername = new JLabel("Usuario:");
+		lblUsername.setFont(new Font("Segoe UI Variable", Font.BOLD, 11));
 		this.campoAdminUsername = new JTextField();
 		this.campoAdminUsername.setColumns(10);
+		campoAdminUsername.setBorder(null);
 
 		panelFila1.add(lblUsername);
 		panelFila1.add(this.campoAdminUsername);
 
 		JPanel panelFila2 = new JPanel();
+		panelFila2.setBackground(new Color(224, 241, 238));
 
 		JLabel lblPasswordLogin = new JLabel("Contraseña:");
+		lblPasswordLogin.setFont(new Font("Segoe UI Variable", Font.BOLD, 11));
 
 		this.campoAdminPassword = new JPasswordField();
 		this.campoAdminPassword.setColumns(10);
+		campoAdminPassword.setBorder(null);
 
 		panelFila2.add(lblPasswordLogin);
 		panelFila2.add(this.campoAdminPassword);
