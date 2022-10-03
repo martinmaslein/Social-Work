@@ -38,7 +38,7 @@ public class ControladorLoginImpl implements ControladorLogin {
 	}
 
 	public void ingresar(String username, char[] password, String rol) {
-
+		
 		Usuario usuario = this.modelo.obtenerUsuario(rol);
 		ModeloUsuario usuarioRol;
 
@@ -52,32 +52,36 @@ public class ControladorLoginImpl implements ControladorLogin {
 
 			if (usuarioRol.conectar(usuario.getUsername(), usuario.getPassword())) {
 
-				if (usuarioRol.autenticarUsuarioAplicacion(usuarioRol.getNombreUsuario(), usuarioRol.getContrasena())) {
+				try {
+					if (usuarioRol.autenticarUsuarioAplicacion(username, password) ){
 
-					if(rol.equals("Cliente")) {
-						VentanaCliente ventanaCliente = new VentanaClienteImpl();
-						ControladorCliente controladorCliente = new ControladorClienteImpl(ventanaCliente, usuarioRol);
-	
-						controladorCliente.ejecutar();
+						if(rol.equals("Cliente")) {
+							VentanaCliente ventanaCliente = new VentanaClienteImpl();
+							ControladorCliente controladorCliente = new ControladorClienteImpl(ventanaCliente, usuarioRol);
+
+							controladorCliente.ejecutar();
+						}
+						else if(rol.equals("Empleado")) {
+							VentanaEmpleado ventanaEmpleado = new VentanaEmpleadoImpl();
+							ControladorEmpleado controladorEmp = new ControladorEmpleadoImpl(ventanaEmpleado, usuarioRol);
+
+							controladorEmp.ejecutar();
+						}
+						else {
+							VentanaAdmin ventanaAdmin = new VentanaAdminImpl();
+							ControladorAdmin controladorAdmin = new ControladorAdminImpl(ventanaAdmin, usuarioRol);
+
+							controladorAdmin.ejecutar();
+						}
+
+						this.ventana.eliminarVentana(); 
+
+					} else {
+
+						this.ventana.informar("El usuario o contrase�a ingresados son incorrectos.");
 					}
-					else if(rol.equals("Empleado")) {
-						VentanaEmpleado ventanaEmpleado = new VentanaEmpleadoImpl();
-						ControladorEmpleado controladorEmp = new ControladorEmpleadoImpl(ventanaEmpleado, usuarioRol);
-	
-						controladorEmp.ejecutar();
-					}
-					else {
-						VentanaAdmin ventanaAdmin = new VentanaAdminImpl();
-						ControladorAdmin controladorAdmin = new ControladorAdminImpl(ventanaAdmin, usuarioRol);
-	
-						controladorAdmin.ejecutar();
-					}
-
-					this.ventana.eliminarVentana();
-
-				} else {
-
-					this.ventana.informar("El usuario o contrase�a ingresados son incorrectos.");
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			} else {
 				this.ventana.informar("Error en la conexion con la BD.");

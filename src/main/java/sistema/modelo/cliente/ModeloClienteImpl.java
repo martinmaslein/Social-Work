@@ -1,5 +1,8 @@
 package sistema.modelo.cliente;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 import sistema.modelo.ModeloImpl;
@@ -19,7 +22,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	
 	public ModeloClienteImpl() {	
 		nombre = getNombre();
-		apellido = getApellido();
+		apellido = getApellido(); 
 		nroDocumento = getNroDocumento();
 		mail = getMail();
 		direccion = getDireccion();
@@ -110,8 +113,35 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	@Override
-	public boolean autenticarUsuarioAplicacion(String usuario, String contrasena) {
+	/*public boolean autenticarUsuarioAplicacion(String usuario, String contrasena) {
 		return this.nombreUsuario == usuario && this.contrasena == contrasena;
+	}*/
+	
+	public boolean autenticarUsuarioAplicacion(String username, char[] password) throws Exception {		
+		
+		String sql = "SELECT * FROM empleado WHERE username=? AND password= md5(?)"; // ver si ta bien esto
+
+		try {
+			PreparedStatement select = conexion.prepareStatement(sql);
+			select.setString(1,username);
+			select.setString(2,password.toString());
+			ResultSet rs = select.executeQuery();
+				
+			if (rs.next()) {
+				this.nombreUsuario = rs.getString("username");
+			} else return false;
+			
+			rs.close();
+			select.close();
+
+		}catch (SQLException ex) {
+			throw new Exception("Error inesperado al consultar la B.D.");
+		}
+		catch (NumberFormatException ex2) {
+			throw new Exception("El legajo ingresado no tiene formato valido");
+		}
+
+		return true;
 	}
 	@Override
 	public String getPlan() {
