@@ -30,8 +30,8 @@ public class ControladorLoginImpl implements ControladorLogin {
 
 			this.ventana.mostrarVentana(true);
 
-			this.ventana.poblarComboTipoUsuario();
-
+			this.ventana.poblarComboTipoUsuario(); 
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

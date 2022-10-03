@@ -1,9 +1,7 @@
 package sistema.modelo.admin;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 import sistema.modelo.ModeloImpl;
 import sistema.modelo.cliente.ModeloUsuario;
@@ -16,7 +14,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	private String direccion;
 	private String mail;
 	private String telefono;
-	private Date fechaNacimiento;
+	private String fechaNacimiento;
 	private String nombreUsuario;
 	private String contrasena;
 	
@@ -72,11 +70,11 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		this.telefono = telefono;
 	}
 
-	public Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

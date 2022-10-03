@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS Empleado(
     nombre VARCHAR(128) NOT NULL, 
     direccion VARCHAR(128) NOT NULL, 
     telefono VARCHAR(128) NOT NULL, 
-    fecha_nac DATE NOT NULL,
+    fecha_nac VARCHAR(128) NOT NULL,
     correo VARCHAR(128) NOT NULL, 
     nro_doc INT UNSIGNED NOT NULL,
     PRIMARY KEY(legajo)
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS Cliente(
     password CHAR(32) NOT NULL,
     apellido VARCHAR(128) NOT NULL, 
     nombre VARCHAR(128) NOT NULL, 
-    fecha_nac DATE NOT NULL,
+    fecha_nac VARCHAR(128) NOT NULL,
     direccion VARCHAR(128) NOT NULL,
     telefono VARCHAR(128) NOT NULL,
     correo VARCHAR(128) NOT NULL, 
@@ -84,7 +84,6 @@ CREATE TABLE IF NOT EXISTS Servicio_plan(
 )ENGINE=INNODB;
 
 #--------------------------------------------------------------------------------------
-/*falta cambiar*/
 DROP USER 'admin'@'localhost';
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
 GRANT ALL PRIVILEGES ON sistema.* TO 'admin'@'localhost' WITH GRANT OPTION;
@@ -120,13 +119,24 @@ INSERT INTO Cliente VALUES (4,'nombreRandom',md5('78DEHI8'),"Torres", "Sofia", "
 INSERT INTO Cliente VALUES (5,'matiR',md5('4567UNHJ'),"Rodriguez", "Matias", "1970/12/12","Gorriti 302", "0116578635", "matirod78@gmail.com",26783645,1);
 
 #------ Familiar (nro_familiar,nro_cliente,apellido, nombre, fecha_nac, direccion, telefono) --------------------#
-#--INSERT INTO Familiar VALUES (1,1,'Lopez','juan','1980/03/05');
+INSERT INTO Familiar VALUES (1,1,"Lopez", "Joan", "1990/08/11", "Gorriti 501", 2916663748);
+INSERT INTO Familiar VALUES (2,1,"Lopez", "Valentina", "1970/05/12", "San Juan 200", 2916663748);
+INSERT INTO Familiar VALUES (3,2,"Perez", "Teresa", "2000/04/09", "Alem 3800", 2916663748);
+INSERT INTO Familiar VALUES (4,3,"Arena", "Manuel", "2001/01/05", "Zapiola 50", 2916663748);
+INSERT INTO Familiar VALUES (5,4,"Torres", "Nicolas", "2002/12/04", "Sarmiento 101", 2916663748);
 
 #-----Servicio (nro_servicio,nombre)
+INSERT INTO Servicio VALUES (1,"Dentista");
+INSERT INTO Servicio VALUES (2,"Oftalmologo");
+INSERT INTO Servicio VALUES (3,"Medico Clinico");
 
-#----servicio_plan (nro_servicio,nro_plan)
+#----servicio_plan (id_servicio_plan, nro_servicio, nro_plan)
+INSERT INTO Servicio_plan VALUES (1,1,1);
+INSERT INTO Servicio_plan VALUES (2,2,1);
+INSERT INTO Servicio_plan VALUES (3,3,2);
 
 #---Administrador (id,username,password)
+INSERT INTO Administrador VALUES (1,"admin",md5('admin'));
 
 
 
