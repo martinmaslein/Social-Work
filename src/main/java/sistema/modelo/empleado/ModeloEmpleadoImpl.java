@@ -11,7 +11,6 @@ import sistema.modelo.cliente.ModeloUsuario;
 
 public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 	
-
 	private String apellido;
 	private String nombre;
 	private int nroDocumento;
