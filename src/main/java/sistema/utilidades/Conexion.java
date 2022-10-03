@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import sistema.utilidades.Conexion;
+
 public class Conexion {
 	
     private static String url;    
@@ -20,8 +22,10 @@ public class Conexion {
 		try { 	
 			Class.forName("com.mysql.cj.jdbc.Driver");
 	            try {
-	     
-	                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistema?serverTimezone=America/Argentina/Buenos_Aires",
+	            	
+	            	
+	            	
+	            	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistema?serverTimezone=America/Argentina/Buenos_Aires",
 	                		usuario,
 	                		password);
 	                

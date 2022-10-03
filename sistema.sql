@@ -94,7 +94,10 @@ CREATE USER 'empleado'@'%' IDENTIFIED BY 'empleado';
 GRANT SELECT ON sistema.empleado TO 'empleado'@'%';
 GRANT SELECT,UPDATE,INSERT ON sistema.empleado TO 'empleado'@'%';  
 
-
+DROP USER 'cliente'@'%';
+CREATE USER 'cliente'@'%' IDENTIFIED BY 'cliente';
+GRANT SELECT ON sistema.cliente TO 'cliente'@'%';
+GRANT SELECT,UPDATE,INSERT ON sistema.cliente TO 'cliente'@'%';  
 
 #------------------------------CARGA DE DATOS-------------------------------------#
 
