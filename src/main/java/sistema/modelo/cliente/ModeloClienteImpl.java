@@ -18,10 +18,10 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	private String nombreUsuario;
 	private String contrasena;
 	private String plan;
-	
-	public ModeloClienteImpl() {	
+
+	public ModeloClienteImpl() {
 		nombre = getNombre();
-		apellido = getApellido(); 
+		apellido = getApellido();
 		nroDocumento = getNroDocumento();
 		mail = getMail();
 		direccion = getDireccion();
@@ -31,7 +31,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		contrasena = getContrasena();
 		plan = getPlan();
 	}
-	
+
 	public String getApellido() {
 		return apellido;
 	}
@@ -87,7 +87,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
 	@Override
 	public void setMail(String mail) {
-		this.mail = mail;		
+		this.mail = mail;
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	@Override
 	public void setNombreUsuario(String usuario) {
 		this.nombreUsuario = usuario;
-		
+
 	}
 
 	@Override
@@ -112,38 +112,59 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	@Override
-	/*public boolean autenticarUsuarioAplicacion(String usuario, String contrasena) {
-		return this.nombreUsuario == usuario && this.contrasena == contrasena;
-	}*/
-	
-	public boolean autenticarUsuarioAplicacion(String username, char [] password) throws Exception {		
+	/*
+	 * public boolean autenticarUsuarioAplicacion(String usuario, String contrasena)
+	 * { return this.nombreUsuario == usuario && this.contrasena == contrasena; }
+	 */
+
+	public boolean autenticarUsuarioAplicacion(String username, char[] password) throws Exception {
 		boolean salida;
 		try {
 			String quimey = String.valueOf(password);
-			String sql = "SELECT * FROM empleado WHERE username='"+ username +"' AND password= md5('"+ quimey +"')"; // ver si ta bien esto
+			String sql = "SELECT * FROM empleado WHERE username='" + username + "' AND password= md5('" + quimey + "')"; // ver
+																															// si
+																															// ta
+																															// bien
+																															// esto
 			ResultSet rs = this.consulta(sql);
-			
+
 			if (rs.next()) {
 				salida = true;
-			} else 
+			} else
 				salida = false;
-			
+
 			rs.close();
 
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			throw new Exception("Error inesperado al consultar la B.D.");
-		}
-		catch (NumberFormatException ex2) {
+		} catch (NumberFormatException ex2) {
 			throw new Exception("El legajo ingresado no tiene formato valido");
 		}
 
 		return salida;
 	}
 
+	public boolean modificarDatos(String username, String password, String queryID) {
+
+		System.out.println(queryID);
+		ResultSet rs = this.consulta(queryID);
+		int id = 0;
+		try {
+			id = rs.getInt("nro_cliente");
+		} catch (SQLException e) {e.printStackTrace();}
+
+		String query = "UPDATE Cliente SET username = '" + username + "', password = '" + password
+				+ "' WHERE nro_cliente = " + id + ";";
+		this.actualizacion(query);
+
+		return true;
+
+	}
+
 	public String getPlan() {
 		return plan;
 	}
-	
+
 	public void setPlan(String plan) {
 		this.plan = plan;
 	}

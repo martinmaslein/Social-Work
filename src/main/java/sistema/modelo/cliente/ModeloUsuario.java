@@ -35,4 +35,5 @@ public interface ModeloUsuario extends Modelo {
 	public void setContrasena(String contrasena);
 	
 	public boolean autenticarUsuarioAplicacion(String usuario, char[] password) throws Exception;
+
 }

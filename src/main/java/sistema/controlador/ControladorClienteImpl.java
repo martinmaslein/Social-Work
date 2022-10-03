@@ -42,4 +42,5 @@ public class ControladorClienteImpl implements ControladorCliente {
 		@SuppressWarnings("unused")
 		ControladorLogin controlador = new ControladorLoginImpl(ventanaLogin, modeloLogin);
 	}
+	
 }
