@@ -17,7 +17,7 @@ public class ControladorClienteImpl implements ControladorCliente {
 	public ControladorClienteImpl(VentanaCliente ventana, ModeloClienteImpl modelo) {		
 		this.ventana = ventana;
 		this.modelo = modelo;
-		this.ventana.registrarControlador(this);		
+		this.ventana.registrarControlador(this);	
 	}
 	
 	public void ejecutar() {
@@ -41,8 +41,7 @@ public class ControladorClienteImpl implements ControladorCliente {
 
 		ModeloLogin modeloLogin = new ModeloLoginImpl();  
 		VentanaLogin ventanaLogin = new VentanaLoginImpl();
-		@SuppressWarnings("unused")
-		ControladorLogin controlador = new ControladorLoginImpl(ventanaLogin, modeloLogin);
+		new ControladorLoginImpl(ventanaLogin, modeloLogin);
 	}
 
 	@Override

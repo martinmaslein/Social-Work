@@ -179,6 +179,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 			public void actionPerformed(ActionEvent e) {
 
 				controlador.crearCupon();
+				JOptionPane.showMessageDialog(null, "Cupon creado correctamente.");
 
 			}
 		};
@@ -506,12 +507,9 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				String id = "SELECT nro_cliente FROM Cliente WHERE username='" + usuario + "';";
-				ModeloClienteImpl modeloCliente = new ModeloClienteImpl();
-				DatosCliente nuevosDatos = construirDatos();
-
-				if (controlador.modificarDatos(nuevosDatos))
+				DatosCliente nuevosDatos =construirDatos();
+				
+				if(controlador.modificarDatos(nuevosDatos))
 					JOptionPane.showMessageDialog(null, "Datos modificados correctamente.");
 
 			}
@@ -524,7 +522,10 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 				nuevosDatos.setTelefono(tfTelefono.getText());
 				nuevosDatos.setNombre(tfNombre.getText());
 				nuevosDatos.setNombreUsuario(tfNombreUsuario.getText());
-				nuevosDatos.setNroDocumento(Integer.parseInt(tfDocumento.getText()));
+				String aux= tfDocumento.getText();
+				if(!aux.isEmpty()) {
+					nuevosDatos.setNroDocumento(Integer.parseInt(aux));
+				}
 				nuevosDatos.setMail(tfMail.getText());
 				nuevosDatos.setFechaNacimiento(tfFechaNacimiento.getText());
 				return nuevosDatos;
@@ -574,6 +575,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	}
 
 	public void registrarControlador(ControladorCliente controlador) {
+		
 		this.controlador = controlador;
 	}
 }

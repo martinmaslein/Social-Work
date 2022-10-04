@@ -16,8 +16,26 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		clienteActual= cliente;
 	}
 	
-	public ModeloClienteImpl() {
-		clienteActual= new DatosCliente();
+	public ModeloClienteImpl(String username) {
+		String sql="SELECT * FROM Cliente WHERE username='" + username + "';";
+		ResultSet rs = this.consulta(sql);
+		try{
+			if(rs.next()) {
+		
+				clienteActual= new DatosCliente();
+				clienteActual.setNombreUsuario(rs.getString("username"));
+				clienteActual.setContrasena(rs.getString("password"));
+				clienteActual.setApellido(rs.getString("apellido"));
+				clienteActual.setNombre(rs.getString("nombre"));
+				clienteActual.setFechaNacimiento(rs.getString("fecha_nac"));
+				clienteActual.setDireccion(rs.getString("direccion"));
+				clienteActual.setTelefono(rs.getString("telefono"));
+				clienteActual.setMail(rs.getString("correo"));
+				clienteActual.setNroDocumento(rs.getInt("nro_doc"));
+		}
+		
+		rs.close();
+		}catch (SQLException e) {e.printStackTrace();}
 	}
 
 	public String getApellido() {
@@ -137,8 +155,8 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		ResultSet rs = this.consulta(queryID);
 		int id = 0;
 		try {
-			id = rs.getInt("nro_cliente");
-
+			if(rs.next())
+				id = rs.getInt("nro_cliente");
 		} catch (SQLException e) {e.printStackTrace();}
 		
 		String newNombreUsuario= nuevosDatos.getNombreUsuario();
@@ -152,21 +170,21 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		Integer newNroDoc= nuevosDatos.getNroDocumento();
 		
 		
-		if(newNombreUsuario!=null && newNombreUsuario!="")
+		if(newNombreUsuario!=null && !newNombreUsuario.isBlank())
 			clienteActual.setNombreUsuario(newNombreUsuario);
-		if(newPassword!=null && newPassword!="")
+		if(newPassword!=null && !newPassword.isBlank())
 			clienteActual.setContrasena(newPassword);
-		if(newApellido!=null && newApellido!="")
+		if(newApellido!=null && !newApellido.isBlank())
 			clienteActual.setApellido(newApellido);
-		if(newNombre!=null && newNombre!="")
+		if(newNombre!=null && !newNombre.isBlank())
 			clienteActual.setNombre(newNombre);
-		if(newFechaNac!=null && newFechaNac!="")
+		if(newFechaNac!=null && !newFechaNac.isBlank())
 			clienteActual.setFechaNacimiento(newFechaNac);
-		if(newDireccion!=null && newDireccion!="")
+		if(newDireccion!=null && !newDireccion.isBlank())
 			clienteActual.setDireccion(newDireccion);
-		if(newTelefono!=null && newTelefono!="")
+		if(newTelefono!=null && !newTelefono.isBlank())
 			clienteActual.setTelefono(newTelefono);
-		if(newMail!=null && newMail!="")
+		if(newMail!=null && !newMail.isBlank())
 			clienteActual.setMail(newMail);
 		if(newNroDoc!=null)
 			clienteActual.setNroDocumento(newNroDoc);
