@@ -131,8 +131,8 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return salida;
 	}
 
-	public boolean modificarDatos(DatosCliente nuevosDatos, String queryID) {
-
+	public boolean modificarDatos(DatosCliente nuevosDatos) {
+		String queryID = "SELECT nro_cliente FROM Cliente WHERE username='" + clienteActual.getNombreUsuario() + "';";
 		System.out.println(queryID);
 		ResultSet rs = this.consulta(queryID);
 		int id = 0;

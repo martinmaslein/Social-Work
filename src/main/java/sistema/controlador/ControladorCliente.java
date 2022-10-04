@@ -8,7 +8,7 @@ public interface ControladorCliente extends ControladorSistema {
 
 	public void salirAplicacion();
 
-	public boolean modificarDatos(DatosCliente nuevosDatos, String id);
+	public boolean modificarDatos(DatosCliente nuevosDatos);
 
 	public void crearCupon();
 
