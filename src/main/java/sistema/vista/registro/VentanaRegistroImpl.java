@@ -253,7 +253,7 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 -	 * */
 
 	public ModeloClienteImpl crearCliente() throws Exception {
-		ModeloClienteImpl nuevoCliente = new ModeloClienteImpl();
+		ModeloClienteImpl nuevoCliente = new ModeloClienteImpl(campoNombreDeUsuario.getText());
 		nuevoCliente.setNombre(campoNombre.getText());
 		nuevoCliente.setApellido(campoApellido.getText());
 		nuevoCliente.setDireccion(campoDireccion.getText());
