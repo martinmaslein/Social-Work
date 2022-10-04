@@ -80,6 +80,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	}
 
 	private void inicializar() {
+
 		this.frame = new JFrame();
 		this.frame.setTitle("Cliente");
 		this.frame.setBounds(100, 100, 852, 575);
