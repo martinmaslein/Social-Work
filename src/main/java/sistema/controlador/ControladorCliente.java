@@ -10,4 +10,6 @@ public interface ControladorCliente extends ControladorSistema {
 
 	public boolean modificarDatos(DatosCliente nuevosDatos, String id);
 
+	public void crearCupon();
+
 }

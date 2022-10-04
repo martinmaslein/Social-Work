@@ -1,10 +1,12 @@
 package sistema.modelo.cliente;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
 import sistema.modelo.ModeloImpl;
+import sistema.utilidades.CreatePdf;
 
 public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
@@ -136,6 +138,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		int id = 0;
 		try {
 			id = rs.getInt("nro_cliente");
+
 		} catch (SQLException e) {e.printStackTrace();}
 		
 		String newNombreUsuario= nuevosDatos.getNombreUsuario();
@@ -180,10 +183,21 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 				+ "', correo = '" + clienteActual.getMail()
 				+ "', nro_doc = " + clienteActual.getNroDocumento()
 				+ " WHERE nro_cliente = " + id + ";";
+
 		this.actualizacion(query);
 
 		return true;
 
+	}
+
+	public void generarCupon() {
+		CreatePdf pdf = new CreatePdf();
+		try {
+			pdf.generarPdf();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
 	}
 
 	public String getPlan() {

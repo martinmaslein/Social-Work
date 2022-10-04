@@ -51,4 +51,7 @@ public class ControladorClienteImpl implements ControladorCliente {
 		
 	}
 	
+	public void crearCupon() {
+		modelo.generarCupon();
+	}
 }
