@@ -8,7 +8,7 @@ import sistema.modelo.cliente.ModeloClienteImpl;
 
 public class ModeloRegistro extends ModeloImpl {
 	
-	ModeloClienteImpl cliente = new ModeloClienteImpl();
+
 	
 	public void cargarCliente(ModeloClienteImpl nuevoCliente) throws Exception {
 		
