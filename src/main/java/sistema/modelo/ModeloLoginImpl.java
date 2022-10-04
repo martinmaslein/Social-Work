@@ -79,7 +79,6 @@ public class ModeloLoginImpl implements ModeloLogin {
 	}
 	
 	public Usuario obtenerUsuario(String rol){
-		System.out.println(rol);
 		for(Map.Entry<String,Usuario> m : usuarios.entrySet()) {
 			Usuario user = m.getValue();
 			if (user.getDisplayname().equals(rol)) {

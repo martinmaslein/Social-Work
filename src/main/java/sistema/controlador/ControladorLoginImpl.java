@@ -37,11 +37,7 @@ public class ControladorLoginImpl implements ControladorLogin {
 		}
 	}
 
-	public void ingresar(String username, char [] password, String rol) {
-		
-		System.out.println(username);
-		System.out.println(password);
-		
+	public void ingresar(String username, char [] password, String rol) {		
 		Usuario usuario = this.modelo.obtenerUsuario(rol);
 		ModeloUsuario usuarioRol;
 

@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 
 public interface Modelo {
 
-	
 	public boolean conectar(String username, String password);
 	
 	public void desconectar();

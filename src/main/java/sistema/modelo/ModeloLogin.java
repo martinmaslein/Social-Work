@@ -2,7 +2,6 @@ package sistema.modelo;
 
 import java.util.List;
 
-
 public interface ModeloLogin { 
 	
 	public List<String> obtenerNombresUsuarios(); 

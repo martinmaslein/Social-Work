@@ -187,7 +187,6 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private ActionListener listenerAbonar() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Intento obtener");
 				int monto = controlador.obtenerTotalAbonar();
 				
 				JOptionPane.showMessageDialog(null, "Monto a abonar: "+ monto);
