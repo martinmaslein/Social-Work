@@ -366,7 +366,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 				ModeloClienteImpl modeloCliente = new ModeloClienteImpl();
 				DatosCliente nuevosDatos =construirDatos();
 				
-				if(controlador.modificarDatos(nuevosDatos,id))
+				if(controlador.modificarDatos(nuevosDatos))
 					JOptionPane.showMessageDialog(null, "Datos modificados correctamente.");
 				
 				

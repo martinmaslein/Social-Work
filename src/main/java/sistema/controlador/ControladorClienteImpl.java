@@ -46,8 +46,8 @@ public class ControladorClienteImpl implements ControladorCliente {
 	}
 
 	@Override
-	public boolean modificarDatos(DatosCliente nuevosDatos, String queryID) {
-		return modelo.modificarDatos(nuevosDatos, queryID);
+	public boolean modificarDatos(DatosCliente nuevosDatos) {
+		return modelo.modificarDatos(nuevosDatos);
 		
 	}
 	
