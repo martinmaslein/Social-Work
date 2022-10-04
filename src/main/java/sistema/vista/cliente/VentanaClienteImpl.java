@@ -58,6 +58,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private JTextField textField_7;
 	private JTextField textField_8;
 	private JLabel lblUsuario;
+	private JLabel lblNroDoc;
+	private JTextField textField_9;
 	
 	public VentanaClienteImpl(String username, String password) {		
 		inicializar();
@@ -165,7 +167,7 @@ private void registrarEventos() {
 		btnModificar_1.setBackground(new Color(119, 193, 181));
 		btnModificar_1.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
 		btnModificar_1.addActionListener(this.modificarDatos());
-		btnModificar_1.setBounds(488, 250, 116, 23);
+		btnModificar_1.setBounds(126, 323, 116, 23);
 		panelPpal2.add(btnModificar_1);
 		
 		textField_2 = new JTextField();
@@ -254,6 +256,17 @@ private void registrarEventos() {
 		lblUsuario.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		lblUsuario.setBounds(370, 143, 98, 23);
 		panelPpal2.add(lblUsuario);
+		
+		lblNroDoc = new JLabel("Documento:");
+		lblNroDoc.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblNroDoc.setBounds(370, 250, 98, 23);
+		panelPpal2.add(lblNroDoc);
+		
+		textField_9 = new JTextField();
+		textField_9.setColumns(10);
+		textField_9.setBorder(null);
+		textField_9.setBounds(461, 252, 167, 20);
+		panelPpal2.add(textField_9);
 		
 		JButton btnModificarDatos = new JButton("Modificar Datos");
 		btnModificarDatos.setBorder(null);
