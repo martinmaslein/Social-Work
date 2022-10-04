@@ -226,8 +226,21 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		clienteActual.setPlan(plan);
 	}
 
-	public void obtenerTotalAbonar() {
+	public int obtenerTotalAbonar() {
 		
-		
+		String queryPlan = "SELECT nro_plan FROM Cliente WHERE username='" + clienteActual.getNombreUsuario() + "';";
+		ResultSet rs = this.consulta(queryPlan);
+		try {
+			int monto = rs.getInt("nro_plan");
+			System.out.println(monto);
+			if(monto == 1)
+				return 5000;
+			else if(monto == 0)
+				return 2500;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }

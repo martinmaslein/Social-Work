@@ -12,6 +12,6 @@ public interface ControladorCliente extends ControladorSistema {
 
 	public void crearCupon();
 	
-	public void obtenerTotalAbonar();
+	public int obtenerTotalAbonar();
 
 }

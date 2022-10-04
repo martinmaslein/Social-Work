@@ -55,8 +55,8 @@ public class ControladorClienteImpl implements ControladorCliente {
 	}
 
 	@Override
-	public void obtenerTotalAbonar() {
-		modelo.obtenerTotalAbonar();
+	public int obtenerTotalAbonar() {
+		return modelo.obtenerTotalAbonar();
 		
 	}
 }
