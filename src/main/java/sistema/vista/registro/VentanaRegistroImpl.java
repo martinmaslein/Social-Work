@@ -175,9 +175,20 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					modeloRegistro.cargarCliente(crearCliente());
+					boolean resultado = modeloRegistro.cargarCliente(crearCliente());
+					if (resultado) {
+						JOptionPane.showMessageDialog(null, "Datos cargados correctamente");
+						campoNombre.setText("");
+						campoApellido.setText("");
+						campoDireccion.setText("");
+						campoTelefono.setText("");
+						campoFechaNacimiento.setText("");
+						campoDni.setText("");
+						campoCorreo.setText("");
+						campoNombreDeUsuario.setText("");
+						campoContrasena.setText("");
+					}
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -242,7 +253,7 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 -	 * */
 
 	public ModeloClienteImpl crearCliente() throws Exception {
-		ModeloClienteImpl nuevoCliente = new ModeloClienteImpl();
+		ModeloClienteImpl nuevoCliente = new ModeloClienteImpl(campoNombreDeUsuario.getText());
 		nuevoCliente.setNombre(campoNombre.getText());
 		nuevoCliente.setApellido(campoApellido.getText());
 		nuevoCliente.setDireccion(campoDireccion.getText());
