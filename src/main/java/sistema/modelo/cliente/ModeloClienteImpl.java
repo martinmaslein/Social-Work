@@ -8,107 +8,93 @@ import sistema.modelo.ModeloImpl;
 
 public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
-	private String apellido;
-	private String nombre;
-	private int nroDocumento;
-	private String direccion;
-	private String mail;
-	private String telefono;
-	private String fechaNacimiento;
-	private String nombreUsuario;
-	private String contrasena;
-	private String plan;
+	private DatosCliente clienteActual;
 
+	public ModeloClienteImpl(DatosCliente cliente) {
+		clienteActual= cliente;
+	}
+	
 	public ModeloClienteImpl() {
-		nombre = getNombre();
-		apellido = getApellido();
-		nroDocumento = getNroDocumento();
-		mail = getMail();
-		direccion = getDireccion();
-		telefono = getTelefono();
-		fechaNacimiento = getFechaNacimiento();
-		nombreUsuario = getNombreUsuario();
-		contrasena = getContrasena();
-		plan = getPlan();
+		clienteActual= new DatosCliente();
 	}
 
 	public String getApellido() {
-		return apellido;
+		return clienteActual.getApellido();
 	}
 
 	public void setApellido(String apellido) {
-		this.apellido = apellido;
+		clienteActual.setApellido(apellido);
 	}
 
 	public String getNombre() {
-		return nombre;
+		return clienteActual.getNombre();
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		clienteActual.setNombre(nombre);
 	}
 
 	public int getNroDocumento() {
-		return nroDocumento;
+		return clienteActual.getNroDocumento();
 	}
 
 	public void setNroDocumento(int nroDocumento) {
-		this.nroDocumento = nroDocumento;
+		clienteActual.setNroDocumento(nroDocumento);
 	}
 
 	public String getDireccion() {
-		return direccion;
+		return clienteActual.getDireccion();
 	}
 
 	public void setDireccion(String direccion) {
-		this.direccion = direccion;
+		clienteActual.setDireccion(direccion);
 	}
 
 	public String getTelefono() {
-		return telefono;
+		return clienteActual.getTelefono();
 	}
 
 	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+		clienteActual.setTelefono(telefono);
 	}
 
 	public String getFechaNacimiento() {
-		return fechaNacimiento;
+		return clienteActual.getFechaNacimiento();
 	}
 
 	public void setFechaNacimiento(String fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
+		clienteActual.setFechaNacimiento(fechaNacimiento);
 	}
 
 	@Override
 	public String getMail() {
-		return mail;
+		return clienteActual.getMail();
 	}
 
 	@Override
 	public void setMail(String mail) {
-		this.mail = mail;
+		clienteActual.setMail(mail);
 	}
 
 	@Override
 	public String getNombreUsuario() {
-		return nombreUsuario;
+		return clienteActual.getNombreUsuario();
 	}
 
 	@Override
 	public void setNombreUsuario(String usuario) {
-		this.nombreUsuario = usuario;
+		clienteActual.setNombreUsuario(usuario);
 
 	}
 
 	@Override
 	public String getContrasena() {
-		return contrasena;
+		return clienteActual.getContrasena();
 	}
 
 	@Override
 	public void setContrasena(String contrasena) {
-		this.contrasena = contrasena;
+		clienteActual.setContrasena(contrasena);
 	}
 
 	@Override
@@ -122,9 +108,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		try {
 			String quimey = String.valueOf(password);
 			String sql = "SELECT * FROM cliente WHERE username='" + username + "' AND password= md5('" + quimey + "')"; // ver
-																															// si
-																															// ta
-																															// bien
+																									// bien
 																															// esto
 			ResultSet rs = this.consulta(sql);
 
@@ -144,7 +128,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return salida;
 	}
 
-	public boolean modificarDatos(String username, String password, String queryID) {
+	public boolean modificarDatos(DatosCliente nuevosDatos, String queryID) {
 
 		System.out.println(queryID);
 		ResultSet rs = this.consulta(queryID);
@@ -152,9 +136,49 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		try {
 			id = rs.getInt("nro_cliente");
 		} catch (SQLException e) {e.printStackTrace();}
-
-		String query = "UPDATE Cliente SET username = '" + username + "', password = '" + password
-				+ "' WHERE nro_cliente = " + id + ";";
+		
+		String newNombreUsuario= nuevosDatos.getNombreUsuario();
+		String newPassword= nuevosDatos.getContrasena();
+		String newApellido= nuevosDatos.getApellido();
+		String newNombre= nuevosDatos.getNombre();
+		String newFechaNac= nuevosDatos.getFechaNacimiento();
+		String newDireccion= nuevosDatos.getDireccion();
+		String newTelefono= nuevosDatos.getTelefono();
+		String newMail= nuevosDatos.getMail();
+		Integer newNroDoc= nuevosDatos.getNroDocumento();
+		
+		
+		if(newNombreUsuario!=null && newNombreUsuario!="")
+			clienteActual.setNombreUsuario(newNombreUsuario);
+		if(newPassword!=null && newPassword!="")
+			clienteActual.setContrasena(newPassword);
+		if(newApellido!=null && newApellido!="")
+			clienteActual.setApellido(newApellido);
+		if(newNombre!=null && newNombre!="")
+			clienteActual.setNombre(newNombre);
+		if(newFechaNac!=null && newFechaNac!="")
+			clienteActual.setFechaNacimiento(newFechaNac);
+		if(newDireccion!=null && newDireccion!="")
+			clienteActual.setDireccion(newDireccion);
+		if(newTelefono!=null && newTelefono!="")
+			clienteActual.setTelefono(newTelefono);
+		if(newMail!=null && newMail!="")
+			clienteActual.setMail(newMail);
+		if(newNroDoc!=null)
+			clienteActual.setNroDocumento(newNroDoc);
+		
+		
+		String query = "UPDATE Cliente SET "
+				+ "username = '" + clienteActual.getNombreUsuario()
+				+ "', password = md5('" + clienteActual.getContrasena()+"')"
+				+  ", apellido ='"+ clienteActual.getApellido()
+				+ "', nombre = '" + clienteActual.getNombre()
+				+ "', fecha_nac = '" + clienteActual.getFechaNacimiento()
+				+ "', direccion = '" + clienteActual.getDireccion()
+				+ "', telefono = '" + clienteActual.getTelefono()
+				+ "', correo = '" + clienteActual.getMail()
+				+ "', nro_doc = " + clienteActual.getNroDocumento()
+				+ " WHERE nro_cliente = " + id + ";";
 		this.actualizacion(query);
 
 		return true;
@@ -162,10 +186,10 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	public String getPlan() {
-		return plan;
+		return clienteActual.getPlan();
 	}
 
 	public void setPlan(String plan) {
-		this.plan = plan;
+		clienteActual.setPlan(plan);
 	}
 }
