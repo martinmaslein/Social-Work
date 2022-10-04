@@ -231,21 +231,41 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
 	public int obtenerTotalAbonar() {
 
+		// Obtenngo el plan del cliente
 		String queryPlan = "SELECT nro_plan FROM Cliente WHERE username='" + clienteActual.getNombreUsuario() + "';";
 		ResultSet rs = this.consulta(queryPlan);
 		int monto = -1;
-		try {
-			if (rs.next())
-				monto = rs.getInt("nro_plan");
-		} catch (SQLException e) {
-
-			e.printStackTrace();
+		try {if (rs.next())
+				monto = rs.getInt("nro_plan");} catch (SQLException e) {e.printStackTrace();}
+		
+		// Obtengo el id del cliente
+		String queryPlan2 = "SELECT nro_cliente FROM Cliente WHERE username='" + clienteActual.getNombreUsuario() + "';";
+		rs = this.consulta(queryPlan2);
+		int id = -1;
+		try {if (rs.next())
+			id = rs.getInt("nro_cliente");} catch (SQLException e) {e.printStackTrace();}
+		
+		// Obtengo los familiares
+		String queryFamiliar = "SELECT * FROM Familiar WHERE nro_cliente = '"+id+"';";
+		rs = this.consulta(queryFamiliar);
+		
+		int cont = 0;
+		try {while(rs.next())
+				cont++;} catch (SQLException e) {e.printStackTrace();}
+		
+		// Monto total
+		if(cont == 0) {
+			if (monto == 1)
+				return 5000;
+			else if (monto == 2)
+				return 2500;
 		}
-		if (monto == 1)
-			return 5000;
-		else if (monto == 2)
-			return 2500;
-
+		else {
+			if (monto == 1)
+				return cont*5000+5000;
+			else if (monto == 2)
+				return cont*2500+2500;
+		}
 		return 0;
 	}
 }
