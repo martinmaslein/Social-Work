@@ -43,7 +43,7 @@ public class ControladorLoginImpl implements ControladorLogin {
 
 		if (usuario != null) {
 			if(rol.equals("Cliente")) 		{
-				usuarioRol = new ModeloClienteImpl(username);
+				usuarioRol = new ModeloClienteImpl(username,String.valueOf(password));
 				}
 			else if(rol.equals("Empleado")) {
 				usuarioRol = new ModeloEmpleadoImpl();}

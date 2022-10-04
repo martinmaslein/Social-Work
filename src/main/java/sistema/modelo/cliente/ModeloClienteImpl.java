@@ -16,15 +16,16 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		clienteActual = cliente;
 	}
 
-	public ModeloClienteImpl(String username) {
-		String sql = "SELECT * FROM Cliente WHERE username='" + username + "';";
+	public ModeloClienteImpl(String username, String password) {
+		String sql="SELECT * FROM Cliente WHERE username='" + username + "';";
+
 		ResultSet rs = this.consulta(sql);
 		try {
 			if (rs.next()) {
 
 				clienteActual = new DatosCliente();
 				clienteActual.setNombreUsuario(rs.getString("username"));
-				clienteActual.setContrasena(rs.getString("password"));
+				clienteActual.setContrasena(password);
 				clienteActual.setApellido(rs.getString("apellido"));
 				clienteActual.setNombre(rs.getString("nombre"));
 				clienteActual.setFechaNacimiento(rs.getString("fecha_nac"));
