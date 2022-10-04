@@ -36,11 +36,13 @@ public class ModeloRegistro extends ModeloImpl {
 		String direccion = nuevoFamiliar.getDireccion();
 		String fechaNac = nuevoFamiliar.getFechaNacimiento();
 		ModeloClienteImpl clienteActual = new ModeloClienteImpl(usuario,"");
-		System.out.println("USUARIO: "+usuario);
+		
 		int id_cliente = clienteActual.getNroCliente();
-		String sql = "INSERT INTO FAMILIAR (nro_cliente, apellido,nombre,fecha_nac,direccion,telefono) VALUES ("+id_cliente+",'"+apellido+"', '"+nombre+"', '"+fechaNac+"','"+direccion+"', "+telefono+");";
-		boolean salida = true;
+		
+		String sql = "INSERT INTO FAMILIAR (nro_cliente, apellido,nombre,fecha_nac,direccion,telefono) VALUES ("+id_cliente+",'"+apellido+"', '"+nombre+"', '"+fechaNac+"','"+direccion+"', '"+telefono+"');";
+		System.out.println(sql);
 		this.actualizacion(sql);
+		boolean salida = true;
 		return salida;
 	}
 

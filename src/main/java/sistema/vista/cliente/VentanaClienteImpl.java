@@ -480,7 +480,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-
+				
 			}
 		});
 	}

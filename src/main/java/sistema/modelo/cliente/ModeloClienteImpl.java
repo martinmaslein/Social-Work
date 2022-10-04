@@ -32,7 +32,6 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 				clienteActual.setMail(rs.getString("correo"));
 				clienteActual.setNroDocumento(rs.getInt("nro_doc"));
 				clienteActual.setNroCliente(rs.getInt("nro_cliente"));
-				System.out.println(rs.getInt("nro_cliente"));
 			}
 
 			rs.close();
@@ -121,11 +120,11 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	public int getNroCliente() {
-		return nroCliente;
+		return clienteActual.getNroCliente();
 	}
 	
 	public void setNroCliente(int nroCliente) {
-		this.nroCliente = nroCliente;
+		clienteActual.setNroCliente(nroCliente);
 	}
 	@Override
 	/*
