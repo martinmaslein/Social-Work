@@ -53,4 +53,10 @@ public class ControladorClienteImpl implements ControladorCliente {
 	public void crearCupon() {
 		modelo.generarCupon();
 	}
+
+	@Override
+	public void obtenerTotalAbonar() {
+		modelo.obtenerTotalAbonar();
+		
+	}
 }

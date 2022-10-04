@@ -225,4 +225,9 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	public void setPlan(String plan) {
 		clienteActual.setPlan(plan);
 	}
+
+	public void obtenerTotalAbonar() {
+		
+		
+	}
 }

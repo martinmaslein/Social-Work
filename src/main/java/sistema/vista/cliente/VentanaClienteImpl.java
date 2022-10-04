@@ -131,7 +131,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		btnObtenerTotalA.setBackground(new Color(119, 193, 181));
 		btnObtenerTotalA.setBounds(321, 224, 174, 23);
 		panelPpal.add(btnObtenerTotalA);
-		btnGenerarCupon.addActionListener(this.listenerCupones());
+		btnGenerarCupon.addActionListener(this.listenerAbonar());
 
 		panel_cupones = new JPanel();
 		panel_cupones.setBackground(new Color(224, 241, 238));
@@ -181,6 +181,17 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		btnNewButton.addActionListener(this.generarCupon());
 
 		this.registrarEventos();
+	}
+
+	private ActionListener listenerAbonar() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				controlador.crearCupon();
+				JOptionPane.showMessageDialog(null, "Cupon creado correctamente.");
+
+			}
+		};
 	}
 
 	private ActionListener generarCupon() {
