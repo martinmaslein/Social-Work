@@ -24,6 +24,8 @@ import sistema.modelo.cliente.ModeloClienteImpl;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.Color;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
@@ -60,6 +62,10 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private JLabel lblUsuario;
 	private JLabel lblNroDoc;
 	private JTextField textField_9;
+	private JPanel panel_cupones;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_2;
+	private JButton btnNewButton;
 	
 	public VentanaClienteImpl(String username, String password) {		
 		inicializar();
@@ -99,6 +105,46 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		btnInscribirFamiliar.setBackground(new Color(119, 193, 181));
 		btnInscribirFamiliar.setBounds(320, 127, 174, 23);
 		panelPpal.add(btnInscribirFamiliar);
+		
+		JButton btnGenerarCupon = new JButton("Generar Cupon");
+		btnGenerarCupon.setForeground(Color.WHITE);
+		btnGenerarCupon.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnGenerarCupon.setBorder(null);
+		btnGenerarCupon.setBackground(new Color(119, 193, 181));
+		btnGenerarCupon.setBounds(320, 176, 174, 23);
+		panelPpal.add(btnGenerarCupon);
+		btnGenerarCupon.addActionListener(this.listenerCupones());
+		
+		panel_cupones = new JPanel();
+		panel_cupones.setBackground(new Color(224, 241, 238));
+		frame.getContentPane().add(panel_cupones, "name_316681242860700");
+		panel_cupones.setLayout(null);
+		
+		lblNewLabel_2 = new JLabel("Seleccione tipo de cupon");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_2.setBounds(61, 140, 259, 35);
+		panel_cupones.add(lblNewLabel_2);
+		
+		lblNewLabel_1 = new JLabel("Cupones");
+		lblNewLabel_1.setBounds(369, 11, 118, 41);
+		lblNewLabel_1.setForeground(new Color(0, 0, 0));
+		lblNewLabel_1.setFont(new Font("Segoe UI Semibold", Font.BOLD, 30));
+		panel_cupones.add(lblNewLabel_1);
+		
+		JComboBox comboBoxCupones = new JComboBox();
+		comboBoxCupones.setForeground(new Color(0, 0, 0));
+		comboBoxCupones.setModel(new DefaultComboBoxModel(new String[] {"Semanal", "Mensual", "Anual"}));
+		comboBoxCupones.setFont(new Font("Yu Gothic UI", Font.BOLD, 12));
+		comboBoxCupones.setBounds(307, 141, 129, 35);
+		panel_cupones.add(comboBoxCupones);
+		
+		btnNewButton = new JButton("Aceptar");
+		btnNewButton.setBackground(new Color(119, 193, 181));
+		btnNewButton.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBounds(498, 141, 118, 35);
+		panel_cupones.add(btnNewButton);
+		
 		
 		this.registrarEventos();	
 	}
@@ -289,6 +335,16 @@ private void registrarEventos() {
 		};
 	} 
 	
+	protected ActionListener listenerCupones() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelPpal.setVisible(false);
+				panelPpal2.setVisible(false);	
+				panel_cupones.setVisible(true);	
+			}
+		};
+	} 
+	
 	protected ActionListener modificarDatos() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -307,6 +363,7 @@ private void registrarEventos() {
 	private JMenuBar crearMenuOpciones() {
 		JMenuBar barraDeMenu = new JMenuBar();
 		JMenu menuOpciones=new JMenu("Menu");
+		menuOpciones.setForeground(new Color(0, 0, 0));
 		menuOpciones.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		barraDeMenu.add(menuOpciones);
 
