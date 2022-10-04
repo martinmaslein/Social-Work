@@ -133,7 +133,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		
 		JComboBox comboBoxCupones = new JComboBox();
 		comboBoxCupones.setForeground(new Color(0, 0, 0));
-		comboBoxCupones.setModel(new DefaultComboBoxModel(new String[] {"Semanal", "Mensual", "Anual"}));
+		comboBoxCupones.setModel(new DefaultComboBoxModel(new String[] {"Mensual", "Semestral", "Anual"}));
 		comboBoxCupones.setFont(new Font("Yu Gothic UI", Font.BOLD, 12));
 		comboBoxCupones.setBounds(307, 141, 129, 35);
 		panel_cupones.add(comboBoxCupones);
