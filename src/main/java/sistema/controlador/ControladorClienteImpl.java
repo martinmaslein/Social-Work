@@ -43,4 +43,7 @@ public class ControladorClienteImpl implements ControladorCliente {
 		ControladorLogin controlador = new ControladorLoginImpl(ventanaLogin, modeloLogin);
 	}
 	
+	public void crearCupon() {
+		modelo.generarCupon();
+	}
 }

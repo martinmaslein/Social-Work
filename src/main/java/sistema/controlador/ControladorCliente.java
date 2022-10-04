@@ -6,4 +6,5 @@ public interface ControladorCliente extends ControladorSistema {
 
 	public void salirAplicacion();
 
+	public void crearCupon();
 }
