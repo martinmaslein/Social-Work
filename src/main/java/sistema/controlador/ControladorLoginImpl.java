@@ -60,7 +60,7 @@ public class ControladorLoginImpl implements ControladorLogin {
 
 						if(rol.equals("Cliente")) {
 							VentanaCliente ventanaCliente = new VentanaClienteImpl(username, password.toString());
-							ControladorCliente controladorCliente = new ControladorClienteImpl(ventanaCliente, usuarioRol);
+							ControladorCliente controladorCliente = new ControladorClienteImpl(ventanaCliente, (ModeloClienteImpl)usuarioRol);
 
 							controladorCliente.ejecutar();
 						}
