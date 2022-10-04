@@ -176,6 +176,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 			public void actionPerformed(ActionEvent e) {
 
 				controlador.crearCupon();
+				JOptionPane.showMessageDialog(null, "Cupon creado correctamente.");
 
 			}
 		};
