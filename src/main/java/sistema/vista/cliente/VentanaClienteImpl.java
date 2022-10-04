@@ -447,7 +447,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					boolean resultado = modeloRegistro.cargarFamiliar(crearFamiliar());
+					boolean resultado = modeloRegistro.cargarFamiliar(usuario, crearFamiliar());
 					if (resultado) {
 						JOptionPane.showMessageDialog(null, "Datos cargados correctamente");
 						campoNombre.setText("");

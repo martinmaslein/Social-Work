@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import sistema.modelo.ModeloRegistro;
+import sistema.modelo.cliente.DatosCliente;
 import sistema.modelo.cliente.ModeloClienteImpl;
 import sistema.vista.login.VentanaLogin;
 import sistema.vista.login.VentanaLoginImpl;
@@ -238,22 +239,10 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		this.setVisible(true);
 	}
 	
-	/**
-	 *	protected JTextField campoNombre;--
-	protected JTextField campoApellido;--
-	protected JTextField campoNombreDeUsuario;
-	protected JTextField campoFechaNacimiento;
-	protected JTextField campoDni;
-	protected JTextField campoDireccion;
-	protected JTextField campoCorreo;
-	protected JTextField campoTelefono;
-	protected JTextField campoContrasena;
-	 * @throws Exception 
-	 * 
--	 * */
+	
 
-	public ModeloClienteImpl crearCliente() throws Exception {
-		ModeloClienteImpl nuevoCliente = new ModeloClienteImpl();
+	public DatosCliente crearCliente() throws Exception {
+		DatosCliente nuevoCliente = new DatosCliente();
 		nuevoCliente.setNombre(campoNombre.getText());
 		nuevoCliente.setApellido(campoApellido.getText());
 		nuevoCliente.setDireccion(campoDireccion.getText());
@@ -262,7 +251,6 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		nuevoCliente.setNroDocumento(Integer.parseInt(campoDni.getText()));
 		nuevoCliente.setMail(campoCorreo.getText());
 		nuevoCliente.setPlan(comboPlan.getItemAt(comboPlan.getSelectedIndex()));
-
 		nuevoCliente.setNombreUsuario(campoNombreDeUsuario.getText());
 		nuevoCliente.setContrasena(campoContrasena.getText());
 		

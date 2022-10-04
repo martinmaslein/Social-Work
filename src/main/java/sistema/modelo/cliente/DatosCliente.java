@@ -11,6 +11,7 @@ public class DatosCliente {
 	private String nombreUsuario;
 	private String contrasena;
 	private String plan;
+	private int nroCliente;
 	
 	public DatosCliente(String apellido, String nombre, int nroDocumento,String direccion, String mail, String telefono,String fechaNacimiento,String nombreUsuario,String contrasena,String plan) {
 		this.nombre = nombre;
@@ -109,6 +110,13 @@ public class DatosCliente {
 	
 	public void setPlan(String plan) {
 		this.plan=plan;
+	}
+	public int getNroCliente() {
+		return nroCliente;
+	}
+	
+	public void setNroCliente(int nroCliente) {
+		this.nroCliente = nroCliente;
 	}
 	
 }

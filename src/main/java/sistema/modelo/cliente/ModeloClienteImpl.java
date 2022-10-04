@@ -11,7 +11,7 @@ import sistema.utilidades.CreatePdf;
 public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
 	private DatosCliente clienteActual;
-
+	private int nroCliente;
 	public ModeloClienteImpl(DatosCliente cliente) {
 		clienteActual= cliente;
 	}
@@ -21,7 +21,6 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		ResultSet rs = this.consulta(sql);
 		try{
 			if(rs.next()) {
-		
 				clienteActual= new DatosCliente();
 				clienteActual.setNombreUsuario(rs.getString("username"));
 				clienteActual.setContrasena(rs.getString("password"));
@@ -32,6 +31,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 				clienteActual.setTelefono(rs.getString("telefono"));
 				clienteActual.setMail(rs.getString("correo"));
 				clienteActual.setNroDocumento(rs.getInt("nro_doc"));
+				clienteActual.setNroCliente(rs.getInt("nro_cliente"));
 		}
 		
 		rs.close();
@@ -117,6 +117,13 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		clienteActual.setContrasena(contrasena);
 	}
 
+	public int getNroCliente() {
+		return nroCliente;
+	}
+	
+	public void setNroCliente(int nroCliente) {
+		this.nroCliente = nroCliente;
+	}
 	@Override
 	/*
 	 * public boolean autenticarUsuarioAplicacion(String usuario, String contrasena)
