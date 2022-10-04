@@ -101,11 +101,11 @@ GRANT SELECT,UPDATE,INSERT ON sistema.cliente TO 'cliente'@'%';
 #------------------------------CARGA DE DATOS-------------------------------------#
 
 #--------------Empleado (legajo, username, password ,apellido, nombre, direccion, telefono, fecha_nac, correo,nro_doc)-------------#
-INSERT INTO Empleado VALUES (1,'jorgito123',md5('45678GH'),"Lopez", "Jorge", "Sarmiento 245", "2915667893","1980/03/05", "jorgelop33@gmail.com",34567892);
-INSERT INTO Empleado VALUES (2,'guille123',md5('KDWOE4'),"Perez", "Guillermo","Alem 3590", "2917856343","2000/10/10","guillermop45@gmail.com",42189488);
-INSERT INTO Empleado VALUES (3,'cami',md5('GHJKDW67'),"Arena", "Camila","Viamonte 201", "0114567892", "1990/07/23","camiarena@gmail.com",20678945);
-INSERT INTO Empleado VALUES (4,'nombreRandom',md5('78DEHI8'),"Torres", "Sofia",  "Terrada 50", "2916735489", "1986/05/09","sofitorres@gmail.com",45678936);
-INSERT INTO Empleado VALUES (5,'matiR',md5('4567UNHJ'),"Rodriguez", "Matias", "Gorriti 302", "0116578635", "1970/12/12", "matirod78@gmail.com",26783645);
+INSERT INTO Empleado VALUES (1,'empleadito',md5('45678GH'),"Lopez", "Jorge", "Sarmiento 245", "2915667893","1980/03/05", "jorgelop33@gmail.com",34567892);
+INSERT INTO Empleado VALUES (2,'emple',md5('KDWOE4'),"Perez", "Guillermo","Alem 3590", "2917856343","2000/10/10","guillermop45@gmail.com",42189488);
+INSERT INTO Empleado VALUES (3,'secretaria',md5('GHJKDW67'),"Arena", "Camila","Viamonte 201", "0114567892", "1990/07/23","camiarena@gmail.com",20678945);
+INSERT INTO Empleado VALUES (4,'keli',md5('78DEHI8'),"Torres", "Sofia",  "Terrada 50", "2916735489", "1986/05/09","sofitorres@gmail.com",45678936);
+INSERT INTO Empleado VALUES (5,'mati',md5('4567UNHJ'),"Rodriguez", "Matias", "Gorriti 302", "0116578635", "1970/12/12", "matirod78@gmail.com",26783645);
 
 #--Plan (nro_plan,nombre,reintegro)----#
 INSERT INTO Plan VALUES (1,"A",70.05);
