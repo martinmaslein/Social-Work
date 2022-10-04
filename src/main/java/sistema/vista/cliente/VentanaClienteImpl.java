@@ -26,6 +26,8 @@ import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Dimension;
 
 public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
@@ -84,6 +86,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private void inicializar() {
 		
 		this.frame = new JFrame();
+		frame.getContentPane().setSize(new Dimension(550, 550));
+		frame.getContentPane().setPreferredSize(new Dimension(550, 550));
 		this.frame.setTitle("Cliente");
 		this.frame.setBounds(100, 100, 852, 575);
 		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);		
@@ -129,6 +133,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		/**/
 		JButton btnVolver3 = new JButton("");
 		btnVolver3.setIcon(new ImageIcon("img\\flechi.png"));
+		btnVolver3.setBorder(null);
 		btnVolver3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -197,6 +202,8 @@ private void registrarEventos() {
 	
 	private Component crearPaneles() {
 		panelPpal = new JPanel();
+		panelPpal.setSize(new Dimension(550, 550));
+		panelPpal.setPreferredSize(new Dimension(550, 550));
 		panelPpal.setBackground(new Color(224, 241, 238));
 		panelPpal.setLayout(null);
 		frame.getContentPane().add(panelPpal);
@@ -320,6 +327,7 @@ private void registrarEventos() {
 			
 		JButton btnVolver = new JButton("");
 		btnVolver.setIcon(new ImageIcon("img\\flechi.png"));
+		btnVolver.setBorder(null);
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -439,6 +447,7 @@ private void registrarEventos() {
 		JButton btnVolver2 = new JButton("");
 		btnVolver2.setBounds(10, 11, 35, 31);
 		btnVolver2.setIcon(new ImageIcon("img\\flechi.png"));
+		btnVolver2.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btnVolver2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
