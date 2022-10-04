@@ -211,10 +211,14 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
 	}
 
-	public void generarCupon() {
+	public void generarCupon(int monto) {
 		CreatePdf pdf = new CreatePdf();
 		try {
-			pdf.generarPdf();
+			pdf.getNombre(getNombre());
+			pdf.getApellido(getApellido());
+			pdf.getPlan(getPlan());
+			pdf.generarPdf(monto);
+			
 		} catch (IOException e) {
 
 			e.printStackTrace();

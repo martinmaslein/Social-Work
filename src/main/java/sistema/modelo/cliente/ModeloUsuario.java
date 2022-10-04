@@ -34,6 +34,6 @@ public interface ModeloUsuario extends Modelo {
 	
 	public boolean autenticarUsuarioAplicacion(String usuario, char[] password) throws Exception;
 	
-	public void generarCupon();
+	public void generarCupon(int monto);
 
 }

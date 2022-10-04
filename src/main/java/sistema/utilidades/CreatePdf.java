@@ -11,13 +11,18 @@ public class CreatePdf {
 
 	PDDocument pdfdoc = new PDDocument();
 	PDPage myPage = new PDPage();
+	
+	String nombre;
+	String apellido;
+	String plan;
+	
 
 	public CreatePdf() {
 
 		pdfdoc.addPage(myPage);
 	}
 
-	public void generarPdf() throws IOException {
+	public void generarPdf(int monto) throws IOException {
 
 		try (PDPageContentStream cont = new PDPageContentStream(pdfdoc, myPage)) {
 
@@ -27,26 +32,42 @@ public class CreatePdf {
 			cont.setLeading(14.5f);
 
 			cont.newLineAtOffset(25, 700);
-			String line1 = "Titular: ";
+			String line1 = "Titular: "+nombre;
 			cont.showText(line1);
 
 			cont.newLine();
 
-			String line2 = "Apellido:";
+			String line2 = "Apellido: "+apellido;
 			cont.showText(line2);
 			cont.newLine();
 
-			String line3 = "Plan";
-			cont.showText(line3);
+			String line4 = "Monto: "+monto;
+			cont.showText(line4);
 			cont.newLine();
-
+			
+			String line5 = "0 788492-808274 ";
+			cont.showText(line5);
+			cont.newLine();
+			
 			cont.endText();
 		}
 		String directorio = System.getProperty("user.dir") + "\\cupon.pdf";
-
+		System.out.println("CreadO");
 		pdfdoc.save(directorio);
 
 		pdfdoc.close();
 	}
+	
+	public void getNombre(String nombre){
+		this.nombre = nombre;
+	}
+	public void getApellido(String apellido){
+		this.apellido = apellido;
+	}
+	public void getPlan(String plan){
+		this.plan = plan;
+	}
+	
+	
 
 }

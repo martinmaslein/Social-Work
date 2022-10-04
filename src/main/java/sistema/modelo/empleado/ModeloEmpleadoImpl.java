@@ -136,6 +136,6 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 		return salida;
 	}
 	
-	public void generarCupon() {}
+	public void generarCupon(int monto) {}
 	
 }
