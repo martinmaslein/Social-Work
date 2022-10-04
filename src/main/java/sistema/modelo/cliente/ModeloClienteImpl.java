@@ -13,16 +13,16 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	private DatosCliente clienteActual;
 
 	public ModeloClienteImpl(DatosCliente cliente) {
-		clienteActual= cliente;
+		clienteActual = cliente;
 	}
-	
+
 	public ModeloClienteImpl(String username) {
-		String sql="SELECT * FROM Cliente WHERE username='" + username + "';";
+		String sql = "SELECT * FROM Cliente WHERE username='" + username + "';";
 		ResultSet rs = this.consulta(sql);
-		try{
-			if(rs.next()) {
-		
-				clienteActual= new DatosCliente();
+		try {
+			if (rs.next()) {
+
+				clienteActual = new DatosCliente();
 				clienteActual.setNombreUsuario(rs.getString("username"));
 				clienteActual.setContrasena(rs.getString("password"));
 				clienteActual.setApellido(rs.getString("apellido"));
@@ -32,10 +32,12 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 				clienteActual.setTelefono(rs.getString("telefono"));
 				clienteActual.setMail(rs.getString("correo"));
 				clienteActual.setNroDocumento(rs.getInt("nro_doc"));
+			}
+
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		
-		rs.close();
-		}catch (SQLException e) {e.printStackTrace();}
 	}
 
 	public String getApellido() {
@@ -127,10 +129,10 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		boolean salida;
 		try {
 			String quimey = String.valueOf(password);
-			
+
 			String sql = "SELECT * FROM cliente WHERE username='" + username + "' AND password= md5('" + quimey + "')"; // ver
-																									// bien
-																		// esto
+			// bien
+			// esto
 			ResultSet rs = this.consulta(sql);
 
 			if (rs.next()) {
@@ -155,51 +157,46 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		ResultSet rs = this.consulta(queryID);
 		int id = 0;
 		try {
-			if(rs.next())
+			if (rs.next())
 				id = rs.getInt("nro_cliente");
-		} catch (SQLException e) {e.printStackTrace();}
-		
-		String newNombreUsuario= nuevosDatos.getNombreUsuario();
-		String newPassword= nuevosDatos.getContrasena();
-		String newApellido= nuevosDatos.getApellido();
-		String newNombre= nuevosDatos.getNombre();
-		String newFechaNac= nuevosDatos.getFechaNacimiento();
-		String newDireccion= nuevosDatos.getDireccion();
-		String newTelefono= nuevosDatos.getTelefono();
-		String newMail= nuevosDatos.getMail();
-		Integer newNroDoc= nuevosDatos.getNroDocumento();
-		
-		
-		if(newNombreUsuario!=null && !newNombreUsuario.isBlank())
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		String newNombreUsuario = nuevosDatos.getNombreUsuario();
+		String newPassword = nuevosDatos.getContrasena();
+		String newApellido = nuevosDatos.getApellido();
+		String newNombre = nuevosDatos.getNombre();
+		String newFechaNac = nuevosDatos.getFechaNacimiento();
+		String newDireccion = nuevosDatos.getDireccion();
+		String newTelefono = nuevosDatos.getTelefono();
+		String newMail = nuevosDatos.getMail();
+		Integer newNroDoc = nuevosDatos.getNroDocumento();
+
+		if (newNombreUsuario != null && !newNombreUsuario.isBlank())
 			clienteActual.setNombreUsuario(newNombreUsuario);
-		if(newPassword!=null && !newPassword.isBlank())
+		if (newPassword != null && !newPassword.isBlank())
 			clienteActual.setContrasena(newPassword);
-		if(newApellido!=null && !newApellido.isBlank())
+		if (newApellido != null && !newApellido.isBlank())
 			clienteActual.setApellido(newApellido);
-		if(newNombre!=null && !newNombre.isBlank())
+		if (newNombre != null && !newNombre.isBlank())
 			clienteActual.setNombre(newNombre);
-		if(newFechaNac!=null && !newFechaNac.isBlank())
+		if (newFechaNac != null && !newFechaNac.isBlank())
 			clienteActual.setFechaNacimiento(newFechaNac);
-		if(newDireccion!=null && !newDireccion.isBlank())
+		if (newDireccion != null && !newDireccion.isBlank())
 			clienteActual.setDireccion(newDireccion);
-		if(newTelefono!=null && !newTelefono.isBlank())
+		if (newTelefono != null && !newTelefono.isBlank())
 			clienteActual.setTelefono(newTelefono);
-		if(newMail!=null && !newMail.isBlank())
+		if (newMail != null && !newMail.isBlank())
 			clienteActual.setMail(newMail);
-		if(newNroDoc!=null)
+		if (newNroDoc != null)
 			clienteActual.setNroDocumento(newNroDoc);
-		
-		
-		String query = "UPDATE Cliente SET "
-				+ "username = '" + clienteActual.getNombreUsuario()
-				+ "', password = md5('" + clienteActual.getContrasena()+"')"
-				+  ", apellido ='"+ clienteActual.getApellido()
-				+ "', nombre = '" + clienteActual.getNombre()
-				+ "', fecha_nac = '" + clienteActual.getFechaNacimiento()
-				+ "', direccion = '" + clienteActual.getDireccion()
-				+ "', telefono = '" + clienteActual.getTelefono()
-				+ "', correo = '" + clienteActual.getMail()
-				+ "', nro_doc = " + clienteActual.getNroDocumento()
+
+		String query = "UPDATE Cliente SET " + "username = '" + clienteActual.getNombreUsuario() + "', password = md5('"
+				+ clienteActual.getContrasena() + "')" + ", apellido ='" + clienteActual.getApellido() + "', nombre = '"
+				+ clienteActual.getNombre() + "', fecha_nac = '" + clienteActual.getFechaNacimiento()
+				+ "', direccion = '" + clienteActual.getDireccion() + "', telefono = '" + clienteActual.getTelefono()
+				+ "', correo = '" + clienteActual.getMail() + "', nro_doc = " + clienteActual.getNroDocumento()
 				+ " WHERE nro_cliente = " + id + ";";
 
 		this.actualizacion(query);
@@ -227,20 +224,22 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	public int obtenerTotalAbonar() {
-		
+
 		String queryPlan = "SELECT nro_plan FROM Cliente WHERE username='" + clienteActual.getNombreUsuario() + "';";
 		ResultSet rs = this.consulta(queryPlan);
+		int monto = -1;
 		try {
-			int monto = rs.getInt("nro_plan");
-			System.out.println(monto);
-			if(monto == 1)
-				return 5000;
-			else if(monto == 0)
-				return 2500;
+			if (rs.next())
+				monto = rs.getInt("nro_plan");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
+		if (monto == 1)
+			return 5000;
+		else if (monto == 2)
+			return 2500;
+
 		return 0;
 	}
 }
