@@ -59,7 +59,6 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private JLabel lblFecha;
 	private JLabel lblNacimiento;
 	private JLabel lblNombreUsuario;
-	private JLabel lblPlan;
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
@@ -68,7 +67,6 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private JTextField textField_8;
 	private JLabel lblUsuario;
 	private JLabel lblNroDoc;
-	private JTextField textField_9;
 	private JPanel panel_cupones;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
@@ -311,7 +309,7 @@ private void registrarEventos() {
 				
 			}
 		});
-		btnModificar_1.setBounds(125, 335, 116, 23);
+		btnModificar_1.setBounds(460, 272, 116, 23);
 		btnModificar_1.setBorder(null);
 		btnModificar_1.setForeground(new Color(255, 255, 255));
 		btnModificar_1.setBackground(new Color(119, 193, 181));
@@ -382,11 +380,6 @@ private void registrarEventos() {
 		lblNombreUsuario.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		panelPpal2.add(lblNombreUsuario);
 		
-		lblPlan = new JLabel("Plan:");
-		lblPlan.setBounds(369, 217, 98, 23);
-		lblPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
-		panelPpal2.add(lblPlan);
-		
 		textField_3 = new JTextField();
 		textField_3.setBounds(125, 218, 167, 20);
 		textField_3.setBorder(null);
@@ -429,15 +422,9 @@ private void registrarEventos() {
 		panelPpal2.add(lblUsuario);
 		
 		lblNroDoc = new JLabel("Documento:");
-		lblNroDoc.setBounds(369, 274, 98, 23);
+		lblNroDoc.setBounds(369, 217, 98, 23);
 		lblNroDoc.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		panelPpal2.add(lblNroDoc);
-		
-		textField_9 = new JTextField();
-		textField_9.setBounds(460, 276, 167, 20);
-		textField_9.setColumns(10);
-		textField_9.setBorder(null);
-		panelPpal2.add(textField_9);
 		
 		JButton btnModificarDatos = new JButton("Modificar Datos");
 		btnModificarDatos.setBorder(null);
