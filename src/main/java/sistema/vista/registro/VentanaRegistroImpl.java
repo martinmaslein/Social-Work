@@ -241,8 +241,10 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 	
 	
 
+
 	public DatosCliente crearCliente() throws Exception {
 		DatosCliente nuevoCliente = new DatosCliente();
+
 		nuevoCliente.setNombre(campoNombre.getText());
 		nuevoCliente.setApellido(campoApellido.getText());
 		nuevoCliente.setDireccion(campoDireccion.getText());

@@ -36,7 +36,7 @@ public class ModeloRegistro extends ModeloImpl {
 		String telefono = nuevoFamiliar.getTelefono();
 		String direccion = nuevoFamiliar.getDireccion();
 		String fechaNac = nuevoFamiliar.getFechaNacimiento();
-		ModeloClienteImpl clienteActual = new ModeloClienteImpl(usuario);
+		ModeloClienteImpl clienteActual = new ModeloClienteImpl(usuario,"");
 		System.out.println("USUARIO: "+usuario);
 		int id_cliente = clienteActual.getNroCliente();
 		String sql = "INSERT INTO FAMILIAR (nro_cliente, apellido,nombre,fecha_nac,direccion,telefono) VALUES ("+id_cliente+",'"+apellido+"', '"+nombre+"', '"+fechaNac+"','"+direccion+"', "+telefono+");";

@@ -74,6 +74,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private JButton btnNewButton;
 
 	protected ModeloRegistro modeloRegistro;
+	private JButton btnObtenerTotalA;
 
 	public VentanaClienteImpl(String username, String password) {
 		inicializar();
@@ -122,7 +123,16 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		btnGenerarCupon.setBackground(new Color(119, 193, 181));
 		btnGenerarCupon.setBounds(320, 176, 174, 23);
 		panelPpal.add(btnGenerarCupon);
-		btnGenerarCupon.addActionListener(this.listenerCupones());
+		
+		btnObtenerTotalA = new JButton("Obtener Total a Abonar");
+		btnObtenerTotalA.setForeground(Color.WHITE);
+		btnObtenerTotalA.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnObtenerTotalA.setBorder(null);
+		btnObtenerTotalA.setBackground(new Color(119, 193, 181));
+		btnObtenerTotalA.setBounds(321, 224, 174, 23);
+		btnObtenerTotalA.addActionListener(this.listenerAbonar());
+		panelPpal.add(btnObtenerTotalA);
+		
 
 		panel_cupones = new JPanel();
 		panel_cupones.setBackground(new Color(224, 241, 238));
@@ -172,6 +182,18 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		btnNewButton.addActionListener(this.generarCupon());
 
 		this.registrarEventos();
+	}
+
+	private ActionListener listenerAbonar() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Intento obtener");
+				int monto = controlador.obtenerTotalAbonar();
+				
+				JOptionPane.showMessageDialog(null, "Monto a abonar: "+ monto);
+
+			}
+		};
 	}
 
 	private ActionListener generarCupon() {
