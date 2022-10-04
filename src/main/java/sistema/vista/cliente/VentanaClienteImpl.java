@@ -23,6 +23,7 @@ import sistema.modelo.cliente.ModeloClienteImpl;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import java.awt.Color;
 
 public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
@@ -42,6 +43,21 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private JButton btnModificar_1;
 	private JLabel lblNewLabel;
 	private JButton btnInscribirFamiliar;
+	private JTextField textField_2;
+	private JLabel lblDireccion;
+	private JLabel lblMail;
+	private JLabel lblTelefono;
+	private JLabel lblFecha;
+	private JLabel lblNacimiento;
+	private JLabel lblNombreUsuario;
+	private JLabel lblPlan;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JTextField textField_8;
+	private JLabel lblUsuario;
 	
 	public VentanaClienteImpl(String username, String password) {		
 		inicializar();
@@ -70,11 +86,15 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		this.crearPaneles();
 		
 		lblNewLabel = new JLabel("Cliente");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel.setBounds(372, 23, 89, 23);
+		lblNewLabel.setFont(new Font("Yu Gothic UI", Font.BOLD, 24));
+		lblNewLabel.setBounds(365, 30, 89, 23);
 		panelPpal.add(lblNewLabel);
 		
 		btnInscribirFamiliar = new JButton("Inscribir Familiar");
+		btnInscribirFamiliar.setBorder(null);
+		btnInscribirFamiliar.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnInscribirFamiliar.setForeground(new Color(255, 255, 255));
+		btnInscribirFamiliar.setBackground(new Color(119, 193, 181));
 		btnInscribirFamiliar.setBounds(320, 127, 174, 23);
 		panelPpal.add(btnInscribirFamiliar);
 		
@@ -107,41 +127,142 @@ private void registrarEventos() {
 	
 	private Component crearPaneles() {
 		panelPpal = new JPanel();
+		panelPpal.setBackground(new Color(224, 241, 238));
 		panelPpal.setLayout(null);
 		frame.getContentPane().add(panelPpal);
 		
 		panelPpal2 = new JPanel();
+		panelPpal2.setBackground(new Color(224, 241, 238));
 		panelPpal2.setLayout(null);
 		panelPpal2.setVisible(false);
 		frame.getContentPane().add(panelPpal2);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		lblNombre.setBounds(36, 35, 98, 23);
 		panelPpal2.add(lblNombre);
 		
 		textField = new JTextField();
-		textField.setBounds(101, 36, 167, 20);
+		textField.setBorder(null);
+		textField.setBounds(126, 36, 167, 20);
 		panelPpal2.add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblApellido = new JLabel("Contraseña:");
-		lblApellido.setBounds(36, 75, 98, 23);
-		panelPpal2.add(lblApellido);
+		JLabel lblContrasena = new JLabel("Contraseña:");
+		lblContrasena.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblContrasena.setBounds(36, 143, 98, 23);
+		panelPpal2.add(lblContrasena);
 		
 		textField_1 = new JTextField();
+		textField_1.setBorder(null);
 		textField_1.setColumns(10);
-		textField_1.setBounds(101, 76, 167, 20);
+		textField_1.setBounds(126, 144, 167, 20);
 		panelPpal2.add(textField_1);
 		
 		btnModificar_1 = new JButton("Modificar");
+		btnModificar_1.setBorder(null);
+		btnModificar_1.setForeground(new Color(255, 255, 255));
+		btnModificar_1.setBackground(new Color(119, 193, 181));
+		btnModificar_1.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
 		btnModificar_1.addActionListener(this.modificarDatos());
-		btnModificar_1.setBounds(101, 126, 116, 23);
+		btnModificar_1.setBounds(488, 250, 116, 23);
 		panelPpal2.add(btnModificar_1);
 		
-		JButton btnNewButton = new JButton("Modificar Datos");
-		btnNewButton.setBounds(320, 76, 174, 23);
-		panelPpal.add(btnNewButton);
-		btnNewButton.addActionListener(this.nuevoListener());
+		textField_2 = new JTextField();
+		textField_2.setBorder(null);
+		textField_2.setBounds(126, 93, 167, 20);
+		panelPpal2.add(textField_2);
+		textField_2.setColumns(10);
+		
+		JLabel lblApellido = new JLabel("Apellido:");
+		lblApellido.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblApellido.setBounds(36, 92, 98, 23);
+		panelPpal2.add(lblApellido);
+		
+		lblDireccion = new JLabel("Direccion:");
+		lblDireccion.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblDireccion.setBounds(36, 193, 98, 23);
+		panelPpal2.add(lblDireccion);
+		
+		lblMail = new JLabel("Mail:");
+		lblMail.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblMail.setBounds(36, 250, 98, 23);
+		panelPpal2.add(lblMail);
+		
+		lblTelefono = new JLabel("Telefono:");
+		lblTelefono.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblTelefono.setBounds(370, 35, 98, 23);
+		panelPpal2.add(lblTelefono);
+		
+		lblFecha = new JLabel("Fecha");
+		lblFecha.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblFecha.setBounds(370, 78, 98, 23);
+		panelPpal2.add(lblFecha);
+		
+		lblNacimiento = new JLabel("Nacimiento:");
+		lblNacimiento.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblNacimiento.setBounds(370, 92, 98, 23);
+		panelPpal2.add(lblNacimiento);
+		
+		lblNombreUsuario = new JLabel("Nombre");
+		lblNombreUsuario.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblNombreUsuario.setBounds(370, 126, 98, 23);
+		panelPpal2.add(lblNombreUsuario);
+		
+		lblPlan = new JLabel("Plan:");
+		lblPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblPlan.setBounds(370, 193, 98, 23);
+		panelPpal2.add(lblPlan);
+		
+		textField_3 = new JTextField();
+		textField_3.setBorder(null);
+		textField_3.setColumns(10);
+		textField_3.setBounds(126, 194, 167, 20);
+		panelPpal2.add(textField_3);
+		
+		textField_4 = new JTextField();
+		textField_4.setBorder(null);
+		textField_4.setColumns(10);
+		textField_4.setBounds(126, 251, 167, 20);
+		panelPpal2.add(textField_4);
+		
+		textField_5 = new JTextField();
+		textField_5.setBorder(null);
+		textField_5.setColumns(10);
+		textField_5.setBounds(461, 36, 167, 20);
+		panelPpal2.add(textField_5);
+		
+		textField_6 = new JTextField();
+		textField_6.setBorder(null);
+		textField_6.setColumns(10);
+		textField_6.setBounds(461, 93, 167, 20);
+		panelPpal2.add(textField_6);
+		
+		textField_7 = new JTextField();
+		textField_7.setBorder(null);
+		textField_7.setColumns(10);
+		textField_7.setBounds(461, 144, 167, 20);
+		panelPpal2.add(textField_7);
+		
+		textField_8 = new JTextField();
+		textField_8.setBorder(null);
+		textField_8.setColumns(10);
+		textField_8.setBounds(461, 194, 167, 20);
+		panelPpal2.add(textField_8);
+		
+		lblUsuario = new JLabel("usuario:");
+		lblUsuario.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblUsuario.setBounds(370, 143, 98, 23);
+		panelPpal2.add(lblUsuario);
+		
+		JButton btnModificarDatos = new JButton("Modificar Datos");
+		btnModificarDatos.setBorder(null);
+		btnModificarDatos.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnModificarDatos.setForeground(new Color(255, 255, 255));
+		btnModificarDatos.setBackground(new Color(119, 193, 181));
+		btnModificarDatos.setBounds(320, 76, 174, 23);
+		panelPpal.add(btnModificarDatos);
+		btnModificarDatos.addActionListener(this.nuevoListener());
 		
 		return panelPpal;			
 	}
