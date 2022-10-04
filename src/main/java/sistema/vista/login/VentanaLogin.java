@@ -9,4 +9,6 @@ public interface VentanaLogin extends Ventana {
 		
 	public void poblarComboTipoUsuario();
 	
+	
+	
 }
