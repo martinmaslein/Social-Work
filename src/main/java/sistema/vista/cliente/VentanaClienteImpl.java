@@ -42,8 +42,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	protected JMenuItem mntmSalir;
 	protected ControladorCliente controlador;
 	JPanel panelPpal, panelPpal2, panelFamiliar;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField tfNombre;
+	private JTextField tfContra;
 	private JButton btnModificar_1;
 	private JLabel lblNewLabel;
 	private JButton btnInscribirFamiliar;
@@ -54,19 +54,19 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private JTextField campodireccion;
 	private JTextField campoTelefono;
 
-	private JTextField textField_2;
+	private JTextField tfApellido;
 	private JLabel lblDireccion;
 	private JLabel lblMail;
 	private JLabel lblTelefono;
 	private JLabel lblFecha;
 	private JLabel lblNacimiento;
 	private JLabel lblNombreUsuario;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
+	private JTextField tfDireccion;
+	private JTextField tfMail;
+	private JTextField tfTelefono;
+	private JTextField tfFechaNacimiento;
+	private JTextField tfNombreUsuario;
+	private JTextField tfDocumento;
 	private JLabel lblUsuario;
 	private JLabel lblNroDoc;
 	private JPanel panel_cupones;
@@ -290,22 +290,22 @@ private void registrarEventos() {
 		lblNombre.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		panelPpal2.add(lblNombre);
 		
-		textField = new JTextField();
-		textField.setBounds(125, 60, 167, 20);
-		textField.setBorder(null);
-		panelPpal2.add(textField);
-		textField.setColumns(10);
+		tfNombre = new JTextField();
+		tfNombre.setBounds(125, 60, 167, 20);
+		tfNombre.setBorder(null);
+		panelPpal2.add(tfNombre);
+		tfNombre.setColumns(10);
 		
 		JLabel lblContrasena = new JLabel("Contraseña:");
 		lblContrasena.setBounds(35, 167, 98, 23);
 		lblContrasena.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		panelPpal2.add(lblContrasena);
 
-		textField_1 = new JTextField();
-		textField_1.setBounds(125, 169, 167, 20);
-		textField_1.setBorder(null);
-		textField_1.setColumns(10);
-		panelPpal2.add(textField_1);
+		tfContra = new JTextField();
+		tfContra.setBounds(125, 169, 167, 20);
+		tfContra.setBorder(null);
+		tfContra.setColumns(10);
+		panelPpal2.add(tfContra);
 		
 		btnModificar_1 = new JButton("Modificar");
 		btnModificar_1.addActionListener(new ActionListener() {
@@ -347,11 +347,11 @@ private void registrarEventos() {
 		panelFamiliar.add(lblNacimiento_1);
 		panelPpal2.add(btnModificar_1);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(125, 117, 167, 20);
-		textField_2.setBorder(null);
-		panelPpal2.add(textField_2);
-		textField_2.setColumns(10);
+		tfApellido = new JTextField();
+		tfApellido.setBounds(125, 117, 167, 20);
+		tfApellido.setBorder(null);
+		panelPpal2.add(tfApellido);
+		tfApellido.setColumns(10);
 		
 		JLabel lbApellido = new JLabel("Apellido:");
 		lbApellido.setBounds(35, 116, 98, 23);
@@ -388,41 +388,41 @@ private void registrarEventos() {
 		lblNombreUsuario.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		panelPpal2.add(lblNombreUsuario);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(125, 218, 167, 20);
-		textField_3.setBorder(null);
-		textField_3.setColumns(10);
-		panelPpal2.add(textField_3);
+		tfDireccion = new JTextField();
+		tfDireccion.setBounds(125, 218, 167, 20);
+		tfDireccion.setBorder(null);
+		tfDireccion.setColumns(10);
+		panelPpal2.add(tfDireccion);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(125, 275, 167, 20);
-		textField_4.setBorder(null);
-		textField_4.setColumns(10);
-		panelPpal2.add(textField_4);
+		tfMail = new JTextField();
+		tfMail.setBounds(125, 275, 167, 20);
+		tfMail.setBorder(null);
+		tfMail.setColumns(10);
+		panelPpal2.add(tfMail);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(460, 60, 167, 20);
-		textField_5.setBorder(null);
-		textField_5.setColumns(10);
-		panelPpal2.add(textField_5);
+		tfTelefono = new JTextField();
+		tfTelefono.setBounds(460, 60, 167, 20);
+		tfTelefono.setBorder(null);
+		tfTelefono.setColumns(10);
+		panelPpal2.add(tfTelefono);
 		
-		textField_6 = new JTextField();
-		textField_6.setBounds(460, 117, 167, 20);
-		textField_6.setBorder(null);
-		textField_6.setColumns(10);
-		panelPpal2.add(textField_6);
+		tfFechaNacimiento = new JTextField();
+		tfFechaNacimiento.setBounds(460, 117, 167, 20);
+		tfFechaNacimiento.setBorder(null);
+		tfFechaNacimiento.setColumns(10);
+		panelPpal2.add(tfFechaNacimiento);
 		
-		textField_7 = new JTextField();
-		textField_7.setBounds(460, 168, 167, 20);
-		textField_7.setBorder(null);
-		textField_7.setColumns(10);
-		panelPpal2.add(textField_7);
+		tfNombreUsuario = new JTextField();
+		tfNombreUsuario.setBounds(460, 168, 167, 20);
+		tfNombreUsuario.setBorder(null);
+		tfNombreUsuario.setColumns(10);
+		panelPpal2.add(tfNombreUsuario);
 		
-		textField_8 = new JTextField();
-		textField_8.setBounds(460, 218, 167, 20);
-		textField_8.setBorder(null);
-		textField_8.setColumns(10);
-		panelPpal2.add(textField_8);
+		tfDocumento = new JTextField();
+		tfDocumento.setBounds(460, 218, 167, 20);
+		tfDocumento.setBorder(null);
+		tfDocumento.setColumns(10);
+		panelPpal2.add(tfDocumento);
 		
 		lblUsuario = new JLabel("usuario:");
 		lblUsuario.setBounds(369, 167, 98, 23);
@@ -503,7 +503,7 @@ private void registrarEventos() {
 					
 				String id = "SELECT nro_cliente FROM Cliente WHERE username='"+usuario+"';";
 				ModeloClienteImpl modeloCliente = new ModeloClienteImpl();
-				if(modeloCliente.modificarDatos(textField.getText(), textField_1.getText(), id))
+				if(modeloCliente.modificarDatos(tfNombre.getText(), tfContra.getText(), id))
 					JOptionPane.showMessageDialog(null, "Datos modificados correctamente.");
 				
 				
