@@ -133,7 +133,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					panelPpal.setVisible(true);
-					panelPpal2.setVisible(false);	
+					panel_cupones.setVisible(false);	
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
