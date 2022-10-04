@@ -116,7 +116,7 @@ public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListen
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.mainPanel = new JPanel();
-		mainPanel.setPreferredSize(new Dimension(418, 210));
+		mainPanel.setPreferredSize(new Dimension(518, 210));
 		this.mainPanel.setLayout(new BorderLayout());
 		this.mainPanel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 
@@ -139,14 +139,14 @@ public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListen
 		btnAceptarLogin = new JButton("Aceptar");
 		btnAceptarLogin.setBackground(new Color(119, 193, 181));
 		btnAceptarLogin.setForeground(new Color(255, 255, 255));
-		btnAceptarLogin.setFont(new Font("Segoe UI Variable", Font.BOLD, 11));
+		btnAceptarLogin.setFont(new Font("Segoe UI Variable", Font.BOLD, 15));
 		btnAceptarLogin.setBorderPainted(false);
 		panelButtons.add(btnAceptarLogin);
 
 		btnCancelarLogin = new JButton("Cancelar");
 		btnCancelarLogin.setForeground(new Color(255, 255, 255));
 		btnCancelarLogin.setBackground(new Color(119, 193, 181));
-		btnCancelarLogin.setFont(new Font("Segoe UI Variable", Font.BOLD, 11));
+		btnCancelarLogin.setFont(new Font("Segoe UI Variable", Font.BOLD, 15));
 		btnCancelarLogin.setBorderPainted(false);
 		panelButtons.add(btnCancelarLogin);
 
@@ -162,7 +162,7 @@ public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListen
 		comboTipoUsuario = new JComboBox<String>();
 		comboTipoUsuario.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		comboTipoUsuario.setForeground(new Color(0, 0, 0));
-		comboTipoUsuario.setFont(new Font("Segoe UI Variable", Font.BOLD, 11));
+		comboTipoUsuario.setFont(new Font("Segoe UI Variable", Font.BOLD, 15));
 		comboTipoUsuario.setBackground(new Color(255, 255, 255));
 		comboTipoUsuario.setBorder(null);
 		panelTipoLogin.add(comboTipoUsuario);
@@ -170,7 +170,7 @@ public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListen
 		btnRegistrarse = new JButton("Registrarse");
 		btnRegistrarse.setBackground(new Color(119, 193, 181));
 		btnRegistrarse.setForeground(new Color(255, 255, 255));
-		btnRegistrarse.setFont(new Font("Segoe UI Variable", Font.BOLD, 11));
+		btnRegistrarse.setFont(new Font("Segoe UI Variable", Font.BOLD, 15));
 		btnRegistrarse.setBorderPainted(false);
 		panelTipoLogin.add(btnRegistrarse);
 		comboTipoUsuario.addItemListener(this);
@@ -199,10 +199,10 @@ public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListen
 		panelFila1.setBackground(new Color(224, 241, 238));
 
 		JLabel lblUsername = new JLabel("Usuario:");
-		lblUsername.setBounds(96, 34, 45, 15);
-		lblUsername.setFont(new Font("Segoe UI Variable", Font.BOLD, 11));
+		lblUsername.setBounds(96, 34, 91, 15);
+		lblUsername.setFont(new Font("Segoe UI Variable", Font.BOLD, 16));
 		this.campoAdminUsername = new JTextField();
-		campoAdminUsername.setBounds(197, 34, 105, 15);
+		campoAdminUsername.setBounds(195, 33, 140, 23);
 		this.campoAdminUsername.setColumns(10);
 		campoAdminUsername.setBorder(null);
 		panelFila1.setLayout(null);
@@ -214,11 +214,11 @@ public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListen
 		panelFila2.setBackground(new Color(224, 241, 238));
 
 		JLabel lblPasswordLogin = new JLabel("Contraseña:");
-		lblPasswordLogin.setBounds(96, 25, 67, 15);
-		lblPasswordLogin.setFont(new Font("Segoe UI Variable", Font.BOLD, 11));
+		lblPasswordLogin.setBounds(97, 12, 90, 15);
+		lblPasswordLogin.setFont(new Font("Segoe UI Variable", Font.BOLD, 16));
 
 		this.campoAdminPassword = new JPasswordField();
-		campoAdminPassword.setBounds(199, 26, 105, 15);
+		campoAdminPassword.setBounds(197, 11, 140, 23);
 		this.campoAdminPassword.setColumns(10);
 		campoAdminPassword.setBorder(null);
 		panelFila2.setLayout(null);
