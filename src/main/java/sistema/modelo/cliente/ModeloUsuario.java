@@ -1,7 +1,5 @@
 package sistema.modelo.cliente;
 
-import java.util.Date;
-
 import sistema.modelo.Modelo;
 
 public interface ModeloUsuario extends Modelo {

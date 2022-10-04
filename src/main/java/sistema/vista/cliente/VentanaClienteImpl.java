@@ -1,6 +1,5 @@
 package sistema.vista.cliente;
 
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Font;
@@ -8,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -36,12 +36,17 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	protected JMenuItem mntmCerrarSesion;
 	protected JMenuItem mntmSalir;
 	protected ControladorCliente controlador;
-	JPanel panelPpal, panelPpal2;
+	JPanel panelPpal, panelPpal2, panelFamiliar;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JButton btnModificar_1;
 	private JLabel lblNewLabel;
 	private JButton btnInscribirFamiliar;
+	private JTextField campoNombre;
+	private JTextField campoApellido;
+	private JTextField campoFechaNac;
+	private JTextField campodireccion;
+	private JTextField campoTelefono;
 	
 	public VentanaClienteImpl(String username, String password) {		
 		inicializar();
@@ -56,11 +61,10 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		this.frame = new JFrame();
 		this.frame.setTitle("Cliente");
 		this.frame.setBounds(100, 100, 852, 575);
-		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		
+		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);		
 		this.frameLayout = new CardLayout();
 		this.frame.getContentPane().setLayout(this.frameLayout);
-
+		
 		this.lblCliente = new JLabel();
 		this.lblCliente.setFont(new Font("Arial", Font.BOLD, 13));
 		this.lblCliente.setHorizontalAlignment(SwingConstants.LEFT);
@@ -76,6 +80,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		
 		btnInscribirFamiliar = new JButton("Inscribir Familiar");
 		btnInscribirFamiliar.setBounds(320, 127, 174, 23);
+		btnInscribirFamiliar.addActionListener(this.listenerFamiliar());
 		panelPpal.add(btnInscribirFamiliar);
 		
 		this.registrarEventos();	
@@ -115,37 +120,136 @@ private void registrarEventos() {
 		panelPpal2.setVisible(false);
 		frame.getContentPane().add(panelPpal2);
 		
+		panelFamiliar = new JPanel();
+		panelFamiliar.setLayout(null);
+		panelFamiliar.setVisible(false);
+		frame.getContentPane().add(panelFamiliar);
+		
+		campoNombre = new JTextField();
+		campoNombre.setBounds(236, 102, 191, 20);
+		panelFamiliar.add(campoNombre);
+		campoNombre.setColumns(10);
+		
+		campoApellido = new JTextField();
+		campoApellido.setColumns(10);
+		campoApellido.setBounds(236, 146, 191, 20);
+		panelFamiliar.add(campoApellido);
+		
+		campoFechaNac = new JTextField();
+		campoFechaNac.setColumns(10);
+		campoFechaNac.setBounds(236, 190, 191, 20);
+		panelFamiliar.add(campoFechaNac);
+		
+		campodireccion = new JTextField();
+		campodireccion.setColumns(10);
+		campodireccion.setBounds(236, 236, 191, 20);
+		panelFamiliar.add(campodireccion);
+		
+		campoTelefono = new JTextField();
+		campoTelefono.setColumns(10);
+		campoTelefono.setBounds(236, 281, 191, 20);
+		panelFamiliar.add(campoTelefono);
+		
+		JLabel labelNombre = new JLabel("Nombre");
+		labelNombre.setBounds(137, 105, 46, 14);
+		panelFamiliar.add(labelNombre);
+		
+		JLabel labelApellido = new JLabel("Apellido");
+		labelApellido.setBounds(137, 149, 46, 14);
+		panelFamiliar.add(labelApellido);
+		
+		JLabel labelFecha = new JLabel("Fecha nac");
+		labelFecha.setBounds(137, 193, 69, 14);
+		panelFamiliar.add(labelFecha);
+		
+		JLabel labelDireccion = new JLabel("Direccion");
+		labelDireccion.setBounds(137, 239, 46, 14);
+		panelFamiliar.add(labelDireccion);
+		
+		JLabel labelTelefono = new JLabel("Telefono");
+		labelTelefono.setBounds(137, 284, 46, 14);
+		panelFamiliar.add(labelTelefono);
+		
+		JButton btnCargarFamiliar = new JButton("CargarFamiliar");
+		btnCargarFamiliar.setBounds(236, 340, 131, 30);
+		panelFamiliar.add(btnCargarFamiliar);
+		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(36, 35, 98, 23);
+		lblNombre.setBounds(119, 35, 98, 23);
 		panelPpal2.add(lblNombre);
 		
 		textField = new JTextField();
-		textField.setBounds(101, 36, 167, 20);
+		textField.setBounds(243, 36, 167, 20);
 		panelPpal2.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblApellido = new JLabel("Contraseña:");
-		lblApellido.setBounds(36, 75, 98, 23);
+		lblApellido.setBounds(119, 75, 98, 23);
 		panelPpal2.add(lblApellido);
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(101, 76, 167, 20);
+		textField_1.setBounds(243, 76, 167, 20);
 		panelPpal2.add(textField_1);
 		
 		btnModificar_1 = new JButton("Modificar");
 		btnModificar_1.addActionListener(this.modificarDatos());
-		btnModificar_1.setBounds(101, 126, 116, 23);
+		btnModificar_1.setBounds(271, 129, 116, 23);
 		panelPpal2.add(btnModificar_1);
 		
-		JButton btnNewButton = new JButton("Modificar Datos");
-		btnNewButton.setBounds(320, 76, 174, 23);
-		panelPpal.add(btnNewButton);
-		btnNewButton.addActionListener(this.nuevoListener());
+		JButton modificarDatos = new JButton("Modificar Datos");
+		modificarDatos.setBounds(320, 76, 174, 23);
+		panelPpal.add(modificarDatos);
+		modificarDatos.addActionListener(this.nuevoListener());
 		
+		JButton btnVolver = new JButton("");
+		btnVolver.setIcon(new ImageIcon("img\\flechi.png"));
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					panelPpal.setVisible(true);
+					panelFamiliar.setVisible(false);	
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnVolver.setBounds(10, 11, 35, 31);
+		panelFamiliar.add(btnVolver);
+		
+		
+		/**/
+		JButton btnVolver2 = new JButton("");
+		btnVolver2.setIcon(new ImageIcon("img\\flechi.png"));
+		btnVolver2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					panelPpal.setVisible(true);
+					panelPpal2.setVisible(false);	
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnVolver2.setBounds(10, 11, 35, 31);
+		panelPpal2.add(btnVolver2);
 		return panelPpal;			
 	}
 	
+	private ActionListener listenerCargarFamiliar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	protected ActionListener listenerFamiliar() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelPpal.setVisible(false);
+				panelFamiliar.setVisible(true);	
+			}
+		};
+	}
 	protected ActionListener nuevoListener() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
