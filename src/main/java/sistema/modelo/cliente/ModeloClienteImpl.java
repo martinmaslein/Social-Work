@@ -107,9 +107,10 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		boolean salida;
 		try {
 			String quimey = String.valueOf(password);
+			
 			String sql = "SELECT * FROM cliente WHERE username='" + username + "' AND password= md5('" + quimey + "')"; // ver
 																									// bien
-																															// esto
+																		// esto
 			ResultSet rs = this.consulta(sql);
 
 			if (rs.next()) {

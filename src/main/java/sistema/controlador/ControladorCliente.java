@@ -8,6 +8,6 @@ public interface ControladorCliente extends ControladorSistema {
 
 	public void salirAplicacion();
 
-	public void modificarDatos(DatosCliente nuevosDatos);
+	public boolean modificarDatos(DatosCliente nuevosDatos, String id);
 
 }

@@ -2,6 +2,8 @@ package sistema.controlador;
 
 import sistema.modelo.ModeloLogin;
 import sistema.modelo.ModeloLoginImpl;
+import sistema.modelo.cliente.DatosCliente;
+import sistema.modelo.cliente.ModeloClienteImpl;
 import sistema.modelo.cliente.ModeloUsuario;
 import sistema.vista.cliente.VentanaCliente;
 import sistema.vista.login.VentanaLogin;
@@ -10,9 +12,9 @@ import sistema.vista.login.VentanaLoginImpl;
 public class ControladorClienteImpl implements ControladorCliente {
 	
 	private VentanaCliente ventana;
-	private ModeloUsuario modelo;
+	private ModeloClienteImpl modelo;
 	
-	public ControladorClienteImpl(VentanaCliente ventana, ModeloUsuario modelo) {		
+	public ControladorClienteImpl(VentanaCliente ventana, ModeloClienteImpl modelo) {		
 		this.ventana = ventana;
 		this.modelo = modelo;
 		this.ventana.registrarControlador(this);		
@@ -41,6 +43,12 @@ public class ControladorClienteImpl implements ControladorCliente {
 		VentanaLogin ventanaLogin = new VentanaLoginImpl();
 		@SuppressWarnings("unused")
 		ControladorLogin controlador = new ControladorLoginImpl(ventanaLogin, modeloLogin);
+	}
+
+	@Override
+	public boolean modificarDatos(DatosCliente nuevosDatos, String queryID) {
+		return modelo.modificarDatos(nuevosDatos, queryID);
+		
 	}
 	
 }

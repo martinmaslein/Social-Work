@@ -19,7 +19,7 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
 import sistema.controlador.ControladorCliente;
-import sistema.modelo.cliente.ModeloClienteImpl;
+import sistema.modelo.cliente.*;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -31,6 +31,9 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
 	private static final long serialVersionUID = 1L;
 	
+	protected ControladorCliente controlador;
+	
+	
 	protected String usuario, contraseña;
 	
 	protected JFrame frame;
@@ -38,7 +41,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	protected JLabel lblCliente;
 	protected JMenuItem mntmCerrarSesion;
 	protected JMenuItem mntmSalir;
-	protected ControladorCliente controlador;
+	
 	JPanel panelPpal, panelPpal2;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -346,15 +349,32 @@ private void registrarEventos() {
 	} 
 	
 	protected ActionListener modificarDatos() {
+		
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					
 				String id = "SELECT nro_cliente FROM Cliente WHERE username='"+usuario+"';";
 				ModeloClienteImpl modeloCliente = new ModeloClienteImpl();
-				if(modeloCliente.modificarDatos(textField.getText(), textField_1.getText(), id))
+				DatosCliente nuevosDatos =construirDatos();
+				
+				if(controlador.modificarDatos(nuevosDatos,id))
 					JOptionPane.showMessageDialog(null, "Datos modificados correctamente.");
 				
 				
+			}
+
+			private DatosCliente construirDatos() {
+				DatosCliente nuevosDatos= new DatosCliente();
+				nuevosDatos.setApellido(tfApellido.getText());
+				nuevosDatos.setContrasena(tfContra.getText());
+				nuevosDatos.setDireccion(tfDireccion);
+				nuevosDatos.setTelefono(tfTelefono.getText());
+				nuevosDatos.setNombre(tfNombre.getText());
+				nuevosDatos.setNombreUsuario(tfNombreUsuario.getText());
+				nuevosDatos.setNroDocumento(Integer.parseInt(tfDocumento.getText()));
+				nuevosDatos.setMail(tfMail.getText());
+				nuevosDatos.setFechaNacimiento(tfFechaNacimiento.getText());
+				return nuevosDatos ;
 			}
 		};
 	}
