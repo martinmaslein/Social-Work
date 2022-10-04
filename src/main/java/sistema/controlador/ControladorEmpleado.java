@@ -6,5 +6,4 @@ public interface ControladorEmpleado extends ControladorSistema {
 
 	public void salirAplicacion();
 
-
 }

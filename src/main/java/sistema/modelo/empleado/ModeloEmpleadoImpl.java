@@ -1,13 +1,9 @@
 package sistema.modelo.empleado;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
 import sistema.modelo.ModeloImpl;
 import sistema.modelo.cliente.ModeloUsuario;
-
 
 public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 	

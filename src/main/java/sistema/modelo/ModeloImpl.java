@@ -10,12 +10,9 @@ import sistema.utilidades.Conexion;
 
 public class ModeloImpl implements Modelo {
 	
-
 	protected Connection conexion = null;
 
 	public boolean conectar(String username, String password) {
-		System.out.println(username);
-		System.out.println(password);
         this.conexion = Conexion.getConnection(username, password);        
     	return (this.conexion != null);	
 	}

@@ -46,8 +46,6 @@ public class CreatePdf {
 
 		pdfdoc.save(directorio);
 
-		System.out.println("PDF created");
-
 		pdfdoc.close();
 	}
 

@@ -40,13 +40,10 @@ public class Conexion {
 	
 	public static void inicializar(String propertyFile)	{
 		Properties prop = new Properties();
-		
 		try{
 			
 			FileInputStream file=new FileInputStream(propertyFile);			
 			prop.load(file);
-			
-			System.out.println("se cargo exitosamente");
 			
 			Conexion.setDriverName(prop.getProperty("driverName"));
 			

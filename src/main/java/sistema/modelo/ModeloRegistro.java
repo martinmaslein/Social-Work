@@ -25,7 +25,6 @@ public class ModeloRegistro extends ModeloImpl {
 		
 		String sql = "INSERT INTO Cliente (username, password, apellido,nombre,fecha_nac,direccion,telefono,correo,nro_doc,nro_plan) VALUES ('" +usuario +"', md5('"+contrasena+"'),'"+apellido+"', '"+nombre+"', '"+fechaNac+"','"+direccion+"', "+telefono+", '"+correo+"',"+dni+","+nro_plan+");";
 		boolean salida = true;
-		System.out.println(sql);
 		this.actualizacion(sql);
 		return salida;
 	}
@@ -41,7 +40,6 @@ public class ModeloRegistro extends ModeloImpl {
 		int id_cliente = clienteActual.getNroCliente();
 		String sql = "INSERT INTO FAMILIAR (nro_cliente, apellido,nombre,fecha_nac,direccion,telefono) VALUES ("+id_cliente+",'"+apellido+"', '"+nombre+"', '"+fechaNac+"','"+direccion+"', "+telefono+");";
 		boolean salida = true;
-		System.out.println(sql);
 		this.actualizacion(sql);
 		return salida;
 	}
