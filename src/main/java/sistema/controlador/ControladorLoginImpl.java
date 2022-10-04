@@ -81,7 +81,7 @@ public class ControladorLoginImpl implements ControladorLogin {
 
 					} else {
 
-						this.ventana.informar("El usuario o contrase�a ingresados son incorrectos.");
+						this.ventana.informar("El usuario o contraseña ingresados son incorrectos.");
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

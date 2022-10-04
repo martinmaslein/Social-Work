@@ -5,13 +5,11 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import sistema.modelo.cliente.ModeloClienteImpl;
+import sistema.modelo.familiar.ModeloFamiliarImpl;
 
 public class ModeloRegistro extends ModeloImpl {
-	
-
-	
-	public void cargarCliente(ModeloClienteImpl nuevoCliente) throws Exception {
 		
+	public boolean cargarCliente(ModeloClienteImpl nuevoCliente) throws Exception {
 		String nombre = nuevoCliente.getNombre();
 		String apellido = nuevoCliente.getApellido();
 		String telefono = nuevoCliente.getTelefono();
@@ -29,10 +27,24 @@ public class ModeloRegistro extends ModeloImpl {
 		String contrasena = nuevoCliente.getContrasena();
 		
 		String sql = "INSERT INTO Cliente (username, password, apellido,nombre,fecha_nac,direccion,telefono,correo,nro_doc,nro_plan) VALUES ('" +usuario +"', md5('"+contrasena+"'),'"+apellido+"', '"+nombre+"', '"+fechaNac+"','"+direccion+"', "+telefono+", '"+correo+"',"+dni+","+nro_plan+");";
-		boolean salida;
+		boolean salida = true;
 		System.out.println(sql);
 		this.actualizacion(sql);
+		return salida;
+	}
 	
+	public boolean cargarFamiliar(ModeloFamiliarImpl nuevoFamiliar) {
+		String nombre = nuevoFamiliar.getNombre();
+		String apellido = nuevoFamiliar.getApellido();
+		String telefono = nuevoFamiliar.getTelefono();
+		String direccion = nuevoFamiliar.getDireccion();
+		String fechaNac = nuevoFamiliar.getFechaNacimiento();
+			
+		String sql = "INSERT INTO FAMILIAR (apellido,nombre,fecha_nac,direccion,telefono) VALUES ('"+apellido+"', '"+nombre+"', '"+fechaNac+"','"+direccion+"', "+telefono+");";
+		boolean salida = true;
+		System.out.println(sql);
+		this.actualizacion(sql);
+		return salida;
 	}
 
 }

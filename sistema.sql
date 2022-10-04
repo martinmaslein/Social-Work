@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS Familiar(
     nro_cliente INT  UNSIGNED,
     apellido VARCHAR(128) NOT NULL, 
     nombre VARCHAR(128) NOT NULL, 
-    fecha_nac DATE NOT NULL,
+    fecha_nac VARCHAR(128) NOT NULL,
     direccion VARCHAR(128) NOT NULL,
     telefono VARCHAR(128) NOT NULL,
     CONSTRAINT pk_Familiar PRIMARY KEY(nro_familiar),
