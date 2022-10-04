@@ -214,7 +214,7 @@ public class VentanaLoginImpl extends JFrame implements VentanaLogin, ItemListen
 		panelFila2.setBackground(new Color(224, 241, 238));
 
 		JLabel lblPasswordLogin = new JLabel("Contraseña:");
-		lblPasswordLogin.setBounds(97, 12, 90, 15);
+		lblPasswordLogin.setBounds(65, 12, 122, 15);
 		lblPasswordLogin.setFont(new Font("Segoe UI Variable", Font.BOLD, 16));
 
 		this.campoAdminPassword = new JPasswordField();
