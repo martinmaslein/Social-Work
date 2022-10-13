@@ -189,7 +189,7 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 						campoNombreDeUsuario.setText("");
 						campoContrasena.setText("");
 					} else {
-						JOptionPane.showMessageDialog(null, "Usuario o contraseña invalidos.");
+						JOptionPane.showMessageDialog(null, "Usuario o contraseña o mail invalidos.");
 					}
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -241,8 +241,6 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		this.setVisible(true);
 	}
 	
-	
-
 
 	public DatosCliente crearCliente() throws Exception {
 		DatosCliente nuevoCliente = new DatosCliente();
