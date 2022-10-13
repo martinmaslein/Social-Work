@@ -108,7 +108,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
-
+	
 	@Override
 	/*public boolean autenticarUsuarioAplicacion(String usuario, String contrasena) {
 		return this.nombreUsuario == usuario && this.contrasena == contrasena;

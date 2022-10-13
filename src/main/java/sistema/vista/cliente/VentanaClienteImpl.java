@@ -96,7 +96,6 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		this.lblCliente = new JLabel();
 		this.lblCliente.setFont(new Font("Arial", Font.BOLD, 13));
 		this.lblCliente.setHorizontalAlignment(SwingConstants.LEFT);
-
 		this.frame.setJMenuBar(this.crearMenuOpciones());
 
 		this.crearPaneles();
@@ -179,7 +178,6 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		btnNewButton.setBounds(498, 141, 118, 35);
 		panel_cupones.add(btnNewButton);
 		btnNewButton.addActionListener(this.generarCupon());
-
 		this.registrarEventos();
 	}
 

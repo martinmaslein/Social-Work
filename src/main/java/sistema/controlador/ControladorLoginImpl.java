@@ -40,7 +40,7 @@ public class ControladorLoginImpl implements ControladorLogin {
 	public void ingresar(String username, char [] password, String rol) {		
 		Usuario usuario = this.modelo.obtenerUsuario(rol);
 		ModeloUsuario usuarioRol;
-
+		
 		if (usuario != null) {
 			if(rol.equals("Cliente")) 		{
 				usuarioRol = new ModeloClienteImpl(username,String.valueOf(password));
