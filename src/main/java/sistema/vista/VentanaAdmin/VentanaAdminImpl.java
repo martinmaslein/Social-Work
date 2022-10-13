@@ -24,6 +24,8 @@ import javax.swing.JTextField;
 import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.awt.Dimension;
+import javax.swing.JScrollPane;
 
 public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 
@@ -65,6 +67,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 	private JButton button;
 	private JButton btnEditar;
 	private JButton btnEliminar;
+	private JScrollPane scrollPane;
 
 	public VentanaAdminImpl() {
 		inicializar();
@@ -158,7 +161,17 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		table.setBounds(130, 386, 186, -124);
 		panelAdministrarPlanes.add(table);
 		
+		scrollPane = new JScrollPane();
+		scrollPane.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
+		scrollPane.setBorder(null);
+		scrollPane.setBackground(new Color(224, 241, 238));
+		scrollPane.setMinimumSize(new Dimension(27, 27));
+		scrollPane.setBounds(102, 210, 421, 219);
+		panelAdministrarPlanes.add(scrollPane);
+		
 		table_1 = new JTable();
+		table_1.setRowHeight(33);
+		scrollPane.setViewportView(table_1);
 		table_1.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null},
@@ -167,13 +180,20 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 				{null, null},
 				{null, null},
 				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
 			},
 			new String[] {
-				"Precio", "New column"
+				"Nombre", "Precio"
 			}
 		));
-		table_1.setBounds(102, 210, 421, 219);
-		panelAdministrarPlanes.add(table_1);
+		table_1.getColumnModel().getColumn(0).setMinWidth(13);
 		
 		btnModificarPlan = new JButton("Modificar Plan");
 		btnModificarPlan.setForeground(Color.WHITE);
