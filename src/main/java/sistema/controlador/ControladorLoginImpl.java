@@ -56,7 +56,7 @@ public class ControladorLoginImpl implements ControladorLogin {
 					if (usuarioRol.autenticarUsuarioAplicacion(username, password) ){
 
 						if(rol.equals("Cliente")) {
-							VentanaCliente ventanaCliente = new VentanaClienteImpl(username, password.toString());
+							VentanaCliente ventanaCliente = new VentanaClienteImpl(username, String.valueOf(password));
 							ControladorCliente controladorCliente = new ControladorClienteImpl(ventanaCliente, (ModeloClienteImpl)usuarioRol);
 
 							controladorCliente.ejecutar();

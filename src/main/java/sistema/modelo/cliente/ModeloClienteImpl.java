@@ -135,9 +135,9 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	public boolean autenticarUsuarioAplicacion(String username, char[] password) throws Exception {
 		boolean salida;
 		try {
-			String quimey = String.valueOf(password);
+			String contra = String.valueOf(password);
 
-			String sql = "SELECT * FROM cliente WHERE username='" + username + "' AND password= md5('" + quimey + "')"; // ver
+			String sql = "SELECT * FROM cliente WHERE username='" + username + "' AND password= md5('" + contra + "')"; // ver
 			// bien
 			// esto
 			ResultSet rs = this.consulta(sql);
@@ -211,13 +211,13 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
 	}
 
-	public void generarCupon(int monto) {
+	public void generarCupon(int monto, int familiares) {
 		CreatePdf pdf = new CreatePdf();
 		try {
 			pdf.getNombre(getNombre());
 			pdf.getApellido(getApellido());
 			pdf.getPlan(getPlan());
-			pdf.generarPdf(monto);
+			pdf.generarPdf(monto, familiares);
 			
 		} catch (IOException e) {
 
@@ -233,6 +233,26 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		clienteActual.setPlan(plan);
 	}
 
+	public int obtenerCantFamiliares() {
+		
+		// Obtengo el id del cliente
+		String queryPlan2 = "SELECT nro_cliente FROM Cliente WHERE username='" + clienteActual.getNombreUsuario() + "';";
+		ResultSet rs = this.consulta(queryPlan2);
+		int id = -1;
+		try {if (rs.next())
+			id = rs.getInt("nro_cliente");} catch (SQLException e) {e.printStackTrace();}
+		
+		String queryFamiliar = "SELECT * FROM Familiar WHERE nro_cliente = '"+id+"';";
+		rs = this.consulta(queryFamiliar);
+		
+		int cont = 0;
+		try {while(rs.next())
+				cont++;} catch (SQLException e) {e.printStackTrace();}
+		
+		return cont;
+		
+	}
+	
 	public int obtenerTotalAbonar() {
 
 		// Obtenngo el plan del cliente
@@ -272,4 +292,10 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		}
 		return 0;
 	}
+
+	public DatosCliente ObtenerDatosCliente() {
+		return clienteActual;
+	}
+
+	
 }

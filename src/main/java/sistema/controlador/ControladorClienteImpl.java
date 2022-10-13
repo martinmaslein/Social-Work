@@ -50,13 +50,24 @@ public class ControladorClienteImpl implements ControladorCliente {
 		
 	}
 	
-	public void crearCupon(int monto) {
-		modelo.generarCupon(monto);
+	public void crearCupon(int monto, int familiares) {
+		modelo.generarCupon(monto, familiares);
 	}
 
 	@Override
 	public int obtenerTotalAbonar() {
 		return modelo.obtenerTotalAbonar();
 		
+	}
+
+	@Override
+	public DatosCliente obtenerDatosCliente() {
+		return modelo.ObtenerDatosCliente();
+	}
+	
+	@Override
+	public int obtenerCantFamiliares() {
+		return modelo.obtenerCantFamiliares();
+
 	}
 }
