@@ -1,5 +1,8 @@
 package sistema.modelo;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import sistema.modelo.cliente.DatosCliente;
 import sistema.modelo.cliente.ModeloClienteImpl;
 import sistema.modelo.familiar.ModeloFamiliarImpl;
@@ -7,27 +10,51 @@ import sistema.modelo.familiar.ModeloFamiliarImpl;
 public class ModeloRegistro extends ModeloImpl {
 		
 	public boolean cargarCliente(DatosCliente nuevoCliente) throws Exception {
-		String nombre = nuevoCliente.getNombre();
-		String apellido = nuevoCliente.getApellido();
-		String telefono = nuevoCliente.getTelefono();
-		int dni = nuevoCliente.getNroDocumento();
-		String direccion = nuevoCliente.getDireccion();
-		String fechaNac = nuevoCliente.getFechaNacimiento();
-		String correo = nuevoCliente.getMail();
-		String plan = nuevoCliente.getPlan();
-		int nro_plan ;
-		if (plan == "A") {
-			nro_plan = 1;
-		}else
-			nro_plan = 2;
-		String usuario = nuevoCliente.getNombreUsuario();
-		String contrasena = nuevoCliente.getContrasena();
+		boolean salida = false;
 		
-		String sql = "INSERT INTO Cliente (username, password, apellido,nombre,fecha_nac,direccion,telefono,correo,nro_doc,nro_plan) VALUES ('" +usuario +"', md5('"+contrasena+"'),'"+apellido+"', '"+nombre+"', '"+fechaNac+"','"+direccion+"', "+telefono+", '"+correo+"',"+dni+","+nro_plan+");";
-		boolean salida = true;
-		this.actualizacion(sql);
+		if(esValido(nuevoCliente.getNombreUsuario(),12) && esValido(nuevoCliente.getContrasena(),20)) {
+			String nombre = nuevoCliente.getNombre();
+			String apellido = nuevoCliente.getApellido();
+			String telefono = nuevoCliente.getTelefono();
+			int dni = nuevoCliente.getNroDocumento();
+			String direccion = nuevoCliente.getDireccion();
+			String fechaNac = nuevoCliente.getFechaNacimiento();
+			String correo = nuevoCliente.getMail();
+			String plan = nuevoCliente.getPlan();
+			int nro_plan ;
+			if (plan == "A") {
+				nro_plan = 1;
+			}else
+				nro_plan = 2;
+			String usuario = nuevoCliente.getNombreUsuario();
+			String contrasena = nuevoCliente.getContrasena();
+			
+			String sql = "INSERT INTO Cliente (username, password, apellido,nombre,fecha_nac,direccion,telefono,correo,nro_doc,nro_plan) VALUES ('" +usuario +"', md5('"+contrasena+"'),'"+apellido+"', '"+nombre+"', '"+fechaNac+"','"+direccion+"', "+telefono+", '"+correo+"',"+dni+","+nro_plan+");";
+			salida = true;
+			this.actualizacion(sql);
+		} else {
+			salida = false;
+		}		
 		return salida;
 	}
+	
+	public static boolean esValido(String cadena, int cant) { 
+  
+        String regex = "^(?=.*[0-9])"
+                       + "(?=.*[a-z])(?=.*[A-Z])"
+                       + "(?=.*[@#$%^&+=])"
+                       + "(?=\\S+$).{8,20}$"; 
+  
+        Pattern p = Pattern.compile(regex); 
+  
+        if ( (cadena == null || (cadena.length() > cant) ) ) { 
+            return false; 
+        } 
+  
+        Matcher m = p.matcher(cadena);
+        
+        return m.matches(); 
+    } 
 	
 	public boolean cargarFamiliar(String usuario, ModeloFamiliarImpl nuevoFamiliar) {
 		String nombre = nuevoFamiliar.getNombre();
