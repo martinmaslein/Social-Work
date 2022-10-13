@@ -60,8 +60,11 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
-	private JButton btnNewButton;
+	private JButton btnConfirmar;
 	private JButton btnModificarPlan;
+	private JButton button;
+	private JButton btnEditar;
+	private JButton btnEliminar;
 
 	public VentanaAdminImpl() {
 		inicializar();
@@ -85,6 +88,10 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		this.frame.setJMenuBar(this.crearMenuOpciones());
 
 		this.frame.getContentPane().add(this.crearPanelVacio());
+		
+		button = new JButton("New button");
+		button.setBounds(0, 0, 89, 23);
+		panelPpal.add(button);
 		
 		panelAdministrarPlanes = new JPanel();
 		panelAdministrarPlanes.setBackground(new Color(224, 241, 238));
@@ -144,7 +151,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		txtAcciones.setFont(new Font("Yu Gothic UI", Font.BOLD, 20));
 		txtAcciones.setColumns(10);
 		txtAcciones.setBackground(new Color(224, 241, 238));
-		txtAcciones.setBounds(572, 150, 115, 33);
+		txtAcciones.setBounds(584, 150, 115, 33);
 		panelAdministrarPlanes.add(txtAcciones);
 		
 		table = new JTable();
@@ -154,18 +161,18 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		table_1 = new JTable();
 		table_1.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
 			},
 			new String[] {
-				"Precio", "New column", "New column"
+				"Precio", "New column"
 			}
 		));
-		table_1.setBounds(102, 210, 628, 219);
+		table_1.setBounds(102, 210, 421, 219);
 		panelAdministrarPlanes.add(table_1);
 		
 		btnModificarPlan = new JButton("Modificar Plan");
@@ -194,6 +201,22 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		btnNewButton_1.setBorder(null);
 		btnNewButton_1.setBounds(0, 0, 838, 114);
 		panelAdministrarPlanes.add(btnNewButton_1);
+		
+		btnEditar = new JButton("Editar");
+		btnEditar.setForeground(Color.WHITE);
+		btnEditar.setFont(new Font("Yu Gothic UI", Font.BOLD, 17));
+		btnEditar.setBorder(null);
+		btnEditar.setBackground(new Color(119, 193, 181));
+		btnEditar.setBounds(568, 210, 119, 37);
+		panelAdministrarPlanes.add(btnEditar);
+		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setForeground(Color.WHITE);
+		btnEliminar.setFont(new Font("Yu Gothic UI", Font.BOLD, 17));
+		btnEliminar.setBorder(null);
+		btnEliminar.setBackground(new Color(119, 193, 181));
+		btnEliminar.setBounds(568, 274, 119, 37);
+		panelAdministrarPlanes.add(btnEliminar);
 		
 		panelNuevoPlan = new JPanel();
 		panelNuevoPlan.setBackground(new Color(224, 241, 238));
@@ -321,13 +344,13 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		textField_6.setBounds(402, 276, 214, 94);
 		panelModificarPlan.add(textField_6);
 		
-		btnNewButton = new JButton("Confirmar");
-		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setFont(new Font("Yu Gothic UI", Font.BOLD, 17));
-		btnNewButton.setBorder(null);
-		btnNewButton.setBackground(new Color(119, 193, 181));
-		btnNewButton.setBounds(453, 408, 119, 37);
-		panelModificarPlan.add(btnNewButton);
+		btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.setForeground(Color.WHITE);
+		btnConfirmar.setFont(new Font("Yu Gothic UI", Font.BOLD, 17));
+		btnConfirmar.setBorder(null);
+		btnConfirmar.setBackground(new Color(119, 193, 181));
+		btnConfirmar.setBounds(453, 408, 119, 37);
+		panelModificarPlan.add(btnConfirmar);
 
 		this.registrarEventos();
 	}
