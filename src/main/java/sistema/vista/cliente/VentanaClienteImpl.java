@@ -202,8 +202,9 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 			public void actionPerformed(ActionEvent e) {
 
 				int monto = controlador.obtenerTotalAbonar();
+				int familiares = controlador.obtenerCantFamiliares();
 				
-				controlador.crearCupon(monto);
+				controlador.crearCupon(monto,familiares);
 				JOptionPane.showMessageDialog(null, "Cupon creado correctamente.");
 
 			}

@@ -10,8 +10,10 @@ public interface ControladorCliente extends ControladorSistema {
 
 	public boolean modificarDatos(DatosCliente nuevosDatos);
 
-	public void crearCupon(int monto);
+	public void crearCupon(int monto, int familiares);
 	
 	public int obtenerTotalAbonar();
+
+	public int obtenerCantFamiliares();
 
 }
