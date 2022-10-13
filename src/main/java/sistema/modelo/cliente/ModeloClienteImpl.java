@@ -135,9 +135,9 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	public boolean autenticarUsuarioAplicacion(String username, char[] password) throws Exception {
 		boolean salida;
 		try {
-			String quimey = String.valueOf(password);
+			String contra = String.valueOf(password);
 
-			String sql = "SELECT * FROM cliente WHERE username='" + username + "' AND password= md5('" + quimey + "')"; // ver
+			String sql = "SELECT * FROM cliente WHERE username='" + username + "' AND password= md5('" + contra + "')"; // ver
 			// bien
 			// esto
 			ResultSet rs = this.consulta(sql);
@@ -272,4 +272,10 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		}
 		return 0;
 	}
+
+	public DatosCliente ObtenerDatosCliente() {
+		return clienteActual;
+	}
+
+	
 }

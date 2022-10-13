@@ -14,4 +14,6 @@ public interface ControladorCliente extends ControladorSistema {
 	
 	public int obtenerTotalAbonar();
 
+	public DatosCliente obtenerDatosCliente();
+
 }

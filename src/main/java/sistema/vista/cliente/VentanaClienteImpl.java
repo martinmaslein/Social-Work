@@ -39,6 +39,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
 	protected String usuario, contraseña;
 	
+	protected DatosCliente datos;
 
 	protected JFrame frame;
 	protected CardLayout frameLayout;
@@ -46,7 +47,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	protected JMenuItem mntmCerrarSesion;
 	protected JMenuItem mntmSalir;
 
-	protected JPanel panelPpal, panelPpal2, panelFamiliar;
+	protected JPanel panelPpal,panelModificarDatos, panelFamiliar;
 	private JTextField tfNombre;
 	private JTextField tfContra;
 	private JButton btnModificar_1;
@@ -87,6 +88,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
 	private void inicializar() {
 
+		
+		
 		this.frame = new JFrame();
 		this.frame.setTitle("Cliente");
 		this.frame.setBounds(100, 100, 852, 575);
@@ -182,8 +185,69 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		btnNewButton.setBounds(498, 141, 118, 35);
 		panel_cupones.add(btnNewButton);
 		btnNewButton.addActionListener(this.generarCupon());
-
+		
+		
+		
 		this.registrarEventos();
+	}
+
+	private void iniciarCamposModificarDatos() {
+
+		tfDireccion = new JTextField(datos.getDireccion());
+		tfDireccion.setBorder(null);
+		tfDireccion.setColumns(10);
+		tfDireccion.setBounds(126, 194, 167, 20);
+		panelModificarDatos.add(tfDireccion);
+
+		tfMail = new JTextField(datos.getMail());
+		tfMail.setBorder(null);
+		tfMail.setColumns(10);
+		tfMail.setBounds(126, 251, 167, 20);
+		panelModificarDatos.add(tfMail);
+
+		tfTelefono = new JTextField(datos.getTelefono());
+		tfTelefono.setBorder(null);
+		tfTelefono.setColumns(10);
+		tfTelefono.setBounds(461, 36, 167, 20);
+		panelModificarDatos.add(tfTelefono);
+
+		tfFechaNacimiento = new JTextField(datos.getFechaNacimiento());
+		tfFechaNacimiento.setBorder(null);
+		tfFechaNacimiento.setColumns(10);
+		tfFechaNacimiento.setBounds(461, 93, 167, 20);
+		panelModificarDatos.add(tfFechaNacimiento);
+
+		tfNombreUsuario = new JTextField(datos.getNombreUsuario());
+		tfNombreUsuario.setBorder(null);
+		tfNombreUsuario.setColumns(10);
+		tfNombreUsuario.setBounds(461, 144, 167, 20);
+		panelModificarDatos.add(tfNombreUsuario);
+		
+
+		tfNombre = new JTextField(datos.getNombre());
+		tfNombre.setBorder(null);
+		tfNombre.setBounds(126, 36, 167, 20);
+		panelModificarDatos.add(tfNombre);
+		tfNombre.setColumns(10);
+		
+		tfApellido = new JTextField(datos.getApellido());
+		tfApellido.setBorder(null);
+		tfApellido.setBounds(126, 93, 167, 20);
+		panelModificarDatos.add(tfApellido);
+		tfApellido.setColumns(10);
+
+
+		tfContra = new JTextField(contraseña);
+		tfContra.setBorder(null);
+		tfContra.setColumns(10);
+		tfContra.setBounds(126, 144, 167, 20);
+		panelModificarDatos.add(tfContra);
+
+		tfDocumento = new JTextField(String.valueOf(datos.getNroDocumento()));
+		tfDocumento.setColumns(10);
+		tfDocumento.setBorder(null);
+		tfDocumento.setBounds(461, 195, 167, 20);
+		panelModificarDatos.add(tfDocumento);
 	}
 
 	private ActionListener listenerAbonar() {
@@ -240,11 +304,11 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		panelPpal.setLayout(null);
 		frame.getContentPane().add(panelPpal);
 
-		panelPpal2 = new JPanel();
-		panelPpal2.setBackground(new Color(224, 241, 238));
-		panelPpal2.setLayout(null);
-		panelPpal2.setVisible(false);
-		frame.getContentPane().add(panelPpal2);
+		panelModificarDatos = new JPanel();
+		panelModificarDatos.setBackground(new Color(224, 241, 238));
+		panelModificarDatos.setLayout(null);
+		panelModificarDatos.setVisible(false);
+		frame.getContentPane().add(panelModificarDatos);
 
 		panelFamiliar = new JPanel();
 		panelFamiliar.setLayout(null);
@@ -308,25 +372,16 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		lblNombre.setBounds(36, 35, 98, 23);
-		panelPpal2.add(lblNombre);
+		panelModificarDatos.add(lblNombre);
 
-		tfNombre = new JTextField();
-		tfNombre.setBorder(null);
-		tfNombre.setBounds(126, 36, 167, 20);
-		panelPpal2.add(tfNombre);
-		tfNombre.setColumns(10);
-
+		
 		JLabel lblContrasena = new JLabel("Contraseña:");
 		lblContrasena.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		lblContrasena.setBounds(36, 143, 98, 23);
-		panelPpal2.add(lblContrasena);
+		panelModificarDatos.add(lblContrasena);
 
-		tfContra = new JTextField();
-		tfContra.setBorder(null);
-		tfContra.setColumns(10);
-		tfContra.setBounds(126, 144, 167, 20);
-		panelPpal2.add(tfContra);
-
+		
+		
 		btnModificar_1 = new JButton("Modificar");
 		btnModificar_1.setBorder(null);
 		btnModificar_1.setForeground(new Color(255, 255, 255));
@@ -334,94 +389,54 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		btnModificar_1.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
 		btnModificar_1.addActionListener(this.modificarDatos());
 		btnModificar_1.setBounds(126, 323, 116, 23);
-		panelPpal2.add(btnModificar_1);
-
-		tfApellido = new JTextField();
-		tfApellido.setBorder(null);
-		tfApellido.setBounds(126, 93, 167, 20);
-		panelPpal2.add(tfApellido);
-		tfApellido.setColumns(10);
+		panelModificarDatos.add(btnModificar_1);
 
 		JLabel lblApellido = new JLabel("Apellido:");
 		lblApellido.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		lblApellido.setBounds(36, 92, 98, 23);
-		panelPpal2.add(lblApellido);
+		panelModificarDatos.add(lblApellido);
 
 		lblDireccion = new JLabel("Direccion:");
 		lblDireccion.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		lblDireccion.setBounds(36, 193, 98, 23);
-		panelPpal2.add(lblDireccion);
+		panelModificarDatos.add(lblDireccion);
 
 		lblMail = new JLabel("Mail:");
 		lblMail.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		lblMail.setBounds(36, 250, 98, 23);
-		panelPpal2.add(lblMail);
+		panelModificarDatos.add(lblMail);
 
 		lblTelefono = new JLabel("Telefono:");
 		lblTelefono.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		lblTelefono.setBounds(370, 35, 98, 23);
-		panelPpal2.add(lblTelefono);
+		panelModificarDatos.add(lblTelefono);
 
 		lblFecha = new JLabel("Fecha");
 		lblFecha.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		lblFecha.setBounds(370, 78, 98, 23);
-		panelPpal2.add(lblFecha);
+		panelModificarDatos.add(lblFecha);
 
 		lblNacimiento = new JLabel("Nacimiento:");
 		lblNacimiento.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		lblNacimiento.setBounds(370, 92, 98, 23);
-		panelPpal2.add(lblNacimiento);
+		panelModificarDatos.add(lblNacimiento);
 
 		lblNombreUsuario = new JLabel("Nombre");
 		lblNombreUsuario.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		lblNombreUsuario.setBounds(370, 126, 98, 23);
-		panelPpal2.add(lblNombreUsuario);
+		panelModificarDatos.add(lblNombreUsuario);
 
-		tfDireccion = new JTextField();
-		tfDireccion.setBorder(null);
-		tfDireccion.setColumns(10);
-		tfDireccion.setBounds(126, 194, 167, 20);
-		panelPpal2.add(tfDireccion);
-
-		tfMail = new JTextField();
-		tfMail.setBorder(null);
-		tfMail.setColumns(10);
-		tfMail.setBounds(126, 251, 167, 20);
-		panelPpal2.add(tfMail);
-
-		tfTelefono = new JTextField();
-		tfTelefono.setBorder(null);
-		tfTelefono.setColumns(10);
-		tfTelefono.setBounds(461, 36, 167, 20);
-		panelPpal2.add(tfTelefono);
-
-		tfFechaNacimiento = new JTextField();
-		tfFechaNacimiento.setBorder(null);
-		tfFechaNacimiento.setColumns(10);
-		tfFechaNacimiento.setBounds(461, 93, 167, 20);
-		panelPpal2.add(tfFechaNacimiento);
-
-		tfNombreUsuario = new JTextField();
-		tfNombreUsuario.setBorder(null);
-		tfNombreUsuario.setColumns(10);
-		tfNombreUsuario.setBounds(461, 144, 167, 20);
-		panelPpal2.add(tfNombreUsuario);
 
 		lblUsuario = new JLabel("usuario:");
 		lblUsuario.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		lblUsuario.setBounds(370, 143, 98, 23);
-		panelPpal2.add(lblUsuario);
+		panelModificarDatos.add(lblUsuario);
 
 		lblNroDoc = new JLabel("Documento:");
 		lblNroDoc.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		lblNroDoc.setBounds(370, 193, 98, 23);
-		panelPpal2.add(lblNroDoc);
+		panelModificarDatos.add(lblNroDoc);
 
-		tfDocumento = new JTextField();
-		tfDocumento.setColumns(10);
-		tfDocumento.setBorder(null);
-		tfDocumento.setBounds(461, 195, 167, 20);
-		panelPpal2.add(tfDocumento);
 
 		JButton btnModificarDatos = new JButton("Modificar Datos");
 		btnModificarDatos.setBorder(null);
@@ -430,7 +445,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		btnModificarDatos.setBackground(new Color(119, 193, 181));
 		btnModificarDatos.setBounds(320, 76, 174, 23);
 		panelPpal.add(btnModificarDatos);
-		btnModificarDatos.addActionListener(this.nuevoListener());
+		btnModificarDatos.addActionListener(this.modificarDatosListener());
 
 		JButton btnVolver = new JButton("");
 		btnVolver.setIcon(new ImageIcon("img\\flechi.png"));
@@ -456,13 +471,13 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					panelPpal.setVisible(true);
-					panelPpal2.setVisible(false);
+					panelModificarDatos.setVisible(false);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
-		panelPpal2.add(btnVolver2);
+		panelModificarDatos.add(btnVolver2);
 
 		return panelPpal;
 	}
@@ -499,11 +514,13 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		return nuevoFamiliar;
 	}
 
-	protected ActionListener nuevoListener() {
+	protected ActionListener modificarDatosListener() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				panelPpal.setVisible(false);
-				panelPpal2.setVisible(true);
+				panelModificarDatos.setVisible(true);
+				
 			}
 		};
 	}
@@ -522,7 +539,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelPpal.setVisible(false);
-				panelPpal2.setVisible(false);
+				panelModificarDatos.setVisible(false);
 				panel_cupones.setVisible(true);
 			}
 		};
@@ -532,14 +549,14 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DatosCliente nuevosDatos =construirDatos();
+				DatosCliente nuevosDatos =construirNuevosDatos();
 				
 				if(controlador.modificarDatos(nuevosDatos))
 					JOptionPane.showMessageDialog(null, "Datos modificados correctamente.");
 
 			}
 
-			private DatosCliente construirDatos() {
+			private DatosCliente construirNuevosDatos() {
 				DatosCliente nuevosDatos = new DatosCliente();
 				nuevosDatos.setApellido(tfApellido.getText());
 				nuevosDatos.setContrasena(tfContra.getText());
@@ -600,7 +617,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	}
 
 	public void registrarControlador(ControladorCliente controlador) {
-		
 		this.controlador = controlador;
+		datos=controlador.obtenerDatosCliente();
+		iniciarCamposModificarDatos();
 	}
 }

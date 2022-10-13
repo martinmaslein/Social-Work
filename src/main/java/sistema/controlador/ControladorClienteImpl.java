@@ -59,4 +59,9 @@ public class ControladorClienteImpl implements ControladorCliente {
 		return modelo.obtenerTotalAbonar();
 		
 	}
+
+	@Override
+	public DatosCliente obtenerDatosCliente() {
+		return modelo.ObtenerDatosCliente();
+	}
 }
