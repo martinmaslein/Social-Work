@@ -1,6 +1,5 @@
 package sistema.vista.cliente;
 
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Font;
@@ -38,7 +37,6 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	protected ControladorCliente controlador;
 
 	protected String usuario, contraseña;
-	
 
 	protected JFrame frame;
 	protected CardLayout frameLayout;
@@ -125,7 +123,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		btnGenerarCupon.setBounds(320, 176, 174, 23);
 		btnGenerarCupon.addActionListener(listenerCupones());
 		panelPpal.add(btnGenerarCupon);
-		
+
 		btnObtenerTotalA = new JButton("Obtener Total a Abonar");
 		btnObtenerTotalA.setForeground(Color.WHITE);
 		btnObtenerTotalA.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
@@ -134,7 +132,6 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		btnObtenerTotalA.setBounds(321, 224, 174, 23);
 		btnObtenerTotalA.addActionListener(this.listenerAbonar());
 		panelPpal.add(btnObtenerTotalA);
-		
 
 		panel_cupones = new JPanel();
 		panel_cupones.setBackground(new Color(224, 241, 238));
@@ -190,8 +187,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int monto = controlador.obtenerTotalAbonar();
-				
-				JOptionPane.showMessageDialog(null, "Monto a abonar: "+ monto);
+
+				JOptionPane.showMessageDialog(null, "Monto a abonar: " + monto);
 
 			}
 		};
@@ -202,7 +199,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 			public void actionPerformed(ActionEvent e) {
 
 				int monto = controlador.obtenerTotalAbonar();
-				
+
 				controlador.crearCupon(monto);
 				JOptionPane.showMessageDialog(null, "Cupon creado correctamente.");
 
@@ -472,19 +469,26 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					boolean resultado = modeloRegistro.cargarFamiliar(usuario, crearFamiliar());
-					if (resultado) {
-						JOptionPane.showMessageDialog(null, "Datos cargados correctamente");
-						campoNombre.setText("");
-						campoApellido.setText("");
-						campodireccion.setText("");
-						campoTelefono.setText("");
-						campoFechaNac.setText("");
+					
+					if (!campoNombre.getText().isEmpty() && !campoApellido.getText().isEmpty() && !campoFechaNac.getText().isEmpty()
+							&& !campodireccion.getText().isEmpty() && !campoTelefono.getText().isEmpty()) {
+						boolean resultado = modeloRegistro.cargarFamiliar(usuario, crearFamiliar());
+						if (resultado) {
+							JOptionPane.showMessageDialog(null, "Datos cargados correctamente");
+							campoNombre.setText("");
+							campoApellido.setText("");
+							campodireccion.setText("");
+							campoTelefono.setText("");
+							campoFechaNac.setText("");
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
 					}
+					
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-				
+
 			}
 		});
 	}
@@ -513,7 +517,6 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 			public void actionPerformed(ActionEvent e) {
 				panelPpal.setVisible(false);
 				panelFamiliar.setVisible(true);
-
 			}
 		};
 	}
@@ -532,9 +535,9 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DatosCliente nuevosDatos =construirDatos();
-				
-				if(controlador.modificarDatos(nuevosDatos))
+				DatosCliente nuevosDatos = construirDatos();
+
+				if (controlador.modificarDatos(nuevosDatos))
 					JOptionPane.showMessageDialog(null, "Datos modificados correctamente.");
 
 			}
@@ -547,8 +550,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 				nuevosDatos.setTelefono(tfTelefono.getText());
 				nuevosDatos.setNombre(tfNombre.getText());
 				nuevosDatos.setNombreUsuario(tfNombreUsuario.getText());
-				String aux= tfDocumento.getText();
-				if(!aux.isEmpty()) {
+				String aux = tfDocumento.getText();
+				if (!aux.isEmpty()) {
 					nuevosDatos.setNroDocumento(Integer.parseInt(aux));
 				}
 				nuevosDatos.setMail(tfMail.getText());
@@ -600,7 +603,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	}
 
 	public void registrarControlador(ControladorCliente controlador) {
-		
+
 		this.controlador = controlador;
 	}
 }

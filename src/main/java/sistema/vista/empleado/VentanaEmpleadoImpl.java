@@ -2,12 +2,14 @@ package sistema.vista.empleado;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -52,7 +54,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		
 		this.frame.setJMenuBar(this.crearMenuOpciones());
 
-		this.frame.getContentPane().add(this.crearPanelVacio());
+		this.frame.getContentPane().add(this.crearPanelPrincipal());
 		
 		this.registrarEventos();	
 	}
@@ -81,11 +83,18 @@ private void registrarEventos() {
 
 	}
 	
-	private Component crearPanelVacio() {
+	private Component crearPanelPrincipal() {
 		JPanel panelPpal = new JPanel();
-		panelPpal.setLayout(new BorderLayout(0, 0));
-		panelPpal.setVisible(false);		
-		
+		panelPpal.setLayout(null);
+		panelPpal.setVisible(true);		
+		JButton btnInscribirFamiliar = new JButton("Inscribir Familiar");
+		btnInscribirFamiliar.setBorder(null);
+		btnInscribirFamiliar.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnInscribirFamiliar.setForeground(new Color(255, 255, 255));
+		btnInscribirFamiliar.setBackground(new Color(119, 193, 181));
+		btnInscribirFamiliar.setBounds(320, 127, 174, 23);
+		//btnInscribirFamiliar.addActionListener(this.listenerFamiliar());
+		panelPpal.add(btnInscribirFamiliar);
 		return panelPpal;			
 	}
 	
