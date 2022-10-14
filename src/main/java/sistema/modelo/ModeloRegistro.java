@@ -10,7 +10,7 @@ public class ModeloRegistro extends ModeloImpl {
 		
 	public boolean cargarCliente(DatosCliente nuevoCliente) throws Exception {
 		boolean salida = false;
-		if(esValido(nuevoCliente.getNombreUsuario(),12) && esValido(nuevoCliente.getContrasena(),20) && mailValido(nuevoCliente.getMail())) {
+		if(mailValido(nuevoCliente.getMail()) && esValido(nuevoCliente.getNombreUsuario(),12) && esValido(nuevoCliente.getContrasena(),20)) {
 			String nombre = nuevoCliente.getNombre();
 			String apellido = nuevoCliente.getApellido();
 			String telefono = nuevoCliente.getTelefono();
@@ -40,23 +40,29 @@ public class ModeloRegistro extends ModeloImpl {
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
         java.util.regex.Matcher m = p.matcher(email);
+        if(!m.matches()) {
+        	System.out.println("falla : "+ email);
+        }
+        
         return m.matches();
  }
 	
 	public static boolean esValido(String cadena, int cant) { 
-  
-        String regex = "^(?=.*[0-9])"
-                       + "(?=.*[a-z])(?=.*[A-Z])"
-                       + "(?=.*[@#$%^&+=])"
-                       + "(?=\\S+$).{8,20}$"; 
+		cant = cant-2;
+		// entre 5 y cant caracteres
+        String regex = "^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,"+cant+"}[a-zA-Z0-9]$"; 
   
         Pattern p = Pattern.compile(regex); 
   
-        if ( (cadena == null || (cadena.length() > cant) ) ) { 
+        if (cadena == null) { 
             return false; 
         } 
   
         Matcher m = p.matcher(cadena);
+        
+        if(!m.matches()) {
+        	System.out.println("falla : "+ cadena);
+        }
         
         return m.matches(); 
     } 
