@@ -21,6 +21,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import sistema.controlador.ControladorAdmin;
+import sistema.modelo.admin.ModeloAdminImpl;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -70,6 +72,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 	private JButton btnEditar;
 	private JButton btnEliminar;
 	private JScrollPane scrollPane;
+	private ModeloAdminImpl modeloAdmin;
 
 	public VentanaAdminImpl() {
 		inicializar();
@@ -334,6 +337,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		btnNewButton_2.setBorder(null);
 		btnNewButton_2.setBackground(new Color(119, 193, 181));
 		btnNewButton_2.setBounds(470, 426, 119, 37);
+		btnNewButton_2.addActionListener(this.crearPlan());
 		panelNuevoPlan.add(btnNewButton_2);
 		
 		panelModificarPlan = new JPanel();
@@ -420,6 +424,18 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		panelModificarPlan.add(btnConfirmar);
 
 		this.registrarEventos();
+	}
+
+	private ActionListener crearPlan() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					//boolean crearPlan = modeloAdmin.cargarPlan(textFieldNombre.getText(), textFieldPrecio.getText(), textFieldPrestaciones.getText());
+					boolean crearPlan = controlador.cargarPlan(textFieldNombre.getText(), textFieldPrecio.getText(), textFieldPrestaciones.getText());
+					if(crearPlan == false)
+						JOptionPane.showMessageDialog(null, "No pueden haber campos vacíos");
+						
+			}
+		};
 	}
 
 	private AbstractButton getMenuItemCerrarSesion() {

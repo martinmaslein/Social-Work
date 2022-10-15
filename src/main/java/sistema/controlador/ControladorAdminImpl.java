@@ -44,5 +44,11 @@ public class ControladorAdminImpl implements ControladorAdmin {
 		ControladorLogin controlador = new ControladorLoginImpl(ventanaLogin, modeloLogin);
 	}
 
+	@Override
+	public boolean cargarPlan(String text, String text2, String text3) {
+
+		return modelo.cargarPlan(text, text2, text3);
+	}
+
 
 }

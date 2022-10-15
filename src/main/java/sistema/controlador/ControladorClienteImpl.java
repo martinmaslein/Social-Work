@@ -1,5 +1,7 @@
 package sistema.controlador;
 
+import java.util.ArrayList;
+
 import sistema.modelo.ModeloLogin;
 import sistema.modelo.ModeloLoginImpl;
 import sistema.modelo.cliente.DatosCliente;
@@ -46,7 +48,10 @@ public class ControladorClienteImpl implements ControladorCliente {
 
 	@Override
 	public boolean modificarDatos(DatosCliente nuevosDatos) {
-		return modelo.modificarDatos(nuevosDatos);
+		if (modelo.sePuedeModificar(nuevosDatos))
+			return modelo.modificarDatos(nuevosDatos);
+		else
+			return false;
 		
 	}
 	
@@ -69,5 +74,17 @@ public class ControladorClienteImpl implements ControladorCliente {
 	public int obtenerCantFamiliares() {
 		return modelo.obtenerCantFamiliares();
 
+	}
+
+	@Override
+	public ArrayList<String> obtenerNombreFamiliares() {
+		// TODO Auto-generated method stub
+		return modelo.obtenerNombreFamiliares();
+	}
+
+	@Override
+	public int obtenerPlan() {
+		// TODO Auto-generated method stub
+		return modelo.obtenerPlanCliente();
 	}
 }

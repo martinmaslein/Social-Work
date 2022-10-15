@@ -1,5 +1,7 @@
 package sistema.controlador;
 
+import java.util.ArrayList;
+
 import sistema.modelo.cliente.DatosCliente;
 
 public interface ControladorCliente extends ControladorSistema {
@@ -17,5 +19,9 @@ public interface ControladorCliente extends ControladorSistema {
 	public DatosCliente obtenerDatosCliente();
 	
 	public int obtenerCantFamiliares();
+
+	public ArrayList<String> obtenerNombreFamiliares();
+
+	public int obtenerPlan();
 
 }

@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.AbstractButton;
 import javax.swing.JFrame;
@@ -244,9 +245,24 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private ActionListener listenerAbonar() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int monto = controlador.obtenerTotalAbonar();
+				
+				int plan = controlador.obtenerPlan();
+				//int monto = controlador.obtenerTotalAbonar();
+				int monto = 0;
+				ArrayList<String> nombresFamiliares = controlador.obtenerNombreFamiliares();
+				int cant = nombresFamiliares.size();
+				String mensaje = "";
+				
+				if(plan == 1) 
+					monto = 5000;
+				else if(plan == 2) monto = 2500;
+				
+				for(int i = 0; i < cant; i++) {
+					mensaje += " "+nombresFamiliares.get(i)+ " = $"+monto+"\n";
+				}
+				mensaje += " Total = "+monto*cant;
 
-				JOptionPane.showMessageDialog(null, "Monto a abonar: " + monto);
+				JOptionPane.showMessageDialog(null, mensaje);
 
 			}
 		};
@@ -549,6 +565,9 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
 				if (controlador.modificarDatos(nuevosDatos))
 					JOptionPane.showMessageDialog(null, "Datos modificados correctamente.");
+				else JOptionPane.showConfirmDialog(null, 
+						"Ya existe otro cliente con alguno de los siguientes datos ingrseados: nombre de usuario, documento, email o telefono", 
+						"No se pudo modificar los datos", JOptionPane.CANCEL_OPTION ,JOptionPane.ERROR_MESSAGE);
 
 			}
 

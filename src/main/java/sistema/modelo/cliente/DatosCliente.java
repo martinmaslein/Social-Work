@@ -13,6 +13,7 @@ public class DatosCliente {
 	private String plan;
 	private int nroCliente;
 	
+	
 	public DatosCliente(String apellido, String nombre, int nroDocumento,String direccion, String mail, String telefono,String fechaNacimiento,String nombreUsuario,String contrasena,String plan) {
 		this.nombre = nombre;
 		this.apellido = apellido;
