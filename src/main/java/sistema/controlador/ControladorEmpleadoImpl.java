@@ -26,6 +26,11 @@ public class ControladorEmpleadoImpl implements ControladorEmpleado {
 			this.ventana.informar(e.getMessage());
 		}
 	}
+	
+	public boolean modificarPlan(String dni, String plan) throws Exception{
+		return modelo.modificarPlan(dni,plan);
+	
+	}
 
 	public void salirAplicacion() {
 		this.modelo.desconectar();

@@ -3,6 +3,7 @@ package sistema.modelo.cliente;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import sistema.modelo.ModeloImpl;
@@ -12,16 +13,16 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
 	private DatosCliente clienteActual;
 	private int nroCliente;
-	
-	
+
 	public ModeloClienteImpl(String username, String password) {
-		String sql="SELECT * FROM Cliente WHERE username='" + username + "';";
+
+		String sql = "SELECT * FROM Cliente WHERE username='" + username + "';";
 
 		ResultSet rs = this.consulta(sql);
 
-		try{
-			if(rs.next()) {
-				clienteActual= new DatosCliente();
+		try {
+			if (rs.next()) {
+				clienteActual = new DatosCliente();
 				clienteActual.setNombreUsuario(rs.getString("username"));
 				clienteActual.setContrasena(password);
 				clienteActual.setApellido(rs.getString("apellido"));
@@ -122,10 +123,11 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	public int getNroCliente() {
 		return clienteActual.getNroCliente();
 	}
-	
+
 	public void setNroCliente(int nroCliente) {
 		clienteActual.setNroCliente(nroCliente);
 	}
+
 	@Override
 	/*
 	 * public boolean autenticarUsuarioAplicacion(String usuario, String contrasena)
@@ -235,7 +237,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 			pdf.getApellido(getApellido());
 			pdf.getPlan(getPlan());
 			pdf.generarPdf(monto, familiares);
-			
+
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -251,61 +253,82 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	public int obtenerCantFamiliares() {
-		
+
 		// Obtengo el id del cliente
-		String queryPlan2 = "SELECT nro_cliente FROM Cliente WHERE username='" + clienteActual.getNombreUsuario() + "';";
+		String queryPlan2 = "SELECT nro_cliente FROM Cliente WHERE username='" + clienteActual.getNombreUsuario()
+				+ "';";
 		ResultSet rs = this.consulta(queryPlan2);
 		int id = -1;
-		try {if (rs.next())
-			id = rs.getInt("nro_cliente");} catch (SQLException e) {e.printStackTrace();}
-		
-		String queryFamiliar = "SELECT * FROM Familiar WHERE nro_cliente = '"+id+"';";
+		try {
+			if (rs.next())
+				id = rs.getInt("nro_cliente");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		String queryFamiliar = "SELECT * FROM Familiar WHERE nro_cliente = '" + id + "';";
 		rs = this.consulta(queryFamiliar);
-		
+
 		int cont = 0;
-		try {while(rs.next())
-				cont++;} catch (SQLException e) {e.printStackTrace();}
-		
+		try {
+			while (rs.next())
+				cont++;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		return cont;
-		
+
 	}
-	
+
 	public int obtenerTotalAbonar() {
 
 		// Obtenngo el plan del cliente
 		String queryPlan = "SELECT nro_plan FROM Cliente WHERE username='" + clienteActual.getNombreUsuario() + "';";
 		ResultSet rs = this.consulta(queryPlan);
 		int monto = -1;
-		try {if (rs.next())
-				monto = rs.getInt("nro_plan");} catch (SQLException e) {e.printStackTrace();}
-		
+		try {
+			if (rs.next())
+				monto = rs.getInt("nro_plan");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		// Obtengo el id del cliente
-		String queryPlan2 = "SELECT nro_cliente FROM Cliente WHERE username='" + clienteActual.getNombreUsuario() + "';";
+		String queryPlan2 = "SELECT nro_cliente FROM Cliente WHERE username='" + clienteActual.getNombreUsuario()
+				+ "';";
 		rs = this.consulta(queryPlan2);
 		int id = -1;
-		try {if (rs.next())
-			id = rs.getInt("nro_cliente");} catch (SQLException e) {e.printStackTrace();}
-		
+		try {
+			if (rs.next())
+				id = rs.getInt("nro_cliente");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		// Obtengo los familiares
-		String queryFamiliar = "SELECT * FROM Familiar WHERE nro_cliente = '"+id+"';";
+		String queryFamiliar = "SELECT * FROM Familiar WHERE nro_cliente = '" + id + "';";
 		rs = this.consulta(queryFamiliar);
-		
+
 		int cont = 0;
-		try {while(rs.next())
-				cont++;} catch (SQLException e) {e.printStackTrace();}
-		
+		try {
+			while (rs.next())
+				cont++;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		// Monto total
-		if(cont == 0) {
+		if (cont == 0) {
 			if (monto == 1)
 				return 5000;
 			else if (monto == 2)
 				return 2500;
-		}
-		else {
+		} else {
 			if (monto == 1)
-				return cont*5000+5000;
+				return cont * 5000 + 5000;
 			else if (monto == 2)
-				return cont*2500+2500;
+				return cont * 2500 + 2500;
 		}
 		return 0;
 	}
@@ -314,5 +337,54 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return clienteActual;
 	}
 
-	
+	public int obtenerPlanCliente() {
+		String queryPlan = "SELECT nro_plan FROM Cliente WHERE username='" + clienteActual.getNombreUsuario() + "';";
+		ResultSet rs = this.consulta(queryPlan);
+		int monto = -1;
+		try {
+			if (rs.next())
+				monto = rs.getInt("nro_plan");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return monto;
+	}
+
+	public ArrayList<String> obtenerNombreFamiliares() {
+
+		ArrayList<String> nombreFamiliares = new ArrayList<String>();
+
+		// Obtener ID
+		String queryPlan2 = "SELECT nro_cliente FROM Cliente WHERE username='" + clienteActual.getNombreUsuario()
+				+ "';";
+		ResultSet rs = this.consulta(queryPlan2);
+		int id = -1;
+		try {
+			if (rs.next())
+				id = rs.getInt("nro_cliente");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		// Obtener nombre Familiares
+		String queryFamiliar = "SELECT * FROM Familiar WHERE nro_cliente = '" + id + "';";
+		rs = this.consulta(queryFamiliar);
+
+		try {
+			while (rs.next())
+				nombreFamiliares.add(rs.getString("nombre"));
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return nombreFamiliares;
+	}
+
+	@Override
+	public boolean modificarPlan(String dni, String plan) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -219,7 +219,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelPpal.setVisible(false);
-				panelPagoCliente = new PanelPagoCliente();
+				panelPagoCliente = new PanelPagoCliente(controlador);
 				frame.getContentPane().add(panelPagoCliente);
 				panelPagoCliente.setVisible(true);
 				JButton btnVolver3 = new JButton("");
@@ -274,7 +274,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelPpal.setVisible(false);
-				panelModificarPlan = new PanelModificarPlan();				
+				panelModificarPlan = new PanelModificarPlan(controlador);				
 				frame.getContentPane().add(panelModificarPlan);
 				panelModificarPlan.setVisible(true);
 				

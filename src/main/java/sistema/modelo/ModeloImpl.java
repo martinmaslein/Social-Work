@@ -32,7 +32,7 @@ public class ModeloImpl implements Modelo {
 			return rs;
 		}
 		catch (SQLException ex){
-			System.out.println("Error al realizar la consulta.");
+			System.out.println("Error al realizar la consulta."+ex.getMessage());
 		}
 		return null;
 	}	
@@ -47,7 +47,7 @@ public class ModeloImpl implements Modelo {
 			stmt.close();
 		}
 		catch (SQLException ex) {
-			System.out.println("Error al intentar actualizar.");
+			System.out.println("Error al intentar actualizar." +ex.getMessage());
 		}
 	}	
 }
