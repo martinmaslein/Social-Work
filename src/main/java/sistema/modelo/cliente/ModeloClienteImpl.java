@@ -158,6 +158,23 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return salida;
 	}
 
+	public boolean sePuedeModificar(DatosCliente nuevosDatos) {
+		
+		String query = "SELECT * FROM Cliente WHERE "
+				+ "(username = '"+nuevosDatos.getNombreUsuario() + "' "
+				+ "OR correo = '"+nuevosDatos.getMail()+"' "
+				+ "OR nro_doc = "+nuevosDatos.getNroDocumento()+" "
+				+ "OR telefono = '"+nuevosDatos.getTelefono()+"' ) "
+				+ "AND nro_cliente != "+clienteActual.getNroCliente()+";";
+		ResultSet rs = this.consulta(query);
+		try {
+			return !rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	public boolean modificarDatos(DatosCliente nuevosDatos) {
 		String queryID = "SELECT nro_cliente FROM Cliente WHERE username='" + clienteActual.getNombreUsuario() + "';";
 		ResultSet rs = this.consulta(queryID);

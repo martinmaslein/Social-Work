@@ -46,7 +46,10 @@ public class ControladorClienteImpl implements ControladorCliente {
 
 	@Override
 	public boolean modificarDatos(DatosCliente nuevosDatos) {
-		return modelo.modificarDatos(nuevosDatos);
+		if (modelo.sePuedeModificar(nuevosDatos))
+			return modelo.modificarDatos(nuevosDatos);
+		else
+			return false;
 		
 	}
 	

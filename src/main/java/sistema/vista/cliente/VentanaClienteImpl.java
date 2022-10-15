@@ -549,6 +549,9 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
 				if (controlador.modificarDatos(nuevosDatos))
 					JOptionPane.showMessageDialog(null, "Datos modificados correctamente.");
+				else JOptionPane.showConfirmDialog(null, 
+						"Ya existe otro cliente con alguno de los siguientes datos ingrseados: nombre de usuario, documento, email o telefono", 
+						"No se pudo modificar los datos", JOptionPane.CANCEL_OPTION ,JOptionPane.ERROR_MESSAGE);
 
 			}
 
