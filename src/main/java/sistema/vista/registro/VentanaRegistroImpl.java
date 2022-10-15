@@ -270,18 +270,6 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		return nuevoCliente;
 	}
 
-	public static java.util.Date convertirStringADate(String p_fecha) throws Exception {
-		java.util.Date retorno = null;
-		if ((p_fecha != null)) {
-			try {
-				retorno = (new SimpleDateFormat("yyyy-MM-dd")).parse(p_fecha);
-			} catch (ParseException ex) {
-				throw new Exception("Se produjo un error en la conversión del string a fecha.");
-			}
-		}
-		return retorno;
-	}
-	
 	public JPanel getPanelRegistro() {
 		return PanelRegistro;
 	}
