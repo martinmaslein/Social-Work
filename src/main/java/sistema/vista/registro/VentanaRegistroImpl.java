@@ -54,9 +54,9 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 	protected JTextField campoCorreo;
 	protected JTextField campoTelefono;
 	protected JTextField campoContrasena;
-	protected JComboBox<String> comboPlan ;
+	protected JComboBox<String> comboPlan;
 	protected ModeloRegistro modeloRegistro;
-	
+
 	private void inicializar() {
 		this.setTitle("Registrarse");
 		this.setResizable(false);
@@ -176,21 +176,31 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					boolean resultado = modeloRegistro.cargarCliente(crearCliente());
-					if (resultado) {
-						JOptionPane.showMessageDialog(null, "Datos cargados correctamente");
-						campoNombre.setText("");
-						campoApellido.setText("");
-						campoDireccion.setText("");
-						campoTelefono.setText("");
-						campoFechaNacimiento.setText("");
-						campoDni.setText("");
-						campoCorreo.setText("");
-						campoNombreDeUsuario.setText("");
-						campoContrasena.setText("");
+
+					if (!campoNombre.getText().isEmpty() && !campoApellido.getText().isEmpty()
+							&& !campoFechaNacimiento.getText().isEmpty() && !campoDireccion.getText().isEmpty()
+							&& !campoTelefono.getText().isEmpty() && !campoDni.getText().isEmpty()
+							&& !campoCorreo.getText().isEmpty() && !campoNombreDeUsuario.getText().isEmpty()
+							&& !campoContrasena.getText().isEmpty()) {
+						boolean resultado = modeloRegistro.cargarCliente(crearCliente());
+						if (resultado) {
+							JOptionPane.showMessageDialog(null, "Datos cargados correctamente");
+							campoNombre.setText("");
+							campoApellido.setText("");
+							campoDireccion.setText("");
+							campoTelefono.setText("");
+							campoFechaNacimiento.setText("");
+							campoDni.setText("");
+							campoCorreo.setText("");
+							campoNombreDeUsuario.setText("");
+							campoContrasena.setText("");
+						} else {
+							JOptionPane.showMessageDialog(null, "Usuario o contraseña o mail invalidos.");
+						}
 					} else {
-						JOptionPane.showMessageDialog(null, "Usuario o contraseña o mail invalidos.");
+						JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
 					}
+
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -217,7 +227,7 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		});
 		btnVolver.setBounds(10, 11, 35, 31);
 		PanelRegistro.add(btnVolver);
-		
+
 		comboPlan = new JComboBox<String>();
 		comboPlan.setBackground(new Color(255, 255, 255));
 		comboPlan.setForeground(new Color(0, 0, 0));
@@ -240,7 +250,6 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		this.pack();
 		this.setVisible(true);
 	}
-	
 
 	public DatosCliente crearCliente() throws Exception {
 		DatosCliente nuevoCliente = new DatosCliente();
@@ -255,7 +264,7 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		nuevoCliente.setPlan(comboPlan.getItemAt(comboPlan.getSelectedIndex()));
 		nuevoCliente.setNombreUsuario(campoNombreDeUsuario.getText());
 		nuevoCliente.setContrasena(campoContrasena.getText());
-		
+
 		return nuevoCliente;
 	}
 

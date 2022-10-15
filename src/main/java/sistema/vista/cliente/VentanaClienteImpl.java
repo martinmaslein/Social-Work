@@ -65,7 +65,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private JTextField tfFechaNacimiento;
 	private JTextField tfNombreUsuario;
 
-	private JTextField campoNombre, campoApellido, campodireccion, campoFechaNac, campoTelefono, campoMail;
+	private JTextField campoNombre, campoApellido, campodireccion, campoFechaNac, campoTelefono;
 	private JLabel lblUsuario;
 	private JLabel lblNroDoc;
 	private JTextField tfDocumento;
