@@ -23,12 +23,15 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import sistema.controlador.ControladorEmpleado;
+import sistema.vista.registro.VentanaRegistro;
+import sistema.vista.registro.VentanaRegistroImpl;
 
 public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 
 	private static final long serialVersionUID = 1L;
 
 	protected JFrame frame;
+	protected VentanaEmpleadoImpl este = this;
 	protected CardLayout frameLayout;
 	protected JLabel lblCliente;
 	protected JMenuItem mntmCerrarSesion;
@@ -190,27 +193,36 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 	protected ActionListener listenerAltaCliente() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelPpal.setVisible(false);
-				panelAltaCliente = new PanelAltaCliente();				
-				frame.getContentPane().add(panelAltaCliente);
-				panelAltaCliente.setVisible(true);
-
-				JButton btnVolver3 = new JButton("");
-				btnVolver3.setBounds(10, 11, 35, 31);
-				btnVolver3.setIcon(new ImageIcon("img\\flechi.png"));
-				btnVolver3.setBorder(new EmptyBorder(0, 0, 0, 0));
-				btnVolver3.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						try {
-							panelPpal.setVisible(true);
-							
-							panelAltaCliente.setVisible(false);
-						} catch (Exception e1) {
-							e1.printStackTrace();
+				
+				VentanaRegistro registrarse = new VentanaRegistroImpl(este);
+				try {
+					registrarse.eliminarVolver();
+					panelPpal.setVisible(false);
+					panelAltaCliente = registrarse.getPanelRegistro();				
+					frame.getContentPane().add(panelAltaCliente);
+					panelAltaCliente.setVisible(true);
+					registrarse.mostrarVentana(false);
+					
+					JButton btnVolver3 = new JButton("");
+					btnVolver3.setBounds(10, 11, 35, 31);
+					btnVolver3.setIcon(new ImageIcon("img\\flechi.png"));
+					btnVolver3.setBorder(new EmptyBorder(0, 0, 0, 0));
+					btnVolver3.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							try {
+								panelAltaCliente.setVisible(false);
+								panelPpal.setVisible(true);
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
 						}
-					}
-				});
-				panelAltaCliente.add(btnVolver3);
+					});
+					
+					panelAltaCliente.add(btnVolver3);
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}	
 			}
 		};
 	}

@@ -24,10 +24,10 @@ import java.awt.Font;
 
 public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 
-	public VentanaRegistroImpl(VentanaLoginImpl login) {
+	public VentanaRegistroImpl(JFrame anterior) {
 		setSize(new Dimension(700, 700));
 		this.inicializar();
-		this.login = login;
+		this.anterior = anterior;
 		modeloRegistro = new ModeloRegistro();
 	}
 
@@ -36,15 +36,15 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 	}
 
 	public void eliminarVentana() {
-		this.dispose();
+		this.dispose();		
 	}
 
 	public void informar(String mensaje) {
 		JOptionPane.showMessageDialog(null, mensaje);
 	}
 
-	protected JPanel PanelRegistro;
-	protected VentanaLogin login;
+	public JPanel PanelRegistro;
+	protected JFrame anterior;
 	protected JTextField campoNombre;
 	protected JTextField campoApellido;
 	protected JTextField campoNombreDeUsuario;
@@ -56,6 +56,7 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 	protected JTextField campoContrasena;
 	protected JComboBox<String> comboPlan;
 	protected ModeloRegistro modeloRegistro;
+	protected JButton btnVolver;
 
 	private void inicializar() {
 		this.setTitle("Registrarse");
@@ -213,13 +214,14 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		btnConfirmar.setBorder(null);
 		PanelRegistro.add(btnConfirmar);
 
-		JButton btnVolver = new JButton("");
+		btnVolver = new JButton("");
 		btnVolver.setIcon(new ImageIcon("img\\flechi.png"));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				eliminarVentana();
+				
 				try {
-					login.mostrarVentana(true);
+					mostrarVentana(false);
+					anterior.setVisible(true);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -279,4 +281,13 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		}
 		return retorno;
 	}
+	
+	public JPanel getPanelRegistro() {
+		return PanelRegistro;
+	}
+	
+	public void eliminarVolver() {
+		btnVolver.setVisible(false);
+	}
+	
 }
