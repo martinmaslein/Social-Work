@@ -191,10 +191,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelPpal.setVisible(false);
-				panelAltaCliente = new JPanel();
-				panelAltaCliente.setBackground(new Color(224, 241, 238));
-				panelAltaCliente.setLayout(null);
-				panelAltaCliente.setVisible(false);
+				panelAltaCliente = new PanelAltaCliente();				
 				frame.getContentPane().add(panelAltaCliente);
 				panelAltaCliente.setVisible(true);
 
@@ -222,10 +219,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelPpal.setVisible(false);
-				panelPagoCliente = new JPanel();
-				panelPagoCliente.setBackground(new Color(224, 241, 238));
-				panelPagoCliente.setLayout(null);
-				panelPagoCliente.setVisible(false);
+				panelPagoCliente = new PanelPagoCliente();
 				frame.getContentPane().add(panelPagoCliente);
 				panelPagoCliente.setVisible(true);
 				JButton btnVolver3 = new JButton("");
@@ -253,10 +247,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelPpal.setVisible(false);
-				panelSolicitudModificacionPlan = new JPanel();
-				panelSolicitudModificacionPlan.setBackground(new Color(224, 241, 238));
-				panelSolicitudModificacionPlan.setLayout(null);
-				panelSolicitudModificacionPlan.setVisible(false);
+				panelSolicitudModificacionPlan = new PanelSolicitudModificarPlan();				
 				frame.getContentPane().add(panelSolicitudModificacionPlan);
 				panelSolicitudModificacionPlan.setVisible(true);
 
@@ -283,8 +274,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelPpal.setVisible(false);
-				panelModificarPlan = new VentanaModificarPlan();
-				
+				panelModificarPlan = new PanelModificarPlan();				
 				frame.getContentPane().add(panelModificarPlan);
 				panelModificarPlan.setVisible(true);
 				

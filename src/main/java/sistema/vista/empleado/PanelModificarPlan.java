@@ -7,19 +7,22 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class VentanaModificarPlan extends JPanel {
+public class PanelModificarPlan extends JPanel {
+	
 	private JTextField campoDniCliente;
 	private JLabel nuevoPlan;
 	private JLabel titulo;
 	private JLabel dniCliente;
 	private JComboBox<String> comboBox;
 	
-	public VentanaModificarPlan() {
+	public PanelModificarPlan() {
 		super();
 		setBackground(new Color(224, 241, 238));
 		setLayout(null);
-		setVisible(false);
 		
 		campoDniCliente = new JTextField();
 		campoDniCliente.setBounds(267, 129, 108, 20);
@@ -44,5 +47,19 @@ public class VentanaModificarPlan extends JPanel {
 		comboBox.addItem("A");
 		comboBox.addItem("B");
 		add(comboBox);
+		
+		JButton btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TODO  Si el DNI ingresado corresponde a un cliente, modifico su plan por el nuevo US 10
+				 
+			}
+		});
+		btnConfirmar.setBounds(398, 241, 89, 23);
+		btnConfirmar.setBorder(null);
+		btnConfirmar.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnConfirmar.setForeground(new Color(255, 255, 255));
+		btnConfirmar.setBackground(new Color(119, 193, 181));
+		add(btnConfirmar);
 	}
 }
