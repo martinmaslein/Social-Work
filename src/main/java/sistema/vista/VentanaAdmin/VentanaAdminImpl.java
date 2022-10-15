@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -17,6 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
 import sistema.controlador.ControladorAdmin;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -92,10 +95,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 
 		this.frame.getContentPane().add(this.crearPanelVacio());
 		
-		button = new JButton("New button");
-		button.setBounds(0, 0, 89, 23);
-		panelPpal.add(button);
-		
+					
 		panelAdministrarPlanes = new JPanel();
 		panelAdministrarPlanes.setBackground(new Color(224, 241, 238));
 		frame.getContentPane().add(panelAdministrarPlanes, "name_63421316270500");
@@ -112,6 +112,22 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		txtPlanes.setBounds(47, 25, 128, 60);
 		panelAdministrarPlanes.add(txtPlanes);
 		txtPlanes.setColumns(10);
+		
+		JButton btnVolver = new JButton("");
+		btnVolver.setBounds(10, 11, 35, 31);
+		btnVolver.setIcon(new ImageIcon("img\\flechi.png"));
+		btnVolver.setBorder(new EmptyBorder(0, 0, 0, 0));
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					panelPpal.setVisible(true);
+					panelAdministrarPlanes.setVisible(false);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		panelAdministrarPlanes.add(btnVolver);
 		
 		JButton btnAgregarPlan = new JButton("Agregar nuevo Plan");
 		btnAgregarPlan.setBackground(new Color(119, 193, 181));
@@ -243,12 +259,28 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		frame.getContentPane().add(panelNuevoPlan, "name_65742471087900");
 		panelNuevoPlan.setLayout(null);
 		
+		JButton btnVolver2 = new JButton("");
+		btnVolver2.setBounds(10, 11, 35, 31);
+		btnVolver2.setIcon(new ImageIcon("img\\flechi.png"));
+		btnVolver2.setBorder(new EmptyBorder(0, 0, 0, 0));
+		btnVolver2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					panelAdministrarPlanes.setVisible(true);
+					panelNuevoPlan.setVisible(false);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		panelNuevoPlan.add(btnVolver2);
+		
 		txtNuevoPlan = new JTextField();
 		txtNuevoPlan.setBackground(new Color(224, 241, 238));
 		txtNuevoPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 30));
 		txtNuevoPlan.setText("Nuevo Plan");
 		txtNuevoPlan.setBorder(null);
-		txtNuevoPlan.setBounds(46, 29, 173, 43);
+		txtNuevoPlan.setBounds(416, 29, 173, 43);
 		panelNuevoPlan.add(txtNuevoPlan);
 		txtNuevoPlan.setColumns(10);
 		
@@ -310,13 +342,29 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		frame.getContentPane().add(panelModificarPlan, "name_66965023197000");
 		panelModificarPlan.setLayout(null);
 		
+		JButton btnVolver3 = new JButton("");
+		btnVolver3.setBounds(10, 11, 35, 31);
+		btnVolver3.setIcon(new ImageIcon("img\\flechi.png"));
+		btnVolver3.setBorder(new EmptyBorder(0, 0, 0, 0));
+		btnVolver3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					panelAdministrarPlanes.setVisible(true);
+					panelModificarPlan.setVisible(false);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		panelModificarPlan.add(btnVolver3);
+		
 		txtModificarPlan = new JTextField();
 		txtModificarPlan.setText("Modificar Plan");
 		txtModificarPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 30));
 		txtModificarPlan.setColumns(10);
 		txtModificarPlan.setBorder(null);
 		txtModificarPlan.setBackground(new Color(224, 241, 238));
-		txtModificarPlan.setBounds(29, 11, 208, 43);
+		txtModificarPlan.setBounds(402, 27, 208, 43);
 		panelModificarPlan.add(txtModificarPlan);
 		
 		textField_1 = new JTextField();
