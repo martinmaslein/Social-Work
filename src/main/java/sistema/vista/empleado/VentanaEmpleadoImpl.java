@@ -206,6 +206,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 					public void actionPerformed(ActionEvent e) {
 						try {
 							panelPpal.setVisible(true);
+							
 							panelAltaCliente.setVisible(false);
 						} catch (Exception e1) {
 							e1.printStackTrace();
@@ -227,7 +228,6 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 				panelPagoCliente.setVisible(false);
 				frame.getContentPane().add(panelPagoCliente);
 				panelPagoCliente.setVisible(true);
-
 				JButton btnVolver3 = new JButton("");
 				btnVolver3.setBounds(10, 11, 35, 31);
 				btnVolver3.setIcon(new ImageIcon("img\\flechi.png"));
@@ -236,6 +236,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 					public void actionPerformed(ActionEvent e) {
 						try {
 							panelPpal.setVisible(true);
+							
 							panelPagoCliente.setVisible(false);
 						} catch (Exception e1) {
 							e1.printStackTrace();
@@ -282,13 +283,11 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelPpal.setVisible(false);
-				panelModificarPlan = new JPanel();
-				panelModificarPlan.setBackground(new Color(224, 241, 238));
-				panelModificarPlan.setLayout(null);
-				panelModificarPlan.setVisible(false);
+				panelModificarPlan = new VentanaModificarPlan();
+				
 				frame.getContentPane().add(panelModificarPlan);
 				panelModificarPlan.setVisible(true);
-
+				
 				JButton btnVolver3 = new JButton("");
 				btnVolver3.setBounds(10, 11, 35, 31);
 				btnVolver3.setIcon(new ImageIcon("img\\flechi.png"));
