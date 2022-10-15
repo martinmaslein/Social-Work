@@ -15,8 +15,12 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	private int nroCliente;
 
 	public ModeloClienteImpl(String username, String password) {
+<<<<<<< HEAD
 		String sql = "SELECT * FROM Cliente WHERE username='" + username + "';";
 
+=======
+		String sql="SELECT * FROM Cliente WHERE username='" + username + "';";
+>>>>>>> 4691f392aa62b74771171aee8c70577ba22995f1
 		ResultSet rs = this.consulta(sql);
 
 		try {
@@ -319,6 +323,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return clienteActual;
 	}
 
+<<<<<<< HEAD
 	public int obtenerPlanCliente() {
 		String queryPlan = "SELECT nro_plan FROM Cliente WHERE username='" + clienteActual.getNombreUsuario() + "';";
 		ResultSet rs = this.consulta(queryPlan);
@@ -363,4 +368,13 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return nombreFamiliares;
 	}
 
+=======
+	@Override
+	public boolean modificarPlan(String dni, String plan) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
+>>>>>>> 4691f392aa62b74771171aee8c70577ba22995f1
 }

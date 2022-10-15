@@ -6,7 +6,7 @@ import sistema.modelo.ModeloImpl;
 import sistema.modelo.cliente.ModeloUsuario;
 
 public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
-	
+
 	private String apellido;
 	private String nombre;
 	private int nroDocumento;
@@ -16,8 +16,8 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 	private String fechaNacimiento;
 	private String nombreUsuario;
 	private String contrasena;
-	
-	public ModeloEmpleadoImpl() {	
+
+	public ModeloEmpleadoImpl() {
 		nombre = getNombre();
 		apellido = getApellido();
 		nroDocumento = getNroDocumento();
@@ -28,7 +28,7 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 		nombreUsuario = getNombreUsuario();
 		contrasena = getContrasena();
 	}
-	
+
 	public String getApellido() {
 		return apellido;
 	}
@@ -84,7 +84,7 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 
 	@Override
 	public void setMail(String mail) {
-		this.mail = mail;		
+		this.mail = mail;
 	}
 
 	@Override
@@ -95,7 +95,7 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 	@Override
 	public void setNombreUsuario(String usuario) {
 		this.nombreUsuario = usuario;
-		
+
 	}
 
 	@Override
@@ -109,33 +109,65 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	@Override
-	/*public boolean autenticarUsuarioAplicacion(String usuario, String contrasena) {
-		return this.nombreUsuario == usuario && this.contrasena == contrasena;
-	}*/
-	
-	public boolean autenticarUsuarioAplicacion(String username, char [] password) throws Exception {		
+	/*
+	 * public boolean autenticarUsuarioAplicacion(String usuario, String contrasena)
+	 * { return this.nombreUsuario == usuario && this.contrasena == contrasena; }
+	 */
+
+	public boolean autenticarUsuarioAplicacion(String username, char[] password) throws Exception {
 		boolean salida;
 		try {
 			String quimey = String.valueOf(password);
-			String sql = "SELECT * FROM empleado WHERE username='"+ username +"' AND password= md5('"+ quimey +"')"; // ver si ta bien esto
+			String sql = "SELECT * FROM empleado WHERE username='" + username + "' AND password= md5('" + quimey + "')"; // ver
+
 			ResultSet rs = this.consulta(sql);
 			if (rs.next()) {
 				salida = true;
-			} else 
+				System.out.print("jeje");
+			} else
 				salida = false;
-			
+
 			rs.close();
 
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			throw new Exception("Error inesperado al consultar la B.D.");
-		}
-		catch (NumberFormatException ex2) {
+		} catch (NumberFormatException ex2) {
 			throw new Exception("El legajo ingresado no tiene formato valido");
 		}
 
 		return salida;
 	}
-	
-	public void generarCupon(int monto, int familiares) {}
-	
+
+	public boolean modificarPlan(String dni, String plan) throws Exception {
+		boolean salida;
+		int nroPlan;
+		try {
+			String sql = "SELECT * FROM Cliente WHERE nro_doc= " + dni + ";"; // ver si ta bien esto
+			ResultSet rs = this.consulta(sql);
+			nroPlan = plan == "A" ? 1 : 2;
+			System.out.println(sql);
+
+			if (rs.next()) {
+				salida = true;
+				String query = "UPDATE Cliente SET " + "nro_plan = " + nroPlan + " WHERE nro_doc = " + dni + ";";
+				System.out.println(query);
+				this.actualizacion(query);
+
+			} else
+				salida = false;
+
+			rs.close();
+
+		} catch (SQLException ex) {
+			throw new Exception("Error inesperado al consultar la B.D.");
+		} catch (NumberFormatException ex2) {
+			throw new Exception("El legajo ingresado no tiene formato valido");
+		}
+
+		return salida;
+	}
+
+	public void generarCupon(int monto, int familiares) {
+	}
+
 }

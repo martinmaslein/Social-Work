@@ -5,7 +5,11 @@ import java.awt.Font;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import sistema.controlador.ControladorEmpleado;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -18,11 +22,13 @@ public class PanelModificarPlan extends JPanel {
 	private JLabel titulo;
 	private JLabel dniCliente;
 	private JComboBox<String> comboBox;
+	private ControladorEmpleado controlador;
 	
-	public PanelModificarPlan() {
+	public PanelModificarPlan(final ControladorEmpleado controlador) {
 		super();
 		setBackground(new Color(224, 241, 238));
 		setLayout(null);
+		this.controlador = controlador;
 		
 		campoDniCliente = new JTextField();
 		campoDniCliente.setBounds(267, 129, 108, 20);
@@ -52,7 +58,17 @@ public class PanelModificarPlan extends JPanel {
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TODO  Si el DNI ingresado corresponde a un cliente, modifico su plan por el nuevo US 10
-				 
+				try {
+					boolean resultado = controlador.modificarPlan(campoDniCliente.getText(), comboBox.getItemAt(comboBox.getSelectedIndex()));
+					if (resultado) {
+						JOptionPane.showMessageDialog(null, "Plan modificado correctamente");
+					}else {
+						JOptionPane.showMessageDialog(null, "El DNI ingresado no corresponde a un cliente");
+					}
+				
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}				 
 			}
 		});
 		btnConfirmar.setBounds(398, 241, 89, 23);
