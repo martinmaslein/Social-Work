@@ -36,4 +36,7 @@ public interface ModeloUsuario extends Modelo {
 	
 	public void generarCupon(int monto, int familiares);
 
+	public boolean modificarPlan(String dni, String plan)throws Exception;
+
+
 }

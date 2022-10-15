@@ -67,7 +67,6 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 	private JTextField textField_6;
 	private JButton btnConfirmar;
 	private JButton btnModificarPlan;
-	private JButton button;
 	private JButton btnEditar;
 	private JButton btnEliminar;
 	private JScrollPane scrollPane;

@@ -91,7 +91,8 @@ GRANT ALL PRIVILEGES ON sistema.* TO 'admin'@'localhost' WITH GRANT OPTION;
 DROP USER 'empleado'@'%';
 CREATE USER 'empleado'@'%' IDENTIFIED BY 'empleado';
 GRANT SELECT ON sistema.empleado TO 'empleado'@'%';
-GRANT SELECT,UPDATE,INSERT ON sistema.empleado TO 'empleado'@'%';  
+GRANT SELECT,UPDATE,INSERT ON sistema.empleado TO 'empleado'@'%'; 
+GRANT SELECT,UPDATE,INSERT ON sistema.cliente TO 'empleado'@'%';  
 
 DROP USER 'cliente'@'%';
 CREATE USER 'cliente'@'%' IDENTIFIED BY 'cliente';

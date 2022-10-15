@@ -13,14 +13,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import sistema.controlador.ControladorEmpleado;
+
 public class PanelPagoCliente extends JPanel {
 
 	private JLabel titulo;
 	private JButton btnPagoAprobado;
 	private JTable tabla;
+	private ControladorEmpleado controlador;
 	
-	public PanelPagoCliente() {
+	public PanelPagoCliente(ControladorEmpleado controlador) {
 		super();
+		this.controlador = controlador;
 		setBackground(new Color(224, 241, 238));
 		setLayout(null);		
 		titulo = new JLabel("Confirmar pago");

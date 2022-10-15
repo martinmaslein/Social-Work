@@ -16,7 +16,6 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	
 	public ModeloClienteImpl(String username, String password) {
 		String sql="SELECT * FROM Cliente WHERE username='" + username + "';";
-
 		ResultSet rs = this.consulta(sql);
 
 		try{
@@ -295,6 +294,12 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
 	public DatosCliente ObtenerDatosCliente() {
 		return clienteActual;
+	}
+
+	@Override
+	public boolean modificarPlan(String dni, String plan) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	
