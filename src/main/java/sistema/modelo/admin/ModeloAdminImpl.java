@@ -143,4 +143,11 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public boolean cargarPlan(String nombre, String precio, String prestaciones) {
+		
+		
+		return false;
+	}
+	
 }

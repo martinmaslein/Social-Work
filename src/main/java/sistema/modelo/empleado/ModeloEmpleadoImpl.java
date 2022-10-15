@@ -170,4 +170,8 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 	public void generarCupon(int monto, int familiares) {
 	}
 
+	public boolean cargarPlan(String text, String text2, String text3) {
+		return true;
+	}
+	
 }

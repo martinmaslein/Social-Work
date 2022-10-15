@@ -387,4 +387,10 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return false;
 	}
 
+	@Override
+	public boolean cargarPlan(String text, String text2, String text3) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 }
