@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import sistema.modelo.ModeloImpl;
+import sistema.modelo.ModeloRegistro;
 import sistema.utilidades.CreatePdf;
+import sistema.utilidades.InvalidFormatException;
 
 public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
@@ -160,8 +162,12 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return salida;
 	}
 
-	public boolean sePuedeModificar(DatosCliente nuevosDatos) {
+	public boolean sePuedeModificar(DatosCliente nuevosDatos) throws InvalidFormatException {
 		
+		if(!ModeloRegistro.datosValidos(nuevosDatos)) {
+			throw new InvalidFormatException("Mail, contraseña o nombre de usuario invalido");
+		}
+
 		String query = "SELECT * FROM Cliente WHERE "
 				+ "(username = '"+nuevosDatos.getNombreUsuario() + "' "
 				+ "OR correo = '"+nuevosDatos.getMail()+"' "
@@ -178,6 +184,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	}
 	
 	public boolean modificarDatos(DatosCliente nuevosDatos) {
+		
 		String queryID = "SELECT nro_cliente FROM Cliente WHERE username='" + clienteActual.getNombreUsuario() + "';";
 		ResultSet rs = this.consulta(queryID);
 		int id = 0;

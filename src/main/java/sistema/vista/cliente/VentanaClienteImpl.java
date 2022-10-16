@@ -3,6 +3,7 @@ package sistema.vista.cliente;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import sistema.controlador.ControladorCliente;
 import sistema.modelo.ModeloRegistro;
 import sistema.modelo.cliente.*;
 import sistema.modelo.familiar.ModeloFamiliarImpl;
+import sistema.utilidades.InvalidFormatException;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -563,11 +565,16 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
 				DatosCliente nuevosDatos = construirNuevosDatos();
 
-				if (controlador.modificarDatos(nuevosDatos))
-					JOptionPane.showMessageDialog(null, "Datos modificados correctamente.");
-				else JOptionPane.showConfirmDialog(null, 
-						"Ya existe otro cliente con alguno de los siguientes datos ingrseados: nombre de usuario, documento, email o telefono", 
-						"No se pudo modificar los datos", JOptionPane.CANCEL_OPTION ,JOptionPane.ERROR_MESSAGE);
+				try {
+					if (controlador.modificarDatos(nuevosDatos))
+						JOptionPane.showMessageDialog(null, "Datos modificados correctamente.");
+					else JOptionPane.showMessageDialog(null, 
+							"Ya existe otro cliente con alguno de los siguientes datos ingrseados: nombre de usuario, documento, email o telefono", 
+							"No se pudo modificar los datos",JOptionPane.ERROR_MESSAGE);
+				
+				} catch (InvalidFormatException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "No se pudo modificar los datos", JOptionPane.ERROR_MESSAGE);
+				}
 
 			}
 

@@ -10,7 +10,7 @@ public class ModeloRegistro extends ModeloImpl {
 		
 	public boolean cargarCliente(DatosCliente nuevoCliente) throws Exception {
 		boolean salida = false;
-		if(mailValido(nuevoCliente.getMail()) && esValido(nuevoCliente.getNombreUsuario(),12) && esValido(nuevoCliente.getContrasena(),20)) {
+		if(datosValidos(nuevoCliente)) {
 			String nombre = nuevoCliente.getNombre();
 			String apellido = nuevoCliente.getApellido();
 			String telefono = nuevoCliente.getTelefono();
@@ -36,7 +36,7 @@ public class ModeloRegistro extends ModeloImpl {
 		return salida;
 	}
 	
-	public boolean mailValido(String email) {
+	public static boolean mailValido(String email) {
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
         java.util.regex.Matcher m = p.matcher(email);
@@ -66,6 +66,11 @@ public class ModeloRegistro extends ModeloImpl {
         
         return m.matches(); 
     } 
+	
+	
+	public static boolean datosValidos(DatosCliente nuevoCliente) {
+		return mailValido(nuevoCliente.getMail()) && esValido(nuevoCliente.getNombreUsuario(),12) && esValido(nuevoCliente.getContrasena(),20);
+	}
 	
 	public boolean cargarFamiliar(String usuario, ModeloFamiliarImpl nuevoFamiliar) {
 		String nombre = nuevoFamiliar.getNombre();

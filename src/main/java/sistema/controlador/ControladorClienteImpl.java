@@ -7,6 +7,7 @@ import sistema.modelo.ModeloLoginImpl;
 import sistema.modelo.cliente.DatosCliente;
 import sistema.modelo.cliente.ModeloClienteImpl;
 import sistema.modelo.cliente.ModeloUsuario;
+import sistema.utilidades.InvalidFormatException;
 import sistema.vista.cliente.VentanaCliente;
 import sistema.vista.login.VentanaLogin;
 import sistema.vista.login.VentanaLoginImpl;
@@ -47,7 +48,7 @@ public class ControladorClienteImpl implements ControladorCliente {
 	}
 
 	@Override
-	public boolean modificarDatos(DatosCliente nuevosDatos) {
+	public boolean modificarDatos(DatosCliente nuevosDatos) throws InvalidFormatException {
 		if (modelo.sePuedeModificar(nuevosDatos))
 			return modelo.modificarDatos(nuevosDatos);
 		else
