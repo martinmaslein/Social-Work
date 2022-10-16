@@ -88,4 +88,9 @@ public class ControladorClienteImpl implements ControladorCliente {
 		// TODO Auto-generated method stub
 		return modelo.obtenerPlanCliente();
 	}
+
+	
+	public boolean solicitarCambioPlan(int plan) {
+		return modelo.solicitarCambioPlan(plan);
+	}
 }

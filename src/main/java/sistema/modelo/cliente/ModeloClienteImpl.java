@@ -400,4 +400,10 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return true;
 	}
 
+	public boolean solicitarCambioPlan(int nro_plan) {
+		String sql = "INSERT INTO Solicitud (nro_cliente,nro_plan) VALUES ("+clienteActual.getNroCliente() +" , "+nro_plan+");";
+		this.actualizacion(sql);
+		return true;
+	}
+
 }

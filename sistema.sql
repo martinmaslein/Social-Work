@@ -83,6 +83,17 @@ CREATE TABLE IF NOT EXISTS Servicio_plan(
         ON DELETE RESTRICT ON UPDATE CASCADE
 )ENGINE=INNODB;
 
+CREATE TABLE IF NOT EXISTS Solicitud(
+    id_solicitud INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    nro_cliente INT UNSIGNED,
+    nro_plan INT UNSIGNED,
+    CONSTRAINT pk_Solicitud PRIMARY KEY(id_solicitud),
+    FOREIGN KEY (nro_cliente) REFERENCES Cliente(nro_cliente)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+     FOREIGN KEY (nro_plan) REFERENCES Plan(nro_plan)
+        ON DELETE CASCADE ON UPDATE CASCADE
+)ENGINE=INNODB;
+
 #--------------------------------------------------------------------------------------
 DROP USER 'admin'@'localhost';
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';

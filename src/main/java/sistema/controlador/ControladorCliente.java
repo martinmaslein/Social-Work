@@ -25,4 +25,6 @@ public interface ControladorCliente extends ControladorSistema {
 
 	public int obtenerPlan();
 
+	public boolean solicitarCambioPlan(int i);
+
 }

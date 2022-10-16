@@ -3,7 +3,6 @@ package sistema.vista.cliente;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -79,6 +78,9 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
 	protected ModeloRegistro modeloRegistro;
 	private JButton btnObtenerTotalA;
+	private JLabel lblPlan;
+	
+	private String[] PLANES= new String[] {"A", "B"}; 
 
 	public VentanaClienteImpl(String username, String password) {
 		inicializar();
@@ -484,7 +486,47 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 			}
 		});
 		panelModificarDatos.add(btnVolver2);
-
+		
+		final JComboBox<String> planComboBox = new JComboBox<String>(PLANES);
+		planComboBox.setBounds(415, 251, 53, 23);
+		panelModificarDatos.add(planComboBox);
+		
+		lblPlan = new JLabel("Plan:");
+		lblPlan.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblPlan.setBounds(316, 250, 98, 23);
+		panelModificarDatos.add(lblPlan);
+		
+		JButton btnSolicitudCambio = new JButton("Cambiar plan");
+		btnSolicitudCambio.setForeground(Color.WHITE);
+		btnSolicitudCambio.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
+		btnSolicitudCambio.setBorder(null);
+		btnSolicitudCambio.setBackground(new Color(32, 178, 170));
+		btnSolicitudCambio.setBounds(370, 284, 116, 23);
+		btnSolicitudCambio.addActionListener( 
+				new ActionListener(){
+					public void actionPerformed(ActionEvent e) {
+						String planActual=controlador.obtenerDatosCliente().getPlan();
+						if(planActual!=planComboBox.getSelectedItem()) {
+							//TODO ARREGLAR PARA QUE CONTROLE QUE SEA DISTINTO AL PLAN ACTUAL, NO ANDA
+							int select=JOptionPane.showConfirmDialog(panelModificarDatos,"¿desea enviar una solicitud para cambiarse al plan "+planComboBox.getSelectedItem()+"?","Solicitar cambio de plan" ,JOptionPane.CANCEL_OPTION);
+							System.out.println(select);
+	
+							if(select==JOptionPane.OK_OPTION) {
+								if(controlador.solicitarCambioPlan(planComboBox.getSelectedIndex()+1)) {
+									JOptionPane.showMessageDialog(panelModificarDatos, "se a enviado su solicitud correctamente. Queda a la espera de que un empleado apruebe el cambio");;
+								}
+							}
+						} else {
+							JOptionPane.showMessageDialog(panelModificarDatos, "ya posee el plan seleccionado");
+						}
+					}
+				}
+		);
+	
+				
+		panelModificarDatos.add(btnSolicitudCambio);
+;
 		return panelPpal;
 	}
 
