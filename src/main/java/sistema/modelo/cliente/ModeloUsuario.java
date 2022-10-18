@@ -40,5 +40,4 @@ public interface ModeloUsuario extends Modelo {
 	
 	public boolean cargarPlan(String text, String text2, String text3);
 
-
 }
