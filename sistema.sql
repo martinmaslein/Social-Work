@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS Plan(
 	nro_plan INT UNSIGNED NOT NULL AUTO_INCREMENT,
     nombre CHAR(32),
     reintegro DECIMAL(5,2),
+    precio INT UNSIGNED NOT NULL,
     CONSTRAINT pk_Plan PRIMARY KEY(nro_plan)
 )ENGINE=INNODB;
 
@@ -119,9 +120,9 @@ INSERT INTO Empleado VALUES (3,'usuario3',md5('contraseña3'),"Arena","Camila","
 INSERT INTO Empleado VALUES (4,'usuario4',md5('contraseña4'),"Torres","Sofia","Terrada 50","2916735489","1986/05/09","sofitorres@gmail.com",45678936);
 INSERT INTO Empleado VALUES (5,'usuario5',md5('contraseña5'),"Rodriguez","Matias","Gorriti 302","0116578635","1970/12/12","matirod78@gmail.com",26783645);
 
-#--Plan (nro_plan,nombre,reintegro)----#
-INSERT INTO Plan VALUES (1,"A",70.05);
-INSERT INTO Plan VALUES (2,"B",20.95);
+#--Plan (nro_plan,nombre,reintegro, precio)----#
+INSERT INTO Plan VALUES (1,"A",70.05,5000);
+INSERT INTO Plan VALUES (2,"B",20.95,2500);
 
 #--------------Cliente (nro_cliente, username, password, apellido, nombre, fecha_nac, direccion, telefono, correo, nro_doc, nro_plan )-------------#
 INSERT INTO Cliente VALUES (1,'cliente1',md5('contraseña1'),"Lopez","Jorge","1980/03/05","Sarmiento 245","2915667893","jorgelop33@gmail.com",34567892,1);
