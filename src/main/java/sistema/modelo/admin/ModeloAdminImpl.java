@@ -225,4 +225,22 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	
 		return true;
 	}
+
+	@Override
+	public String[] obtenerServicios() {
+
+		String[] servicios = new String[3];
+		int cont = 0;
+		String sql = "SELECT * FROM Servicio;";
+		
+		ResultSet rs = this.consulta(sql); 
+		try { 
+			while (rs.next()) {
+				servicios[cont] = rs.getString("nombre");
+				cont++;
+			}
+			} catch (SQLException e) { e.printStackTrace();}
+		
+		return servicios;
+	}
 }

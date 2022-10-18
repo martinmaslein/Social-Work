@@ -406,4 +406,10 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return true;
 	}
 
+	@Override
+	public String[] obtenerServicios() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

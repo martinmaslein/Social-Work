@@ -172,5 +172,11 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 	public boolean cargarPlan(String text, String text2, String text3) {
 		return true;
 	}
+
+	@Override
+	public String[] obtenerServicios() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
