@@ -88,6 +88,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		this.contraseña = password;
 		this.usuario = username;
 		modeloRegistro = new ModeloRegistro();
+		
 	}
 
 	private void inicializar() {
@@ -244,6 +245,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		tfDocumento.setBorder(null);
 		tfDocumento.setBounds(461, 195, 167, 20);
 		panelModificarDatos.add(tfDocumento);
+		
+		
 	}
 
 	private ActionListener listenerAbonar() {

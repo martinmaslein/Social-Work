@@ -179,4 +179,5 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 		return null;
 	}
 	
+	
 }
