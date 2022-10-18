@@ -1,4 +1,4 @@
-package sistema.vista.VentanaAdmin;
+package sistema.vista.admin;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;

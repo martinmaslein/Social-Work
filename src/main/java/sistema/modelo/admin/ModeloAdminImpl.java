@@ -138,10 +138,9 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	
 	public void generarCupon(int monto, int familiares) {}
 
-	@Override
 	public boolean modificarPlan(String dni, String plan) throws Exception{
-		// TODO Auto-generated method stub
-		return false;
+		
+	return false;
 	}
 	
 	public boolean cargarPlan(String nombre, String precio, String prestaciones) {

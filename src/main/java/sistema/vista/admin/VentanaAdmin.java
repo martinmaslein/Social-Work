@@ -1,4 +1,4 @@
-package sistema.vista.VentanaAdmin;
+package sistema.vista.admin;
 
 import sistema.controlador.ControladorAdmin;
 import sistema.vista.Ventana;
