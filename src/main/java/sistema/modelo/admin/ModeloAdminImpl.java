@@ -147,26 +147,40 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 
 	public boolean cargarPlan(String nombre, String precio, String prestaciones) {
 		 
-		if(nombre == "" || precio == "" || prestaciones == "")   
-			return false; 
-		else { 
-
-		String cantPlanes = "SELECT * FROM Plan;"; 
-		ResultSet rs = this.consulta(cantPlanes); 
-		int cant = 0; 
-		try { while (rs.next()) cant++; } catch (SQLException e) { e.printStackTrace();}
-		System.out.println(cant);
-		double reintegro = 0 + Math.random() * (98 - 2);
+		if(nombre == "" || precio == "" || prestaciones == "") {return false; }
+		else if(chequearNombre(nombre) == false) {return false;}
 		
+		else{ 
 
-		String sql = "INSERT INTO Plan (nro_plan,nombre,reintegro,precio) VALUES (" + cant++ + " , '" 
-					+ nombre + "' , " + reintegro + " , "+Integer.parseInt(precio)+");";
-		;
-		
-		this.actualizacion(sql);
+			String cantPlanes = "SELECT * FROM Plan;"; 
+			ResultSet rs = this.consulta(cantPlanes); 
+			int cant = 0; 
+			try { while (rs.next()) cant++; } catch (SQLException e) { e.printStackTrace();}
 
-		return true;
+			double reintegro = 0 + Math.random() * (98 - 2);			
+			cant += 1;
+			String sql = "INSERT INTO Plan (nro_plan,nombre,reintegro,precio) VALUES (" + cant + " , '" 
+						+ nombre + "' , " + reintegro + " , "+Integer.parseInt(precio)+");";
+			;
+			
+			this.actualizacion(sql);
+	
+			return true;
 		}
 	}
 
+	private boolean chequearNombre(String nombre2) {
+		
+		String consulta = "SELECT * FROM Plan";
+		
+		ResultSet rs = this.consulta(consulta); 
+		try { 
+			while (rs.next()) {
+				if(rs.getString("nombre").equals(nombre2))
+					return false;
+				}
+			} catch (SQLException e) { e.printStackTrace();}
+	
+		return true;
+	}
 }

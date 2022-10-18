@@ -432,8 +432,9 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 					//boolean crearPlan = modeloAdmin.cargarPlan(textFieldNombre.getText(), textFieldPrecio.getText(), textFieldPrestaciones.getText());
 					boolean crearPlan = controlador.cargarPlan(textFieldNombre.getText(), textFieldPrecio.getText(), textFieldPrestaciones.getText());
 					if(crearPlan == false)
-						JOptionPane.showMessageDialog(null, "No pueden haber campos vacíos");
-						
+						JOptionPane.showMessageDialog(null, "No pueden haber campos vacíos o nombre existente");
+					else
+						JOptionPane.showMessageDialog(null, "Plan creado exitosamente");
 			}
 		};
 	}
