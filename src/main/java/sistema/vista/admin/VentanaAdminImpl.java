@@ -426,14 +426,30 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		this.registrarEventos();
 	}
 
+	private void setClientesBase(JTable table_12) {
+		table_12.setValueAt("Jorge Lopez",0,0);
+		table_12.setValueAt("5000",0,1);
+		
+		table_12.setValueAt("Guillermo Perez",1,0);
+		table_12.setValueAt("2500",1,1);
+		
+		 
+	}
+
+	private void setClientes(JTable table_12) {
+		  //TODO Añadir dinamicamente los clientes que generen un cupon?
+		
+	}
+
 	private ActionListener crearPlan() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					//boolean crearPlan = modeloAdmin.cargarPlan(textFieldNombre.getText(), textFieldPrecio.getText(), textFieldPrestaciones.getText());
 					boolean crearPlan = controlador.cargarPlan(textFieldNombre.getText(), textFieldPrecio.getText(), textFieldPrestaciones.getText());
 					if(crearPlan == false)
-						JOptionPane.showMessageDialog(null, "No pueden haber campos vacíos");
-						
+						JOptionPane.showMessageDialog(null, "No pueden haber campos vacíos o nombre existente");
+					else
+						JOptionPane.showMessageDialog(null, "Plan creado exitosamente");
 			}
 		};
 	}

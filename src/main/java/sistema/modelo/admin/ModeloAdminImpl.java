@@ -20,8 +20,8 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	private String fechaNacimiento;
 	private String nombreUsuario;
 	private String contrasena;
-	
-	public ModeloAdminImpl() {	
+
+	public ModeloAdminImpl() {
 		nombre = getNombre();
 		apellido = getApellido();
 		nroDocumento = getNroDocumento();
@@ -32,7 +32,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		nombreUsuario = getNombreUsuario();
 		contrasena = getContrasena();
 	}
-	
+
 	public String getApellido() {
 		return apellido;
 	}
@@ -88,7 +88,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 
 	@Override
 	public void setMail(String mail) {
-		this.mail = mail;		
+		this.mail = mail;
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	@Override
 	public void setNombreUsuario(String usuario) {
 		this.nombreUsuario = usuario;
-		
+
 	}
 
 	@Override
@@ -111,12 +111,13 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
-	
+
 	@Override
-	/*public boolean autenticarUsuarioAplicacion(String usuario, String contrasena) {
-		return this.nombreUsuario == usuario && this.contrasena == contrasena;
-	}*/
-	public boolean autenticarUsuarioAplicacion(String username, char[] password) throws Exception {		
+	/*
+	 * public boolean autenticarUsuarioAplicacion(String usuario, String contrasena)
+	 * { return this.nombreUsuario == usuario && this.contrasena == contrasena; }
+	 */
+	public boolean autenticarUsuarioAplicacion(String username, char[] password) throws Exception {
 		boolean salida;
 		try {
 			String quimey = String.valueOf(password);
@@ -124,22 +125,19 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 			ResultSet rs = this.consulta(sql);
 			if (rs.next()) {
 				salida = true;
-			} else 
+			} else
 				salida = false;
-			
+
 			rs.close();
 
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			throw new Exception("Error inesperado al consultar la B.D.");
-		}
-		catch (NumberFormatException ex2) {
+		} catch (NumberFormatException ex2) {
 			throw new Exception("El legajo ingresado no tiene formato valido");
 		}
 
 		return salida;
 	}
-	
-	public void generarCupon(int monto, int familiares) {}
 
 	
 	// datos recibidos por parametro??
@@ -165,11 +163,6 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		
 	return salida;
 	}
-	
-	public boolean cargarPlan(String nombre, String precio, String prestaciones) {
-		
-		return false;
-	}
 
 	public List<Pair<String, Integer>> obtenerPlanes() {
 		List<Pair<String,Integer>> planes = new ArrayList<Pair<String,Integer>>();
@@ -190,4 +183,46 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		return planes;
 	}
 
+	public void generarCupon(int monto, int familiares) {
+
+	}
+
+	public boolean cargarPlan(String nombre, String precio, String prestaciones) {
+		 
+		if(nombre == "" || precio == "" || prestaciones == "") {return false; }
+		else if(chequearNombre(nombre) == false) {return false;}
+		
+		else{ 
+
+			String cantPlanes = "SELECT * FROM Plan;"; 
+			ResultSet rs = this.consulta(cantPlanes); 
+			int cant = 0; 
+			try { while (rs.next()) cant++; } catch (SQLException e) { e.printStackTrace();}
+
+			double reintegro = 0 + Math.random() * (98 - 2);			
+			cant += 1;
+			String sql = "INSERT INTO Plan (nro_plan,nombre,reintegro,precio) VALUES (" + cant + " , '" 
+						+ nombre + "' , " + reintegro + " , "+Integer.parseInt(precio)+");";
+			;
+			
+			this.actualizacion(sql);
+	
+			return true;
+		}
+	}
+
+	private boolean chequearNombre(String nombre2) {
+		
+		String consulta = "SELECT * FROM Plan";
+		
+		ResultSet rs = this.consulta(consulta); 
+		try { 
+			while (rs.next()) {
+				if(rs.getString("nombre").equals(nombre2))
+					return false;
+				}
+			} catch (SQLException e) { e.printStackTrace();}
+	
+		return true;
+	}
 }
