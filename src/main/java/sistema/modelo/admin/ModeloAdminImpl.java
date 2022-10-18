@@ -17,8 +17,8 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	private String fechaNacimiento;
 	private String nombreUsuario;
 	private String contrasena;
-	
-	public ModeloAdminImpl() {	
+
+	public ModeloAdminImpl() {
 		nombre = getNombre();
 		apellido = getApellido();
 		nroDocumento = getNroDocumento();
@@ -29,7 +29,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		nombreUsuario = getNombreUsuario();
 		contrasena = getContrasena();
 	}
-	
+
 	public String getApellido() {
 		return apellido;
 	}
@@ -85,7 +85,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 
 	@Override
 	public void setMail(String mail) {
-		this.mail = mail;		
+		this.mail = mail;
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	@Override
 	public void setNombreUsuario(String usuario) {
 		this.nombreUsuario = usuario;
-		
+
 	}
 
 	@Override
@@ -108,45 +108,65 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
-	
+
 	@Override
-	/*public boolean autenticarUsuarioAplicacion(String usuario, String contrasena) {
-		return this.nombreUsuario == usuario && this.contrasena == contrasena;
-	}*/
-	public boolean autenticarUsuarioAplicacion(String username, char[] password) throws Exception {		
+	/*
+	 * public boolean autenticarUsuarioAplicacion(String usuario, String contrasena)
+	 * { return this.nombreUsuario == usuario && this.contrasena == contrasena; }
+	 */
+	public boolean autenticarUsuarioAplicacion(String username, char[] password) throws Exception {
 		boolean salida;
 		try {
 			String quimey = String.valueOf(password);
-			String sql = "SELECT * FROM administrador WHERE username='"+ username +"' AND password= md5('"+ quimey +"')"; // ver si ta bien esto
+			String sql = "SELECT * FROM administrador WHERE username='" + username + "' AND password= md5('" + quimey
+					+ "')"; // ver si ta bien esto
 			ResultSet rs = this.consulta(sql);
 			if (rs.next()) {
 				salida = true;
-			} else 
+			} else
 				salida = false;
-			
+
 			rs.close();
 
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			throw new Exception("Error inesperado al consultar la B.D.");
-		}
-		catch (NumberFormatException ex2) {
+		} catch (NumberFormatException ex2) {
 			throw new Exception("El legajo ingresado no tiene formato valido");
 		}
 
 		return salida;
 	}
-	
-	public void generarCupon(int monto, int familiares) {}
 
-	public boolean modificarPlan(String dni, String plan) throws Exception{
-		
-	return false;
+	public void generarCupon(int monto, int familiares) {
 	}
-	
-	public boolean cargarPlan(String nombre, String precio, String prestaciones) {
-		
-		
+
+	public boolean modificarPlan(String dni, String plan) throws Exception {
+
 		return false;
 	}
-	
+
+	public boolean cargarPlan(String nombre, String precio, String prestaciones) {
+		 
+		if(nombre == "" || precio == "" || prestaciones == "")   
+			return false; 
+		else { 
+
+		String cantPlanes = "SELECT * FROM Plan;"; 
+		ResultSet rs = this.consulta(cantPlanes); 
+		int cant = 0; 
+		try { while (rs.next()) cant++; } catch (SQLException e) { e.printStackTrace();}
+		System.out.println(cant);
+		double reintegro = 0 + Math.random() * (98 - 2);
+		
+
+		String sql = "INSERT INTO Plan (nro_plan,nombre,reintegro,precio) VALUES (" + cant++ + " , '" 
+					+ nombre + "' , " + reintegro + " , "+Integer.parseInt(precio)+");";
+		;
+		
+		this.actualizacion(sql);
+
+		return true;
+		}
+	}
+
 }
