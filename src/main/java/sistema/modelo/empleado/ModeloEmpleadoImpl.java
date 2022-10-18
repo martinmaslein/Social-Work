@@ -123,7 +123,6 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 			ResultSet rs = this.consulta(sql);
 			if (rs.next()) {
 				salida = true;
-				System.out.print("jeje");
 			} else
 				salida = false;
 

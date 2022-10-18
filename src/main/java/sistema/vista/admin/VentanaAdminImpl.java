@@ -1,11 +1,11 @@
 package sistema.vista.admin;
 
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
@@ -22,11 +22,11 @@ import javax.swing.border.EmptyBorder;
 
 import sistema.controlador.ControladorAdmin;
 import sistema.modelo.admin.ModeloAdminImpl;
+import sistema.utilidades.Pair;
 
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JTextField;
-import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Dimension;
@@ -81,6 +81,8 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 
 	private void inicializar() {
 
+		modeloAdmin = new ModeloAdminImpl();
+		
 		this.frame = new JFrame();
 		this.frame.setTitle("Administrador");
 		this.frame.setBounds(100, 100, 852, 575);
@@ -187,31 +189,29 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		scrollPane.setBounds(102, 210, 421, 219);
 		panelAdministrarPlanes.add(scrollPane);
 		
-		table_1 = new JTable();
-		table_1.setRowHeight(33);
-		scrollPane.setViewportView(table_1);
-		table_1.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
-			new String[] {
-				"Nombre", "Precio"
-			}
-		));
-		table_1.getColumnModel().getColumn(0).setMinWidth(13);
+		List<Pair<String,Integer>> planes = modeloAdmin.obtenerPlanes();
+		
+		String columna [] = {"Nombre","Reintegro"};
+		
+		String data[][] = {{"",""},{"",""},{"",""},{"",""},{"",""}};
+		
+		int i=0;
+		for(Pair<String,Integer> plan : planes) {
+			
+			String nombre = plan.getNombre();
+	    	int reintegro = plan.getReintegro();
+	    	String reintegro2 = reintegro+"";
+	    	
+			data[i][0] = nombre;
+			data[i][1] = reintegro2;
+			
+			i = i+1;
+		}
+				
+		DefaultTableModel tableModel = new DefaultTableModel(data,columna);
+	    JTable table = new JTable(tableModel);
+	    table.setRowHeight(33);
+	    scrollPane.setViewportView(table);
 		
 		btnModificarPlan = new JButton("Modificar Plan");
 		btnModificarPlan.setForeground(Color.WHITE);

@@ -2,9 +2,12 @@ package sistema.modelo.admin;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import sistema.modelo.ModeloImpl;
 import sistema.modelo.cliente.ModeloUsuario;
+import sistema.utilidades.Pair;
 
 public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 
@@ -117,7 +120,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		boolean salida;
 		try {
 			String quimey = String.valueOf(password);
-			String sql = "SELECT * FROM administrador WHERE username='"+ username +"' AND password= md5('"+ quimey +"')"; // ver si ta bien esto
+			String sql = "SELECT * FROM administrador WHERE username='"+ username +"' AND password= md5('"+ quimey +"')";
 			ResultSet rs = this.consulta(sql);
 			if (rs.next()) {
 				salida = true;
@@ -138,15 +141,53 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	
 	public void generarCupon(int monto, int familiares) {}
 
-	public boolean modificarPlan(String dni, String plan) throws Exception{
+	
+	// datos recibidos por parametro??
+	public boolean modificarPlan(String dni, String nombre) throws Exception{
 		
-	return false;
+		// nombre de plan, se cambia directo
+		// precio a pagar, es en funcion del reintegro? es una operacion?
+		// prestaciones, que mierda son?
+		
+		boolean salida;
+		String nombre_plan;
+	
+		
+		String sql = "SELECT * FROM plan WHERE nombre='"+ nombre +"'"; 
+		ResultSet rs = this.consulta(sql);
+		if (rs.next()) {
+			salida = true;
+		} else 
+			salida = false;
+		
+		rs.close();
+		
+		
+	return salida;
 	}
 	
 	public boolean cargarPlan(String nombre, String precio, String prestaciones) {
 		
-		
 		return false;
 	}
-	
+
+	public List<Pair<String, Integer>> obtenerPlanes() {
+		List<Pair<String,Integer>> planes = new ArrayList<Pair<String,Integer>>();
+		Pair<String, Integer> plan;
+		String sql = "SELECT nombre, reintegro FROM plan"; 
+		ResultSet rs = this.consulta(sql);
+		try {
+			while(rs.next()) {
+				plan = new Pair<String,Integer>(rs.getString("Nombre"), rs.getInt("Reintegro"));
+				planes.add(plan);
+			}
+			
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return planes;
+	}
+
 }

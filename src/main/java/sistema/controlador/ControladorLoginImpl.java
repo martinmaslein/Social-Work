@@ -53,7 +53,7 @@ public class ControladorLoginImpl implements ControladorLogin {
 			if (usuarioRol.conectar(usuario.getUsername(), usuario.getPassword())) {
 
 				try {
-					if (usuarioRol.autenticarUsuarioAplicacion(username, password) ){
+					if (usuarioRol.autenticarUsuarioAplicacion(username, password) ) {
 
 						if(rol.equals("Cliente")) {
 							VentanaCliente ventanaCliente = new VentanaClienteImpl(username, String.valueOf(password));
