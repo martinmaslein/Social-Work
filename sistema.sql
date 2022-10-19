@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS Cliente(
     correo VARCHAR(128) NOT NULL, 
     nro_doc INT UNSIGNED NOT NULL,
     nro_plan INT UNSIGNED NOT NULL,
+    cupon INT UNSIGNED NOT NULL,
     CONSTRAINT pk_Cliente PRIMARY KEY(nro_cliente),
 
     CONSTRAINT FK_Cliente_Plan
@@ -127,11 +128,11 @@ INSERT INTO Plan VALUES (1,"A",70.05,5000);
 INSERT INTO Plan VALUES (2,"B",20.95,2500);
 
 #--------------Cliente (nro_cliente, username, password, apellido, nombre, fecha_nac, direccion, telefono, correo, nro_doc, nro_plan )-------------#
-INSERT INTO Cliente VALUES (1,'cliente1',md5('contraseña1'),"Lopez","Jorge","1980/03/05","Sarmiento 245","2915667893","jorgelop33@gmail.com",34567892,1);
-INSERT INTO Cliente VALUES (2,'cliente2',md5('contraseña2'),"Perez","Guillermo","2000/10/10","Alem 3590","2917856343","guillermop45@gmail.com",42189488,2);
-INSERT INTO Cliente VALUES (3,'cliente3',md5('contraseña3'),"Arena","Camila","1990/07/23","Viamonte 201","0114567892","camiarena@gmail.com",20678945,2);
-INSERT INTO Cliente VALUES (4,'cliente4',md5('contraseña4'),"Torres","Sofia","1986/05/09","Terrada 50","2916735489","sofitorres@gmail.com",45678936,2);
-INSERT INTO Cliente VALUES (5,'cliente5',md5('contraseña5'),"Rodriguez","Matias","1970/12/12","Gorriti 302","0116578635","matirod78@gmail.com",26783645,1);
+INSERT INTO Cliente VALUES (1,'cliente1',md5('contraseña1'),"Lopez","Jorge","1980/03/05","Sarmiento 245","2915667893","jorgelop33@gmail.com",34567892,1,0);
+INSERT INTO Cliente VALUES (2,'cliente2',md5('contraseña2'),"Perez","Guillermo","2000/10/10","Alem 3590","2917856343","guillermop45@gmail.com",42189488,2,0);
+INSERT INTO Cliente VALUES (3,'cliente3',md5('contraseña3'),"Arena","Camila","1990/07/23","Viamonte 201","0114567892","camiarena@gmail.com",20678945,2,0);
+INSERT INTO Cliente VALUES (4,'cliente4',md5('contraseña4'),"Torres","Sofia","1986/05/09","Terrada 50","2916735489","sofitorres@gmail.com",45678936,2,0);
+INSERT INTO Cliente VALUES (5,'cliente5',md5('contraseña5'),"Rodriguez","Matias","1970/12/12","Gorriti 302","0116578635","matirod78@gmail.com",26783645,1,0);
 
 #------ Familiar (nro_familiar,nro_cliente,apellido, nombre, fecha_nac, direccion, telefono) --------------------#
 INSERT INTO Familiar VALUES (1,1,"Lopez","Joan","1990/08/11","Gorriti 501",2916663748);

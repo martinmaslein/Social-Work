@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.util.Pair;
 import sistema.modelo.ModeloImpl;
 import sistema.modelo.cliente.ModeloUsuario;
@@ -179,10 +178,39 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	@Override
+	public boolean modificarPlanAdmin(int planID, String nuevoNombre, double nuevoReintegro, int nuevoPrecio) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	public String[] obtenerServicios() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public ArrayList<String> cargarClientesTabla() {
+		
+		ArrayList<String> clientes = new ArrayList<String>();
+
+		String sql = "SELECT * FROM CLIENTE;";
+		ResultSet rs = this.consulta(sql);
+		try {
+			while(rs.next()) {
+				if(rs.getInt("cupon") == 1) {
+					clientes.add(rs.getString("nombre"));
+					
+					if(rs.getInt("nro_plan") == 1)
+						clientes.add("5000");
+					else if(rs.getInt("nro_plan") == 2)
+						clientes.add("2500");	
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return clientes;
+	}
+	
 	
 	//#---Solicitud(id_solicitud,nro_cliente,nro_plan INT UNSIGNED)
 	public List<Pair<String, String>> obtenerSolicitudes() {

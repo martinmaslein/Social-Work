@@ -6,8 +6,10 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.AbstractButton;
+import javax.swing.ComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -80,7 +82,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private JButton btnObtenerTotalA;
 	private JLabel lblPlan;
 	
-	private String[] PLANES= new String[] {"A", "B"}; 
+
+	protected JComboBox<String> planComboBox; 
 
 	public VentanaClienteImpl(String username, String password) {
 		inicializar();
@@ -88,6 +91,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		this.contraseña = password;
 		this.usuario = username;
 		modeloRegistro = new ModeloRegistro();
+		
 	}
 
 	private void inicializar() {
@@ -244,6 +248,14 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		tfDocumento.setBorder(null);
 		tfDocumento.setBounds(461, 195, 167, 20);
 		panelModificarDatos.add(tfDocumento);
+		
+		
+		Vector<String> vector = new Vector<String>(controlador.obtenerPlanes());
+		DefaultComboBoxModel dcm = new DefaultComboBoxModel(vector);
+		planComboBox = new JComboBox<String>(dcm);
+		planComboBox.setBounds(415, 251, 53, 23);
+		panelModificarDatos.add(planComboBox);
+		
 	}
 
 	private ActionListener listenerAbonar() {
@@ -487,9 +499,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		});
 		panelModificarDatos.add(btnVolver2);
 		
-		final JComboBox<String> planComboBox = new JComboBox<String>(PLANES);
-		planComboBox.setBounds(415, 251, 53, 23);
-		panelModificarDatos.add(planComboBox);
+	
 		
 		lblPlan = new JLabel("Plan:");
 		lblPlan.setHorizontalAlignment(SwingConstants.TRAILING);

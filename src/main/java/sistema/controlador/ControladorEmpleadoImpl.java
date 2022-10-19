@@ -1,8 +1,8 @@
 package sistema.controlador;
 
 import java.util.List;
-
 import javafx.util.Pair;
+import java.util.ArrayList;
 import sistema.modelo.ModeloLogin;
 import sistema.modelo.ModeloLoginImpl;
 import sistema.modelo.cliente.ModeloUsuario;
@@ -52,8 +52,14 @@ public class ControladorEmpleadoImpl implements ControladorEmpleado {
 	}
 
 	@Override
+
 	public List<Pair<String, String>> obtenerSolicitudes() {
 		return modelo.obtenerSolicitudes();
+	}
+	
+	public ArrayList<String> cargarClientesTabla() {
+		return modelo.cargarClientesTabla();
+		
 	}
 
 }

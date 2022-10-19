@@ -1,6 +1,9 @@
 package sistema.controlador;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+
+import javax.swing.ComboBoxModel;
 
 import sistema.modelo.ModeloLogin;
 import sistema.modelo.ModeloLoginImpl;
@@ -9,6 +12,7 @@ import sistema.modelo.cliente.ModeloClienteImpl;
 import sistema.modelo.cliente.ModeloUsuario;
 import sistema.utilidades.InvalidFormatException;
 import sistema.vista.cliente.VentanaCliente;
+import sistema.vista.empleado.PanelPagoCliente;
 import sistema.vista.login.VentanaLogin;
 import sistema.vista.login.VentanaLoginImpl;
 
@@ -58,6 +62,7 @@ public class ControladorClienteImpl implements ControladorCliente {
 	
 	public void crearCupon(int monto, int familiares) {
 		modelo.generarCupon(monto, familiares);
+		
 	}
 
 	@Override
@@ -92,5 +97,10 @@ public class ControladorClienteImpl implements ControladorCliente {
 	
 	public boolean solicitarCambioPlan(int plan) {
 		return modelo.solicitarCambioPlan(plan);
+	}
+
+	@Override
+	public LinkedList<String> obtenerPlanes() {
+		return modelo.getPlanes();
 	}
 }

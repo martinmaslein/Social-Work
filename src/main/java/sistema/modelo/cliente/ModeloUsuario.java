@@ -1,8 +1,10 @@
 package sistema.modelo.cliente;
 
+
 import java.util.List;
 
 import javafx.util.Pair;
+import java.util.ArrayList;
 import sistema.modelo.Modelo;
 
 public interface ModeloUsuario extends Modelo {
@@ -41,10 +43,14 @@ public interface ModeloUsuario extends Modelo {
 
 	public boolean modificarPlan(String dni, String plan)throws Exception;
 	
+	public boolean modificarPlanAdmin(int planID, String nuevoNombre, double nuevoReintegro, int nuevoPrecio)throws Exception;
+	
 	public boolean cargarPlan(String text, String text2, String text3);
 
 	public String[] obtenerServicios();
 	
 	public List<Pair<String, String>> obtenerSolicitudes();
+
+	public ArrayList<String> cargarClientesTabla();
 
 }
