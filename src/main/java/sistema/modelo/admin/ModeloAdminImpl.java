@@ -244,8 +244,20 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	@Override
-	public ArrayList<String> cargarClientesTabla() {
+	public List<javafx.util.Pair<String, String>> cargarClientesTabla() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void aprobarCambio(String nombre, String apellido) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void aprobarPago(String nombre, String apellido) {
+		// TODO Auto-generated method stub
+		
 	}
 }

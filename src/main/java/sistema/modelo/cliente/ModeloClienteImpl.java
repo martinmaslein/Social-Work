@@ -437,7 +437,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	@Override
-	public ArrayList<String> cargarClientesTabla() {
+	public List<Pair<String, String>> cargarClientesTabla() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -446,6 +446,18 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	public List<Pair<String, String>> obtenerSolicitudes() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void aprobarCambio(String nombre, String apellido) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void aprobarPago(String nombre, String apellido) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

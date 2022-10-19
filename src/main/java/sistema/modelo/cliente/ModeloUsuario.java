@@ -51,6 +51,10 @@ public interface ModeloUsuario extends Modelo {
 	
 	public List<Pair<String, String>> obtenerSolicitudes();
 
-	public ArrayList<String> cargarClientesTabla();
+	public List<Pair<String, String>> cargarClientesTabla();
+	
+	public void aprobarCambio(String nombre, String apellido) throws Exception;
+
+	public void aprobarPago(String nombre, String apellido);
 
 }

@@ -200,8 +200,8 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		DefaultTableModel tableModel = new DefaultTableModel(data,columna);
 	    JTable table = new JTable(tableModel);
 	    table.setRowHeight(33);
-	    scrollPane.setViewportView(table);
-		
+	    scrollPane.setViewportView(table);		
+	 	    
 		btnModificarPlan = new JButton("Modificar Plan");
 		btnModificarPlan.setForeground(Color.WHITE);
 		btnModificarPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 17));

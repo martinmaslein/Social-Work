@@ -57,9 +57,21 @@ public class ControladorEmpleadoImpl implements ControladorEmpleado {
 		return modelo.obtenerSolicitudes();
 	}
 	
-	public ArrayList<String> cargarClientesTabla() {
+	public List<Pair<String, String>> cargarClientesTabla() {
 		return modelo.cargarClientesTabla();
 		
+	}
+	
+
+	@Override
+	public void aprobarCambio(String nombre, String apellido) throws Exception {
+		modelo.aprobarCambio(nombre,apellido);
+		
+	}
+
+	@Override
+	public void aprobarPago(String nombre, String apellido) {
+		modelo.aprobarPago(nombre,apellido);
 	}
 
 }
