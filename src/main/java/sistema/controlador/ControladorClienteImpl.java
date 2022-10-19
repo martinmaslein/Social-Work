@@ -1,6 +1,9 @@
 package sistema.controlador;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+
+import javax.swing.ComboBoxModel;
 
 import sistema.modelo.ModeloLogin;
 import sistema.modelo.ModeloLoginImpl;
@@ -94,5 +97,10 @@ public class ControladorClienteImpl implements ControladorCliente {
 	
 	public boolean solicitarCambioPlan(int plan) {
 		return modelo.solicitarCambioPlan(plan);
+	}
+
+	@Override
+	public LinkedList<String> obtenerPlanes() {
+		return modelo.getPlanes();
 	}
 }
