@@ -1,5 +1,7 @@
 package sistema.controlador;
 
+import java.util.ArrayList;
+
 import sistema.modelo.ModeloLogin;
 import sistema.modelo.ModeloLoginImpl;
 import sistema.modelo.cliente.ModeloUsuario;
@@ -46,6 +48,12 @@ public class ControladorEmpleadoImpl implements ControladorEmpleado {
 		VentanaLogin ventanaLogin = new VentanaLoginImpl();
 		@SuppressWarnings("unused")
 		ControladorLogin controlador = new ControladorLoginImpl(ventanaLogin, modeloLogin);
+	}
+
+	@Override
+	public ArrayList<String> cargarClientesTabla() {
+		return modelo.cargarClientesTabla();
+		
 	}
 
 }

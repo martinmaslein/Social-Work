@@ -5,9 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 
 import sistema.modelo.ModeloImpl;
 import sistema.modelo.ModeloRegistro;
+
 import sistema.utilidades.CreatePdf;
 import sistema.utilidades.InvalidFormatException;
 
@@ -152,7 +154,6 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 				salida = false;
 
 			rs.close();
-
 		} catch (SQLException ex) {
 			throw new Exception("Error inesperado al consultar la B.D.");
 		} catch (NumberFormatException ex2) {
@@ -249,6 +250,9 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
 			e.printStackTrace();
 		}
+		String query = "UPDATE Cliente SET " + "cupon = "+ 1 + " WHERE nombre = '"+ getNombre() + "';";
+		this.actualizacion(query);
+		
 	}
 
 	public String getPlan() {
@@ -410,6 +414,29 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	public boolean modificarPlanAdmin(int planID, String nuevoNombre, double nuevoReintegro, int nuevoPrecio) throws Exception {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	public String[] obtenerServicios() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public LinkedList<String> getPlanes() {
+		String sql = "SELECT * FROM Plan ORDER BY nombre ASC;";
+		ResultSet rs = this.consulta(sql);
+		LinkedList<String> planes= new LinkedList<String>();
+		try {
+			while(rs.next())
+				planes.addLast(rs.getString("nombre"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return  planes;
+	}
+
+	@Override
+	public ArrayList<String> cargarClientesTabla() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

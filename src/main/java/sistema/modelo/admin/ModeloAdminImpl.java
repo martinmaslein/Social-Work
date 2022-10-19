@@ -219,5 +219,26 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	public boolean modificarPlanAdmin(int planID, String nuevoNombre, double nuevoReintegro, int nuevoPrecio) throws Exception {
 		
 		return false;
+	public String[] obtenerServicios() {
+
+		String[] servicios = new String[3];
+		int cont = 0;
+		String sql = "SELECT * FROM Servicio;";
+		
+		ResultSet rs = this.consulta(sql); 
+		try { 
+			while (rs.next()) {
+				servicios[cont] = rs.getString("nombre");
+				cont++;
+			}
+			} catch (SQLException e) { e.printStackTrace();}
+		
+		return servicios;
+	}
+
+	@Override
+	public ArrayList<String> cargarClientesTabla() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

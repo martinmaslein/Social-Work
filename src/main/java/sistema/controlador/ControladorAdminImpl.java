@@ -50,5 +50,11 @@ public class ControladorAdminImpl implements ControladorAdmin {
 		return modelo.cargarPlan(text, text2, text3);
 	}
 
+	@Override
+	public String[] obtenerServicios() {
+		System.out.println("Entro controlador");
+		return modelo.obtenerServicios();
+	}
+
 
 }

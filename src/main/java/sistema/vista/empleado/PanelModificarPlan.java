@@ -64,7 +64,7 @@ public class PanelModificarPlan extends JPanel {
 							comboBox.getItemAt(comboBox.getSelectedIndex()));
 					if (resultado) {
 						JOptionPane.showMessageDialog(null, "Plan modificado correctamente");
-						dniCliente.setText("");
+						campoDniCliente.setText("");
 					} else {
 						JOptionPane.showMessageDialog(null, "El DNI ingresado no corresponde a un cliente");
 					}

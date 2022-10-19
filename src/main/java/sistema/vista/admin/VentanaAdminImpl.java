@@ -31,6 +31,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Dimension;
 import javax.swing.JScrollPane;
+import javax.swing.JComboBox;
 
 public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 
@@ -73,6 +74,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 	private JScrollPane scrollPane;
 	private ModeloAdminImpl modeloAdmin;
 	private JTable table_1;
+	private JComboBox<String> comboBox;
 
 	public VentanaAdminImpl() {
 		inicializar();
@@ -139,16 +141,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		btnAgregarPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 17));
 		btnAgregarPlan.setBounds(516, 42, 214, 33);
 		panelAdministrarPlanes.add(btnAgregarPlan);
-		btnAgregarPlan.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					panelAdministrarPlanes.setVisible(false);
-					panelNuevoPlan.setVisible(true);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
+		btnAgregarPlan.addActionListener(CambiarPanel());
 		
 		txtNombre = new JTextField();
 		txtNombre.setBorder(null);
@@ -320,6 +313,11 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		textFieldPrecio.setColumns(10);
 		textFieldPrecio.setBounds(419, 221, 214, 37);
 		panelNuevoPlan.add(textFieldPrecio);
+
+		comboBox = new JComboBox<String>();
+		comboBox.setBounds(420, 295, 214, 22);	
+
+		panelNuevoPlan.add(comboBox);
 		
 		btnNewButton_2 = new JButton("Confirmar");
 		btnNewButton_2.setFont(new Font("Yu Gothic UI", Font.BOLD, 17));
@@ -329,7 +327,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		btnNewButton_2.setBounds(470, 426, 119, 37);
 		btnNewButton_2.addActionListener(this.crearPlan());
 		panelNuevoPlan.add(btnNewButton_2);
-		
+				
 		panelModificarPlan = new JPanel();
 		panelModificarPlan.setBackground(new Color(224, 241, 238));
 		frame.getContentPane().add(panelModificarPlan, "name_66965023197000");
@@ -435,30 +433,33 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		this.registrarEventos();
 	}
 
-	private void setClientesBase(JTable table_12) {
-		table_12.setValueAt("Jorge Lopez",0,0);
-		table_12.setValueAt("5000",0,1);
-		
-		table_12.setValueAt("Guillermo Perez",1,0);
-		table_12.setValueAt("2500",1,1);
-		
-		 
-	}
-
-	private void setClientes(JTable table_12) {
-		  //TODO Añadir dinamicamente los clientes que generen un cupon?
-		
+	private ActionListener CambiarPanel() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					panelAdministrarPlanes.setVisible(false);
+					panelNuevoPlan.setVisible(true);
+					
+					String[] prestaciones = controlador.obtenerServicios(); 
+					for(int j = 0; j < prestaciones.length; j++) {
+						comboBox.addItem(prestaciones[j]);
+					}
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		};
 	}
 
 	private ActionListener crearPlan() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					//boolean crearPlan = modeloAdmin.cargarPlan(textFieldNombre.getText(), textFieldPrecio.getText(), textFieldPrestaciones.getText());
-					boolean crearPlan = controlador.cargarPlan(textFieldNombre.getText(), textFieldPrecio.getText(), textFieldPrestaciones.getText());
-					if(crearPlan == false)
-						JOptionPane.showMessageDialog(null, "No pueden haber campos vacíos o nombre existente");
-					else
-						JOptionPane.showMessageDialog(null, "Plan creado exitosamente");
+					
+				boolean crearPlan = controlador.cargarPlan(textFieldNombre.getText(), textFieldPrecio.getText(), textFieldPrestaciones.getText());
+				if(crearPlan == false)
+					JOptionPane.showMessageDialog(null, "No pueden haber campos vacíos o nombre existente");
+				else
+					JOptionPane.showMessageDialog(null, "Plan creado exitosamente");
 			}
 		};
 	}
