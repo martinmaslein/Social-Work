@@ -1,5 +1,8 @@
 package sistema.modelo.cliente;
 
+import java.util.List;
+
+import javafx.util.Pair;
 import sistema.modelo.Modelo;
 
 public interface ModeloUsuario extends Modelo {
@@ -41,5 +44,7 @@ public interface ModeloUsuario extends Modelo {
 	public boolean cargarPlan(String text, String text2, String text3);
 
 	public String[] obtenerServicios();
+	
+	public List<Pair<String, String>> obtenerSolicitudes();
 
 }

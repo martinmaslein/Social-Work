@@ -2,8 +2,13 @@ package sistema.modelo.empleado;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.util.Pair;
 import sistema.modelo.ModeloImpl;
 import sistema.modelo.cliente.ModeloUsuario;
+
 
 public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 
@@ -177,6 +182,40 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 	public String[] obtenerServicios() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	//#---Solicitud(id_solicitud,nro_cliente,nro_plan INT UNSIGNED)
+	public List<Pair<String, String>> obtenerSolicitudes() {
+		List<Pair<String,String>> solicitudes = new ArrayList<Pair<String,String>>();
+		Pair<String, String> solicitud;
+		String sql = "SELECT * FROM Solicitud"; //obtengo todas las solicitudes
+		String sqlNombreCliente, sqlPlan, nombreCliente = "",planCliente = "";
+		ResultSet rs = this.consulta(sql);
+		ResultSet rsNombreCliente, rsPlan;
+		try {
+			while(rs.next()) {				
+				sqlNombreCliente = "SELECT nombre, apellido FROM Cliente WHERE nro_cliente = " + rs.getInt("nro_cliente");
+				rsNombreCliente = this.consulta(sqlNombreCliente);
+				if(rsNombreCliente.next()) {
+					nombreCliente = rsNombreCliente.getString("apellido")+", "+rsNombreCliente.getString("nombre");
+				}
+				
+				sqlPlan = "SELECT nombre FROM Plan WHERE nro_plan = "+rs.getInt("nro_plan");
+				rsPlan = this.consulta(sqlPlan);
+				if(rsPlan.next()) {
+					planCliente = rsPlan.getString("nombre");
+				}
+				
+				solicitud = new Pair<String,String>(nombreCliente,planCliente);
+				solicitudes.add(solicitud);
+			}
+			
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return solicitudes;
 	}
 	
 }

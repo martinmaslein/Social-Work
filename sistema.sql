@@ -105,6 +105,8 @@ CREATE USER 'empleado'@'%' IDENTIFIED BY 'empleado';
 GRANT SELECT ON sistema.empleado TO 'empleado'@'%';
 GRANT SELECT,UPDATE,INSERT ON sistema.empleado TO 'empleado'@'%'; 
 GRANT SELECT,UPDATE,INSERT ON sistema.cliente TO 'empleado'@'%';  
+GRANT SELECT,UPDATE,INSERT ON sistema.solicitud TO 'empleado'@'%';
+GRANT SELECT,UPDATE,INSERT ON sistema.Plan TO 'empleado'@'%';
 
 DROP USER 'cliente'@'%';
 CREATE USER 'cliente'@'%' IDENTIFIED BY 'cliente';
@@ -150,3 +152,8 @@ INSERT INTO Servicio_plan VALUES (3,3,2);
 
 #---Administrador (id,username,password)
 INSERT INTO Administrador VALUES (1,"admin",md5('admin'));
+
+#---Solicitud(id_solicitud,nro_cliente,nro_plan INT UNSIGNED)
+
+INSERT INTO Solicitud VALUES (1,1,1);
+INSERT INTO Solicitud VALUES (2,2,1);

@@ -1,5 +1,8 @@
 package sistema.controlador;
 
+import java.util.List;
+
+import javafx.util.Pair;
 import sistema.modelo.ModeloLogin;
 import sistema.modelo.ModeloLoginImpl;
 import sistema.modelo.cliente.ModeloUsuario;
@@ -46,6 +49,11 @@ public class ControladorEmpleadoImpl implements ControladorEmpleado {
 		VentanaLogin ventanaLogin = new VentanaLoginImpl();
 		@SuppressWarnings("unused")
 		ControladorLogin controlador = new ControladorLoginImpl(ventanaLogin, modeloLogin);
+	}
+
+	@Override
+	public List<Pair<String, String>> obtenerSolicitudes() {
+		return modelo.obtenerSolicitudes();
 	}
 
 }

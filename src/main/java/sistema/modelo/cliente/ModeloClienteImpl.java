@@ -5,7 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javafx.util.Pair;
 import sistema.modelo.ModeloImpl;
 import sistema.modelo.ModeloRegistro;
 import sistema.utilidades.CreatePdf;
@@ -408,6 +410,12 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
 	@Override
 	public String[] obtenerServicios() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Pair<String, String>> obtenerSolicitudes() {
 		// TODO Auto-generated method stub
 		return null;
 	}
