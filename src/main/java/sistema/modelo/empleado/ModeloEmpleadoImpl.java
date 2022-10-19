@@ -172,5 +172,11 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 	public boolean cargarPlan(String text, String text2, String text3) {
 		return true;
 	}
+
+	@Override
+	public boolean modificarPlanAdmin(int planID, String nuevoNombre, double nuevoReintegro, int nuevoPrecio) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

@@ -38,6 +38,8 @@ public interface ModeloUsuario extends Modelo {
 
 	public boolean modificarPlan(String dni, String plan)throws Exception;
 	
+	public boolean modificarPlanAdmin(int planID, String nuevoNombre, double nuevoReintegro, int nuevoPrecio)throws Exception;
+	
 	public boolean cargarPlan(String text, String text2, String text3);
 
 }

@@ -406,4 +406,10 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return true;
 	}
 
+	@Override
+	public boolean modificarPlanAdmin(int planID, String nuevoNombre, double nuevoReintegro, int nuevoPrecio) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -113,10 +113,6 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	@Override
-	/*
-	 * public boolean autenticarUsuarioAplicacion(String usuario, String contrasena)
-	 * { return this.nombreUsuario == usuario && this.contrasena == contrasena; }
-	 */
 	public boolean autenticarUsuarioAplicacion(String username, char[] password) throws Exception {
 		boolean salida;
 		try {
@@ -139,29 +135,14 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		return salida;
 	}
 
-	
-	// datos recibidos por parametro??
-	public boolean modificarPlan(String dni, String nombre) throws Exception{
-		
-		// nombre de plan, se cambia directo
-		// precio a pagar, es en funcion del reintegro? es una operacion?
-		// prestaciones, que mierda son?
-		
+	public boolean modificarPlanAdmin(int id, String nuevoNombre, int nuevoPrecio) throws Exception{
 		boolean salida;
-		String nombre_plan;
-	
 		
-		String sql = "SELECT * FROM plan WHERE nombre='"+ nombre +"'"; 
+		String sql = "UPDATE plan SET nombre = "+ nuevoNombre +", precio = "+ nuevoPrecio +""; 
 		ResultSet rs = this.consulta(sql);
-		if (rs.next()) {
-			salida = true;
-		} else 
-			salida = false;
-		
-		rs.close();
 		
 		
-	return salida;
+		return false;
 	}
 
 	public List<Pair<String, Integer>> obtenerPlanes() {
@@ -181,10 +162,6 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		}
 		
 		return planes;
-	}
-
-	public void generarCupon(int monto, int familiares) {
-
 	}
 
 	public boolean cargarPlan(String nombre, String precio, String prestaciones) {
@@ -224,5 +201,23 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 			} catch (SQLException e) { e.printStackTrace();}
 	
 		return true;
+	}
+
+	@Override
+	public void generarCupon(int monto, int familiares) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean modificarPlan(String dni, String plan) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean modificarPlanAdmin(int planID, String nuevoNombre, double nuevoReintegro, int nuevoPrecio) throws Exception {
+		
+		return false;
 	}
 }
