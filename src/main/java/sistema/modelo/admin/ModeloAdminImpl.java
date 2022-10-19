@@ -170,7 +170,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		else if(chequearNombre(nombre) == false) {return false;}
 		
 		else{ 
-
+			// Cargar Plan
 			String cantPlanes = "SELECT * FROM Plan;"; 
 			ResultSet rs = this.consulta(cantPlanes); 
 			int cant = 0; 
@@ -183,9 +183,60 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 			;
 			
 			this.actualizacion(sql);
+			
+			int cantServicio = cargarServicio(prestaciones);
+			
+			cargarServicioPlan(cant, cantServicio);
 	
 			return true;
 		}
+	}
+
+	private void cargarServicioPlan(int cantPlan, int cantServicio) {
+		
+		// Obtengo el id_servicio_plan inicial --> cant
+		String cantServicioPlan = "SELECT * FROM Servicio_Plan;"; 
+		ResultSet rs = this.consulta(cantServicioPlan); 
+		int cant = 0; 
+		try { while (rs.next()) cant++; } catch (SQLException e) { e.printStackTrace();}
+		cant += 1;		
+		
+		// Obtengo la cantidad de Servicios totales (para restarle el inicial)
+		String cantServicios = "SELECT * FROM Servicio;";
+		rs = this.consulta(cantServicios); 
+		int i = 0; 
+		try { while (rs.next()) i++; } catch (SQLException e) { e.printStackTrace();}
+		i += 1;
+		
+		for(int j = cantServicio; j < i; j++) {
+			
+			String sql = "INSERT INTO Servicio_plan (id_servicio_plan,nro_servicio, nro_plan) VALUES (" + j + " , " 
+					+ j + " , " + cantPlan +");";
+		
+			this.actualizacion(sql);
+		}
+		
+	}
+
+	private int cargarServicio(String prestaciones) {
+		
+		String lineas[] = prestaciones.split("\\r?\\n");
+		
+		String cantServicios = "SELECT * FROM Servicio;"; 
+		ResultSet rs = this.consulta(cantServicios); 
+		int cant = 0; 
+		try { while (rs.next()) cant++; } catch (SQLException e) { e.printStackTrace();}
+			
+		int aux = cant+1;
+		
+		for(int i = 0; i < lineas.length; i++) {
+			String sql = "INSERT INTO Servicio (nro_servicio,nombre) VALUES (" + aux + " , '" 
+						+ lineas[i] + "');";
+			
+			this.actualizacion(sql);
+			aux++;
+		}
+		return cant;
 	}
 
 	private boolean chequearNombre(String nombre2) {
@@ -219,6 +270,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	public boolean modificarPlanAdmin(int planID, String nuevoNombre, double nuevoReintegro, int nuevoPrecio) throws Exception {
 		
 		return false;
+	}
 	public String[] obtenerServicios() {
 
 		String[] servicios = new String[3];
