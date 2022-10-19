@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import sistema.modelo.ModeloImpl;
 import sistema.modelo.cliente.ModeloUsuario;
 import sistema.utilidades.Pair;
@@ -271,6 +270,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		
 		return false;
 	}
+	
 	public String[] obtenerServicios() {
 
 		String[] servicios = new String[3];
@@ -286,6 +286,12 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 			} catch (SQLException e) { e.printStackTrace();}
 		
 		return servicios;
+	}
+
+	@Override
+	public List<javafx.util.Pair<String, String>> obtenerSolicitudes() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

@@ -1,6 +1,9 @@
 package sistema.controlador;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+
+import javax.swing.ComboBoxModel;
 
 import sistema.modelo.cliente.DatosCliente;
 import sistema.utilidades.InvalidFormatException;
@@ -26,5 +29,7 @@ public interface ControladorCliente extends ControladorSistema {
 	public int obtenerPlan();
 
 	public boolean solicitarCambioPlan(int i);
+
+	public LinkedList<String> obtenerPlanes();
 
 }

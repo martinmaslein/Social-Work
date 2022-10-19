@@ -5,8 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import javafx.util.Pair;
 import sistema.modelo.ModeloImpl;
 import sistema.modelo.ModeloRegistro;
 
@@ -435,6 +438,12 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
 	@Override
 	public ArrayList<String> cargarClientesTabla() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Pair<String, String>> obtenerSolicitudes() {
 		// TODO Auto-generated method stub
 		return null;
 	}
