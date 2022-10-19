@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -58,6 +59,7 @@ public class PanelPagoCliente extends JPanel {
 			}
 		));
 		tabla.getColumnModel().getColumn(0).setMinWidth(3);
+		cargarClientes(tabla);
 		
 		btnPagoAprobado = new JButton("Pago aprobado");
 		btnPagoAprobado.addActionListener(new ActionListener() {
@@ -72,5 +74,20 @@ public class PanelPagoCliente extends JPanel {
 		btnPagoAprobado.setForeground(new Color(255, 255, 255));
 		btnPagoAprobado.setBackground(new Color(119, 193, 181));
 		add(btnPagoAprobado);
+	}
+
+	private void cargarClientes(JTable tabla2) {
+		
+		ArrayList<String> clientes = controlador.cargarClientesTabla();
+		System.out.println(clientes.size());
+		int i = 0;
+		
+		while(i < clientes.size()) {
+			System.out.println(clientes.get(i));
+			tabla2.setValueAt(clientes.get(i), i, i);
+			tabla2.setValueAt(clientes.get(i+1), i, i+1);
+			i += 2;
+		}	
+		
 	}
 }

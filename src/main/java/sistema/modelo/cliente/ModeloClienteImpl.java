@@ -249,6 +249,9 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
 			e.printStackTrace();
 		}
+		String query = "UPDATE Cliente SET " + "cupon = "+ 1 + " WHERE nombre = '"+ getNombre() + "';";
+		this.actualizacion(query);
+		
 	}
 
 	public String getPlan() {
@@ -408,6 +411,12 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
 	@Override
 	public String[] obtenerServicios() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<String> cargarClientesTabla() {
 		// TODO Auto-generated method stub
 		return null;
 	}
