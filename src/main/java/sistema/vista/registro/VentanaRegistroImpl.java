@@ -16,7 +16,10 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import java.awt.Color;
@@ -26,9 +29,10 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 
 	public VentanaRegistroImpl(JFrame anterior) {
 		setSize(new Dimension(700, 700));
-		this.inicializar();
 		this.anterior = anterior;
 		modeloRegistro = new ModeloRegistro();
+		this.inicializar();
+		
 	}
 
 	public void mostrarVentana(boolean m) throws Exception {
@@ -230,15 +234,19 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		btnVolver.setBounds(10, 11, 35, 31);
 		PanelRegistro.add(btnVolver);
 
-		comboPlan = new JComboBox<String>();
+		
+		Vector<String> vector = new Vector<String>(modeloRegistro.getPlanes());
+		DefaultComboBoxModel dcm = new DefaultComboBoxModel(vector);
+		comboPlan = new JComboBox<String>(dcm);
 		comboPlan.setBackground(new Color(255, 255, 255));
 		comboPlan.setForeground(new Color(0, 0, 0));
 		comboPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 11));
 		comboPlan.setBounds(146, 299, 46, 22);
 		comboPlan.setFocusable(false);
+		
 		PanelRegistro.add(comboPlan);
-		comboPlan.addItem("A");
-		comboPlan.addItem("B");
+		
+		
 
 		JLabel lblPlan = new JLabel("Plan");
 		lblPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 11));
@@ -252,6 +260,8 @@ public class VentanaRegistroImpl extends JFrame implements VentanaRegistro {
 		this.pack();
 		this.setVisible(true);
 	}
+
+	
 
 	public DatosCliente crearCliente() throws Exception {
 		DatosCliente nuevoCliente = new DatosCliente();

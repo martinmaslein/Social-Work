@@ -259,7 +259,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelPpal.setVisible(false);
-				panelSolicitudModificacionPlan = new PanelSolicitudModificarPlan();				
+				panelSolicitudModificacionPlan = new PanelSolicitudModificarPlan(controlador);				
 				frame.getContentPane().add(panelSolicitudModificacionPlan);
 				panelSolicitudModificacionPlan.setVisible(true);
 

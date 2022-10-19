@@ -1,5 +1,8 @@
 package sistema.modelo;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import sistema.modelo.cliente.DatosCliente;
@@ -87,6 +90,19 @@ public class ModeloRegistro extends ModeloImpl {
 		this.actualizacion(sql);
 		boolean salida = true;
 		return salida;
+	}
+	
+	public LinkedList<String> getPlanes() {
+		String sql = "SELECT * FROM Plan ORDER BY nombre ASC;";
+		ResultSet rs = this.consulta(sql);
+		LinkedList<String> planes= new LinkedList<String>();
+		try {
+			while(rs.next())
+				planes.addLast(rs.getString("nombre"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return  planes;
 	}
 
 }
