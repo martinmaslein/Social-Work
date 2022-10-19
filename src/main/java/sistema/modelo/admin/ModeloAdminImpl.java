@@ -163,6 +163,83 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		
 		return planes;
 	}
+	
+	public Pair<String, Integer> obtenerPlan(String id) {
+		Pair<String, Integer> plan = null;
+		
+		String sql = "SELECT nombre, precio FROM plan WHERE nombre='"+id+"';";
+		ResultSet rs = this.consulta(sql);
+		
+		try {
+			if(rs.next()) {
+				String n = rs.getString("nombre");
+				int p = rs.getInt("precio");
+				plan = new Pair<String,Integer>(n,p);
+				rs.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return plan;
+	}
+	
+	public String [][] obtenerPrestaciones(String string) {
+		int id;
+		String sql1 = "SELECT nro_plan FROM plan WHERE nombre='"+string+"'";
+		ResultSet rs1 = this.consulta(sql1);
+		try {
+			if(rs1.next()) {
+				id = rs1.getInt("nro_plan");
+				rs1.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<Integer> ids = new ArrayList<Integer>();
+		String sql2 = "SELECT nro_servicio FROM servicio_plan WHERE nro_plan=1";
+		ResultSet rs2 = this.consulta(sql2);
+		try {
+			while(rs2.next()) {
+				ids.add(rs2.getInt("nro_servicio"));
+			}
+			rs2.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		int j=0;
+		String data [][] = {{"",""},{"",""}};
+		for(int i : ids) {
+			String sql3 = "SELECT nombre FROM servicio WHERE nro_servicio='"+i+"'";
+			ResultSet rs3 = this.consulta(sql3);
+			try {
+				if(rs3.next()) {
+					String nombre = rs3.getString("nombre");
+					System.out.println("nombre : "+nombre);
+					data[j][0] = nombre;
+					j++;
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		System.out.println("asdsaddas");
+		for(int i=0; i<data.length;i++) {
+			for(int k=0;j<data.length;k++) {
+				System.out.println(data[i][k]);
+			}
+		}
+		System.out.println("asdsaddas");
+		
+		return data;
+	}
 
 	public boolean cargarPlan(String nombre, String precio, String prestaciones) {
 		 
@@ -219,6 +296,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	public boolean modificarPlanAdmin(int planID, String nuevoNombre, double nuevoReintegro, int nuevoPrecio) throws Exception {
 		
 		return false;
+	}
 	public String[] obtenerServicios() {
 
 		String[] servicios = new String[3];
@@ -241,4 +319,6 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 }
