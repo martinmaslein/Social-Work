@@ -243,4 +243,10 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		
 		return servicios;
 	}
+
+	@Override
+	public ArrayList<String> cargarClientesTabla() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

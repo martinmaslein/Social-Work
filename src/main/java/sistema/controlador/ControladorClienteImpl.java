@@ -9,6 +9,7 @@ import sistema.modelo.cliente.ModeloClienteImpl;
 import sistema.modelo.cliente.ModeloUsuario;
 import sistema.utilidades.InvalidFormatException;
 import sistema.vista.cliente.VentanaCliente;
+import sistema.vista.empleado.PanelPagoCliente;
 import sistema.vista.login.VentanaLogin;
 import sistema.vista.login.VentanaLoginImpl;
 
@@ -58,6 +59,7 @@ public class ControladorClienteImpl implements ControladorCliente {
 	
 	public void crearCupon(int monto, int familiares) {
 		modelo.generarCupon(monto, familiares);
+		
 	}
 
 	@Override
