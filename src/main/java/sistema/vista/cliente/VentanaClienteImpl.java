@@ -55,7 +55,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private JTextField tfContra;
 	private JButton btnModificar_1;
 	private JLabel lblNewLabel;
-	private JButton btnInscribirFamiliar;
+	private JButton btnMiPlanFamiliar;
 	private JTextField tfApellido;
 	private JLabel lblDireccion;
 	private JLabel lblMail;
@@ -81,9 +81,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	protected ModeloRegistro modeloRegistro;
 	private JButton btnObtenerTotalA;
 	private JLabel lblPlan;
-	
 
-	protected JComboBox<String> planComboBox; 
+	protected JComboBox<String> planComboBox;
 
 	public VentanaClienteImpl(String username, String password) {
 		inicializar();
@@ -91,7 +90,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		this.contraseña = password;
 		this.usuario = username;
 		modeloRegistro = new ModeloRegistro();
-		
+
 	}
 
 	private void inicializar() {
@@ -110,220 +109,15 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		this.frame.setJMenuBar(this.crearMenuOpciones());
 
 		this.crearPaneles();
-
-		lblNewLabel = new JLabel("Cliente");
-		lblNewLabel.setFont(new Font("Yu Gothic UI", Font.BOLD, 24));
-		lblNewLabel.setBounds(365, 30, 89, 23);
-		panelPpal.add(lblNewLabel);
-
-		btnInscribirFamiliar = new JButton("Inscribir Familiar");
-		btnInscribirFamiliar.setBorder(null);
-		btnInscribirFamiliar.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
-		btnInscribirFamiliar.setForeground(new Color(255, 255, 255));
-		btnInscribirFamiliar.setBackground(new Color(119, 193, 181));
-		btnInscribirFamiliar.setBounds(320, 127, 174, 23);
-		btnInscribirFamiliar.addActionListener(this.listenerFamiliar());
-		panelPpal.add(btnInscribirFamiliar);
-
-		JButton btnGenerarCupon = new JButton("Generar Cupon");
-		btnGenerarCupon.setForeground(Color.WHITE);
-		btnGenerarCupon.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
-		btnGenerarCupon.setBorder(null);
-		btnGenerarCupon.setBackground(new Color(119, 193, 181));
-		btnGenerarCupon.setBounds(320, 176, 174, 23);
-		btnGenerarCupon.addActionListener(listenerCupones());
-		panelPpal.add(btnGenerarCupon);
-
-		btnObtenerTotalA = new JButton("Obtener Total a Abonar");
-		btnObtenerTotalA.setForeground(Color.WHITE);
-		btnObtenerTotalA.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
-		btnObtenerTotalA.setBorder(null);
-		btnObtenerTotalA.setBackground(new Color(119, 193, 181));
-		btnObtenerTotalA.setBounds(321, 224, 174, 23);
-		btnObtenerTotalA.addActionListener(this.listenerAbonar());
-		panelPpal.add(btnObtenerTotalA);
-
-		panel_cupones = new JPanel();
-		panel_cupones.setBackground(new Color(224, 241, 238));
-		frame.getContentPane().add(panel_cupones, "name_316681242860700");
-		panel_cupones.setLayout(null);
-
-		JButton btnVolver3 = new JButton("");
-		btnVolver3.setBounds(10, 11, 35, 31);
-		btnVolver3.setIcon(new ImageIcon("img\\flechi.png"));
-		btnVolver3.setBorder(new EmptyBorder(0, 0, 0, 0));
-		btnVolver3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					panelPpal.setVisible(true);
-					panel_cupones.setVisible(false);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		panel_cupones.add(btnVolver3);
-
-		lblNewLabel_2 = new JLabel("Seleccione tipo de cupon");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_2.setBounds(61, 140, 259, 35);
-		panel_cupones.add(lblNewLabel_2);
-
-		lblNewLabel_1 = new JLabel("Cupones");
-		lblNewLabel_1.setBounds(369, 11, 118, 41);
-		lblNewLabel_1.setForeground(new Color(0, 0, 0));
-		lblNewLabel_1.setFont(new Font("Segoe UI Semibold", Font.BOLD, 30));
-		panel_cupones.add(lblNewLabel_1);
-
-		JComboBox<String> comboBoxCupones = new JComboBox<String>();
-		comboBoxCupones.setForeground(new Color(0, 0, 0));
-		comboBoxCupones.setModel(new DefaultComboBoxModel(new String[] { "Mensual", "Semestral", "Anual" }));
-		comboBoxCupones.setFont(new Font("Yu Gothic UI", Font.BOLD, 12));
-		comboBoxCupones.setBounds(307, 141, 129, 35);
-		panel_cupones.add(comboBoxCupones);
-
-		btnNewButton = new JButton("Aceptar");
-		btnNewButton.setBackground(new Color(119, 193, 181));
-		btnNewButton.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBounds(498, 141, 118, 35);
-		panel_cupones.add(btnNewButton);
-		btnNewButton.addActionListener(this.generarCupon());
+		this.crearBotonesPpal();
+		this.crearBotonesCupones();
 
 		this.registrarEventos();
 	}
 
-	private void iniciarCamposModificarDatos() {
-
-		tfDireccion = new JTextField(datos.getDireccion());
-		tfDireccion.setBorder(null);
-		tfDireccion.setColumns(10);
-		tfDireccion.setBounds(126, 194, 167, 20);
-		panelModificarDatos.add(tfDireccion);
-
-		tfMail = new JTextField(datos.getMail());
-		tfMail.setBorder(null);
-		tfMail.setColumns(10);
-		tfMail.setBounds(126, 251, 167, 20);
-		panelModificarDatos.add(tfMail);
-
-		tfTelefono = new JTextField(datos.getTelefono());
-		tfTelefono.setBorder(null);
-		tfTelefono.setColumns(10);
-		tfTelefono.setBounds(461, 36, 167, 20);
-		panelModificarDatos.add(tfTelefono);
-
-		tfFechaNacimiento = new JTextField(datos.getFechaNacimiento());
-		tfFechaNacimiento.setBorder(null);
-		tfFechaNacimiento.setColumns(10);
-		tfFechaNacimiento.setBounds(461, 93, 167, 20);
-		panelModificarDatos.add(tfFechaNacimiento);
-
-		tfNombreUsuario = new JTextField(datos.getNombreUsuario());
-		tfNombreUsuario.setBorder(null);
-		tfNombreUsuario.setColumns(10);
-		tfNombreUsuario.setBounds(461, 144, 167, 20);
-		panelModificarDatos.add(tfNombreUsuario);
-
-		tfNombre = new JTextField(datos.getNombre());
-		tfNombre.setBorder(null);
-		tfNombre.setBounds(126, 36, 167, 20);
-		panelModificarDatos.add(tfNombre);
-		tfNombre.setColumns(10);
-
-		tfApellido = new JTextField(datos.getApellido());
-		tfApellido.setBorder(null);
-		tfApellido.setBounds(126, 93, 167, 20);
-		panelModificarDatos.add(tfApellido);
-		tfApellido.setColumns(10);
-
-		tfContra = new JTextField(contraseña);
-		tfContra.setBorder(null);
-		tfContra.setColumns(10);
-		tfContra.setBounds(126, 144, 167, 20);
-		panelModificarDatos.add(tfContra);
-
-		tfDocumento = new JTextField(String.valueOf(datos.getNroDocumento()));
-		tfDocumento.setColumns(10);
-		tfDocumento.setBorder(null);
-		tfDocumento.setBounds(461, 195, 167, 20);
-		panelModificarDatos.add(tfDocumento);
-		
-		
-		Vector<String> vector = new Vector<String>(controlador.obtenerPlanes());
-		DefaultComboBoxModel dcm = new DefaultComboBoxModel(vector);
-		planComboBox = new JComboBox<String>(dcm);
-		planComboBox.setBounds(415, 251, 53, 23);
-		panelModificarDatos.add(planComboBox);
-		
-	}
-
-	private ActionListener listenerAbonar() {
-		return new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				int plan = controlador.obtenerPlan();
-				//int monto = controlador.obtenerTotalAbonar();
-				int monto = 0;
-				ArrayList<String> nombresFamiliares = controlador.obtenerNombreFamiliares();
-				int cant = nombresFamiliares.size();
-				String mensaje = "";
-				
-				if(plan == 1) 
-					monto = 5000;
-				else if(plan == 2) monto = 2500;
-				
-				for(int i = 0; i < cant; i++) {
-					mensaje += " "+nombresFamiliares.get(i)+ " = $"+monto+"\n";
-				}
-				mensaje += " Total = "+monto*cant;
-
-				JOptionPane.showMessageDialog(null, mensaje);
-
-			}
-		};
-	}
-
-	private ActionListener generarCupon() {
-		return new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				int monto = controlador.obtenerTotalAbonar();
-
-				int familiares = controlador.obtenerCantFamiliares();
-
-				controlador.crearCupon(monto, familiares);
-				JOptionPane.showMessageDialog(null, "Cupon creado correctamente.");
-
-			}
-		};
-	}
-
-	private AbstractButton getMenuItemCerrarSesion() {
-		return this.mntmCerrarSesion;
-	}
-
-	private AbstractButton getMenuItemSalir() {
-		return this.mntmSalir;
-	}
-
-	private void registrarEventos() {
-
-		this.getMenuItemCerrarSesion().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				controlador.cerrarSesion();
-			}
-		});
-
-		this.getMenuItemSalir().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				controlador.salirAplicacion();
-			}
-		});
-
-	}
-
 	private Component crearPaneles() {
+
+		// Creo los 3 paneles
 		panelPpal = new JPanel();
 		panelPpal.setBackground(new Color(224, 241, 238));
 		panelPpal.setLayout(null);
@@ -340,60 +134,52 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		panelFamiliar.setBackground(new Color(224, 241, 238));
 		frame.getContentPane().add(panelFamiliar);
 
-		campoNombre = new JTextField();
-		campoNombre.setBounds(236, 102, 191, 20);
-		panelFamiliar.add(campoNombre);
-		campoNombre.setColumns(10);
+		// Creo los botones
+		crearBotonesPanelFamiliar();
 
-		campoApellido = new JTextField();
-		campoApellido.setColumns(10);
-		campoApellido.setBounds(236, 146, 191, 20);
-		panelFamiliar.add(campoApellido);
+		crearBotonesModificarDatos();
 
-		campoFechaNac = new JTextField();
-		campoFechaNac.setColumns(10);
-		campoFechaNac.setBounds(236, 190, 191, 20);
-		panelFamiliar.add(campoFechaNac);
+		CrearBotonesVolver();
 
-		campodireccion = new JTextField();
-		campodireccion.setColumns(10);
-		campodireccion.setBounds(236, 236, 191, 20);
-		panelFamiliar.add(campodireccion);
+		return panelPpal;
+	}
 
-		campoTelefono = new JTextField();
-		campoTelefono.setColumns(10);
-		campoTelefono.setBounds(236, 281, 191, 20);
-		panelFamiliar.add(campoTelefono);
+	private void CrearBotonesVolver() {
+		JButton btnVolver = new JButton("");
+		btnVolver.setIcon(new ImageIcon("img\\flechi.png"));
+		btnVolver.setBorder(null);
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					panelPpal.setVisible(true);
+					panelFamiliar.setVisible(false);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnVolver.setBounds(10, 11, 35, 31);
+		panelFamiliar.add(btnVolver);
 
-		JLabel labelNombre = new JLabel("Nombre");
-		labelNombre.setBounds(137, 105, 69, 14);
-		panelFamiliar.add(labelNombre);
+		JButton btnVolver2 = new JButton("");
+		btnVolver2.setBounds(10, 11, 35, 31);
+		btnVolver2.setIcon(new ImageIcon("img\\flechi.png"));
+		btnVolver2.setBorder(new EmptyBorder(0, 0, 0, 0));
+		btnVolver2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					panelPpal.setVisible(true);
+					panelModificarDatos.setVisible(false);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		panelModificarDatos.add(btnVolver2);
 
-		JLabel labelApellido = new JLabel("Apellido");
-		labelApellido.setBounds(137, 149, 69, 14);
-		panelFamiliar.add(labelApellido);
+	}
 
-		JLabel labelFecha = new JLabel("Fecha nac");
-		labelFecha.setBounds(137, 193, 89, 14);
-		panelFamiliar.add(labelFecha);
-
-		JLabel labelDireccion = new JLabel("Direccion");
-		labelDireccion.setBounds(137, 239, 69, 14);
-		panelFamiliar.add(labelDireccion);
-
-		JLabel labelTelefono = new JLabel("Telefono");
-		labelTelefono.setBounds(137, 284, 89, 14);
-		panelFamiliar.add(labelTelefono);
-
-		JButton btnCargarFamiliar = new JButton("Cargar familiar");
-		btnCargarFamiliar.setBounds(236, 340, 131, 30);
-		panelFamiliar.add(btnCargarFamiliar);
-		btnCargarFamiliar.setBorder(null);
-		btnCargarFamiliar.setForeground(new Color(255, 255, 255));
-		btnCargarFamiliar.setBackground(new Color(119, 193, 181));
-		btnCargarFamiliar.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
-		btnCargarFamiliar.addActionListener(this.nuevoFamiliar());
-
+	private void crearBotonesModificarDatos() {
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
 		lblNombre.setBounds(36, 35, 98, 23);
@@ -458,6 +244,170 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		lblNroDoc.setBounds(370, 193, 98, 23);
 		panelModificarDatos.add(lblNroDoc);
 
+		lblPlan = new JLabel("Plan:");
+		lblPlan.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblPlan.setBounds(316, 250, 98, 23);
+		panelModificarDatos.add(lblPlan);
+
+		JButton btnSolicitudCambio = new JButton("Cambiar plan");
+		btnSolicitudCambio.setForeground(Color.WHITE);
+		btnSolicitudCambio.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
+		btnSolicitudCambio.setBorder(null);
+		btnSolicitudCambio.setBackground(new Color(32, 178, 170));
+		btnSolicitudCambio.setBounds(370, 284, 116, 23);
+		btnSolicitudCambio.addActionListener(this.solicitudCambiarPlan());
+
+		panelModificarDatos.add(btnSolicitudCambio);
+
+	}
+
+	private void crearBotonesPanelFamiliar() {
+		campoNombre = new JTextField();
+		campoNombre.setBounds(236, 102, 191, 20);
+		panelFamiliar.add(campoNombre);
+		campoNombre.setColumns(10);
+
+		campoApellido = new JTextField();
+		campoApellido.setColumns(10);
+		campoApellido.setBounds(236, 146, 191, 20);
+		panelFamiliar.add(campoApellido);
+
+		campoFechaNac = new JTextField();
+		campoFechaNac.setColumns(10);
+		campoFechaNac.setBounds(236, 190, 191, 20);
+		panelFamiliar.add(campoFechaNac);
+
+		campodireccion = new JTextField();
+		campodireccion.setColumns(10);
+		campodireccion.setBounds(236, 236, 191, 20);
+		panelFamiliar.add(campodireccion);
+
+		campoTelefono = new JTextField();
+		campoTelefono.setColumns(10);
+		campoTelefono.setBounds(236, 281, 191, 20);
+		panelFamiliar.add(campoTelefono);
+
+		JLabel labelNombre = new JLabel("Nombre");
+		labelNombre.setBounds(137, 105, 69, 14);
+		panelFamiliar.add(labelNombre);
+
+		JLabel labelApellido = new JLabel("Apellido");
+		labelApellido.setBounds(137, 149, 69, 14);
+		panelFamiliar.add(labelApellido);
+
+		JLabel labelFecha = new JLabel("Fecha nac");
+		labelFecha.setBounds(137, 193, 89, 14);
+		panelFamiliar.add(labelFecha);
+
+		JLabel labelDireccion = new JLabel("Direccion");
+		labelDireccion.setBounds(137, 239, 69, 14);
+		panelFamiliar.add(labelDireccion);
+
+		JLabel labelTelefono = new JLabel("Telefono");
+		labelTelefono.setBounds(137, 284, 89, 14);
+		panelFamiliar.add(labelTelefono);
+
+		JButton btnCargarFamiliar = new JButton("Cargar familiar");
+		btnCargarFamiliar.setBounds(236, 340, 131, 30);
+		panelFamiliar.add(btnCargarFamiliar);
+		btnCargarFamiliar.setBorder(null);
+		btnCargarFamiliar.setForeground(new Color(255, 255, 255));
+		btnCargarFamiliar.setBackground(new Color(119, 193, 181));
+		btnCargarFamiliar.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
+		btnCargarFamiliar.addActionListener(this.nuevoFamiliar());
+
+	}
+
+	private void crearBotonesCupones() {
+
+		panel_cupones = new JPanel();
+		panel_cupones.setBackground(new Color(224, 241, 238));
+		frame.getContentPane().add(panel_cupones, "name_316681242860700");
+		panel_cupones.setLayout(null);
+
+		JButton btnVolver3 = new JButton("");
+		btnVolver3.setBounds(10, 11, 35, 31);
+		btnVolver3.setIcon(new ImageIcon("img\\flechi.png"));
+		btnVolver3.setBorder(new EmptyBorder(0, 0, 0, 0));
+		btnVolver3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					panelPpal.setVisible(true);
+					panel_cupones.setVisible(false);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		panel_cupones.add(btnVolver3);
+
+		lblNewLabel_2 = new JLabel("Seleccione tipo de cupon");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_2.setBounds(61, 140, 259, 35);
+		panel_cupones.add(lblNewLabel_2);
+
+		lblNewLabel_1 = new JLabel("Cupones");
+		lblNewLabel_1.setBounds(369, 11, 118, 41);
+		lblNewLabel_1.setForeground(new Color(0, 0, 0));
+		lblNewLabel_1.setFont(new Font("Segoe UI Semibold", Font.BOLD, 30));
+		panel_cupones.add(lblNewLabel_1);
+
+		JComboBox<String> comboBoxCupones = new JComboBox<String>();
+		comboBoxCupones.setForeground(new Color(0, 0, 0));
+		comboBoxCupones.setModel(new DefaultComboBoxModel<String>(new String[] { "Mensual", "Semestral", "Anual" }));
+		comboBoxCupones.setFont(new Font("Yu Gothic UI", Font.BOLD, 12));
+		comboBoxCupones.setBounds(307, 141, 129, 35);
+		panel_cupones.add(comboBoxCupones);
+
+		btnNewButton = new JButton("Aceptar");
+		btnNewButton.setBackground(new Color(119, 193, 181));
+		btnNewButton.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBounds(498, 141, 118, 35);
+		panel_cupones.add(btnNewButton);
+		btnNewButton.addActionListener(this.generarCupon());
+
+	}
+
+	private void crearBotonesPpal() {
+		// Boton Cliente
+		lblNewLabel = new JLabel("Cliente");
+		lblNewLabel.setFont(new Font("Yu Gothic UI", Font.BOLD, 24));
+		lblNewLabel.setBounds(365, 30, 89, 23);
+		panelPpal.add(lblNewLabel);
+
+		// Boton Mi plan Familiar
+		btnMiPlanFamiliar = new JButton("Mi plan Familiar");
+		btnMiPlanFamiliar.setBorder(null);
+		btnMiPlanFamiliar.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnMiPlanFamiliar.setForeground(new Color(255, 255, 255));
+		btnMiPlanFamiliar.setBackground(new Color(119, 193, 181));
+		btnMiPlanFamiliar.setBounds(320, 127, 174, 23);
+		btnMiPlanFamiliar.addActionListener(this.listenerFamiliar());
+		panelPpal.add(btnMiPlanFamiliar);
+
+		// Boton Generar Cupon
+		JButton btnGenerarCupon = new JButton("Generar Cupon");
+		btnGenerarCupon.setForeground(Color.WHITE);
+		btnGenerarCupon.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnGenerarCupon.setBorder(null);
+		btnGenerarCupon.setBackground(new Color(119, 193, 181));
+		btnGenerarCupon.setBounds(320, 176, 174, 23);
+		btnGenerarCupon.addActionListener(listenerCupones());
+		panelPpal.add(btnGenerarCupon);
+
+		// Boton Obtener Total a Abonar
+		btnObtenerTotalA = new JButton("Obtener Total a Abonar");
+		btnObtenerTotalA.setForeground(Color.WHITE);
+		btnObtenerTotalA.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnObtenerTotalA.setBorder(null);
+		btnObtenerTotalA.setBackground(new Color(119, 193, 181));
+		btnObtenerTotalA.setBounds(321, 224, 174, 23);
+		btnObtenerTotalA.addActionListener(this.listenerAbonar());
+		panelPpal.add(btnObtenerTotalA);
+
+		// Boton modificar Datos
 		JButton btnModificarDatos = new JButton("Modificar Datos");
 		btnModificarDatos.setBorder(null);
 		btnModificarDatos.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
@@ -467,77 +417,136 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		panelPpal.add(btnModificarDatos);
 		btnModificarDatos.addActionListener(this.modificarDatosListener());
 
-		JButton btnVolver = new JButton("");
-		btnVolver.setIcon(new ImageIcon("img\\flechi.png"));
-		btnVolver.setBorder(null);
-		btnVolver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					panelPpal.setVisible(true);
-					panelFamiliar.setVisible(false);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		btnVolver.setBounds(10, 11, 35, 31);
-		panelFamiliar.add(btnVolver);
+	}
 
-		JButton btnVolver2 = new JButton("");
-		btnVolver2.setBounds(10, 11, 35, 31);
-		btnVolver2.setIcon(new ImageIcon("img\\flechi.png"));
-		btnVolver2.setBorder(new EmptyBorder(0, 0, 0, 0));
-		btnVolver2.addActionListener(new ActionListener() {
+	private void iniciarCamposModificarDatos() {
+
+		tfDireccion = new JTextField(datos.getDireccion());
+		tfDireccion.setBorder(null);
+		tfDireccion.setColumns(10);
+		tfDireccion.setBounds(126, 194, 167, 20);
+		panelModificarDatos.add(tfDireccion);
+
+		tfMail = new JTextField(datos.getMail());
+		tfMail.setBorder(null);
+		tfMail.setColumns(10);
+		tfMail.setBounds(126, 251, 167, 20);
+		panelModificarDatos.add(tfMail);
+
+		tfTelefono = new JTextField(datos.getTelefono());
+		tfTelefono.setBorder(null);
+		tfTelefono.setColumns(10);
+		tfTelefono.setBounds(461, 36, 167, 20);
+		panelModificarDatos.add(tfTelefono);
+
+		tfFechaNacimiento = new JTextField(datos.getFechaNacimiento());
+		tfFechaNacimiento.setBorder(null);
+		tfFechaNacimiento.setColumns(10);
+		tfFechaNacimiento.setBounds(461, 93, 167, 20);
+		panelModificarDatos.add(tfFechaNacimiento);
+
+		tfNombreUsuario = new JTextField(datos.getNombreUsuario());
+		tfNombreUsuario.setBorder(null);
+		tfNombreUsuario.setColumns(10);
+		tfNombreUsuario.setBounds(461, 144, 167, 20);
+		panelModificarDatos.add(tfNombreUsuario);
+
+		tfNombre = new JTextField(datos.getNombre());
+		tfNombre.setBorder(null);
+		tfNombre.setBounds(126, 36, 167, 20);
+		panelModificarDatos.add(tfNombre);
+		tfNombre.setColumns(10);
+
+		tfApellido = new JTextField(datos.getApellido());
+		tfApellido.setBorder(null);
+		tfApellido.setBounds(126, 93, 167, 20);
+		panelModificarDatos.add(tfApellido);
+		tfApellido.setColumns(10);
+
+		tfContra = new JTextField(contraseña);
+		tfContra.setBorder(null);
+		tfContra.setColumns(10);
+		tfContra.setBounds(126, 144, 167, 20);
+		panelModificarDatos.add(tfContra);
+
+		tfDocumento = new JTextField(String.valueOf(datos.getNroDocumento()));
+		tfDocumento.setColumns(10);
+		tfDocumento.setBorder(null);
+		tfDocumento.setBounds(461, 195, 167, 20);
+		panelModificarDatos.add(tfDocumento);
+
+		Vector<String> vector = new Vector<String>(controlador.obtenerPlanes());
+		DefaultComboBoxModel<String> dcm = new DefaultComboBoxModel<String>(vector);
+		planComboBox = new JComboBox<String>(dcm);
+		planComboBox.setBounds(415, 251, 53, 23);
+		panelModificarDatos.add(planComboBox);
+
+	}
+
+	private ActionListener listenerAbonar() {
+		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					panelPpal.setVisible(true);
-					panelModificarDatos.setVisible(false);
-				} catch (Exception e1) {
-					e1.printStackTrace();
+
+				int plan = controlador.obtenerPlan();
+				// int monto = controlador.obtenerTotalAbonar();
+				int monto = 0;
+				ArrayList<String> nombresFamiliares = controlador.obtenerNombreFamiliares();
+				int cant = nombresFamiliares.size();
+				String mensaje = "";
+
+				if (plan == 1)
+					monto = 5000;
+				else if (plan == 2)
+					monto = 2500;
+
+				for (int i = 0; i < cant; i++) {
+					mensaje += " " + nombresFamiliares.get(i) + " = $" + monto + "\n";
 				}
+				mensaje += " Total = " + monto * cant;
+
+				JOptionPane.showMessageDialog(null, mensaje);
+
+			}
+		};
+	}
+
+	private ActionListener generarCupon() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				int monto = controlador.obtenerTotalAbonar();
+
+				int familiares = controlador.obtenerCantFamiliares();
+
+				controlador.crearCupon(monto, familiares);
+				JOptionPane.showMessageDialog(null, "Cupon creado correctamente.");
+
+			}
+		};
+	}
+
+	private AbstractButton getMenuItemCerrarSesion() {
+		return this.mntmCerrarSesion;
+	}
+
+	private AbstractButton getMenuItemSalir() {
+		return this.mntmSalir;
+	}
+
+	private void registrarEventos() {
+
+		this.getMenuItemCerrarSesion().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controlador.cerrarSesion();
 			}
 		});
-		panelModificarDatos.add(btnVolver2);
-		
-	
-		
-		lblPlan = new JLabel("Plan:");
-		lblPlan.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
-		lblPlan.setBounds(316, 250, 98, 23);
-		panelModificarDatos.add(lblPlan);
-		
-		JButton btnSolicitudCambio = new JButton("Cambiar plan");
-		btnSolicitudCambio.setForeground(Color.WHITE);
-		btnSolicitudCambio.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
-		btnSolicitudCambio.setBorder(null);
-		btnSolicitudCambio.setBackground(new Color(32, 178, 170));
-		btnSolicitudCambio.setBounds(370, 284, 116, 23);
-		btnSolicitudCambio.addActionListener( 
-				new ActionListener(){
-					public void actionPerformed(ActionEvent e) {
-						String planActual=controlador.obtenerDatosCliente().getPlan();
-						if(planActual!=planComboBox.getSelectedItem()) {
-							//TODO ARREGLAR PARA QUE CONTROLE QUE SEA DISTINTO AL PLAN ACTUAL, NO ANDA
-							int select=JOptionPane.showConfirmDialog(panelModificarDatos,"¿desea enviar una solicitud para cambiarse al plan "+planComboBox.getSelectedItem()+"?","Solicitar cambio de plan" ,JOptionPane.CANCEL_OPTION);
-							System.out.println(select);
-	
-							if(select==JOptionPane.OK_OPTION) {
-								if(controlador.solicitarCambioPlan(planComboBox.getSelectedIndex()+1)) {
-									JOptionPane.showMessageDialog(panelModificarDatos, "se a enviado su solicitud correctamente. Queda a la espera de que un empleado apruebe el cambio");;
-								}
-							}
-						} else {
-							JOptionPane.showMessageDialog(panelModificarDatos, "ya posee el plan seleccionado");
-						}
-					}
-				}
-		);
-	
-				
-		panelModificarDatos.add(btnSolicitudCambio);
-;
-		return panelPpal;
+
+		this.getMenuItemSalir().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controlador.salirAplicacion();
+			}
+		});
+
 	}
 
 	private ActionListener nuevoFamiliar() {
@@ -610,6 +619,33 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		};
 	}
 
+	private ActionListener solicitudCambiarPlan() {
+
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String planActual = controlador.obtenerDatosCliente().getPlan();
+				if (planActual != planComboBox.getSelectedItem()) {
+					// TODO ARREGLAR PARA QUE CONTROLE QUE SEA DISTINTO AL PLAN ACTUAL, NO ANDA
+					int select = JOptionPane.showConfirmDialog(
+							panelModificarDatos, "¿desea enviar una solicitud para cambiarse al plan "
+									+ planComboBox.getSelectedItem() + "?",
+							"Solicitar cambio de plan", JOptionPane.CANCEL_OPTION);
+					System.out.println(select);
+
+					if (select == JOptionPane.OK_OPTION) {
+						if (controlador.solicitarCambioPlan(planComboBox.getSelectedIndex() + 1)) {
+							JOptionPane.showMessageDialog(panelModificarDatos,
+									"se a enviado su solicitud correctamente. Queda a la espera de que un empleado apruebe el cambio");
+							;
+						}
+					}
+				} else {
+					JOptionPane.showMessageDialog(panelModificarDatos, "ya posee el plan seleccionado");
+				}
+			}
+		};
+	}
+
 	protected ActionListener modificarDatos() {
 
 		return new ActionListener() {
@@ -620,12 +656,14 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 				try {
 					if (controlador.modificarDatos(nuevosDatos))
 						JOptionPane.showMessageDialog(null, "Datos modificados correctamente.");
-					else JOptionPane.showMessageDialog(null, 
-							"Ya existe otro cliente con alguno de los siguientes datos ingrseados: nombre de usuario, documento, email o telefono", 
-							"No se pudo modificar los datos",JOptionPane.ERROR_MESSAGE);
-				
+					else
+						JOptionPane.showMessageDialog(null,
+								"Ya existe otro cliente con alguno de los siguientes datos ingrseados: nombre de usuario, documento, email o telefono",
+								"No se pudo modificar los datos", JOptionPane.ERROR_MESSAGE);
+
 				} catch (InvalidFormatException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "No se pudo modificar los datos", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "No se pudo modificar los datos",
+							JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
@@ -693,7 +731,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	public void registrarControlador(ControladorCliente controlador) {
 
 		this.controlador = controlador;
-		datos=controlador.obtenerDatosCliente();
+		datos = controlador.obtenerDatosCliente();
 		iniciarCamposModificarDatos();
 	}
 }
