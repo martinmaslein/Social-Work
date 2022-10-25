@@ -8,16 +8,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import javax.swing.AbstractButton;
-import javax.swing.ComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
@@ -47,8 +41,6 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	protected JFrame frame;
 	protected CardLayout frameLayout;
 	protected JLabel lblCliente;
-	protected JMenuItem mntmCerrarSesion;
-	protected JMenuItem mntmSalir;
 
 	protected JPanel panelPpal, panelModificarDatos, panelFamiliar;
 	private JTextField tfNombre;
@@ -98,7 +90,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
 		this.frame = new JFrame();
 		this.frame.setTitle("Cliente");
-		this.frame.setBounds(100, 100, 852, 575);
+		this.frame.setBounds(100, 100, 727, 471);
 		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		this.frameLayout = new CardLayout();
@@ -107,41 +99,61 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		this.lblCliente = new JLabel();
 		this.lblCliente.setFont(new Font("Arial", Font.BOLD, 13));
 		this.lblCliente.setHorizontalAlignment(SwingConstants.LEFT);
-		this.frame.setJMenuBar(this.crearMenuOpciones());
 
 		this.crearPaneles();
 
 		lblNewLabel = new JLabel("Cliente");
-		lblNewLabel.setFont(new Font("Yu Gothic UI", Font.BOLD, 24));
-		lblNewLabel.setBounds(365, 30, 89, 23);
+		lblNewLabel.setFont(new Font("Yu Gothic UI", Font.BOLD, 30));
+		lblNewLabel.setBounds(315, 46, 145, 45);
 		panelPpal.add(lblNewLabel);
 
-		btnInscribirFamiliar = new JButton("Inscribir Familiar");
+		btnInscribirFamiliar = new JButton("Mi Plan Familiar");
 		btnInscribirFamiliar.setBorder(null);
-		btnInscribirFamiliar.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnInscribirFamiliar.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnInscribirFamiliar.setForeground(new Color(255, 255, 255));
 		btnInscribirFamiliar.setBackground(new Color(119, 193, 181));
-		btnInscribirFamiliar.setBounds(320, 127, 174, 23);
+		btnInscribirFamiliar.setBounds(290, 191, 174, 23);
 		btnInscribirFamiliar.addActionListener(this.listenerFamiliar());
 		panelPpal.add(btnInscribirFamiliar);
 
 		JButton btnGenerarCupon = new JButton("Generar Cupon");
 		btnGenerarCupon.setForeground(Color.WHITE);
-		btnGenerarCupon.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnGenerarCupon.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnGenerarCupon.setBorder(null);
 		btnGenerarCupon.setBackground(new Color(119, 193, 181));
-		btnGenerarCupon.setBounds(320, 176, 174, 23);
+		btnGenerarCupon.setBounds(290, 291, 174, 23);
 		btnGenerarCupon.addActionListener(listenerCupones());
 		panelPpal.add(btnGenerarCupon);
 
 		btnObtenerTotalA = new JButton("Obtener Total a Abonar");
 		btnObtenerTotalA.setForeground(Color.WHITE);
-		btnObtenerTotalA.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnObtenerTotalA.setFont(new Font("Yu Gothic UI", Font.BOLD, 16));
 		btnObtenerTotalA.setBorder(null);
 		btnObtenerTotalA.setBackground(new Color(119, 193, 181));
-		btnObtenerTotalA.setBounds(321, 224, 174, 23);
+		btnObtenerTotalA.setBounds(290, 337, 174, 23);
 		btnObtenerTotalA.addActionListener(this.listenerAbonar());
 		panelPpal.add(btnObtenerTotalA);
+		
+		JButton btnSolicitudes = new JButton("Mis Solicitudes");
+		btnSolicitudes.setForeground(Color.WHITE);
+		btnSolicitudes.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
+		btnSolicitudes.setBorder(null);
+		btnSolicitudes.setBackground(new Color(119, 193, 181));
+		btnSolicitudes.setBounds(290, 241, 174, 23);
+		panelPpal.add(btnSolicitudes);
+		
+		JButton btnCerrarSesion = new JButton("Cerrar Sesion");
+		btnCerrarSesion.setForeground(Color.WHITE);
+		btnCerrarSesion.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
+		btnCerrarSesion.setBorder(null);
+		btnCerrarSesion.setBackground(new Color(119, 193, 181));
+		btnCerrarSesion.setBounds(584, 11, 119, 23);
+		panelPpal.add(btnCerrarSesion);
+		btnCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controlador.cerrarSesion();
+			}
+		});
 
 		panel_cupones = new JPanel();
 		panel_cupones.setBackground(new Color(224, 241, 238));
@@ -170,7 +182,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		panel_cupones.add(lblNewLabel_2);
 
 		lblNewLabel_1 = new JLabel("Cupones");
-		lblNewLabel_1.setBounds(369, 11, 118, 41);
+		lblNewLabel_1.setBounds(307, 43, 118, 41);
 		lblNewLabel_1.setForeground(new Color(0, 0, 0));
 		lblNewLabel_1.setFont(new Font("Segoe UI Semibold", Font.BOLD, 30));
 		panel_cupones.add(lblNewLabel_1);
@@ -299,27 +311,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		};
 	}
 
-	private AbstractButton getMenuItemCerrarSesion() {
-		return this.mntmCerrarSesion;
-	}
-
-	private AbstractButton getMenuItemSalir() {
-		return this.mntmSalir;
-	}
-
 	private void registrarEventos() {
-
-		this.getMenuItemCerrarSesion().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				controlador.cerrarSesion();
-			}
-		});
-
-		this.getMenuItemSalir().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				controlador.salirAplicacion();
-			}
-		});
 
 	}
 
@@ -396,12 +388,12 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
-		lblNombre.setBounds(36, 35, 98, 23);
+		lblNombre.setBounds(22, 39, 98, 23);
 		panelModificarDatos.add(lblNombre);
 
 		JLabel lblContrasena = new JLabel("Contraseña:");
 		lblContrasena.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
-		lblContrasena.setBounds(36, 143, 98, 23);
+		lblContrasena.setBounds(22, 147, 98, 23);
 		panelModificarDatos.add(lblContrasena);
 
 		btnModificar_1 = new JButton("Modificar");
@@ -410,60 +402,68 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		btnModificar_1.setBackground(new Color(119, 193, 181));
 		btnModificar_1.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
 		btnModificar_1.addActionListener(this.modificarDatos());
-		btnModificar_1.setBounds(126, 323, 116, 23);
+		btnModificar_1.setBounds(550, 372, 116, 23);
 		panelModificarDatos.add(btnModificar_1);
 
 		JLabel lblApellido = new JLabel("Apellido:");
 		lblApellido.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
-		lblApellido.setBounds(36, 92, 98, 23);
+		lblApellido.setBounds(22, 96, 98, 23);
 		panelModificarDatos.add(lblApellido);
 
 		lblDireccion = new JLabel("Direccion:");
 		lblDireccion.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
-		lblDireccion.setBounds(36, 193, 98, 23);
+		lblDireccion.setBounds(22, 197, 98, 23);
 		panelModificarDatos.add(lblDireccion);
 
 		lblMail = new JLabel("Mail:");
 		lblMail.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
-		lblMail.setBounds(36, 250, 98, 23);
+		lblMail.setBounds(22, 254, 98, 23);
 		panelModificarDatos.add(lblMail);
 
 		lblTelefono = new JLabel("Telefono:");
 		lblTelefono.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
-		lblTelefono.setBounds(370, 35, 98, 23);
+		lblTelefono.setBounds(360, 39, 98, 23);
 		panelModificarDatos.add(lblTelefono);
 
 		lblFecha = new JLabel("Fecha");
 		lblFecha.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
-		lblFecha.setBounds(370, 78, 98, 23);
+		lblFecha.setBounds(360, 82, 98, 23);
 		panelModificarDatos.add(lblFecha);
 
 		lblNacimiento = new JLabel("Nacimiento:");
 		lblNacimiento.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
-		lblNacimiento.setBounds(370, 92, 98, 23);
+		lblNacimiento.setBounds(360, 96, 98, 23);
 		panelModificarDatos.add(lblNacimiento);
 
 		lblNombreUsuario = new JLabel("Nombre");
 		lblNombreUsuario.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
-		lblNombreUsuario.setBounds(370, 126, 98, 23);
+		lblNombreUsuario.setBounds(360, 130, 98, 23);
 		panelModificarDatos.add(lblNombreUsuario);
 
 		lblUsuario = new JLabel("usuario:");
 		lblUsuario.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
-		lblUsuario.setBounds(370, 143, 98, 23);
+		lblUsuario.setBounds(360, 147, 98, 23);
 		panelModificarDatos.add(lblUsuario);
 
 		lblNroDoc = new JLabel("Documento:");
 		lblNroDoc.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
-		lblNroDoc.setBounds(370, 193, 98, 23);
+		lblNroDoc.setBounds(360, 197, 98, 23);
 		panelModificarDatos.add(lblNroDoc);
 
-		JButton btnModificarDatos = new JButton("Modificar Datos");
+		JButton btnModificarDatos = new JButton("Mis Datos");
+		btnModificarDatos.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		btnModificarDatos.setBorder(null);
-		btnModificarDatos.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnModificarDatos.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnModificarDatos.setForeground(new Color(255, 255, 255));
 		btnModificarDatos.setBackground(new Color(119, 193, 181));
-		btnModificarDatos.setBounds(320, 76, 174, 23);
+		btnModificarDatos.setBounds(290, 140, 174, 23);
 		panelPpal.add(btnModificarDatos);
 		btnModificarDatos.addActionListener(this.modificarDatosListener());
 
@@ -504,7 +504,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		lblPlan = new JLabel("Plan:");
 		lblPlan.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
-		lblPlan.setBounds(316, 250, 98, 23);
+		lblPlan.setBounds(296, 254, 98, 23);
 		panelModificarDatos.add(lblPlan);
 		
 		JButton btnSolicitudCambio = new JButton("Cambiar plan");
@@ -512,7 +512,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		btnSolicitudCambio.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
 		btnSolicitudCambio.setBorder(null);
 		btnSolicitudCambio.setBackground(new Color(32, 178, 170));
-		btnSolicitudCambio.setBounds(370, 284, 116, 23);
+		btnSolicitudCambio.setBounds(360, 288, 116, 23);
 		btnSolicitudCambio.addActionListener( 
 				new ActionListener(){
 					public void actionPerformed(ActionEvent e) {
@@ -649,25 +649,6 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		};
 	}
 
-	private JMenuBar crearMenuOpciones() {
-		JMenuBar barraDeMenu = new JMenuBar();
-		JMenu menuOpciones = new JMenu("Menu");
-		menuOpciones.setForeground(new Color(0, 0, 0));
-		menuOpciones.setFont(new Font("Segoe UI", Font.BOLD, 17));
-		barraDeMenu.add(menuOpciones);
-
-		menuOpciones.add(new JSeparator());
-
-		this.mntmCerrarSesion = new JMenuItem("Cerrar Sesion");
-		this.mntmCerrarSesion.setFont(new Font("Segoe UI", Font.BOLD, 15));
-		menuOpciones.add(this.mntmCerrarSesion);
-
-		this.mntmSalir = new JMenuItem("Salir");
-		this.mntmSalir.setFont(new Font("Segoe UI", Font.BOLD, 15));
-		menuOpciones.add(this.mntmSalir);
-
-		return barraDeMenu;
-	}
 
 	public void mostrarPanel(String panel) {
 		this.frameLayout.show(this.frame.getContentPane(), panel);
