@@ -78,7 +78,6 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 	private ModeloAdminImpl modeloAdmin;
 	private JComboBox<String> comboBox;
 	private JScrollPane scrollPane_1;
-	private JTable table_1;
 
 	public VentanaAdminImpl() {
 		inicializar();
