@@ -2,6 +2,7 @@ package sistema.vista.cliente;
 
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,9 +18,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import sistema.controlador.ControladorCliente;
 import sistema.modelo.ModeloRegistro;
@@ -50,7 +54,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	protected JMenuItem mntmCerrarSesion;
 	protected JMenuItem mntmSalir;
 
-	protected JPanel panelPpal, panelModificarDatos, panelFamiliar;
+	protected JPanel panelPpal, panelModificarDatos, panelCargarFamiliar, panelABMfamilares;
 	private JTextField tfNombre;
 	private JTextField tfContra;
 	private JButton btnModificar_1;
@@ -83,7 +87,15 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private JLabel lblPlan;
 
 	protected JComboBox<String> planComboBox;
+	private JButton btnMisSolicitudes;
 
+	JScrollPane scrollPane;
+	private JLabel lblAcciones_1;
+	private JButton btnVerMas_1;
+	private JButton btnEliminar;
+	private JButton btnModificar;
+	private JButton btnAgregarFamiliar;
+	
 	public VentanaClienteImpl(String username, String password) {
 		inicializar();
 		this.frame.setVisible(true);
@@ -128,20 +140,78 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		panelModificarDatos.setLayout(null);
 		panelModificarDatos.setVisible(false);
 		frame.getContentPane().add(panelModificarDatos);
+		
+		panelABMfamilares = new JPanel();
+		panelABMfamilares.setLayout(null);
+		panelABMfamilares.setBackground(new Color(224, 241, 238));
+		frame.getContentPane().add(panelABMfamilares);
+		
 
-		panelFamiliar = new JPanel();
-		panelFamiliar.setLayout(null);
-		panelFamiliar.setBackground(new Color(224, 241, 238));
-		frame.getContentPane().add(panelFamiliar);
+
+		panelCargarFamiliar = new JPanel();
+		panelCargarFamiliar.setLayout(null);
+		panelCargarFamiliar.setBackground(new Color(224, 241, 238));
+		frame.getContentPane().add(panelCargarFamiliar);
 
 		// Creo los botones
-		crearBotonesPanelFamiliar();
+		craerBotonesPanelABMfamiliar();
+		
+		crearBotonesPanelCargarFamiliar();
 
 		crearBotonesModificarDatos();
 
 		CrearBotonesVolver();
 
 		return panelPpal;
+	}
+
+	private void craerBotonesPanelABMfamiliar() {
+		//Labels y Botones
+		JLabel lblFamiliares = new JLabel("Familiares");
+		lblFamiliares.setFont(new Font("Yu Gothic UI", Font.BOLD, 24));
+		lblFamiliares.setBounds(80, 66, 129, 23);
+		panelABMfamilares.add(lblFamiliares);
+		
+	    lblAcciones_1 = new JLabel("Familiares");
+	    lblAcciones_1.setFont(new Font("Yu Gothic UI", Font.BOLD, 24));
+	    lblAcciones_1.setBounds(618, 150, 129, 23);
+	    panelABMfamilares.add(lblAcciones_1);
+	    
+	    btnVerMas_1 = new JButton("Ver Mas");
+	    btnVerMas_1.setBounds(618, 209, 129, 34);
+	    panelABMfamilares.add(btnVerMas_1);
+	    
+	    btnEliminar = new JButton("Eliminar");
+	    btnEliminar.setBounds(618, 278, 129, 34);
+	    panelABMfamilares.add(btnEliminar);
+	    
+	    btnModificar = new JButton("Modificar");
+	    btnModificar.setBounds(618, 345, 129, 34);
+	    panelABMfamilares.add(btnModificar);
+	    
+	    btnAgregarFamiliar = new JButton("Agregar Familiar");
+	    btnAgregarFamiliar.setFont(new Font("Tahoma", Font.BOLD, 14));
+	    btnAgregarFamiliar.setBounds(604, 57, 155, 48);
+	    panelABMfamilares.add(btnAgregarFamiliar);
+		
+	    //ABM
+		scrollPane = new JScrollPane(); 
+		scrollPane.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
+		scrollPane.setBorder(null);
+		scrollPane.setBackground(new Color(224, 241, 238));
+		scrollPane.setMinimumSize(new Dimension(27, 27));
+		scrollPane.setBounds(33, 188, 488, 219);
+		panelABMfamilares.add(scrollPane);
+		
+		String columna [] = {"Nombre","DNI", "Pan"};
+		
+		String data[][] = {{"","",""},{"","",""},{"","",""},{"","",""},{"","",""}};
+		
+		DefaultTableModel tableModel = new DefaultTableModel(data,columna);
+	    final JTable table = new JTable(tableModel);
+	    table.setRowHeight(33);
+	    scrollPane.setViewportView(table);
+	
 	}
 
 	private void CrearBotonesVolver() {
@@ -152,14 +222,14 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					panelPpal.setVisible(true);
-					panelFamiliar.setVisible(false);
+					panelCargarFamiliar.setVisible(false);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
 		btnVolver.setBounds(10, 11, 35, 31);
-		panelFamiliar.add(btnVolver);
+		panelCargarFamiliar.add(btnVolver);
 
 		JButton btnVolver2 = new JButton("");
 		btnVolver2.setBounds(10, 11, 35, 31);
@@ -262,55 +332,55 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
 	}
 
-	private void crearBotonesPanelFamiliar() {
+	private void crearBotonesPanelCargarFamiliar() {
 		campoNombre = new JTextField();
 		campoNombre.setBounds(236, 102, 191, 20);
-		panelFamiliar.add(campoNombre);
+		panelCargarFamiliar.add(campoNombre);
 		campoNombre.setColumns(10);
 
 		campoApellido = new JTextField();
 		campoApellido.setColumns(10);
 		campoApellido.setBounds(236, 146, 191, 20);
-		panelFamiliar.add(campoApellido);
+		panelCargarFamiliar.add(campoApellido);
 
 		campoFechaNac = new JTextField();
 		campoFechaNac.setColumns(10);
 		campoFechaNac.setBounds(236, 190, 191, 20);
-		panelFamiliar.add(campoFechaNac);
+		panelCargarFamiliar.add(campoFechaNac);
 
 		campodireccion = new JTextField();
 		campodireccion.setColumns(10);
 		campodireccion.setBounds(236, 236, 191, 20);
-		panelFamiliar.add(campodireccion);
+		panelCargarFamiliar.add(campodireccion);
 
 		campoTelefono = new JTextField();
 		campoTelefono.setColumns(10);
 		campoTelefono.setBounds(236, 281, 191, 20);
-		panelFamiliar.add(campoTelefono);
+		panelCargarFamiliar.add(campoTelefono);
 
 		JLabel labelNombre = new JLabel("Nombre");
 		labelNombre.setBounds(137, 105, 69, 14);
-		panelFamiliar.add(labelNombre);
+		panelCargarFamiliar.add(labelNombre);
 
 		JLabel labelApellido = new JLabel("Apellido");
 		labelApellido.setBounds(137, 149, 69, 14);
-		panelFamiliar.add(labelApellido);
+		panelCargarFamiliar.add(labelApellido);
 
 		JLabel labelFecha = new JLabel("Fecha nac");
 		labelFecha.setBounds(137, 193, 89, 14);
-		panelFamiliar.add(labelFecha);
+		panelCargarFamiliar.add(labelFecha);
 
 		JLabel labelDireccion = new JLabel("Direccion");
 		labelDireccion.setBounds(137, 239, 69, 14);
-		panelFamiliar.add(labelDireccion);
+		panelCargarFamiliar.add(labelDireccion);
 
 		JLabel labelTelefono = new JLabel("Telefono");
 		labelTelefono.setBounds(137, 284, 89, 14);
-		panelFamiliar.add(labelTelefono);
+		panelCargarFamiliar.add(labelTelefono);
 
 		JButton btnCargarFamiliar = new JButton("Cargar familiar");
 		btnCargarFamiliar.setBounds(236, 340, 131, 30);
-		panelFamiliar.add(btnCargarFamiliar);
+		panelCargarFamiliar.add(btnCargarFamiliar);
 		btnCargarFamiliar.setBorder(null);
 		btnCargarFamiliar.setForeground(new Color(255, 255, 255));
 		btnCargarFamiliar.setBackground(new Color(119, 193, 181));
@@ -393,7 +463,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		btnGenerarCupon.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
 		btnGenerarCupon.setBorder(null);
 		btnGenerarCupon.setBackground(new Color(119, 193, 181));
-		btnGenerarCupon.setBounds(320, 176, 174, 23);
+		btnGenerarCupon.setBounds(319, 224, 174, 23);
 		btnGenerarCupon.addActionListener(listenerCupones());
 		panelPpal.add(btnGenerarCupon);
 
@@ -403,20 +473,28 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		btnObtenerTotalA.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
 		btnObtenerTotalA.setBorder(null);
 		btnObtenerTotalA.setBackground(new Color(119, 193, 181));
-		btnObtenerTotalA.setBounds(321, 224, 174, 23);
+		btnObtenerTotalA.setBounds(320, 272, 174, 23);
 		btnObtenerTotalA.addActionListener(this.listenerAbonar());
 		panelPpal.add(btnObtenerTotalA);
 
 		// Boton modificar Datos
-		JButton btnModificarDatos = new JButton("Modificar Datos");
-		btnModificarDatos.setBorder(null);
-		btnModificarDatos.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
-		btnModificarDatos.setForeground(new Color(255, 255, 255));
-		btnModificarDatos.setBackground(new Color(119, 193, 181));
-		btnModificarDatos.setBounds(320, 76, 174, 23);
-		panelPpal.add(btnModificarDatos);
-		btnModificarDatos.addActionListener(this.modificarDatosListener());
-
+		JButton btnMisDatos = new JButton("Mis Datos");
+		btnMisDatos.setBorder(null);
+		btnMisDatos.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnMisDatos.setForeground(new Color(255, 255, 255));
+		btnMisDatos.setBackground(new Color(119, 193, 181));
+		btnMisDatos.setBounds(320, 76, 174, 23);
+		btnMisDatos.addActionListener(this.modificarDatosListener());
+		panelPpal.add(btnMisDatos);
+		
+		btnMisSolicitudes = new JButton("Mis Solicitudes");
+		btnMisSolicitudes.setForeground(Color.WHITE);
+		btnMisSolicitudes.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnMisSolicitudes.setBorder(null);
+		btnMisSolicitudes.setBackground(new Color(119, 193, 181));
+		btnMisSolicitudes.setBounds(320, 173, 174, 23);
+		panelPpal.add(btnMisSolicitudes);
+		
 	}
 
 	private void iniciarCamposModificarDatos() {
@@ -604,7 +682,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelPpal.setVisible(false);
-				panelFamiliar.setVisible(true);
+				panelABMfamilares.setVisible(true);
 			}
 		};
 	}
