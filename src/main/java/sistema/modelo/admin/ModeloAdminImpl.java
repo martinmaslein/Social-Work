@@ -140,18 +140,17 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		String sql = "UPDATE plan SET nombre = "+ nuevoNombre +", precio = "+ nuevoPrecio +""; 
 		ResultSet rs = this.consulta(sql);
 		
-		
 		return false;
 	}
 
 	public List<Pair<String, Integer>> obtenerPlanes() {
 		List<Pair<String,Integer>> planes = new ArrayList<Pair<String,Integer>>();
 		Pair<String, Integer> plan;
-		String sql = "SELECT nombre, reintegro FROM plan"; 
+		String sql = "SELECT nombre, precio FROM plan"; 
 		ResultSet rs = this.consulta(sql);
 		try {
 			while(rs.next()) {
-				plan = new Pair<String,Integer>(rs.getString("Nombre"), rs.getInt("Reintegro"));
+				plan = new Pair<String,Integer>(rs.getString("Nombre"), rs.getInt("Precio"));
 				planes.add(plan);
 			}
 			
@@ -161,6 +160,30 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		}
 		
 		return planes;
+	}
+	
+	public boolean eliminarPlan(Pair<String, Integer> plan) {
+		boolean salida = false;
+		String sql = "SELECT nro_plan FROM plan WHERE nombre='"+plan.getNombre()+"';";
+		ResultSet rs = this.consulta(sql);
+		int id = 500;
+		try {
+			if (rs.next()) {
+				id = rs.getInt("nro_plan");
+			}
+			rs.close();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		System.out.println("id = "+id);
+
+		String sql2= "DELETE FROM plan WHERE nro_plan='"+id+"'";
+		System.out.println(sql2);
+		ResultSet rs2 = this.consulta(sql);
+		
+		System.out.println("salida = "+salida);
+		return salida;
 	}
 	
 	public Pair<String, Integer> obtenerPlan(String id) {
@@ -208,8 +231,6 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
 		
 		int j=0;
 		String data [][] = {{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""}};

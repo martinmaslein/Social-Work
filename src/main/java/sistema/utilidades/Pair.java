@@ -4,26 +4,26 @@ package sistema.utilidades;
 public class Pair<String,Integer> {
 	
 	private String nombre;
-	private int reintegro;
+	private int precio;
 	
 	public Pair(String n, int r) {
 		nombre = n;
-		reintegro = r;
+		precio = r;
 	}
 	
 	public void setNombre(String name) {
 		nombre = name;
 	}
 	
-	public void setReintegro(int reint) {
-		reintegro = reint;
+	public void setPrecio(int reint) {
+		precio = reint;
 	}
 	
 	public String getNombre() {
 		return nombre;
 	}
 	
-	public int getReintegro() {
-		return reintegro;
+	public int getPrecio() {
+		return precio;
 	}
 }

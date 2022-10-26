@@ -134,7 +134,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		txtPlanes.setBackground(new Color(173, 218, 209));
 		txtPlanes.setFont(new Font("Yu Gothic UI", Font.BOLD, 25));
 		txtPlanes.setText("Planes");
-		txtPlanes.setBounds(122, 25, 128, 60);
+		txtPlanes.setBounds(172, 25, 128, 60);
 		panelAdministrarPlanes.add(txtPlanes);
 		txtPlanes.setColumns(10);
 		
@@ -181,7 +181,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		scrollPane.setBorder(null);
 		scrollPane.setBackground(new Color(224, 241, 238));
 		scrollPane.setMinimumSize(new Dimension(27, 27));
-		scrollPane.setBounds(102, 210, 421, 219);
+		scrollPane.setBounds(45, 140, 478, 289);
 		panelAdministrarPlanes.add(scrollPane);
 		
 		String borrar[][] = {{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""}};
@@ -205,7 +205,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		
 		List<Pair<String,Integer>> planes = modeloAdmin.obtenerPlanes();
 		
-		String columna [] = {"Nombre","Monto"};
+		String columna [] = {"Nombre","Precio"};
 		
 		String data[][] = {{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""}};
 		
@@ -213,11 +213,11 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		for(Pair<String,Integer> plan : planes) {
 			
 			String nombre = plan.getNombre();
-	    	int reintegro = plan.getReintegro();
-	    	String reintegro2 = reintegro+"";
+	    	int precio = plan.getPrecio();
+	    	String precio2 = precio+"";
 	    	
 			data[i][0] = nombre;
-			data[i][1] = reintegro2;
+			data[i][1] = precio2;
 			
 			i = i+1;
 		}
@@ -258,7 +258,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
                 if(plan != null) {
                 	
                     textField_2.setText(plan.getNombre());
-                    textField_3.setText(plan.getReintegro()+"");
+                    textField_3.setText(plan.getPrecio()+"");
                     
                     String [][] data = modeloAdmin.obtenerPrestaciones(selectedObject.toString());
                     String [] pres = {"Prestaciones"};
@@ -287,6 +287,15 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		btnEliminar.setBorder(null);
 		btnEliminar.setBackground(new Color(119, 193, 181));
 		btnEliminar.setBounds(582, 228, 129, 37);
+		btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() { 
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+				int row = table.rowAtPoint(evt.getPoint());
+				int col = table.columnAtPoint(evt.getPoint());
+				Object selectedObject = (Object) table.getModel().getValueAt(row, col);
+				Pair<String,Integer> plan = modeloAdmin.obtenerPlan(selectedObject.toString());
+				modeloAdmin.eliminarPlan(plan);
+			}
+		});
 		panelAdministrarPlanes.add(btnEliminar);
 		
 		panelNuevoPlan = new JPanel();
