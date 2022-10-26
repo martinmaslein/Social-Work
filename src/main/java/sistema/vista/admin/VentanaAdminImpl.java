@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.AbstractButton;
@@ -32,7 +31,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Dimension;
 import javax.swing.JScrollPane;
-import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 
 public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
@@ -46,11 +44,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 	protected JMenuItem mntmSalir;
 	protected ControladorAdmin controlador;
 	private JTextField txtPlanes;
-	private JTextField txtNombre;
-	private JTextField txtPrecio;
 	private JTextField txtAcciones;
-	private JTable table;
-	private JTable table_1;
 	protected JPanel panelPpal, panelAdministrarPlanes;
 	private JButton btnNewButton_1;
 	private JPanel panelNuevoPlan;
@@ -60,7 +54,6 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 	private JTextField txtPrestaciones;
 	private JTextField textFieldNombre;
 	private JTextField textFieldPrecio;
-	private JTextField textFieldPrestaciones;
 	private JTextArea textAreaPresataciones;
 	private JButton btnNewButton_2;
 	private JPanel panelModificarPlan;
@@ -72,13 +65,14 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 	private JTextField textField_5;
 	private JButton btnConfirmar;
 	private JButton btnModificarPlan;
-	private JButton btnEditar;
 	private JButton btnEliminar;
 	private JScrollPane scrollPane;
-	private ModeloAdminImpl modeloAdmin;
-	private JComboBox<String> comboBox;
 	private JScrollPane scrollPane_1;
+	private ModeloAdminImpl modeloAdmin;
 	private JTable table_1;
+	private JTable table;
+	private DefaultTableModel tableModeloPrestaciones;
+	private DefaultTableModel tableModel;
 
 	public VentanaAdminImpl() {
 		inicializar();
@@ -119,7 +113,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		txtPlanes.setBackground(new Color(173, 218, 209));
 		txtPlanes.setFont(new Font("Yu Gothic UI", Font.BOLD, 25));
 		txtPlanes.setText("Planes");
-		txtPlanes.setBounds(47, 25, 128, 60);
+		txtPlanes.setBounds(122, 25, 128, 60);
 		panelAdministrarPlanes.add(txtPlanes);
 		txtPlanes.setColumns(10);
 		
@@ -147,32 +141,19 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		panelAdministrarPlanes.add(btnAgregarPlan);
 		btnAgregarPlan.addActionListener(CambiarPanel());
 		
-		txtNombre = new JTextField();
-		txtNombre.setBorder(null);
-		txtNombre.setBackground(new Color(224, 241, 238));
-		txtNombre.setFont(new Font("Yu Gothic UI", Font.BOLD, 20));
-		txtNombre.setText("Nombre");
-		txtNombre.setBounds(144, 150, 115, 33);
-		panelAdministrarPlanes.add(txtNombre);
-		txtNombre.setColumns(10);
-		
-		txtPrecio = new JTextField();
-		txtPrecio.setBorder(null);
-		txtPrecio.setText("Precio");
-		txtPrecio.setFont(new Font("Yu Gothic UI", Font.BOLD, 20));
-		txtPrecio.setColumns(10);
-		txtPrecio.setBackground(new Color(224, 241, 238));
-		txtPrecio.setBounds(364, 150, 115, 33);
-		panelAdministrarPlanes.add(txtPrecio);
-		
 		txtAcciones = new JTextField();
 		txtAcciones.setBorder(null);
 		txtAcciones.setText("Acciones");
 		txtAcciones.setFont(new Font("Yu Gothic UI", Font.BOLD, 20));
 		txtAcciones.setColumns(10);
 		txtAcciones.setBackground(new Color(224, 241, 238));
-		txtAcciones.setBounds(584, 150, 115, 33);
+		txtAcciones.setBounds(607, 184, 115, 33);
 		panelAdministrarPlanes.add(txtAcciones);
+		
+		panelModificarPlan = new JPanel();
+		panelModificarPlan.setBackground(new Color(224, 241, 238));
+		frame.getContentPane().add(panelModificarPlan, "name_66965023197000");
+		panelModificarPlan.setLayout(null);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
@@ -182,24 +163,30 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		scrollPane.setBounds(102, 210, 421, 219);
 		panelAdministrarPlanes.add(scrollPane);
 		
-		panelModificarPlan = new JPanel();
-		panelModificarPlan.setBackground(new Color(224, 241, 238));
-		frame.getContentPane().add(panelModificarPlan, "name_66965023197000");
-		panelModificarPlan.setLayout(null);
-		
-		final JScrollPane scrollPane_1 = new JScrollPane();
+		String borrar[][] = {{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""}};
+		String [] pres = {"Prestaciones"};
+				
+		tableModeloPrestaciones = new DefaultTableModel(borrar,pres);
+	    table_1 = new JTable(tableModeloPrestaciones);
+	    table_1.setRowHeight(25);
+	    
+		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setMinimumSize(new Dimension(27, 27));
 		scrollPane_1.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
 		scrollPane_1.setBorder(null);
 		scrollPane_1.setBackground(new Color(224, 241, 238));
 		scrollPane_1.setBounds(351, 251, 323, 124);
-		panelModificarPlan.add(scrollPane_1);
+		scrollPane_1.setViewportView(table_1);
+		panelModificarPlan.add(scrollPane_1);       
+		
+		
+		tableModeloPrestaciones = new DefaultTableModel(borrar,pres);
 		
 		List<Pair<String,Integer>> planes = modeloAdmin.obtenerPlanes();
 		
-		String columna [] = {"Nombre","Reintegro"};
+		String columna [] = {"Nombre","Monto"};
 		
-		String data[][] = {{"",""},{"",""},{"",""},{"",""},{"",""}};
+		String data[][] = {{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""}};
 		
 		int i=0;
 		for(Pair<String,Integer> plan : planes) {
@@ -214,16 +201,17 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 			i = i+1;
 		}
 				
-		DefaultTableModel tableModel = new DefaultTableModel(data,columna);
-	    final JTable table = new JTable(tableModel);
+		tableModel = new DefaultTableModel(data,columna);
+	    table = new JTable(tableModel);
+	    table.setRowSelectionAllowed(false);
 	    table.setRowHeight(33);
 	    scrollPane.setViewportView(table);		
 	 	    
-		btnModificarPlan = new JButton("Modificar Plan");
+		btnModificarPlan = new JButton("Modificar");
 		btnModificarPlan.setForeground(Color.WHITE);
 		btnModificarPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 17));
 		btnModificarPlan.setBackground(new Color(119, 193, 181));
-		btnModificarPlan.setBounds(264, 42, 214, 33);
+		btnModificarPlan.setBounds(582, 276, 129, 37);
 		panelAdministrarPlanes.add(btnModificarPlan);
 		btnModificarPlan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
@@ -237,31 +225,31 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		});
 		
 		
-		final JTable table_1 = new JTable();
-		DefaultTableModel tableModeloPrestaciones = new DefaultTableModel();
-		
 		table.addMouseListener(new java.awt.event.MouseAdapter() { 
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                int selectedRowIndex = table.getSelectedRow();
-                int selectedColumnIndex = table.getSelectedColumn();
-                final Object selectedObject = (Object) table.getModel().getValueAt(selectedRowIndex, selectedColumnIndex);
-                
-                Pair<String,Integer> plan = modeloAdmin.obtenerPlan(selectedObject.toString());
-                textField_2.setText(plan.getNombre());
-                textField_3.setText(plan.getReintegro()+"");
-                
-                String [][] data = modeloAdmin.obtenerPrestaciones(selectedObject.toString());     
-                String [] pres = {"Prestaciones"};
-                
-                DefaultTableModel tableModeloPrestaciones = new DefaultTableModel(data,pres);
-        	    final JTable table_1 = new JTable(tableModeloPrestaciones);
-        	    table_1.setRowHeight(33);
-        	    scrollPane_1.setViewportView(table_1);
-            }
+        		
+        		int row = table.rowAtPoint(evt.getPoint());
+                int col = table.columnAtPoint(evt.getPoint());
 
+                Object selectedObject = (Object) table.getModel().getValueAt(row, col);
+                Pair<String,Integer> plan = modeloAdmin.obtenerPlan(selectedObject.toString());
+                
+                if(plan != null) {
+                	
+                    textField_2.setText(plan.getNombre());
+                    textField_3.setText(plan.getReintegro()+"");
+                    
+                    String [][] data = modeloAdmin.obtenerPrestaciones(selectedObject.toString());
+                    String [] pres = {"Prestaciones"};
+                    
+                    DefaultTableModel tableModeloPrestacioness = new DefaultTableModel(data,pres);
+            	    JTable table_12 = new JTable(tableModeloPrestacioness);
+            	    table_12.setRowHeight(25);
+            	    scrollPane_1.setViewportView(table_12);
+                }         
+            }
         });
-		
-		
+			
 		btnNewButton_1 = new JButton("");
 		btnNewButton_1.setBackground(new Color(173, 218, 209));
 		btnNewButton_1.setFocusPainted(false);
@@ -272,20 +260,12 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		btnNewButton_1.setBounds(0, 0, 838, 114);
 		panelAdministrarPlanes.add(btnNewButton_1);
 		
-		btnEditar = new JButton("Editar");
-		btnEditar.setForeground(Color.WHITE);
-		btnEditar.setFont(new Font("Yu Gothic UI", Font.BOLD, 17));
-		btnEditar.setBorder(null);
-		btnEditar.setBackground(new Color(119, 193, 181));
-		btnEditar.setBounds(568, 210, 119, 37);
-		panelAdministrarPlanes.add(btnEditar);
-		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setFont(new Font("Yu Gothic UI", Font.BOLD, 17));
 		btnEliminar.setBorder(null);
 		btnEliminar.setBackground(new Color(119, 193, 181));
-		btnEliminar.setBounds(568, 274, 119, 37);
+		btnEliminar.setBounds(582, 228, 129, 37);
 		panelAdministrarPlanes.add(btnEliminar);
 		
 		panelNuevoPlan = new JPanel();
@@ -369,11 +349,6 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		textAreaPresataciones = new JTextArea();
 		textAreaPresataciones.setBounds(416, 300, 217, 115);
 		panelNuevoPlan.add(textAreaPresataciones);
-				
-		panelModificarPlan = new JPanel();
-		panelModificarPlan.setBackground(new Color(224, 241, 238));
-		frame.getContentPane().add(panelModificarPlan, "name_66965023197000");
-		panelModificarPlan.setLayout(null);
 		
 		JButton btnVolver3 = new JButton("");
 		btnVolver3.setBounds(10, 11, 35, 31);
@@ -388,20 +363,14 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 					textField_2.setText("");
 					textField_3.setText("");
 					
-					
-					
-					String borrar[][] = {{"",""},{"",""},{"",""},{"",""},{"",""}};
-					final JScrollPane scrollPane_1 = new JScrollPane();
-					scrollPane_1.setMinimumSize(new Dimension(27, 27));
-					scrollPane_1.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
-					scrollPane_1.setBorder(null);
-					scrollPane_1.setBackground(new Color(224, 241, 238));
-					scrollPane_1.setBounds(351, 251, 323, 124);
-					panelModificarPlan.add(scrollPane_1);
-					DefaultTableModel tableModeloPrestacioness = new DefaultTableModel(borrar,new String[] {"Presentaciones"});
-	        	    final JTable table_1 = new JTable(tableModeloPrestacioness);
-	        	    panelModificarPlan.add(table_1);
-					
+					String borrar[][] = {{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""}};
+					String [] pres = {"Prestaciones"};
+							
+	        		tableModeloPrestaciones = new DefaultTableModel(borrar,pres);
+	        	    table_1 = new JTable(tableModeloPrestaciones);
+	        	    table_1.setRowHeight(25);
+	        	    scrollPane_1.setViewportView(table_1);
+
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -427,13 +396,13 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		textField_1.setBounds(108, 119, 173, 43);
 		panelModificarPlan.add(textField_1);
 		
-		textField_2 = new JTextField();
+		textField_2 = new JTextField("");
 		textField_2.setColumns(10);
 		textField_2.setBorder(null);
 		textField_2.setBounds(402, 127, 214, 37);
 		panelModificarPlan.add(textField_2);
 		
-		textField_3 = new JTextField();
+		textField_3 = new JTextField("");
 		textField_3.setColumns(10);
 		textField_3.setBorder(null);
 		textField_3.setBounds(402, 203, 214, 37);
@@ -464,6 +433,10 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		btnConfirmar.setBackground(new Color(119, 193, 181));
 		btnConfirmar.setBounds(453, 408, 119, 37);
 		panelModificarPlan.add(btnConfirmar);
+		table_1 = new JTable(tableModeloPrestaciones);
+		table_1.setBounds(351, 276, 304, 99);
+		panelModificarPlan.add(table_1);
+		table_1.setRowHeight(25);
 
 		this.registrarEventos();
 	}

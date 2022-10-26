@@ -185,7 +185,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	}
 	
 	public String [][] obtenerPrestaciones(String string) {
-		int id;
+		int id = 0;
 		String sql1 = "SELECT nro_plan FROM plan WHERE nombre='"+string+"'";
 		ResultSet rs1 = this.consulta(sql1);
 		try {
@@ -198,7 +198,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		}
 		
 		ArrayList<Integer> ids = new ArrayList<Integer>();
-		String sql2 = "SELECT nro_servicio FROM servicio_plan WHERE nro_plan=1";
+		String sql2 = "SELECT nro_servicio FROM servicio_plan WHERE nro_plan='"+id+"'";
 		ResultSet rs2 = this.consulta(sql2);
 		try {
 			while(rs2.next()) {
@@ -212,14 +212,13 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		
 		
 		int j=0;
-		String data [][] = {{"",""},{"",""}};
+		String data [][] = {{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""}};
 		for(int i : ids) {
 			String sql3 = "SELECT nombre FROM servicio WHERE nro_servicio='"+i+"'";
 			ResultSet rs3 = this.consulta(sql3);
 			try {
 				if(rs3.next()) {
 					String nombre = rs3.getString("nombre");
-					System.out.println("nombre : "+nombre);
 					data[j][0] = nombre;
 					j++;
 				}
@@ -228,14 +227,6 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 				e.printStackTrace();
 			}
 		}
-		
-		System.out.println("asdsaddas");
-		for(int i=0; i<data.length;i++) {
-			for(int k=0;j<data.length;k++) {
-				System.out.println(data[i][k]);
-			}
-		}
-		System.out.println("asdsaddas");
 		
 		return data;
 	}
