@@ -40,4 +40,6 @@ public interface ControladorCliente extends ControladorSistema {
 	
 	public ArrayList<ArrayList<String>> obtenerSolicitudesABM();
 
+	public void modificarDatosFamiliar(ArrayList<String> datosNuevos);
+
 }

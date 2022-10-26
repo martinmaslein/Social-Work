@@ -118,7 +118,13 @@ public class ControladorClienteImpl implements ControladorCliente {
 	}
 
 	@Override
+
 	public ArrayList<ArrayList<String>> obtenerSolicitudesABM() {		
 		return modelo.obtenerSolicitudesABM();
+	}
+
+	public void modificarDatosFamiliar(ArrayList<String> datosNuevos) {
+		modelo.modificarDatos(datosNuevos);
+		
 	}
 }

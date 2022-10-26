@@ -556,4 +556,43 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return solicitudes;
 	}
 
+	public void modificarDatos(ArrayList<String> datosNuevos) {
+	
+		String sql1 = "SELECT * FROM Familiar WHERE nombre= '"+datosNuevos.get(0)+"';";
+		ResultSet rs = this.consulta(sql1);
+		String dni = "";
+		
+		ArrayList<String> datos = new ArrayList<String>();
+		
+		try {
+			if (rs.next()) {
+
+					dni += rs.getString("dni");
+				
+					if(datosNuevos.get(1) != "")
+						datos.add(datosNuevos.get(1));
+					else datos.add(rs.getString("nombre"));
+					
+					if(datosNuevos.get(2) != "")
+						datos.add(datosNuevos.get(2));
+					else datos.add(rs.getString("apellido"));
+					
+					if(datosNuevos.get(3) != "")
+						datos.add(datosNuevos.get(3));
+					else datos.add(rs.getString("direccion"));
+					
+					if(datosNuevos.get(4) != "")
+						datos.add(datosNuevos.get(4));
+					else datos.add(rs.getString("telefono"));
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String sql2 = "UPDATE Familiar SET " + "nombre= '"+datos.get(0)+"', apellido= '"+datos.get(1)+"', direccion= '"+datos.get(2)
+						+"', telefono= '"+datos.get(3)+"' WHERE dni= '"+dni+"';";
+		this.actualizacion(sql2);
+	}
+
 }

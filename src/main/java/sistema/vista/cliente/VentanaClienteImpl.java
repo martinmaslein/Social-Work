@@ -47,8 +47,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	protected JFrame frame;
 	protected CardLayout frameLayout;
 	protected JLabel lblCliente;
-
-	protected JPanel panelPpal, panelModificarDatos, panelCargarFamiliar, panelABMfamiliares,panelABMSolicitudes;
+	protected JPanel panelPpal, panelModificarDatos, panelCargarFamiliar, panelABMfamiliares, panelABMSolicitudes,panelModificarFamiliar;
 	private JTextField tfNombre;
 	private JTextField tfContra;
 	private JButton btnModificar_1;
@@ -91,6 +90,12 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private JButton btnAgregarFamiliar;
 	
 	private ArrayList<String> familiarSeleccionado;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
 	
 	public VentanaClienteImpl(String username, String password) {
 		inicializar();
@@ -122,7 +127,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
 	private Component crearPaneles() {
 
-		// Creo los 3 paneles
+		// Creo los paneles
 		panelPpal = new JPanel();
 		panelPpal.setBackground(new Color(224, 241, 238));
 		panelPpal.setLayout(null);
@@ -140,11 +145,16 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		frame.getContentPane().add(panelABMfamiliares);
 		
 
-
 		panelCargarFamiliar = new JPanel();
 		panelCargarFamiliar.setLayout(null);
 		panelCargarFamiliar.setBackground(new Color(224, 241, 238));
 		frame.getContentPane().add(panelCargarFamiliar);
+		
+		panelModificarFamiliar = new JPanel();
+		panelModificarFamiliar.setLayout(null);
+		panelModificarFamiliar.setBackground(new Color(224, 241, 238));
+		frame.getContentPane().add(panelModificarFamiliar);
+		
 
 		// Creo los botones
 		craerBotonesPanelABMfamiliar();
@@ -154,6 +164,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		crearBotonesModificarDatos();
 
 		CrearBotonesVolver();
+		
+		AgregarBotonesFamiliares();
 
 		return panelPpal;
 	}
@@ -182,6 +194,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	    
 	    btnModificar = new JButton("Modificar");
 	    btnModificar.setBounds(618, 345, 129, 34);
+	    btnModificar.addActionListener(this.modifcarFamiliar());
 	    panelABMfamiliares.add(btnModificar);
 	    
 	    btnAgregarFamiliar = new JButton("Agregar Familiar");
@@ -198,12 +211,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		scrollPane.setMinimumSize(new Dimension(27, 27));
 		scrollPane.setBounds(33, 188, 488, 219);
 		panelABMfamiliares.add(scrollPane);
-		
-
 	
 	}
-
-
 
 	private void CrearBotonesVolver() {
 		JButton btnVolver = new JButton("");
@@ -253,7 +262,23 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		});
 		btnVolver3.setBounds(10, 11, 35, 31);
 		panelABMfamiliares.add(btnVolver3);
-
+		
+		JButton btnVolver4 = new JButton("");
+		btnVolver4.setIcon(new ImageIcon("img\\flechi.png"));
+		btnVolver4.setBorder(null);
+		btnVolver4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					panelABMfamiliares.setVisible(true);
+					panelModificarFamiliar.setVisible(false);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnVolver4.setBounds(10, 11, 35, 31);
+		panelModificarFamiliar.add(btnVolver4);
+		
 	}
 
 	private void crearBotonesModificarDatos() {
@@ -841,7 +866,112 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 			}
 		};
 	}
+	
 
+
+	private ActionListener modifcarFamiliar() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(familiarSeleccionado != null) {
+					panelABMfamiliares.setVisible(false);
+					panelModificarFamiliar.setVisible(true);
+					
+					textField_5 = new JTextField(familiarSeleccionado.get(4));
+					textField_5.setColumns(10);
+					textField_5.setBounds(151, 122, 121, 20);
+					textField_5.setEditable(false);
+					panelModificarFamiliar.add(textField_5);
+					
+					textField_4 = new JTextField(familiarSeleccionado.get(2));
+					textField_4.setColumns(10);
+					textField_4.setBounds(151, 226, 121, 20);
+					textField_4.setEditable(false);
+					panelModificarFamiliar.add(textField_4);
+					
+					
+				}
+				else JOptionPane.showMessageDialog(null, "Seleccione un familiar para modificar");
+			} 
+		};
+	}
+
+
+	protected void AgregarBotonesFamiliares() {
+		// TODO Auto-generated method stub
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblNombre.setBounds(58, 54, 98, 23);
+		panelModificarFamiliar.add(lblNombre);
+		
+		JLabel lblApellido = new JLabel("Apellido:");
+		lblApellido.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblApellido.setBounds(58, 88, 98, 23);
+		panelModificarFamiliar.add(lblApellido);
+		
+		JLabel lblTelefono_1 = new JLabel("Telefono:");
+		lblTelefono_1.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblTelefono_1.setBounds(58, 190, 98, 23);
+		panelModificarFamiliar.add(lblTelefono_1);
+		
+		JLabel lblFecha_1 = new JLabel("Fecha");
+		lblFecha_1.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblFecha_1.setBounds(58, 122, 98, 23);
+		panelModificarFamiliar.add(lblFecha_1);
+		
+		JLabel lblNroDoc_1 = new JLabel("Documento:");
+		lblNroDoc_1.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblNroDoc_1.setBounds(58, 224, 98, 23);
+		panelModificarFamiliar.add(lblNroDoc_1);
+		
+		JLabel lblDireccion_1 = new JLabel("Direccion:");
+		lblDireccion_1.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblDireccion_1.setBounds(58, 156, 98, 23);
+		panelModificarFamiliar.add(lblDireccion_1);
+		
+		textField = new JTextField();
+		textField.setBounds(151, 56, 121, 20);
+		panelModificarFamiliar.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(151, 90, 121, 20);
+		panelModificarFamiliar.add(textField_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(151, 156, 121, 20);
+		panelModificarFamiliar.add(textField_2);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(151, 192, 121, 20);
+		panelModificarFamiliar.add(textField_3);
+		
+		JButton btnNewButton_1 = new JButton("Modificar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ArrayList<String> datosNuevos = new ArrayList<String>();
+				datosNuevos.add(familiarSeleccionado.get(0));
+				datosNuevos.add(textField.getText());
+				datosNuevos.add(textField_1.getText());
+				datosNuevos.add(textField_2.getText());
+				datosNuevos.add(textField_3.getText());
+				
+				controlador.modificarDatosFamiliar(datosNuevos);
+				
+				JOptionPane.showMessageDialog(null, "Datos modificados correctamente");
+				cargarABMFamiliares();
+				
+				
+			}
+		});
+		btnNewButton_1.setBounds(151, 300, 121, 37);
+		panelModificarFamiliar.add(btnNewButton_1);
+		
+	}
 
 	public void mostrarPanel(String panel) {
 		this.frameLayout.show(this.frame.getContentPane(), panel);
@@ -909,7 +1039,6 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
                String nomAp = selectedObject.toString();
                String[] partes = nomAp.split(" ");
                String nombre = partes[0];
-               System.out.println(nombre);
                 
                 for(ArrayList<String> familiar : familiares) {
                 	if(nombre.equals(familiar.get(0))) {
