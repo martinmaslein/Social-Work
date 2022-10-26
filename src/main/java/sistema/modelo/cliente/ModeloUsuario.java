@@ -4,7 +4,6 @@ package sistema.modelo.cliente;
 import java.util.List;
 
 import javafx.util.Pair;
-import java.util.ArrayList;
 import sistema.modelo.Modelo;
 
 public interface ModeloUsuario extends Modelo {
@@ -56,5 +55,7 @@ public interface ModeloUsuario extends Modelo {
 	public void aprobarCambio(String nombre, String apellido) throws Exception;
 
 	public void aprobarPago(String nombre, String apellido);
+	
+	public boolean eliminarPlan(sistema.utilidades.Pair<String, Integer> planSeleccionado);
 
 }

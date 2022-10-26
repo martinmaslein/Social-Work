@@ -3,8 +3,8 @@ package sistema.controlador;
 import sistema.modelo.ModeloLogin;
 import sistema.modelo.ModeloLoginImpl;
 import sistema.modelo.cliente.ModeloUsuario;
+import sistema.utilidades.Pair;
 import sistema.vista.admin.VentanaAdmin;
-import sistema.vista.cliente.VentanaCliente;
 import sistema.vista.login.VentanaLogin;
 import sistema.vista.login.VentanaLoginImpl;
 
@@ -56,5 +56,8 @@ public class ControladorAdminImpl implements ControladorAdmin {
 		return modelo.obtenerServicios();
 	}
 
-
+	@Override
+	public boolean eliminarPlan(Pair<String, Integer> planSeleccionado) {
+		return modelo.eliminarPlan(planSeleccionado);
+	}
 }

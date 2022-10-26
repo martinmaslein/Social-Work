@@ -514,4 +514,10 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		
 	}
 
+	@Override
+	public boolean eliminarPlan(sistema.utilidades.Pair<String, Integer> planSeleccionado) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 }
