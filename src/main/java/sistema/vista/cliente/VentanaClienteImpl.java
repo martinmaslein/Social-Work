@@ -89,6 +89,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private JButton btnModificar;
 	private JButton btnAgregarFamiliar;
 	
+	private ArrayList<String> familiarSeleccionado;
+	
 	public VentanaClienteImpl(String username, String password) {
 		inicializar();
 		this.frame.setVisible(true);
@@ -169,6 +171,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	    
 	    btnVerMas_1 = new JButton("Ver Mas");
 	    btnVerMas_1.setBounds(618, 209, 129, 34);
+	    btnVerMas_1.addActionListener(this.verMas());
 	    panelABMfamiliares.add(btnVerMas_1);
 	    
 	    btnEliminar = new JButton("Eliminar");
@@ -182,6 +185,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	    btnAgregarFamiliar = new JButton("Agregar Familiar");
 	    btnAgregarFamiliar.setFont(new Font("Tahoma", Font.BOLD, 14));
 	    btnAgregarFamiliar.setBounds(604, 57, 155, 48);
+	    btnAgregarFamiliar.addActionListener(this.cargarFamiliar());
 	    panelABMfamiliares.add(btnAgregarFamiliar);
 		
 	    //ABM
@@ -197,6 +201,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	
 	}
 
+
 	private void CrearBotonesVolver() {
 		JButton btnVolver = new JButton("");
 		btnVolver.setIcon(new ImageIcon("img\\flechi.png"));
@@ -204,7 +209,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					panelPpal.setVisible(true);
+					panelABMfamiliares.setVisible(true);
 					panelCargarFamiliar.setVisible(false);
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -656,6 +661,18 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		return nuevoFamiliar;
 	}
 
+
+	private ActionListener cargarFamiliar() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				panelABMfamiliares.setVisible(false);
+				panelCargarFamiliar.setVisible(true);
+
+			}
+		};
+	}
+	
 	protected ActionListener modificarDatosListener() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -753,6 +770,23 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 			}
 		};
 	}
+	
+
+	private ActionListener verMas() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			String mensaje = "";
+			if(familiarSeleccionado != null)
+				mensaje += " Nombre: " + familiarSeleccionado.get(0) + " " + familiarSeleccionado.get(1) + "\n" 	
+							+ " DNI: "+familiarSeleccionado.get(2)+"\n" + " Plan: "+familiarSeleccionado.get(3)+"\n"
+							+ " Fecha_nac: "+familiarSeleccionado.get(4)+"\n"+" Direccion: "+familiarSeleccionado.get(5)+"\n"
+							+ " Telefono: "+familiarSeleccionado.get(6);
+			else
+				mensaje += "Seleccione el nombre de un familiar";
+			JOptionPane.showMessageDialog(null, mensaje);
+			}
+		};
+	}
 
 
 	public void mostrarPanel(String panel) {
@@ -785,7 +819,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	}
 
 	private void cargarABMFamiliares() {
-		ArrayList<ArrayList<String>> familiares = controlador.obtenerInfoFamiliares();
+		final ArrayList<ArrayList<String>> familiares = controlador.obtenerInfoFamiliares();
 		
 		String columna [] = {"Nombre","DNI", "Pan"};
 		
@@ -810,5 +844,30 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	    table.setRowHeight(33);
 	    scrollPane.setViewportView(table);
 		
+	    table.addMouseListener(new java.awt.event.MouseAdapter() { 
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        		
+        		int row = table.rowAtPoint(evt.getPoint());
+                int col = table.columnAtPoint(evt.getPoint());
+
+                Object selectedObject = (Object) table.getModel().getValueAt(row, col);
+                
+               String nomAp = selectedObject.toString();
+               String[] partes = nomAp.split(" ");
+               String nombre = partes[0];
+               System.out.println(nombre);
+                
+                for(ArrayList<String> familiar : familiares) {
+                	if(nombre.equals(familiar.get(0))) {
+                		familiarSeleccionado = familiar;
+                		break;
+                	}
+               	
+                }
+       
+            }
+        });
+	    
+	    
 	}
 }
