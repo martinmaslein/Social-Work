@@ -103,4 +103,10 @@ public class ControladorClienteImpl implements ControladorCliente {
 	public LinkedList<String> obtenerPlanes() {
 		return modelo.getPlanes();
 	}
+
+	@Override
+	public ArrayList<ArrayList<String>> obtenerInfoFamiliares() {
+		
+		return modelo.obtenerInfoFamiliares();
+	}
 }

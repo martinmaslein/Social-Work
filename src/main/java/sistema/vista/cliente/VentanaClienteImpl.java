@@ -24,6 +24,7 @@ import sistema.modelo.ModeloRegistro;
 import sistema.modelo.cliente.*;
 import sistema.modelo.familiar.ModeloFamiliarImpl;
 import sistema.utilidades.InvalidFormatException;
+import sistema.utilidades.Pair;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -46,7 +47,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	protected CardLayout frameLayout;
 	protected JLabel lblCliente;
 
-	protected JPanel panelPpal, panelModificarDatos, panelCargarFamiliar, panelABMfamilares;
+	protected JPanel panelPpal, panelModificarDatos, panelCargarFamiliar, panelABMfamiliares;
 	private JTextField tfNombre;
 	private JTextField tfContra;
 	private JButton btnModificar_1;
@@ -130,10 +131,10 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		panelModificarDatos.setVisible(false);
 		frame.getContentPane().add(panelModificarDatos);
 		
-		panelABMfamilares = new JPanel();
-		panelABMfamilares.setLayout(null);
-		panelABMfamilares.setBackground(new Color(224, 241, 238));
-		frame.getContentPane().add(panelABMfamilares);
+		panelABMfamiliares = new JPanel();
+		panelABMfamiliares.setLayout(null);
+		panelABMfamiliares.setBackground(new Color(224, 241, 238));
+		frame.getContentPane().add(panelABMfamiliares);
 		
 
 
@@ -159,29 +160,29 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		JLabel lblFamiliares = new JLabel("Familiares");
 		lblFamiliares.setFont(new Font("Yu Gothic UI", Font.BOLD, 24));
 		lblFamiliares.setBounds(80, 66, 129, 23);
-		panelABMfamilares.add(lblFamiliares);
+		panelABMfamiliares.add(lblFamiliares);
 		
 	    lblAcciones_1 = new JLabel("Familiares");
 	    lblAcciones_1.setFont(new Font("Yu Gothic UI", Font.BOLD, 24));
 	    lblAcciones_1.setBounds(618, 150, 129, 23);
-	    panelABMfamilares.add(lblAcciones_1);
+	    panelABMfamiliares.add(lblAcciones_1);
 	    
 	    btnVerMas_1 = new JButton("Ver Mas");
 	    btnVerMas_1.setBounds(618, 209, 129, 34);
-	    panelABMfamilares.add(btnVerMas_1);
+	    panelABMfamiliares.add(btnVerMas_1);
 	    
 	    btnEliminar = new JButton("Eliminar");
 	    btnEliminar.setBounds(618, 278, 129, 34);
-	    panelABMfamilares.add(btnEliminar);
+	    panelABMfamiliares.add(btnEliminar);
 	    
 	    btnModificar = new JButton("Modificar");
 	    btnModificar.setBounds(618, 345, 129, 34);
-	    panelABMfamilares.add(btnModificar);
+	    panelABMfamiliares.add(btnModificar);
 	    
 	    btnAgregarFamiliar = new JButton("Agregar Familiar");
 	    btnAgregarFamiliar.setFont(new Font("Tahoma", Font.BOLD, 14));
 	    btnAgregarFamiliar.setBounds(604, 57, 155, 48);
-	    panelABMfamilares.add(btnAgregarFamiliar);
+	    panelABMfamiliares.add(btnAgregarFamiliar);
 		
 	    //ABM
 		scrollPane = new JScrollPane(); 
@@ -190,16 +191,9 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		scrollPane.setBackground(new Color(224, 241, 238));
 		scrollPane.setMinimumSize(new Dimension(27, 27));
 		scrollPane.setBounds(33, 188, 488, 219);
-		panelABMfamilares.add(scrollPane);
+		panelABMfamiliares.add(scrollPane);
 		
-		String columna [] = {"Nombre","DNI", "Pan"};
-		
-		String data[][] = {{"","",""},{"","",""},{"","",""},{"","",""},{"","",""}};
-		
-		DefaultTableModel tableModel = new DefaultTableModel(data,columna);
-	    final JTable table = new JTable(tableModel);
-	    table.setRowHeight(33);
-	    scrollPane.setViewportView(table);
+
 	
 	}
 
@@ -235,6 +229,22 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 			}
 		});
 		panelModificarDatos.add(btnVolver2);
+		
+		JButton btnVolver3 = new JButton("");
+		btnVolver3.setIcon(new ImageIcon("img\\flechi.png"));
+		btnVolver3.setBorder(null);
+		btnVolver3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					panelPpal.setVisible(true);
+					panelABMfamiliares.setVisible(false);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnVolver3.setBounds(10, 11, 35, 31);
+		panelABMfamiliares.add(btnVolver3);
 
 	}
 
@@ -661,7 +671,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelPpal.setVisible(false);
-				panelABMfamilares.setVisible(true);
+				panelABMfamiliares.setVisible(true);
 			}
 		};
 	}
@@ -771,5 +781,32 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		this.controlador = controlador;
 		datos = controlador.obtenerDatosCliente();
 		iniciarCamposModificarDatos();
+		cargarABMFamiliares();
+	}
+
+	private void cargarABMFamiliares() {
+		ArrayList<ArrayList<String>> familiares = controlador.obtenerInfoFamiliares();
+		
+		String columna [] = {"Nombre","DNI", "Pan"};
+		
+		String data[][] = {{"","",""},{"","",""},{"","",""},{"","",""},{"","",""}};
+		
+		int i=0;
+		for(ArrayList<String> familiar : familiares) {
+			
+			String nombre = familiar.get(0);
+			String apellido = familiar.get(1);
+	    	String plan = familiar.get(2);
+	    	
+			data[i][0] = nombre + " " + apellido;
+			data[i][2] = plan;
+			
+			i = i+1;
+		}
+		DefaultTableModel tableModel = new DefaultTableModel(data,columna);
+	    final JTable table = new JTable(tableModel);
+	    table.setRowHeight(33);
+	    scrollPane.setViewportView(table);
+		
 	}
 }

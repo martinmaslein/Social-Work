@@ -460,4 +460,43 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		
 	}
 
+	public ArrayList<ArrayList<String>> obtenerInfoFamiliares() {
+
+		ArrayList<ArrayList<String>> nombreFamiliares = new ArrayList<ArrayList<String>>();
+		String plan = "";
+
+		// Obtener ID
+		String queryPlan2 = "SELECT nro_cliente FROM Cliente WHERE username='" + clienteActual.getNombreUsuario()
+				+ "';";
+		ResultSet rs = this.consulta(queryPlan2);
+		int id = -1;
+		try {if (rs.next()) id = rs.getInt("nro_cliente");} catch (SQLException e) {e.printStackTrace();}
+		
+		
+		String sqlPlan = "SELECT nombre FROM Plan WHERE nro_plan="+obtenerPlanCliente()+";";
+		rs = this.consulta(sqlPlan);
+		try {if (rs.next()) plan = rs.getString("nombre");} catch (SQLException e) {e.printStackTrace();}
+		
+		
+		// Obtener nombre Familiares
+		String queryFamiliar = "SELECT * FROM Familiar WHERE nro_cliente = '" + id + "';";
+		rs = this.consulta(queryFamiliar);
+
+		try {
+			while (rs.next()) {
+				ArrayList<String> familiar = new ArrayList<String>();
+				familiar.add(rs.getString("nombre"));
+				familiar.add(rs.getString("apellido"));
+				familiar.add(plan);	
+				
+				nombreFamiliares.add(familiar);
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return nombreFamiliares;
+	}
+
 }
