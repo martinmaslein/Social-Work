@@ -176,6 +176,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	    
 	    btnEliminar = new JButton("Eliminar");
 	    btnEliminar.setBounds(618, 278, 129, 34);
+	    btnEliminar.addActionListener(this.eliminarFamiliar());
 	    panelABMfamiliares.add(btnEliminar);
 	    
 	    btnModificar = new JButton("Modificar");
@@ -200,6 +201,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
 	
 	}
+
 
 
 	private void CrearBotonesVolver() {
@@ -784,6 +786,27 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 			else
 				mensaje += "Seleccione el nombre de un familiar";
 			JOptionPane.showMessageDialog(null, mensaje);
+			}
+		};
+	}
+	
+
+	private ActionListener eliminarFamiliar() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			String [] botones = {"Confirmar", "Cancelar"};
+			int opciones = JOptionPane.showConfirmDialog (null, " Desea eliminar el familiar?", "Eliminar",
+					JOptionPane.OK_CANCEL_OPTION);
+			
+			boolean eliminado = false;
+			if(opciones == 0) {
+				eliminado = controlador.elimnarFamiliar(familiarSeleccionado.get(0));
+				JOptionPane.showMessageDialog(null, "Familiar Eliminado");
+				cargarABMFamiliares();
+			}
+			else if(opciones == 2)
+				JOptionPane.showMessageDialog(null, "Proceso cancelado");	
+			
 			}
 		};
 	}

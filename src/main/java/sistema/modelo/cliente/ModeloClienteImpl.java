@@ -503,4 +503,15 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return nombreFamiliares;
 	}
 
+	public boolean eliminarFamiliar(String nombre) {
+
+		
+		String sql= "DELETE FROM Familiar WHERE nombre='"+nombre+"'";
+		this.actualizacion(sql);
+		
+		
+		return true;
+		
+	}
+
 }

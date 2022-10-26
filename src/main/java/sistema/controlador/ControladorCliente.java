@@ -34,4 +34,6 @@ public interface ControladorCliente extends ControladorSistema {
 
 	public ArrayList<ArrayList<String>> obtenerInfoFamiliares();
 
+	public boolean elimnarFamiliar(String nombre);
+
 }

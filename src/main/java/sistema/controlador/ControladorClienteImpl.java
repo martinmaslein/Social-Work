@@ -109,4 +109,9 @@ public class ControladorClienteImpl implements ControladorCliente {
 		
 		return modelo.obtenerInfoFamiliares();
 	}
+
+	@Override
+	public boolean elimnarFamiliar(String nombre) {
+		return modelo.eliminarFamiliar(nombre);
+	}
 }
