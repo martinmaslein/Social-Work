@@ -487,6 +487,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 				ArrayList<String> familiar = new ArrayList<String>();
 				familiar.add(rs.getString("nombre"));
 				familiar.add(rs.getString("apellido"));
+				familiar.add(rs.getString("dni"));
 				familiar.add(plan);	
 				
 				nombreFamiliares.add(familiar);

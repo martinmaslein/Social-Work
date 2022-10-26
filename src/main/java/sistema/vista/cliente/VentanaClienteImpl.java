@@ -796,9 +796,11 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 			
 			String nombre = familiar.get(0);
 			String apellido = familiar.get(1);
-	    	String plan = familiar.get(2);
+			String dni = familiar.get(2);
+	    	String plan = familiar.get(3);
 	    	
 			data[i][0] = nombre + " " + apellido;
+			data[i][1] = dni;
 			data[i][2] = plan;
 			
 			i = i+1;
