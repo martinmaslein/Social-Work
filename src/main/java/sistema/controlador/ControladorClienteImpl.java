@@ -114,4 +114,10 @@ public class ControladorClienteImpl implements ControladorCliente {
 	public boolean elimnarFamiliar(String nombre) {
 		return modelo.eliminarFamiliar(nombre);
 	}
+
+	@Override
+	public void modificarDatosFamiliar(ArrayList<String> datosNuevos) {
+		modelo.modificarDatos(datosNuevos);
+		
+	}
 }

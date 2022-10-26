@@ -36,4 +36,6 @@ public interface ControladorCliente extends ControladorSistema {
 
 	public boolean elimnarFamiliar(String nombre);
 
+	public void modificarDatosFamiliar(ArrayList<String> datosNuevos);
+
 }
