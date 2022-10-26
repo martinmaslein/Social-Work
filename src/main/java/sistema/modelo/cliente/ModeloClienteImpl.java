@@ -513,5 +513,47 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return true;
 		
 	}
+	public ArrayList<ArrayList<String>> obtenerSolicitudesABM() {
+		//TODO 
+		ArrayList<ArrayList<String>> solicitudes = new ArrayList<ArrayList<String>>();
+		String plan = "";
+
+		// Obtener ID
+		String queryPlan2 = "SELECT nro_cliente FROM Solicitud WHERE username='" + clienteActual.getNombreUsuario()
+				+ "';";
+		ResultSet rs = this.consulta(queryPlan2);
+		int id = -1;
+		try {if (rs.next()) id = rs.getInt("nro_cliente");} catch (SQLException e) {e.printStackTrace();}
+		
+		
+		String sqlPlan = "SELECT nombre FROM Plan WHERE nro_plan="+obtenerPlanCliente()+";";
+		rs = this.consulta(sqlPlan);
+		try {if (rs.next()) plan = rs.getString("nombre");} catch (SQLException e) {e.printStackTrace();}
+		
+		
+		// Obtener nombre Familiares
+		String queryFamiliar = "SELECT * FROM Familiar WHERE nro_cliente = '" + id + "';";
+		rs = this.consulta(queryFamiliar);
+
+		try {
+			while (rs.next()) {
+				ArrayList<String> solicitud = new ArrayList<String>();
+				solicitud.add(rs.getString("id_solicitud"));
+				solicitud.add(rs.getString("apellido"));
+				solicitud.add(rs.getString("dni"));
+				solicitud.add(plan);	
+				solicitud.add(rs.getString("fecha_nac"));
+				solicitud.add(rs.getString("direccion"));
+				solicitud.add(rs.getString("telefono"));
+				
+				solicitudes.add(solicitud);
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return solicitudes;
+	}
 
 }

@@ -25,6 +25,7 @@ import sistema.modelo.cliente.*;
 import sistema.modelo.familiar.ModeloFamiliarImpl;
 import sistema.utilidades.InvalidFormatException;
 import sistema.utilidades.Pair;
+import sistema.vista.empleado.PanelModificarPlan;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -47,7 +48,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	protected CardLayout frameLayout;
 	protected JLabel lblCliente;
 
-	protected JPanel panelPpal, panelModificarDatos, panelCargarFamiliar, panelABMfamiliares;
+	protected JPanel panelPpal, panelModificarDatos, panelCargarFamiliar, panelABMfamiliares,panelABMSolicitudes;
 	private JTextField tfNombre;
 	private JTextField tfContra;
 	private JButton btnModificar_1;
@@ -499,6 +500,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		btnMisSolicitudes.setBorder(null);
 		btnMisSolicitudes.setBackground(new Color(119, 193, 181));
 		btnMisSolicitudes.setBounds(320, 214, 174, 23);
+		btnMisSolicitudes.addActionListener(this.listenerMisSolicitudes());
 		panelPpal.add(btnMisSolicitudes);
 		
 		JButton btnCerrarSesion = new JButton("Cerrar Sesion");
@@ -580,6 +582,35 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 
 	}
 
+	private ActionListener listenerMisSolicitudes() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelPpal.setVisible(false);
+				panelABMSolicitudes = new PanelABMSolicitudes(controlador);				
+				frame.getContentPane().add(panelABMSolicitudes);
+				panelABMSolicitudes.setVisible(true);
+				
+			    
+				JButton btnVolver3 = new JButton("");
+				btnVolver3.setBounds(10, 11, 35, 31);
+				btnVolver3.setIcon(new ImageIcon("img\\flechi.png"));
+				btnVolver3.setBorder(new EmptyBorder(0, 0, 0, 0));
+				btnVolver3.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+							panelPpal.setVisible(true);
+							panelABMSolicitudes.setVisible(false);
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+					}
+				});
+				panelABMSolicitudes.add(btnVolver3);
+				
+
+			}
+		};
+	}
 	private ActionListener listenerAbonar() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

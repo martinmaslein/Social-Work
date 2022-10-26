@@ -50,6 +50,8 @@ public interface ModeloUsuario extends Modelo {
 	public String[] obtenerServicios();
 	
 	public List<Pair<String, String>> obtenerSolicitudes();
+	
+	public ArrayList<ArrayList<String>> obtenerSolicitudesABM();
 
 	public List<Pair<String, String>> cargarClientesTabla();
 	

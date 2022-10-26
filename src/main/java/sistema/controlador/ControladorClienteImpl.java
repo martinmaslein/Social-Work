@@ -2,9 +2,11 @@ package sistema.controlador;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.ComboBoxModel;
 
+import javafx.util.Pair;
 import sistema.modelo.ModeloLogin;
 import sistema.modelo.ModeloLoginImpl;
 import sistema.modelo.cliente.DatosCliente;
@@ -113,5 +115,10 @@ public class ControladorClienteImpl implements ControladorCliente {
 	@Override
 	public boolean elimnarFamiliar(String nombre) {
 		return modelo.eliminarFamiliar(nombre);
+	}
+
+	@Override
+	public ArrayList<ArrayList<String>> obtenerSolicitudesABM() {		
+		return modelo.obtenerSolicitudesABM();
 	}
 }

@@ -401,4 +401,10 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public ArrayList<ArrayList<String>> obtenerSolicitudesABM() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
