@@ -281,18 +281,14 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 
 	@Override
 	public void aprobarPago(String nombre, String apellido) {
-		String sqlCliente = "SELECT * FROM Cliente WHERE nombre = '" + nombre + "' AND apellido = '" + apellido + "';"; // solicitudes
-		String sqlSolicitud, sqlDelete;
+		String sqlCliente = "SELECT * FROM Cliente WHERE nombre = '" + nombre + "' AND apellido = '" + apellido + "';"; 
 		ResultSet rsCliente = this.consulta(sqlCliente);
-		ResultSet rsSolicitud;
 		try {
 			while (rsCliente.next()) {
 				String query = "UPDATE Cliente SET " + "cupon = " + 0 + " WHERE nro_cliente = "
 						+ rsCliente.getInt("nro_cliente");
 				this.actualizacion(query);
-
 			}
-
 			rsCliente.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -303,6 +299,9 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 	@Override
 	public boolean eliminarPlan(sistema.utilidades.Pair<String, Integer> planSeleccionado) {
 		return true;
+	public ArrayList<ArrayList<String>> obtenerSolicitudesABM() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

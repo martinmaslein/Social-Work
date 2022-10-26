@@ -2,9 +2,11 @@ package sistema.controlador;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.ComboBoxModel;
 
+import javafx.util.Pair;
 import sistema.modelo.cliente.DatosCliente;
 import sistema.utilidades.InvalidFormatException;
 
@@ -35,5 +37,9 @@ public interface ControladorCliente extends ControladorSistema {
 	public ArrayList<ArrayList<String>> obtenerInfoFamiliares();
 
 	public boolean elimnarFamiliar(String nombre);
+	
+	public ArrayList<ArrayList<String>> obtenerSolicitudesABM();
+
+	public void modificarDatosFamiliar(ArrayList<String> datosNuevos);
 
 }

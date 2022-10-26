@@ -513,6 +513,87 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return true;
 		
 	}
+	public ArrayList<ArrayList<String>> obtenerSolicitudesABM() {
+		//TODO 
+		ArrayList<ArrayList<String>> solicitudes = new ArrayList<ArrayList<String>>();
+		String plan = "";
+
+		// Obtener ID
+		String queryPlan2 = "SELECT nro_cliente FROM Solicitud WHERE username='" + clienteActual.getNombreUsuario()
+				+ "';";
+		ResultSet rs = this.consulta(queryPlan2);
+		int id = -1;
+		try {if (rs.next()) id = rs.getInt("nro_cliente");} catch (SQLException e) {e.printStackTrace();}
+		
+		
+		String sqlPlan = "SELECT nombre FROM Plan WHERE nro_plan="+obtenerPlanCliente()+";";
+		rs = this.consulta(sqlPlan);
+		try {if (rs.next()) plan = rs.getString("nombre");} catch (SQLException e) {e.printStackTrace();}
+		
+		
+		// Obtener nombre Familiares
+		String queryFamiliar = "SELECT * FROM Familiar WHERE nro_cliente = '" + id + "';";
+		rs = this.consulta(queryFamiliar);
+
+		try {
+			while (rs.next()) {
+				ArrayList<String> solicitud = new ArrayList<String>();
+				solicitud.add(rs.getString("id_solicitud"));
+				solicitud.add(rs.getString("apellido"));
+				solicitud.add(rs.getString("dni"));
+				solicitud.add(plan);	
+				solicitud.add(rs.getString("fecha_nac"));
+				solicitud.add(rs.getString("direccion"));
+				solicitud.add(rs.getString("telefono"));
+				
+				solicitudes.add(solicitud);
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return solicitudes;
+	}
+
+	public void modificarDatos(ArrayList<String> datosNuevos) {
+	
+		String sql1 = "SELECT * FROM Familiar WHERE nombre= '"+datosNuevos.get(0)+"';";
+		ResultSet rs = this.consulta(sql1);
+		String dni = "";
+		
+		ArrayList<String> datos = new ArrayList<String>();
+		
+		try {
+			if (rs.next()) {
+
+					dni += rs.getString("dni");
+				
+					if(datosNuevos.get(1) != "")
+						datos.add(datosNuevos.get(1));
+					else datos.add(rs.getString("nombre"));
+					
+					if(datosNuevos.get(2) != "")
+						datos.add(datosNuevos.get(2));
+					else datos.add(rs.getString("apellido"));
+					
+					if(datosNuevos.get(3) != "")
+						datos.add(datosNuevos.get(3));
+					else datos.add(rs.getString("direccion"));
+					
+					if(datosNuevos.get(4) != "")
+						datos.add(datosNuevos.get(4));
+					else datos.add(rs.getString("telefono"));
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String sql2 = "UPDATE Familiar SET " + "nombre= '"+datos.get(0)+"', apellido= '"+datos.get(1)+"', direccion= '"+datos.get(2)
+						+"', telefono= '"+datos.get(3)+"' WHERE dni= '"+dni+"';";
+		this.actualizacion(sql2);
+	}
 
 	@Override
 	public boolean eliminarPlan(sistema.utilidades.Pair<String, Integer> planSeleccionado) {
