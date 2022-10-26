@@ -7,21 +7,14 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
 import sistema.controlador.ControladorEmpleado;
 import sistema.vista.registro.VentanaRegistro;
 import sistema.vista.registro.VentanaRegistroImpl;
@@ -34,15 +27,12 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 	protected VentanaEmpleadoImpl este = this;
 	protected CardLayout frameLayout;
 	protected JLabel lblCliente;
-	protected JMenuItem mntmCerrarSesion;
-	protected JMenuItem mntmSalir;
 	protected ControladorEmpleado controlador;
 	protected JPanel panelPpal;
 	protected JButton btnAltaCliente;
 	protected JButton btnConfirmarPago;
 	protected JButton btnModificarDatos;
 	protected JButton btnSolicitudModificacionPlan;
-	protected JButton btnModificarPlanCliente;
 	protected JButton btnSolicitudReintegro;
 
 	protected JPanel panelAltaCliente;
@@ -51,6 +41,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 	protected JPanel panelModificarPlan;
 	protected JPanel panelSolicitudReintegro;
 	protected JPanel panelModificarDatos;
+	private JButton btnCerrarSesion;
 
 	public VentanaEmpleadoImpl() {
 		inicializar();
@@ -61,7 +52,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 
 		this.frame = new JFrame();
 		this.frame.setTitle("Empleado");
-		this.frame.setBounds(100, 100, 852, 575);
+		this.frame.setBounds(100, 100, 650, 515);
 		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		this.frameLayout = new CardLayout();
@@ -71,34 +62,25 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		this.lblCliente.setFont(new Font("Arial", Font.BOLD, 13));
 		this.lblCliente.setHorizontalAlignment(SwingConstants.LEFT);
 
-		this.frame.setJMenuBar(this.crearMenuOpciones());
-
 		this.frame.getContentPane().add(this.crearPanelPrincipal());
-
-		this.registrarEventos();
-	}
-
-	private AbstractButton getMenuItemCerrarSesion() {
-		return this.mntmCerrarSesion;
-	}
-
-	private AbstractButton getMenuItemSalir() {
-		return this.mntmSalir;
-	}
-
-	private void registrarEventos() {
-
-		this.getMenuItemCerrarSesion().addActionListener(new ActionListener() {
+		
+		btnCerrarSesion = new JButton("Cerrar Sesion");
+		btnCerrarSesion.setForeground(Color.WHITE);
+		btnCerrarSesion.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
+		btnCerrarSesion.setBorder(null);
+		btnCerrarSesion.setBackground(new Color(119, 193, 181));
+		btnCerrarSesion.setBounds(489, 11, 137, 23);
+		panelPpal.add(btnCerrarSesion);
+		btnCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controlador.cerrarSesion();
 			}
 		});
 
-		this.getMenuItemSalir().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				controlador.salirAplicacion();
-			}
-		});
+		this.registrarEventos();
+	}
+
+	private void registrarEventos() {
 
 	}
 
@@ -108,86 +90,90 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		panelPpal.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Empleado");
-		lblNewLabel.setFont(new Font("Yu Gothic UI", Font.BOLD, 24));
-		lblNewLabel.setBounds(351, 50, 134, 40);
+		lblNewLabel.setFont(new Font("Yu Gothic UI", Font.BOLD, 30));
+		lblNewLabel.setBounds(247, 44, 165, 40);
 		panelPpal.add(lblNewLabel);
 
-		btnAltaCliente = new JButton("Dar de alta cliente");
+		btnAltaCliente = new JButton("Clientes");
+		btnAltaCliente.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		btnAltaCliente.setBorder(null);
-		btnAltaCliente.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnAltaCliente.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnAltaCliente.setForeground(new Color(255, 255, 255));
 		btnAltaCliente.setBackground(new Color(119, 193, 181));
-		btnAltaCliente.setBounds(320, 129, 174, 23);
+		btnAltaCliente.setBounds(233, 156, 179, 23);
 		btnAltaCliente.addActionListener(this.listenerAltaCliente());
 		panelPpal.add(btnAltaCliente);
 
-		btnConfirmarPago = new JButton("Confirmar pago cliente");
+		btnConfirmarPago = new JButton("Confirmar pagos");
 		btnConfirmarPago.setBorder(null);
-		btnConfirmarPago.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnConfirmarPago.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnConfirmarPago.setForeground(new Color(255, 255, 255));
 		btnConfirmarPago.setBackground(new Color(119, 193, 181));
-		btnConfirmarPago.setBounds(320, 163, 174, 23);
+		btnConfirmarPago.setBounds(233, 190, 179, 23);
 		btnConfirmarPago.addActionListener(this.listenerPagoCliente());
 		panelPpal.add(btnConfirmarPago);
 
 		btnSolicitudModificacionPlan = new JButton();
-		btnSolicitudModificacionPlan.setText("<html>" + "" + "Confirmar solicitud<br>de modificacion de plan</html>");
+		btnSolicitudModificacionPlan.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		btnSolicitudModificacionPlan.setText("<html>Confirmar solicitudes<br> de modificacion de plan</html>");
 		btnSolicitudModificacionPlan.setBorder(null);
-		btnSolicitudModificacionPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnSolicitudModificacionPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 16));
 		btnSolicitudModificacionPlan.setForeground(new Color(255, 255, 255));
 		btnSolicitudModificacionPlan.setBackground(new Color(119, 193, 181));
-		btnSolicitudModificacionPlan.setBounds(320, 231, 174, 40);
+		btnSolicitudModificacionPlan.setBounds(233, 224, 179, 73);
 		btnSolicitudModificacionPlan.addActionListener(this.listenerSolicitudModificacionPlan());
 		panelPpal.add(btnSolicitudModificacionPlan);
 
-		btnModificarPlanCliente = new JButton("Modificar plan cliente");
-		btnModificarPlanCliente.setBorder(null);
-		btnModificarPlanCliente.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
-		btnModificarPlanCliente.setForeground(new Color(255, 255, 255));
-		btnModificarPlanCliente.setBackground(new Color(119, 193, 181));
-		btnModificarPlanCliente.setBounds(320, 197, 174, 23);
-		btnModificarPlanCliente.addActionListener(this.listenermodificarPlanCliente());
-		panelPpal.add(btnModificarPlanCliente);
+		btnSolicitudReintegro = new JButton("<html>Solicitudes de<br>reintegro/prestaciones</html>");
+		btnSolicitudReintegro.addActionListener(new ActionListener() {
 
-		btnSolicitudReintegro = new JButton("Solicitudes de reintegro");
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		btnSolicitudReintegro.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		btnSolicitudReintegro.setBorder(null);
-		btnSolicitudReintegro.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnSolicitudReintegro.setFont(new Font("Yu Gothic UI", Font.BOLD, 17));
 		btnSolicitudReintegro.setForeground(new Color(255, 255, 255));
 		btnSolicitudReintegro.setBackground(new Color(119, 193, 181));
-		btnSolicitudReintegro.setBounds(320, 282, 174, 23);
+		btnSolicitudReintegro.setBounds(233, 311, 179, 54);
 		btnSolicitudReintegro.addActionListener(this.listenerSolicitudReintegro());
 		panelPpal.add(btnSolicitudReintegro);
 
-		btnModificarDatos = new JButton("Modificar datos");
+		btnModificarDatos = new JButton("Mis Datos");
 		btnModificarDatos.setBorder(null);
-		btnModificarDatos.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnModificarDatos.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnModificarDatos.setForeground(new Color(255, 255, 255));
 		btnModificarDatos.setBackground(new Color(119, 193, 181));
-		btnModificarDatos.setBounds(320, 316, 174, 23);
+		btnModificarDatos.setBounds(233, 122, 179, 23);
 		btnModificarDatos.addActionListener(this.listenerModificarDatos());
 		panelPpal.add(btnModificarDatos);
 
 		panelPpal.setVisible(true);
 		return panelPpal;
-	}
-
-	private JMenuBar crearMenuOpciones() {
-		JMenuBar barraDeMenu = new JMenuBar();
-		JMenu menuOpciones = new JMenu("Menu");
-		menuOpciones.setFont(new Font("Segoe UI", Font.BOLD, 17));
-		barraDeMenu.add(menuOpciones);
-
-		menuOpciones.add(new JSeparator());
-
-		this.mntmCerrarSesion = new JMenuItem("Cerrar Sesion");
-		this.mntmCerrarSesion.setFont(new Font("Segoe UI", Font.BOLD, 15));
-		menuOpciones.add(this.mntmCerrarSesion);
-
-		this.mntmSalir = new JMenuItem("Salir");
-		this.mntmSalir.setFont(new Font("Segoe UI", Font.BOLD, 15));
-		menuOpciones.add(this.mntmSalir);
-
-		return barraDeMenu;
 	}
 
 	protected ActionListener listenerAltaCliente() {

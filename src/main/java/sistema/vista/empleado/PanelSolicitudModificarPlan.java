@@ -33,7 +33,7 @@ public class PanelSolicitudModificarPlan extends JPanel {
 		
 		titulo = new JLabel("Confirmar solicitud de cambio");
 		titulo.setFont(new Font("Yu Gothic UI", Font.BOLD, 20));
-		titulo.setBounds(280, 44, 328, 20);
+		titulo.setBounds(190, 49, 328, 20);
 		add(titulo);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -41,7 +41,7 @@ public class PanelSolicitudModificarPlan extends JPanel {
 		scrollPane.setBorder(null);
 		scrollPane.setBackground(new Color(224, 241, 238));
 		scrollPane.setMinimumSize(new Dimension(27, 27));
-		scrollPane.setBounds(219, 89, 421, 219);
+		scrollPane.setBounds(129, 94, 421, 219);
 		add(scrollPane);
 		
 		tabla = new JTable();
@@ -125,7 +125,7 @@ public class PanelSolicitudModificarPlan extends JPanel {
 				}
 			}
 		});
-		btnCambioAprobado.setBounds(366, 348, 128, 23);
+		btnCambioAprobado.setBounds(276, 353, 128, 23);
 		btnCambioAprobado.setBorder(null);
 		btnCambioAprobado.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
 		btnCambioAprobado.setForeground(new Color(255, 255, 255));

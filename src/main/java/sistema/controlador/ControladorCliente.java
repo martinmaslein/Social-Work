@@ -32,4 +32,6 @@ public interface ControladorCliente extends ControladorSistema {
 
 	public LinkedList<String> obtenerPlanes();
 
+	public ArrayList<ArrayList<String>> obtenerInfoFamiliares();
+
 }

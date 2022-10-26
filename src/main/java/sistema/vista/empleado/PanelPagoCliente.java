@@ -32,7 +32,7 @@ public class PanelPagoCliente extends JPanel {
 		setLayout(null);
 		titulo = new JLabel("Confirmar pago");
 		titulo.setFont(new Font("Yu Gothic UI", Font.BOLD, 20));
-		titulo.setBounds(340, 63, 221, 20);
+		titulo.setBounds(256, 61, 221, 20);
 		add(titulo);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -40,7 +40,7 @@ public class PanelPagoCliente extends JPanel {
 		scrollPane.setBorder(null);
 		scrollPane.setBackground(new Color(224, 241, 238));
 		scrollPane.setMinimumSize(new Dimension(27, 27));
-		scrollPane.setBounds(199, 112, 421, 219);
+		scrollPane.setBounds(115, 110, 421, 219);
 		add(scrollPane);
 
 		tabla = new JTable();
@@ -122,7 +122,7 @@ public class PanelPagoCliente extends JPanel {
 				}
 			}
 		});
-		btnPagoAprobado.setBounds(364, 362, 128, 23);
+		btnPagoAprobado.setBounds(280, 360, 128, 23);
 		btnPagoAprobado.setBorder(null);
 		btnPagoAprobado.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
 		btnPagoAprobado.setForeground(new Color(255, 255, 255));
