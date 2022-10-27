@@ -304,4 +304,10 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 		return null;
 	}
 
+	@Override
+	public String informacionPlan(String nombre) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

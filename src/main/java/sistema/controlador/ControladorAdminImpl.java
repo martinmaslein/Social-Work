@@ -60,4 +60,9 @@ public class ControladorAdminImpl implements ControladorAdmin {
 	public boolean eliminarPlan(Pair<String, Integer> planSeleccionado) {
 		return modelo.eliminarPlan(planSeleccionado);
 	}
+
+	@Override
+	public String informacionPlan(String nombre) {
+		return modelo.informacionPlan(nombre);
+	}
 }

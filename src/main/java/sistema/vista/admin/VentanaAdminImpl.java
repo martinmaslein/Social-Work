@@ -286,6 +286,14 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		
 		panelAdministrarPlanes.add(btnEliminar);
 		
+		JButton btnModificarPlan_1 = new JButton("Ver más");
+		btnModificarPlan_1.addActionListener(verMas());
+		btnModificarPlan_1.setForeground(Color.WHITE);
+		btnModificarPlan_1.setFont(new Font("Yu Gothic UI", Font.BOLD, 17));
+		btnModificarPlan_1.setBackground(new Color(119, 193, 181));
+		btnModificarPlan_1.setBounds(582, 324, 129, 37);
+		panelAdministrarPlanes.add(btnModificarPlan_1);
+		
 		panelNuevoPlan = new JPanel();
 		panelNuevoPlan.setBackground(new Color(224, 241, 238));
 		frame.getContentPane().add(panelNuevoPlan, "name_65742471087900");
@@ -465,6 +473,15 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		table_1.setRowHeight(25);
 
 		this.registrarEventos();
+	}
+
+	private ActionListener verMas() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String info = controlador.informacionPlan(planSeleccionado.getNombre());
+				JOptionPane.showMessageDialog(null, info);
+			}
+		};
 	}
 
 	private void actualizarTablaPlanes() {

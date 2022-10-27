@@ -14,4 +14,6 @@ public interface ControladorAdmin extends ControladorSistema {
 
 	public boolean eliminarPlan(Pair<String, Integer> planSeleccionado);
 
+	public String informacionPlan(String nombre);
+
 }

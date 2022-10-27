@@ -226,6 +226,60 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		return plan;
 	}
 	
+	@Override
+	public String informacionPlan(String nombre) {
+		String sql = "SELECT * FROM plan WHERE nombre='"+nombre+"';";
+		ResultSet rs = this.consulta(sql);
+		int id = 0;
+		int precio = 0;
+		String [] prestaciones;
+		String toReturn = "";
+		try {
+			if(rs.next()) {
+				id = rs.getInt("nro_plan");
+				nombre = rs.getString("nombre");
+				precio = rs.getInt("precio");
+				rs.close();
+			}
+		
+		String sql1 = "SELECT nro_servicio FROM servicio_plan WHERE nro_plan='"+id+"';";
+		int [] servicios = new int[5];
+		ResultSet rs1 = this.consulta(sql1);
+		int i=0;
+		while(rs1.next()) {
+			servicios[i] = rs1.getInt("nro_servicio");
+			i++;
+		}
+		rs1.close();
+	
+		
+		String serviciosConcatenados = "";
+		ResultSet rs2 = null;
+		String serv = "";
+		int j=0;
+		for(int s : servicios) {
+			String sql2 = "SELECT nombre FROM servicio WHERE nro_servicio='"+servicios[j]+"';";
+			rs2 = this.consulta(sql2);
+			if(rs2.next()) {
+				serv = rs2.getString("nombre");
+				serviciosConcatenados += "-  "+serv+"\n";
+			}
+			j++;
+		}
+		rs2.close();
+		
+		toReturn = "Plan : "+nombre+"\n"
+										+"Precio : "+precio+"\n"
+										+"Prestaciones : \n"+serviciosConcatenados+"";
+		
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return toReturn;
+		
+	}
+	
 	public String [][] obtenerPrestaciones(String string) {
 		int id = 0;
 		String sql1 = "SELECT nro_plan FROM plan WHERE nombre='"+string+"'";

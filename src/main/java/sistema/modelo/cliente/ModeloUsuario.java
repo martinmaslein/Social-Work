@@ -61,4 +61,6 @@ public interface ModeloUsuario extends Modelo {
 	
 	public boolean eliminarPlan(sistema.utilidades.Pair<String, Integer> planSeleccionado);
 
+	public String informacionPlan(String nombre);
+
 }

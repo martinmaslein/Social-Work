@@ -651,4 +651,10 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return true;
 	}
 
+	@Override
+	public String informacionPlan(String nombre) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
