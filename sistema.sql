@@ -86,14 +86,26 @@ CREATE TABLE IF NOT EXISTS Servicio_plan(
         ON DELETE RESTRICT ON UPDATE CASCADE
 )ENGINE=INNODB;
 
+CREATE TABLE IF NOT EXISTS Tipo_Solicitud(
+	id_tipo INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    nombre CHAR(32),
+    CONSTRAINT pk_tipo PRIMARY KEY(id_tipo)
+)ENGINE=INNODB;
+
 CREATE TABLE IF NOT EXISTS Solicitud(
     id_solicitud INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    nro_tipo INT UNSIGNED,
     nro_cliente INT UNSIGNED,
+    nro_familiar INT UNSIGNED,
     nro_plan INT UNSIGNED,
     CONSTRAINT pk_Solicitud PRIMARY KEY(id_solicitud),
     FOREIGN KEY (nro_cliente) REFERENCES Cliente(nro_cliente)
         ON DELETE CASCADE ON UPDATE CASCADE,
-     FOREIGN KEY (nro_plan) REFERENCES Plan(nro_plan)
+     FOREIGN KEY (nro_familiar) REFERENCES Familiar(nro_familiar)
+        ON DELETE CASCADE ON UPDATE CASCADE,    
+    FOREIGN KEY (nro_plan) REFERENCES Plan(nro_plan)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (nro_tipo) REFERENCES Tipo_Solicitud(id_tipo)
         ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=INNODB;
 
@@ -116,6 +128,8 @@ GRANT SELECT ON sistema.cliente TO 'cliente'@'%';
 GRANT SELECT,UPDATE,INSERT ON sistema.cliente TO 'cliente'@'%'; 
 GRANT SELECT,UPDATE,INSERT ON sistema.plan TO 'cliente'@'%'; 
 GRANT SELECT,UPDATE,INSERT ON sistema.familiar TO 'cliente'@'%'; 
+GRANT SELECT,UPDATE,INSERT ON sistema.solicitud TO 'cliente'@'%'; 
+GRANT SELECT,UPDATE,INSERT ON sistema.Tipo_solicitud TO 'cliente'@'%'; 
 
 #------------------------------CARGA DE DATOS-------------------------------------#
 
@@ -129,6 +143,8 @@ INSERT INTO Empleado VALUES (5,'usuario5',md5('contraseña5'),"Rodriguez","Matia
 #--Plan (nro_plan,nombre,reintegro, precio)----#
 INSERT INTO Plan VALUES (1,"A",70.05,5000);
 INSERT INTO Plan VALUES (2,"B",20.95,2500);
+
+
 
 #--------------Cliente (nro_cliente, username, password, apellido, nombre, fecha_nac, direccion, telefono, correo, nro_doc, nro_plan, cupon )-------------#
 INSERT INTO Cliente VALUES (1,'cliente1',md5('contraseña1'),"Lopez","Jorge","1980/03/05","Sarmiento 245","2915667893","jorgelop33@gmail.com",34567892,1,0);
@@ -157,7 +173,13 @@ INSERT INTO Servicio_plan VALUES (3,3,2);
 #---Administrador (id,username,password)
 INSERT INTO Administrador VALUES (1,"admin",md5('admin'));
 
-#---Solicitud(id_solicitud,nro_cliente,nro_plan INT UNSIGNED)
+#--Tipo_solicitud(id,nombre)
+INSERT INTO Tipo_Solicitud VALUES (1, "Reintegro");
+INSERT INTO Tipo_Solicitud VALUES (2, "Prestacion");
 
-INSERT INTO Solicitud VALUES (1,1,2);
-INSERT INTO Solicitud VALUES (2,2,1);
+#---Solicitud(id_solicitud,nro_tipo, nro_cliente,nro_familiar,nro_plan INT UNSIGNED)
+
+INSERT INTO Solicitud VALUES (1,1,1,1,1);
+INSERT INTO Solicitud VALUES (2,2,1,NULL,1);
+INSERT INTO Solicitud VALUES (3,2,1,2,1);
+

@@ -167,17 +167,15 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	public boolean sePuedeModificar(DatosCliente nuevosDatos) throws InvalidFormatException {
-		
-		if(!ModeloRegistro.datosValidos(nuevosDatos)) {
+
+		if (!ModeloRegistro.datosValidos(nuevosDatos)) {
 			throw new InvalidFormatException("Mail, contraseña o nombre de usuario invalido");
 		}
 
-		String query = "SELECT * FROM Cliente WHERE "
-				+ "(username = '"+nuevosDatos.getNombreUsuario() + "' "
-				+ "OR correo = '"+nuevosDatos.getMail()+"' "
-				+ "OR nro_doc = "+nuevosDatos.getNroDocumento()+" "
-				+ "OR telefono = '"+nuevosDatos.getTelefono()+"' ) "
-				+ "AND nro_cliente != "+clienteActual.getNroCliente()+";";
+		String query = "SELECT * FROM Cliente WHERE " + "(username = '" + nuevosDatos.getNombreUsuario() + "' "
+				+ "OR correo = '" + nuevosDatos.getMail() + "' " + "OR nro_doc = " + nuevosDatos.getNroDocumento() + " "
+				+ "OR telefono = '" + nuevosDatos.getTelefono() + "' ) " + "AND nro_cliente != "
+				+ clienteActual.getNroCliente() + ";";
 		ResultSet rs = this.consulta(query);
 		try {
 			return !rs.next();
@@ -186,9 +184,9 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		}
 		return false;
 	}
-	
+
 	public boolean modificarDatos(DatosCliente nuevosDatos) {
-		
+
 		String queryID = "SELECT nro_cliente FROM Cliente WHERE username='" + clienteActual.getNombreUsuario() + "';";
 		ResultSet rs = this.consulta(queryID);
 		int id = 0;
@@ -253,9 +251,9 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
 			e.printStackTrace();
 		}
-		String query = "UPDATE Cliente SET " + "cupon = "+ 1 + " WHERE nombre = '"+ getNombre() + "';";
+		String query = "UPDATE Cliente SET " + "cupon = " + 1 + " WHERE nombre = '" + getNombre() + "';";
 		this.actualizacion(query);
-		
+
 	}
 
 	public String getPlan() {
@@ -379,7 +377,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		// Obtener nombre Familiares
 		String queryFamiliar = "SELECT * FROM Familiar WHERE nro_cliente = '" + id + "';";
 		rs = this.consulta(queryFamiliar);
@@ -387,7 +385,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		try {
 			while (rs.next())
 				nombreFamiliares.add(rs.getString("nombre"));
-				
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -408,32 +406,35 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	public boolean solicitarCambioPlan(int nro_plan) {
-		String sql = "INSERT INTO Solicitud (nro_cliente,nro_plan) VALUES ("+clienteActual.getNroCliente() +" , "+nro_plan+");";
+		String sql = "INSERT INTO Solicitud (nro_cliente,nro_plan) VALUES (" + clienteActual.getNroCliente() + " , "
+				+ nro_plan + ");";
 		this.actualizacion(sql);
 		return true;
 	}
 
 	@Override
-	public boolean modificarPlanAdmin(int planID, String nuevoNombre, double nuevoReintegro, int nuevoPrecio) throws Exception {
+	public boolean modificarPlanAdmin(int planID, String nuevoNombre, double nuevoReintegro, int nuevoPrecio)
+			throws Exception {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 	public String[] obtenerServicios() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	public LinkedList<String> getPlanes() {
 		String sql = "SELECT * FROM Plan ORDER BY nombre ASC;";
 		ResultSet rs = this.consulta(sql);
-		LinkedList<String> planes= new LinkedList<String>();
+		LinkedList<String> planes = new LinkedList<String>();
 		try {
-			while(rs.next())
+			while (rs.next())
 				planes.addLast(rs.getString("nombre"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return  planes;
+		return planes;
 	}
 
 	@Override
@@ -451,13 +452,13 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	@Override
 	public void aprobarCambio(String nombre, String apellido) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void aprobarPago(String nombre, String apellido) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public ArrayList<ArrayList<String>> obtenerInfoFamiliares() {
@@ -470,14 +471,22 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 				+ "';";
 		ResultSet rs = this.consulta(queryPlan2);
 		int id = -1;
-		try {if (rs.next()) id = rs.getInt("nro_cliente");} catch (SQLException e) {e.printStackTrace();}
-		
-		
-		String sqlPlan = "SELECT nombre FROM Plan WHERE nro_plan="+obtenerPlanCliente()+";";
+		try {
+			if (rs.next())
+				id = rs.getInt("nro_cliente");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		String sqlPlan = "SELECT nombre FROM Plan WHERE nro_plan=" + obtenerPlanCliente() + ";";
 		rs = this.consulta(sqlPlan);
-		try {if (rs.next()) plan = rs.getString("nombre");} catch (SQLException e) {e.printStackTrace();}
-		
-		
+		try {
+			if (rs.next())
+				plan = rs.getString("nombre");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		// Obtener nombre Familiares
 		String queryFamiliar = "SELECT * FROM Familiar WHERE nro_cliente = '" + id + "';";
 		rs = this.consulta(queryFamiliar);
@@ -488,110 +497,151 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 				familiar.add(rs.getString("nombre"));
 				familiar.add(rs.getString("apellido"));
 				familiar.add(rs.getString("dni"));
-				familiar.add(plan);	
+				familiar.add(plan);
 				familiar.add(rs.getString("fecha_nac"));
 				familiar.add(rs.getString("direccion"));
 				familiar.add(rs.getString("telefono"));
-				
+
 				nombreFamiliares.add(familiar);
 			}
-				
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return nombreFamiliares;
 	}
 
 	public boolean eliminarFamiliar(String nombre) {
 
-		
-		String sql= "DELETE FROM Familiar WHERE nombre='"+nombre+"'";
+		String sql = "DELETE FROM Familiar WHERE nombre='" + nombre + "'";
 		this.actualizacion(sql);
-		
-		
+
 		return true;
-		
+
 	}
+
 	public ArrayList<ArrayList<String>> obtenerSolicitudesABM() {
-		//TODO 
+
 		ArrayList<ArrayList<String>> solicitudes = new ArrayList<ArrayList<String>>();
 		String plan = "";
 
 		// Obtener ID
-		String queryPlan2 = "SELECT nro_cliente FROM Solicitud WHERE username='" + clienteActual.getNombreUsuario()
+		String sqlNroCliente = "SELECT nro_cliente FROM Cliente WHERE username='" + clienteActual.getNombreUsuario()
 				+ "';";
-		ResultSet rs = this.consulta(queryPlan2);
+		System.out.println(sqlNroCliente);
+		ResultSet rsNroCli = this.consulta(sqlNroCliente);
+		ResultSet rsPlan, rsACargo, rsFamiliar, rsTipo;
 		int id = -1;
-		try {if (rs.next()) id = rs.getInt("nro_cliente");} catch (SQLException e) {e.printStackTrace();}
-		
-		
-		String sqlPlan = "SELECT nombre FROM Plan WHERE nro_plan="+obtenerPlanCliente()+";";
-		rs = this.consulta(sqlPlan);
-		try {if (rs.next()) plan = rs.getString("nombre");} catch (SQLException e) {e.printStackTrace();}
-		
-		
-		// Obtener nombre Familiares
-		String queryFamiliar = "SELECT * FROM Familiar WHERE nro_cliente = '" + id + "';";
-		rs = this.consulta(queryFamiliar);
-
 		try {
-			while (rs.next()) {
-				ArrayList<String> solicitud = new ArrayList<String>();
-				solicitud.add(rs.getString("id_solicitud"));
-				solicitud.add(rs.getString("apellido"));
-				solicitud.add(rs.getString("dni"));
-				solicitud.add(plan);	
-				solicitud.add(rs.getString("fecha_nac"));
-				solicitud.add(rs.getString("direccion"));
-				solicitud.add(rs.getString("telefono"));
-				
-				solicitudes.add(solicitud);
-			}
-				
+			if (rsNroCli.next())
+				id = rsNroCli.getInt("nro_cliente");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
+		String nombre = "", apellido = "";
+		String sqlPlan = "SELECT * FROM Cliente WHERE nro_cliente=" + id + ";";
+		System.out.println(sqlPlan);
+		rsPlan = this.consulta(sqlPlan);
+		try {
+			if (rsPlan.next()) {
+				nombre = rsPlan.getString("nombre");
+				apellido = rsPlan.getString("apellido");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		// OBTENGO TODAS LAS SOLICITUDES
+		String sqlACargo = "SELECT * FROM Solicitud WHERE nro_cliente = '" + id + "';";
+		System.out.println(sqlACargo);
+		rsACargo = this.consulta(sqlACargo);
+
+		try {
+			while (rsACargo.next()) {
+				ArrayList<String> solicitud = new ArrayList<String>();
+				if (rsACargo.getInt("nro_familiar") > 0) {// SI ES PARA UN FAMILIAR
+					String sqlFamiliar = "SELECT * FROM Familiar WHERE nro_familiar=" + rsACargo.getInt("nro_familiar")
+							+ ";";
+					rsFamiliar = this.consulta(sqlFamiliar);
+					if (rsFamiliar.next()) {
+						try {
+							solicitud.add(rsFamiliar.getString("nombre"));
+							solicitud.add(rsFamiliar.getString("apellido"));
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+
+					}
+				} else {
+					System.out.print("ES EL QUE ESTA A CARGO");
+					solicitud.add(nombre);
+					solicitud.add(apellido);
+				}
+
+				String sqlTipo = "SELECT * FROM Tipo_solicitud WHERE id_tipo = " + rsACargo.getInt("nro_tipo") + ";";
+				System.out.println(sqlTipo);
+				rsTipo = this.consulta(sqlTipo);
+
+				try {
+					if (rsTipo.next())
+						solicitud.add(rsTipo.getString("nombre"));
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				solicitudes.add(solicitud);
+			}
+
+		} catch (
+
+		SQLException e) {
+			e.printStackTrace();
+		}
+
 		return solicitudes;
 	}
 
 	public void modificarDatos(ArrayList<String> datosNuevos) {
-	
-		String sql1 = "SELECT * FROM Familiar WHERE nombre= '"+datosNuevos.get(0)+"';";
+
+		String sql1 = "SELECT * FROM Familiar WHERE nombre= '" + datosNuevos.get(0) + "';";
 		ResultSet rs = this.consulta(sql1);
 		String dni = "";
-		
+
 		ArrayList<String> datos = new ArrayList<String>();
-		
+
 		try {
 			if (rs.next()) {
 
-					dni += rs.getString("dni");
-				
-					if(datosNuevos.get(1) != "")
-						datos.add(datosNuevos.get(1));
-					else datos.add(rs.getString("nombre"));
-					
-					if(datosNuevos.get(2) != "")
-						datos.add(datosNuevos.get(2));
-					else datos.add(rs.getString("apellido"));
-					
-					if(datosNuevos.get(3) != "")
-						datos.add(datosNuevos.get(3));
-					else datos.add(rs.getString("direccion"));
-					
-					if(datosNuevos.get(4) != "")
-						datos.add(datosNuevos.get(4));
-					else datos.add(rs.getString("telefono"));
+				dni += rs.getString("dni");
+
+				if (datosNuevos.get(1) != "")
+					datos.add(datosNuevos.get(1));
+				else
+					datos.add(rs.getString("nombre"));
+
+				if (datosNuevos.get(2) != "")
+					datos.add(datosNuevos.get(2));
+				else
+					datos.add(rs.getString("apellido"));
+
+				if (datosNuevos.get(3) != "")
+					datos.add(datosNuevos.get(3));
+				else
+					datos.add(rs.getString("direccion"));
+
+				if (datosNuevos.get(4) != "")
+					datos.add(datosNuevos.get(4));
+				else
+					datos.add(rs.getString("telefono"));
 			}
-				
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		String sql2 = "UPDATE Familiar SET " + "nombre= '"+datos.get(0)+"', apellido= '"+datos.get(1)+"', direccion= '"+datos.get(2)
-						+"', telefono= '"+datos.get(3)+"' WHERE dni= '"+dni+"';";
+
+		String sql2 = "UPDATE Familiar SET " + "nombre= '" + datos.get(0) + "', apellido= '" + datos.get(1)
+				+ "', direccion= '" + datos.get(2) + "', telefono= '" + datos.get(3) + "' WHERE dni= '" + dni + "';";
 		this.actualizacion(sql2);
 	}
 
