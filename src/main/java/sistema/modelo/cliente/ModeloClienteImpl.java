@@ -720,10 +720,18 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		if (prestacion.compareTo("REINTEGRO") == 0) {
 			extra = "CBU: ";
 			for(int i= 0; i < 16;i++) {				
-				Random r3 = new Random(); // r2 y r3 darán la misma secuencia.				
+				Random r3 = new Random();				
 				extra += r3.nextInt(10);
 			}
-		}else {//PRESTACION
+		}else {//PRESTACION	
+			String dia="Fecha: ",mes="";
+			Random r3 = new Random();
+			int intDia = r3.nextInt(28) + 1;
+			int intMes = r3.nextInt(12) + 1;
+			
+			dia += ""+intDia+"/";
+			mes = dia+ intMes +"/";
+			extra = mes+"2023";
 			
 		}
 		
