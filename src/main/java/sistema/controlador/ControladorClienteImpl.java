@@ -127,4 +127,9 @@ public class ControladorClienteImpl implements ControladorCliente {
 		modelo.modificarDatos(datosNuevos);
 		
 	}
+
+	@Override
+	public boolean eliminarSolicitud(ArrayList<String> solicitud) {
+		return modelo.eliminarSolicitud(solicitud);
+	}
 }

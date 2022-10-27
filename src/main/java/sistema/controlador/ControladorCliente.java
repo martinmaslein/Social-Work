@@ -42,4 +42,6 @@ public interface ControladorCliente extends ControladorSistema {
 
 	public void modificarDatosFamiliar(ArrayList<String> datosNuevos);
 
+	public boolean eliminarSolicitud(ArrayList<String> solicitud);
+
 }

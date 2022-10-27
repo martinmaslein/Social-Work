@@ -592,6 +592,8 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				
+				solicitud.add(""+rsACargo.getInt("id_solicitud"));
 				solicitudes.add(solicitud);
 			}
 
@@ -651,6 +653,29 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	public boolean eliminarPlan(sistema.utilidades.Pair<String, Integer> planSeleccionado) {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	public boolean eliminarSolicitud(ArrayList<String> solicitud) {
+		boolean salida = false;
+		/*FORMATO ARRAY solicitud
+		 * (0) -> nombre
+		 * (1) -> apellido
+		 * (2) -> nombre del tipo dela solicitud reintegro/prestacion
+		 * (3) -> id_solicitud
+		 */
+
+		if(!salida) {
+			String sql2= "DELETE FROM Solicitud WHERE id_solicitud="+solicitud.get(3)+";";
+			//String sql3= "DELETE FROM plan WHERE nro_plan="+id+";";
+			this.actualizacion(sql2);
+			//this.actualizacion(sql3);
+			salida = true;
+		} else {
+			salida = false;
+		}
+		
+		System.out.println("salida final = "+salida);
+		return salida;
 	}
 
 	@Override
