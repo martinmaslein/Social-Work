@@ -300,9 +300,17 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 				try {
 					panelAdministrarPlanes.setVisible(true);
 					panelNuevoPlan.setVisible(false);
+					limpiarCampos();
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
+			}
+
+			private void limpiarCampos() {
+				textFieldNombre.setText("");
+				textFieldPrecio.setText("");
+				textAreaPresataciones.setText("");
+				
 			}
 		});
 		panelNuevoPlan.add(btnVolver2);
@@ -519,6 +527,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 					JOptionPane.showMessageDialog(null, "No pueden haber campos vacíos o nombre existente");
 				else
 					JOptionPane.showMessageDialog(null, "Plan creado exitosamente");
+					actualizarTablaPlanes();
 			}
 		};
 	}

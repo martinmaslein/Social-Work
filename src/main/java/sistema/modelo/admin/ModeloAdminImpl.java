@@ -177,7 +177,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		}
 		
 		
-		String sql1 = "SELECT * FROM cliente WHERE nro_plan="+id+";"; // ver
+		String sql1 = "SELECT * FROM cliente WHERE nro_plan="+id+";";
 		System.out.println(sql1);
 		ResultSet rs1 = this.consulta(sql1);
 		try {
@@ -193,8 +193,10 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		System.out.println(salida);
 
 		if(!salida) {
-			String sql2= "DELETE FROM plan WHERE nro_plan="+id+";";
+			String sql2= "DELETE FROM servicio_plan WHERE nro_plan="+id+";";
+			String sql3= "DELETE FROM plan WHERE nro_plan="+id+";";
 			this.actualizacion(sql2);
+			this.actualizacion(sql3);
 			salida = true;
 		} else {
 			salida = false;
