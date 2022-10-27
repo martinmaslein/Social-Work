@@ -426,4 +426,10 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean eliminarSolicitud(ArrayList<String> solicitud) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

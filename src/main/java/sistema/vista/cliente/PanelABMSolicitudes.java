@@ -3,10 +3,16 @@ package sistema.vista.cliente;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -21,13 +27,15 @@ public class PanelABMSolicitudes extends JPanel {
 	private ControladorCliente controlador;
 	private JScrollPane scrollPane;
 	private ArrayList<String> solicitudSeleccionada;
+	private PanelABMSolicitudes panel = this;
+	private JButton volver;
 
-	public PanelABMSolicitudes(final ControladorCliente controlador) {
+	public PanelABMSolicitudes(final ControladorCliente controlador, JButton volver) {
 		super();
 		this.controlador = controlador;
 		setBackground(new Color(224, 241, 238));
 		setLayout(null);
-
+		this.volver = volver;
 		craerBotonesPanelABMSolicitudes();
 		cargarABMSolicitudes();
 
@@ -46,6 +54,49 @@ public class PanelABMSolicitudes extends JPanel {
 		btnVerMas.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnVerMas.setForeground(new Color(255, 255, 255));
 		btnVerMas.setBackground(new Color(119, 193, 181));
+
+		btnVerMas.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				boolean toReturn;
+				if (solicitudSeleccionada != null) {// selecciono una fila
+					if (solicitudSeleccionada.get(0) != null) {// selecciono una fila que no esta vacia
+						
+						JButton btnVolverVerMas = new JButton("");
+						btnVolverVerMas.setIcon(new ImageIcon("img\\flechi.png"));
+						btnVolverVerMas.setBorder(null);
+						btnVolverVerMas.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								try {
+									scrollPane.setVisible(true);
+									btnEliminar.setVisible(true);
+									btnVerMas.setVisible(true);
+									volver.setVisible(true);
+									btnSolicitarReintegro.setVisible(true); 
+									btnSolicitarPrestacion.setVisible(true);
+									setVisible(false);
+								} catch (Exception e1) {
+									e1.printStackTrace();
+								}
+							}
+						});
+						btnVolverVerMas.setBounds(10, 11, 35, 31);
+						//OCULTO LO DE ABAJO
+						scrollPane.setVisible(false);
+						btnEliminar.setVisible(false);
+						btnVerMas.setVisible(false);
+						volver.setVisible(false);
+						btnSolicitarReintegro.setVisible(false); 
+						btnSolicitarPrestacion.setVisible(false);
+						btnVolverVerMas.setVisible(true);
+
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar una solicitud para ver más.");
+				}
+
+			}
+		});
+
 		add(btnVerMas);
 
 		btnEliminar = new JButton("Eliminar");
@@ -54,6 +105,36 @@ public class PanelABMSolicitudes extends JPanel {
 		btnEliminar.setForeground(new Color(255, 255, 255));
 		btnEliminar.setBackground(new Color(119, 193, 181));
 		// btnEliminar.addActionListener(this.eliminarFamiliar());
+		btnEliminar.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				boolean toReturn;
+				if (solicitudSeleccionada != null) {
+					if (solicitudSeleccionada.get(0) != null) {
+						System.out.println("nombre que llega al boton = " + solicitudSeleccionada.get(0)
+								+ " solicitud: " + solicitudSeleccionada.get(3));
+
+						int select = JOptionPane.showConfirmDialog(panel, "¿Desea eliminar la solcitud seleccionada?",
+								"Eliminar solicitud", JOptionPane.CANCEL_OPTION);
+						System.out.println(select);
+
+						if (select == JOptionPane.OK_OPTION) {
+							toReturn = controlador.eliminarSolicitud(solicitudSeleccionada);
+							if (toReturn) {
+								cargarABMSolicitudes();
+								JOptionPane.showMessageDialog(null, "Solicitud eliminada correctamente.");
+							} else {
+								JOptionPane.showMessageDialog(null, "No fue posible eliminar la solicitud.");
+							}
+
+						}
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar una solicitud para eliminar.");
+				}
+
+			}
+		});
+
 		add(btnEliminar);
 
 		btnSolicitarReintegro = new JButton("+ Solicitar reintegro");
@@ -84,10 +165,10 @@ public class PanelABMSolicitudes extends JPanel {
 		scrollPane.setBounds(33, 188, 488, 219);
 		add(scrollPane);
 
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(154, 209, 201));
-		panel.setBounds(0, 0, 946, 115);
-		add(panel);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(154, 209, 201));
+		panel_1.setBounds(64, 0, 882, 115);
+		add(panel_1);
 	}
 
 	private void cargarABMSolicitudes() {

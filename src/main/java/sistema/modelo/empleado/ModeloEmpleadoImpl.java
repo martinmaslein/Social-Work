@@ -304,4 +304,10 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 		return null;
 	}
 
+	@Override
+	public boolean eliminarSolicitud(ArrayList<String> solicitud) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

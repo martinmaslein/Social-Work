@@ -60,5 +60,7 @@ public interface ModeloUsuario extends Modelo {
 	public void aprobarPago(String nombre, String apellido);
 	
 	public boolean eliminarPlan(sistema.utilidades.Pair<String, Integer> planSeleccionado);
+	
+	public boolean eliminarSolicitud(ArrayList<String> solicitud);
 
 }

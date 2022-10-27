@@ -128,7 +128,7 @@ GRANT SELECT ON sistema.cliente TO 'cliente'@'%';
 GRANT SELECT,UPDATE,INSERT ON sistema.cliente TO 'cliente'@'%'; 
 GRANT SELECT,UPDATE,INSERT ON sistema.plan TO 'cliente'@'%'; 
 GRANT SELECT,UPDATE,INSERT ON sistema.familiar TO 'cliente'@'%'; 
-GRANT SELECT,UPDATE,INSERT ON sistema.solicitud TO 'cliente'@'%'; 
+GRANT DELETE, SELECT,UPDATE,INSERT ON sistema.solicitud TO 'cliente'@'%'; 
 GRANT SELECT,UPDATE,INSERT ON sistema.Tipo_solicitud TO 'cliente'@'%'; 
 
 #------------------------------CARGA DE DATOS-------------------------------------#
