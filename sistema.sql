@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS Cliente(
     fecha_nac VARCHAR(128) NOT NULL,
     direccion VARCHAR(128) NOT NULL,
     telefono VARCHAR(128) NOT NULL,
-    correo VARCHAR(128) NOT NULL, 
+    correo VARCHAR(128) NOT NULL,
     nro_doc INT UNSIGNED NOT NULL,
     nro_plan INT UNSIGNED NOT NULL,
     cupon INT UNSIGNED NOT NULL,
@@ -98,12 +98,15 @@ CREATE TABLE IF NOT EXISTS Solicitud(
     nro_cliente INT UNSIGNED,
     nro_familiar INT UNSIGNED,
     nro_plan INT UNSIGNED,
+    nro_servicio INT UNSIGNED,
     CONSTRAINT pk_Solicitud PRIMARY KEY(id_solicitud),
     FOREIGN KEY (nro_cliente) REFERENCES Cliente(nro_cliente)
         ON DELETE CASCADE ON UPDATE CASCADE,
      FOREIGN KEY (nro_familiar) REFERENCES Familiar(nro_familiar)
         ON DELETE CASCADE ON UPDATE CASCADE,    
     FOREIGN KEY (nro_plan) REFERENCES Plan(nro_plan)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (nro_servicio) REFERENCES Servicio(nro_servicio)
         ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (nro_tipo) REFERENCES Tipo_Solicitud(id_tipo)
         ON DELETE CASCADE ON UPDATE CASCADE
@@ -128,6 +131,7 @@ GRANT SELECT ON sistema.cliente TO 'cliente'@'%';
 GRANT SELECT,UPDATE,INSERT ON sistema.cliente TO 'cliente'@'%'; 
 GRANT SELECT,UPDATE,INSERT ON sistema.plan TO 'cliente'@'%'; 
 GRANT SELECT,UPDATE,INSERT ON sistema.familiar TO 'cliente'@'%'; 
+GRANT DELETE, SELECT,UPDATE,INSERT ON sistema.servicio TO 'cliente'@'%'; 
 GRANT DELETE, SELECT,UPDATE,INSERT ON sistema.solicitud TO 'cliente'@'%'; 
 GRANT SELECT,UPDATE,INSERT ON sistema.Tipo_solicitud TO 'cliente'@'%'; 
 
@@ -177,9 +181,9 @@ INSERT INTO Administrador VALUES (1,"admin",md5('admin'));
 INSERT INTO Tipo_Solicitud VALUES (1, "Reintegro");
 INSERT INTO Tipo_Solicitud VALUES (2, "Prestacion");
 
-#---Solicitud(id_solicitud,nro_tipo, nro_cliente,nro_familiar,nro_plan INT UNSIGNED)
+#---Solicitud(id_solicitud,nro_tipo, nro_cliente,nro_familiar,nro_plan,nro_servicio)
 
-INSERT INTO Solicitud VALUES (1,1,1,1,1);
-INSERT INTO Solicitud VALUES (2,2,1,NULL,1);
-INSERT INTO Solicitud VALUES (3,2,1,2,1);
+INSERT INTO Solicitud VALUES (1,1,1,1,1,1);
+INSERT INTO Solicitud VALUES (2,2,1,NULL,1,1);
+INSERT INTO Solicitud VALUES (3,2,1,2,1,2);
 
