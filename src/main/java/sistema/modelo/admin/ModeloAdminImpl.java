@@ -4,6 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JTable;
+
 import sistema.modelo.ModeloImpl;
 import sistema.modelo.cliente.ModeloUsuario;
 import sistema.utilidades.Pair;
@@ -134,15 +137,6 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		return salida;
 	}
 
-	public boolean modificarPlanAdmin(int id, String nuevoNombre, int nuevoPrecio) throws Exception{
-		boolean salida;
-		
-		String sql = "UPDATE plan SET nombre = "+ nuevoNombre +", precio = "+ nuevoPrecio +""; 
-		ResultSet rs = this.consulta(sql);
-		
-		return false;
-	}
-
 	public List<Pair<String, Integer>> obtenerPlanes() {
 		List<Pair<String,Integer>> planes = new ArrayList<Pair<String,Integer>>();
 		Pair<String, Integer> plan;
@@ -176,9 +170,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 			e1.printStackTrace();
 		}
 		
-		
 		String sql1 = "SELECT * FROM cliente WHERE nro_plan="+id+";";
-		System.out.println(sql1);
 		ResultSet rs1 = this.consulta(sql1);
 		try {
 			if (rs1.next()) {
@@ -190,8 +182,6 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 			e.printStackTrace();
 		}
 
-		System.out.println(salida);
-
 		if(!salida) {
 			String sql2= "DELETE FROM servicio_plan WHERE nro_plan="+id+";";
 			String sql3= "DELETE FROM plan WHERE nro_plan="+id+";";
@@ -202,7 +192,6 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 			salida = false;
 		}
 		
-		System.out.println("salida final = "+salida);
 		return salida;
 	}
 	
@@ -398,6 +387,50 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 			aux++;
 		}
 		return cant;
+	}
+	
+	@Override
+	public boolean modificarPlan(String nombre, String text, String text2, JTable table_1) {
+		int precio = Integer.parseInt(text2);
+		char nombreNuevo = text.charAt(0);
+		String sql = "UPDATE plan SET nombre = '"+nombreNuevo+"', precio = "+precio+" WHERE nombre='"+nombre+"';"; 
+		this.actualizacion(sql);
+		String servicios = "";
+		String [] prestaciones = new String[5];
+		for(int i=0;i<5;i++) {
+			prestaciones[i] = (String) table_1.getValueAt(i, 0);
+			servicios += table_1.getValueAt(i, 0)+"\n";
+		}
+		
+		cargarServicio(servicios);
+		
+		String sql1 = "SELECT * FROM plan WHERE nombre = '"+nombre+"';";
+		ResultSet rs1 = this.consulta(sql1);
+		int id = 0;
+		try {
+			if(rs1.next()) {
+				id = rs1.getInt("nro_plan");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			int idServicio = 0;
+			for(int j=0;j<prestaciones.length;j++) {
+				String sql2 = "SELECT nro_servicio FROM servicios WHERE nombre = '"+prestaciones[j]+"';";
+				ResultSet rs2 = this.consulta(sql2);
+				idServicio = rs2.getInt("nombre");
+			
+				String sql3= "INSERT INTO Servicio_plan (id_servicio_plan, nro_servicio, nro_plan) VALUES (NULL,"+idServicio+","+id+");";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		return false;
 	}
 
 	private boolean chequearNombre(String nombre2) {

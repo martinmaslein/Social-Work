@@ -223,8 +223,8 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		});
 		
 		
-		table.addMouseListener(new java.awt.event.MouseAdapter() { 
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+		table.addMouseListener(new MouseAdapter() { 
+            public void mouseClicked(MouseEvent evt) {
         		
         		int row = table.rowAtPoint(evt.getPoint());
                 int col = table.columnAtPoint(evt.getPoint());
@@ -240,10 +240,9 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
                     String [][] data = modeloAdmin.obtenerPrestaciones(selectedObject.toString());
                     String [] pres = {"Prestaciones"};
                     
-                    DefaultTableModel tableModeloPrestacioness = new DefaultTableModel(data,pres);
-            	    JTable table_12 = new JTable(tableModeloPrestacioness);
-            	    table_12.setRowHeight(25);
-            	    scrollPane_1.setViewportView(table_12);
+                    tableModeloPrestaciones = new DefaultTableModel(data,pres);
+            	    table_1 = new JTable(tableModeloPrestaciones);
+            	    scrollPane_1.setViewportView(table_1);
                 }         
             }
         });
@@ -267,23 +266,27 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		
 		btnEliminar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				boolean toReturn;
-				if(planSeleccionado.getNombre() != null) {
-					System.out.println("plan que llega al boton = "+planSeleccionado.getNombre());
-					toReturn = controlador.eliminarPlan(planSeleccionado);
-					if(toReturn) {
-						JOptionPane.showMessageDialog(null,"Plan eliminado correctamente.");
-						actualizarTablaPlanes();
-					} else {
-						JOptionPane.showMessageDialog(null,"No es posible eliminar un plan utilizado por clientes.");
-					}
-				}else {
-					
-				}
+				
+				int select = JOptionPane.showConfirmDialog(
+						panelAdministrarPlanes, "¿Desea eliminar el plan seleccionado?","Confirmar", JOptionPane.CANCEL_OPTION);
 
+				if (select == JOptionPane.OK_OPTION) {
+					boolean toReturn;
+					if(planSeleccionado.getNombre() != null) {
+						System.out.println("plan que llega al boton = "+planSeleccionado.getNombre());
+						toReturn = controlador.eliminarPlan(planSeleccionado);
+						if(toReturn) {
+							JOptionPane.showMessageDialog(null,"Plan eliminado correctamente.");
+							actualizarTablaPlanes();
+						} else {
+							JOptionPane.showMessageDialog(null,"No es posible eliminar un plan utilizado por clientes.");
+						}
+					}else {
+						
+					}
+				}
 			}
 		});
-		
 		panelAdministrarPlanes.add(btnEliminar);
 		
 		JButton btnModificarPlan_1 = new JButton("Ver más");
@@ -461,16 +464,18 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		panelModificarPlan.add(textField_5);
 		
 		btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean modif = controlador.modificarPlan(planSeleccionado.getNombre(),textField_2.getText(), textField_3.getText(), table_1);
+				actualizarTablaPlanes();
+			}
+		});
 		btnConfirmar.setForeground(Color.WHITE);
 		btnConfirmar.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnConfirmar.setBorder(null);
 		btnConfirmar.setBackground(new Color(119, 193, 181));
 		btnConfirmar.setBounds(453, 408, 119, 37);
 		panelModificarPlan.add(btnConfirmar);
-		table_1 = new JTable(tableModeloPrestaciones);
-		table_1.setBounds(351, 276, 304, 99);
-		panelModificarPlan.add(table_1);
-		table_1.setRowHeight(25);
 
 		this.registrarEventos();
 	}
