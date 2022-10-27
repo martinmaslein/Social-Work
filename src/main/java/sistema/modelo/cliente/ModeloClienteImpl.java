@@ -8,6 +8,7 @@ import java.util.Date;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JTable;
 
@@ -689,5 +690,53 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	public String informacionSolicitud(ArrayList<String> solicitud) {
+		
+		String nombre = solicitud.get(0);
+		String apellido = solicitud.get(1);
+		String prestacion = solicitud.get(2).toUpperCase();
+		String idSolicitud = solicitud.get(3);
+		String servicio = "";
+		String toReturn = "";
+		String extra = "";
+		
+		String sqlSolicitud = "SELECT nro_servicio FROM Solicitud WHERE id_solicitud ='"+idSolicitud+"';";
+		ResultSet rs = this.consulta(sqlSolicitud);
+		try {
+			if (rs.next()) {
+				String sqlServicio = "SELECT nombre FROM Servicio WHERE nro_servicio ='"+rs.getInt("nro_servicio")+"';";
+				ResultSet rsServicio = this.consulta(sqlServicio);
+				if(rsServicio.next()) {
+					servicio = rsServicio.getString("nombre");
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		if (prestacion.compareTo("REINTEGRO") == 0) {
+			extra = "CBU: ";
+			for(int i= 0; i < 16;i++) {				
+				Random r3 = new Random(); // r2 y r3 darán la misma secuencia.				
+				extra += r3.nextInt(10);
+			}
+		}else {//PRESTACION
+			
+		}
+		
+		
+		toReturn = prestacion+"\nNombre: "+nombre+"\n"
+										+"Apellido : "+apellido+"\n"
+										+"Servicio : "+servicio+"\n"
+										+""+extra+"\n";
+		
+		
+		return toReturn;
+	}
+
+	
 
 }

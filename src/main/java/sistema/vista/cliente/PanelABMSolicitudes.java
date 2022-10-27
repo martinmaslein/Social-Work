@@ -11,11 +11,13 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import sistema.controlador.ControladorCliente;
@@ -28,16 +30,17 @@ public class PanelABMSolicitudes extends JPanel {
 	private JScrollPane scrollPane;
 	private ArrayList<String> solicitudSeleccionada;
 	private PanelABMSolicitudes panel = this;
-	private JButton volver;
+	private JPanel panelVerMas;
+	private JFrame frame;
 
-	public PanelABMSolicitudes(final ControladorCliente controlador, JButton volver) {
+	public PanelABMSolicitudes(final ControladorCliente controlador, JFrame frame) {
 		super();
 		this.controlador = controlador;
 		setBackground(new Color(224, 241, 238));
 		setLayout(null);
-		this.volver = volver;
 		craerBotonesPanelABMSolicitudes();
 		cargarABMSolicitudes();
+		this.frame = frame;
 
 	}
 
@@ -54,6 +57,21 @@ public class PanelABMSolicitudes extends JPanel {
 		btnVerMas.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnVerMas.setForeground(new Color(255, 255, 255));
 		btnVerMas.setBackground(new Color(119, 193, 181));
+		
+		btnVerMas.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				boolean toReturn;
+				if (solicitudSeleccionada != null) {
+					if (solicitudSeleccionada.get(0) != null) {
+						String info = controlador.informacionSolicitud(solicitudSeleccionada);
+						JOptionPane.showMessageDialog(null, info);
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar una solicitud para ver más.");
+				}
+
+			}
+		});
 		add(btnVerMas);
 
 		btnEliminar = new JButton("Eliminar");

@@ -68,5 +68,7 @@ public interface ModeloUsuario extends Modelo {
 	public String informacionPlan(String nombre);
 
 	public boolean modificarPlan(String nombre, String text, String text2, JTable table_1);
+	
+	public String informacionSolicitud(ArrayList<String> solicitud);
 
 }

@@ -613,7 +613,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 			public void actionPerformed(ActionEvent e) {
 				panelPpal.setVisible(false);
 				JButton btnVolver3 = new JButton("");
-				panelABMSolicitudes = new PanelABMSolicitudes(controlador, btnVolver3);
+				panelABMSolicitudes = new PanelABMSolicitudes(controlador, frame);
 				frame.getContentPane().add(panelABMSolicitudes);
 				panelABMSolicitudes.setVisible(true);
 

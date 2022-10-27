@@ -322,4 +322,10 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 		return false;
 	}
 
+	@Override
+	public String informacionSolicitud(ArrayList<String> solicitud) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

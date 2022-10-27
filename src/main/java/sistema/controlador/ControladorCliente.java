@@ -44,4 +44,6 @@ public interface ControladorCliente extends ControladorSistema {
 
 	public boolean eliminarSolicitud(ArrayList<String> solicitud);
 
+	public String informacionSolicitud(ArrayList<String> solicitud);
+
 }

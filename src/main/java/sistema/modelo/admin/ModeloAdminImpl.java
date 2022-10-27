@@ -519,4 +519,10 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public String informacionSolicitud(ArrayList<String> solicitud) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

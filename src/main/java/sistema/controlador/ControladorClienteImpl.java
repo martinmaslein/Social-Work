@@ -132,4 +132,9 @@ public class ControladorClienteImpl implements ControladorCliente {
 	public boolean eliminarSolicitud(ArrayList<String> solicitud) {
 		return modelo.eliminarSolicitud(solicitud);
 	}
+
+	@Override
+	public String informacionSolicitud(ArrayList<String> solicitud) {
+		return modelo.informacionSolicitud(solicitud);
+	}
 }
