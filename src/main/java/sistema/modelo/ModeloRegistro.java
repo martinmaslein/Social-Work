@@ -53,7 +53,7 @@ public class ModeloRegistro extends ModeloImpl {
 	public static boolean esValido(String cadena, int cant) { 
 		cant = cant-2;
 		// entre 5 y cant caracteres
-        String regex = "^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,"+cant+"}[a-zA-Z0-9]$"; 
+        String regex = "^[a-zA-Z0-9ñÑ]([._-](?![._-])|[a-zA-Z0-9ñÑ]){3,"+cant+"}[a-zA-Z0-9]$"; 
   
         Pattern p = Pattern.compile(regex); 
   

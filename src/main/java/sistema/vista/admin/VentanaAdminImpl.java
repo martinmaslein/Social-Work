@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.AbstractButton;
@@ -75,6 +77,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 	private DefaultTableModel tableModel;
 	private JButton btnMisDatos;
 	private JButton btnCerrarSesion;
+	private Pair<String,Integer> planSeleccionado;
 
 	public VentanaAdminImpl() {
 		inicializar();
@@ -176,14 +179,6 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		frame.getContentPane().add(panelModificarPlan, "name_66965023197000");
 		panelModificarPlan.setLayout(null);
 		
-		scrollPane = new JScrollPane();
-		scrollPane.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
-		scrollPane.setBorder(null);
-		scrollPane.setBackground(new Color(224, 241, 238));
-		scrollPane.setMinimumSize(new Dimension(27, 27));
-		scrollPane.setBounds(45, 140, 478, 289);
-		panelAdministrarPlanes.add(scrollPane);
-		
 		String borrar[][] = {{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""}};
 		String [] pres = {"Prestaciones"};
 				
@@ -198,35 +193,17 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		scrollPane_1.setBackground(new Color(224, 241, 238));
 		scrollPane_1.setBounds(351, 251, 323, 124);
 		scrollPane_1.setViewportView(table_1);
-		panelModificarPlan.add(scrollPane_1);       
+		panelModificarPlan.add(scrollPane_1);
 		
+		scrollPane = new JScrollPane();
+		scrollPane.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
+		scrollPane.setBorder(null);
+		scrollPane.setBackground(new Color(224, 241, 238));
+		scrollPane.setMinimumSize(new Dimension(27, 27));
+		scrollPane.setBounds(45, 140, 478, 289);
+		panelAdministrarPlanes.add(scrollPane);
 		
-		tableModeloPrestaciones = new DefaultTableModel(borrar,pres);
-		
-		List<Pair<String,Integer>> planes = modeloAdmin.obtenerPlanes();
-		
-		String columna [] = {"Nombre","Precio"};
-		
-		String data[][] = {{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""}};
-		
-		int i=0;
-		for(Pair<String,Integer> plan : planes) {
-			
-			String nombre = plan.getNombre();
-	    	int precio = plan.getPrecio();
-	    	String precio2 = precio+"";
-	    	
-			data[i][0] = nombre;
-			data[i][1] = precio2;
-			
-			i = i+1;
-		}
-				
-		tableModel = new DefaultTableModel(data,columna);
-	    table = new JTable(tableModel);
-	    table.setRowSelectionAllowed(false);
-	    table.setRowHeight(33);
-	    scrollPane.setViewportView(table);		
+		actualizarTablaPlanes();		
 	 	    
 		btnModificarPlan = new JButton("Modificar");
 		btnModificarPlan.setForeground(Color.WHITE);
@@ -287,15 +264,26 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		btnEliminar.setBorder(null);
 		btnEliminar.setBackground(new Color(119, 193, 181));
 		btnEliminar.setBounds(582, 228, 129, 37);
-		btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() { 
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-				int row = table.rowAtPoint(evt.getPoint());
-				int col = table.columnAtPoint(evt.getPoint());
-				Object selectedObject = (Object) table.getModel().getValueAt(row, col);
-				Pair<String,Integer> plan = modeloAdmin.obtenerPlan(selectedObject.toString());
-				modeloAdmin.eliminarPlan(plan);
+		
+		btnEliminar.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				boolean toReturn;
+				if(planSeleccionado.getNombre() != null) {
+					System.out.println("plan que llega al boton = "+planSeleccionado.getNombre());
+					toReturn = controlador.eliminarPlan(planSeleccionado);
+					if(toReturn) {
+						JOptionPane.showMessageDialog(null,"Plan eliminado correctamente.");
+						actualizarTablaPlanes();
+					} else {
+						JOptionPane.showMessageDialog(null,"No es posible eliminar un plan utilizado por clientes.");
+					}
+				}else {
+					
+				}
+
 			}
 		});
+		
 		panelAdministrarPlanes.add(btnEliminar);
 		
 		panelNuevoPlan = new JPanel();
@@ -469,6 +457,44 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		table_1.setRowHeight(25);
 
 		this.registrarEventos();
+	}
+
+	private void actualizarTablaPlanes() {
+		List<Pair<String,Integer>> planes = modeloAdmin.obtenerPlanes();
+		
+		String columna [] = {"Nombre","Precio"};
+		
+		String data[][] = {{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""},{"",""}};
+		
+		int i=0;
+		for(Pair<String,Integer> plan : planes) {
+			
+			String nombre = plan.getNombre();
+	    	int precio = plan.getPrecio();
+	    	String precio2 = precio+"";
+	    	
+			data[i][0] = nombre;
+			data[i][1] = precio2;
+			
+			i = i+1;
+		}
+				
+		tableModel = new DefaultTableModel(data,columna);
+	    table = new JTable(tableModel);
+	    table.setRowSelectionAllowed(false);
+	    table.setRowHeight(33);
+	    scrollPane.setViewportView(table);
+	    
+	    table.addMouseListener(new MouseAdapter() { 
+            public void mouseClicked(MouseEvent evt) {
+        		
+        		int row = table.rowAtPoint(evt.getPoint());
+                int col = table.columnAtPoint(evt.getPoint());
+                Object selectedObject = (Object) table.getModel().getValueAt(row, col);
+                System.out.println("clicccckkk: "+selectedObject.toString());
+                planSeleccionado = modeloAdmin.obtenerPlan(selectedObject.toString());
+            }
+        });
 	}
 
 	private ActionListener CambiarPanel() {

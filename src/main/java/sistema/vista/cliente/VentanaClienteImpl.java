@@ -567,6 +567,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		tfFechaNacimiento.setBorder(null);
 		tfFechaNacimiento.setColumns(10);
 		tfFechaNacimiento.setBounds(461, 93, 167, 20);
+		tfFechaNacimiento.setEditable(false);
 		panelModificarDatos.add(tfFechaNacimiento);
 
 		tfNombreUsuario = new JTextField(datos.getNombreUsuario());
@@ -597,6 +598,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		tfDocumento.setColumns(10);
 		tfDocumento.setBorder(null);
 		tfDocumento.setBounds(461, 195, 167, 20);
+		tfDocumento.setEditable(false);
 		panelModificarDatos.add(tfDocumento);
 
 		Vector<String> vector = new Vector<String>(controlador.obtenerPlanes());

@@ -645,4 +645,10 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		this.actualizacion(sql2);
 	}
 
+	@Override
+	public boolean eliminarPlan(sistema.utilidades.Pair<String, Integer> planSeleccionado) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 }

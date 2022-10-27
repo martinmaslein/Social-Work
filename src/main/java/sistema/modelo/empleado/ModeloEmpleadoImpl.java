@@ -297,6 +297,8 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	@Override
+	public boolean eliminarPlan(sistema.utilidades.Pair<String, Integer> planSeleccionado) {
+		return true;}
 	public ArrayList<ArrayList<String>> obtenerSolicitudesABM() {
 		// TODO Auto-generated method stub
 		return null;

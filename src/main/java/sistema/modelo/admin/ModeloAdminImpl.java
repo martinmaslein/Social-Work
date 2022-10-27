@@ -162,7 +162,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		return planes;
 	}
 	
-	public boolean eliminarPlan(Pair<String, Integer> plan) {
+	public boolean eliminarPlan(Pair<String, Integer> plan){
 		boolean salida = false;
 		String sql = "SELECT nro_plan FROM plan WHERE nombre='"+plan.getNombre()+"';";
 		ResultSet rs = this.consulta(sql);
@@ -176,13 +176,31 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 			e1.printStackTrace();
 		}
 		
-		System.out.println("id = "+id);
-
-		String sql2= "DELETE FROM plan WHERE nro_plan='"+id+"'";
-		System.out.println(sql2);
-		ResultSet rs2 = this.consulta(sql);
 		
-		System.out.println("salida = "+salida);
+		String sql1 = "SELECT * FROM cliente WHERE nro_plan="+id+";"; // ver
+		System.out.println(sql1);
+		ResultSet rs1 = this.consulta(sql1);
+		try {
+			if (rs1.next()) {
+				salida = true;
+			} else
+				salida = false;
+			rs1.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println(salida);
+
+		if(!salida) {
+			String sql2= "DELETE FROM plan WHERE nro_plan="+id+";";
+			this.actualizacion(sql2);
+			salida = true;
+		} else {
+			salida = false;
+		}
+		
+		System.out.println("salida final = "+salida);
 		return salida;
 	}
 	
@@ -200,7 +218,6 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 				rs.close();
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
