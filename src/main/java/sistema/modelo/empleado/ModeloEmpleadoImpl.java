@@ -5,6 +5,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.swing.JTable;
+
 import javafx.util.Pair;
 import sistema.modelo.ModeloImpl;
 import sistema.modelo.cliente.ModeloUsuario;
@@ -306,6 +309,15 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 
 	@Override
 	public boolean eliminarSolicitud(ArrayList<String> solicitud) {
+		return false;
+	}
+	public String informacionPlan(String nombre) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public boolean modificarPlan(String nombre, String text, String text2, JTable table_1) {
 		// TODO Auto-generated method stub
 		return false;
 	}

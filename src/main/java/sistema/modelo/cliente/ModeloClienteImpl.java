@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JTable;
+
 import javafx.util.Pair;
 import sistema.modelo.ModeloImpl;
 import sistema.modelo.ModeloRegistro;
@@ -674,6 +676,18 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		
 		System.out.println("salida final = "+salida);
 		return salida;
+	}
+
+	@Override
+	public String informacionPlan(String nombre) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean modificarPlan(String nombre, String text, String text2, JTable table_1) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

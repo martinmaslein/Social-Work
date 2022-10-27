@@ -1,5 +1,7 @@
 package sistema.controlador;
 
+import javax.swing.JTable;
+
 import sistema.modelo.ModeloLogin;
 import sistema.modelo.ModeloLoginImpl;
 import sistema.modelo.cliente.ModeloUsuario;
@@ -59,5 +61,15 @@ public class ControladorAdminImpl implements ControladorAdmin {
 	@Override
 	public boolean eliminarPlan(Pair<String, Integer> planSeleccionado) {
 		return modelo.eliminarPlan(planSeleccionado);
+	}
+
+	@Override
+	public String informacionPlan(String nombre) {
+		return modelo.informacionPlan(nombre);
+	}
+
+	@Override
+	public boolean modificarPlan(String nombre, String text, String text2, JTable table_1) {
+		return modelo.modificarPlan(nombre, text, text2, table_1);
 	}
 }

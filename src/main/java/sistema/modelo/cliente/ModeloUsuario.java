@@ -4,6 +4,8 @@ package sistema.modelo.cliente;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JTable;
+
 import javafx.util.Pair;
 import sistema.modelo.Modelo;
 
@@ -62,5 +64,9 @@ public interface ModeloUsuario extends Modelo {
 	public boolean eliminarPlan(sistema.utilidades.Pair<String, Integer> planSeleccionado);
 	
 	public boolean eliminarSolicitud(ArrayList<String> solicitud);
+
+	public String informacionPlan(String nombre);
+
+	public boolean modificarPlan(String nombre, String text, String text2, JTable table_1);
 
 }

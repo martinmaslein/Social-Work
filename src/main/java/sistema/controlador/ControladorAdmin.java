@@ -1,5 +1,7 @@
 package sistema.controlador;
 
+import javax.swing.JTable;
+
 import sistema.utilidades.Pair;
 
 public interface ControladorAdmin extends ControladorSistema {
@@ -13,5 +15,9 @@ public interface ControladorAdmin extends ControladorSistema {
 	public String[] obtenerServicios();
 
 	public boolean eliminarPlan(Pair<String, Integer> planSeleccionado);
+
+	public String informacionPlan(String nombre);
+
+	public boolean modificarPlan(String nombre, String text, String text2, JTable table_1);
 
 }

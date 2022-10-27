@@ -54,49 +54,6 @@ public class PanelABMSolicitudes extends JPanel {
 		btnVerMas.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnVerMas.setForeground(new Color(255, 255, 255));
 		btnVerMas.setBackground(new Color(119, 193, 181));
-
-		btnVerMas.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				boolean toReturn;
-				if (solicitudSeleccionada != null) {// selecciono una fila
-					if (solicitudSeleccionada.get(0) != null) {// selecciono una fila que no esta vacia
-						
-						JButton btnVolverVerMas = new JButton("");
-						btnVolverVerMas.setIcon(new ImageIcon("img\\flechi.png"));
-						btnVolverVerMas.setBorder(null);
-						btnVolverVerMas.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								try {
-									scrollPane.setVisible(true);
-									btnEliminar.setVisible(true);
-									btnVerMas.setVisible(true);
-									volver.setVisible(true);
-									btnSolicitarReintegro.setVisible(true); 
-									btnSolicitarPrestacion.setVisible(true);
-									setVisible(false);
-								} catch (Exception e1) {
-									e1.printStackTrace();
-								}
-							}
-						});
-						btnVolverVerMas.setBounds(10, 11, 35, 31);
-						//OCULTO LO DE ABAJO
-						scrollPane.setVisible(false);
-						btnEliminar.setVisible(false);
-						btnVerMas.setVisible(false);
-						volver.setVisible(false);
-						btnSolicitarReintegro.setVisible(false); 
-						btnSolicitarPrestacion.setVisible(false);
-						btnVolverVerMas.setVisible(true);
-
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "Debe seleccionar una solicitud para ver más.");
-				}
-
-			}
-		});
-
 		add(btnVerMas);
 
 		btnEliminar = new JButton("Eliminar");
