@@ -371,6 +371,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	private int cargarServicio(String prestaciones) {
 		
 		String lineas[] = prestaciones.split("\\r?\\n");
+		int salida = lineas.length;
 		
 		String cantServicios = "SELECT * FROM Servicio;"; 
 		ResultSet rs = this.consulta(cantServicios); 
@@ -386,7 +387,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 			this.actualizacion(sql);
 			aux++;
 		}
-		return cant;
+		return salida;
 	}
 	
 	@Override
@@ -402,9 +403,10 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 			servicios += table_1.getValueAt(i, 0)+"\n";
 		}
 		
-		cargarServicio(servicios);
+		int cant = cargarServicio(servicios);
+		System.out.println("cantidad prestaciones = "+cant);
 		
-		String sql1 = "SELECT * FROM plan WHERE nombre = '"+nombre+"';";
+		String sql1 = "SELECT * FROM plan WHERE nombre = '"+nombreNuevo+"';";
 		ResultSet rs1 = this.consulta(sql1);
 		int id = 0;
 		try {
@@ -414,14 +416,24 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		String sql4 = "DELETE FROM Servicio_plan WHERE nro_plan="+id+";";
+		this.actualizacion(sql4);
+		
+		
 		try {
 			int idServicio = 0;
-			for(int j=0;j<prestaciones.length;j++) {
-				String sql2 = "SELECT nro_servicio FROM servicios WHERE nombre = '"+prestaciones[j]+"';";
+			for(int j=0;j<cant;j++) {
+				String sql2 = "SELECT nro_servicio FROM servicio WHERE nombre = '"+prestaciones[j]+"';";
+				System.out.println(sql2);
 				ResultSet rs2 = this.consulta(sql2);
-				idServicio = rs2.getInt("nombre");
-			
+				if(rs2.next()) {
+					idServicio = rs2.getInt("nro_servicio");
+				}
+				
 				String sql3= "INSERT INTO Servicio_plan (id_servicio_plan, nro_servicio, nro_plan) VALUES (NULL,"+idServicio+","+id+");";
+				System.out.println(sql3);
+				this.actualizacion(sql3);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -216,6 +216,19 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 				try {
 					panelAdministrarPlanes.setVisible(false);
 					panelModificarPlan.setVisible(true);
+					
+					if(planSeleccionado != null) {
+	                	
+	                    textField_2.setText(planSeleccionado.getNombre());
+	                    textField_3.setText(planSeleccionado.getPrecio()+"");
+	                    
+	                    String [][] data = modeloAdmin.obtenerPrestaciones(planSeleccionado.getNombre());
+	                    String [] pres = {"Prestaciones"};
+	                    
+	                    tableModeloPrestaciones = new DefaultTableModel(data,pres);
+	            	    table_1 = new JTable(tableModeloPrestaciones);
+	            	    scrollPane_1.setViewportView(table_1);
+	                }      
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -231,19 +244,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 
                 Object selectedObject = (Object) table.getModel().getValueAt(row, col);
                 Pair<String,Integer> plan = modeloAdmin.obtenerPlan(selectedObject.toString());
-                
-                if(plan != null) {
-                	
-                    textField_2.setText(plan.getNombre());
-                    textField_3.setText(plan.getPrecio()+"");
-                    
-                    String [][] data = modeloAdmin.obtenerPrestaciones(selectedObject.toString());
-                    String [] pres = {"Prestaciones"};
-                    
-                    tableModeloPrestaciones = new DefaultTableModel(data,pres);
-            	    table_1 = new JTable(tableModeloPrestaciones);
-            	    scrollPane_1.setViewportView(table_1);
-                }         
+                   
             }
         });
 			
@@ -407,6 +408,8 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 	        	    table_1 = new JTable(tableModeloPrestaciones);
 	        	    table_1.setRowHeight(25);
 	        	    scrollPane_1.setViewportView(table_1);
+	        	    System.out.println("limpio.");
+	        	    planSeleccionado = null;
 
 				} catch (Exception e1) {
 					e1.printStackTrace();
