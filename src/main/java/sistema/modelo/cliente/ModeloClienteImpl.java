@@ -728,8 +728,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		}
 		
 		
-		toReturn = prestacion+"\nNombre: "+nombre+"\n"
-										+"Apellido : "+apellido+"\n"
+		toReturn = prestacion+"\nCliente: "+nombre+" "+apellido+"\n"
 										+"Servicio : "+servicio+"\n"
 										+""+extra+"\n";
 		
