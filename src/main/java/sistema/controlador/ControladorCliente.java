@@ -46,4 +46,8 @@ public interface ControladorCliente extends ControladorSistema {
 
 	public String informacionSolicitud(ArrayList<String> solicitud);
 
+	public void abrirSolicitudPrestacion();
+	
+	public void abrirSolicitudReintegro();
+
 }

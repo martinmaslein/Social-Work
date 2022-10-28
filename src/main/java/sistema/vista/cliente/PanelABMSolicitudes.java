@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -32,6 +33,9 @@ public class PanelABMSolicitudes extends JPanel {
 	private PanelABMSolicitudes panel = this;
 	private JPanel panelVerMas;
 	private JFrame frame;
+	
+	protected PanelSolicitarReintegro panelSolicitarReintegro;
+	protected PanelSolicitarPrestacion panelSolicitarPrestacion; 
 
 	public PanelABMSolicitudes(final ControladorCliente controlador, JFrame frame) {
 		super();
@@ -40,10 +44,20 @@ public class PanelABMSolicitudes extends JPanel {
 		setLayout(null);
 		craerBotonesPanelABMSolicitudes();
 		cargarABMSolicitudes();
+		
 		this.frame = frame;
+		inicializarPaneles();
 
 	}
 
+	
+	private void inicializarPaneles() {
+		
+		panelSolicitarPrestacion = new PanelSolicitarPrestacion(controlador, frame, this);
+		panelSolicitarReintegro = new PanelSolicitarReintegro(controlador, frame,this);
+	}
+	
+	
 	private void craerBotonesPanelABMSolicitudes() {
 		// Labels y Botones
 		JLabel lblSolicitudes = new JLabel("Solicitudes");
@@ -113,17 +127,35 @@ public class PanelABMSolicitudes extends JPanel {
 		add(btnEliminar);
 
 		btnSolicitarReintegro = new JButton("+ Solicitar reintegro");
-		add(btnSolicitarReintegro);
 		btnSolicitarReintegro.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnSolicitarReintegro.setForeground(new Color(255, 255, 255));
 		btnSolicitarReintegro.setBackground(new Color(119, 193, 181));
 		btnSolicitarReintegro.setBounds(526, 51, 221, 25);
+		btnSolicitarReintegro.addActionListener(
+				new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						setVisible(false);
+						panelSolicitarReintegro.refresh();
+						panelSolicitarReintegro.setVisible(true);
+					}
+				}
+		);
+		add(btnSolicitarReintegro);
 
-		btnSolicitarPrestacion = new JButton("+ Solicitar prestacion");
+		btnSolicitarPrestacion = new JButton("+ Solicitar prestación");
 		btnSolicitarPrestacion.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnSolicitarPrestacion.setForeground(new Color(255, 255, 255));
 		btnSolicitarPrestacion.setBackground(new Color(119, 193, 181));
 		btnSolicitarPrestacion.setBounds(291, 51, 221, 25);
+		btnSolicitarPrestacion.addActionListener(
+				new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						setVisible(false);
+						panelSolicitarPrestacion.refresh();
+						panelSolicitarPrestacion.setVisible(true);
+					}
+				}
+		);
 		add(btnSolicitarPrestacion);
 
 		lblAcciones = new JLabel("Acciones");

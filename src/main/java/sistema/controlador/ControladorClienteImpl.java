@@ -137,4 +137,14 @@ public class ControladorClienteImpl implements ControladorCliente {
 	public String informacionSolicitud(ArrayList<String> solicitud) {
 		return modelo.informacionSolicitud(solicitud);
 	}
+
+	@Override
+	public void abrirSolicitudPrestacion() {
+		
+	}
+
+	@Override
+	public void abrirSolicitudReintegro() {
+		
+	}
 }
