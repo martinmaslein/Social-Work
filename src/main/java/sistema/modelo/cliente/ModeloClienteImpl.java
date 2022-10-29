@@ -555,9 +555,9 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		// OBTENGO TODAS LAS SOLICITUDES
-		String sqlACargo = "SELECT * FROM Solicitud WHERE nro_cliente = '" + id + "';";
+		
+		// OBTENGO TODOS LOS REINTEGROS
+		String sqlACargo = "SELECT * FROM Solicitud_reintegro WHERE nro_cliente = '" + id + "';";
 		System.out.println(sqlACargo);
 		rsACargo = this.consulta(sqlACargo);
 
@@ -583,18 +583,10 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 					solicitud.add(apellido);
 				}
 
-				String sqlTipo = "SELECT * FROM Tipo_solicitud WHERE id_tipo = " + rsACargo.getInt("nro_tipo") + ";";
-				System.out.println(sqlTipo);
-				rsTipo = this.consulta(sqlTipo);
-
-				try {
-					if (rsTipo.next())
-						solicitud.add(rsTipo.getString("nombre"));
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
 				
-				solicitud.add(""+rsACargo.getInt("id_solicitud"));
+				solicitud.add("reintegro");
+				solicitud.add(""+rsACargo.getInt("id_reintegro"));
+				solicitud.add(rsACargo.getString("nro_cbu"));
 				solicitudes.add(solicitud);
 			}
 
@@ -603,6 +595,47 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		SQLException e) {
 			e.printStackTrace();
 		}
+		
+		
+		// OBTENGO TODOS LAS PRESTACIONES
+				sqlACargo = "SELECT * FROM Solicitud_prestacion WHERE nro_cliente = '" + id + "';";
+				System.out.println(sqlACargo);
+				rsACargo = this.consulta(sqlACargo);
+
+				try {
+					while (rsACargo.next()) {
+						ArrayList<String> solicitud = new ArrayList<String>();
+						if (rsACargo.getInt("nro_familiar") > 0) {// SI ES PARA UN FAMILIAR
+							String sqlFamiliar = "SELECT * FROM Familiar WHERE nro_familiar=" + rsACargo.getInt("nro_familiar")
+									+ ";";
+							rsFamiliar = this.consulta(sqlFamiliar);
+							if (rsFamiliar.next()) {
+								try {
+									solicitud.add(rsFamiliar.getString("nombre"));
+									solicitud.add(rsFamiliar.getString("apellido"));
+								} catch (SQLException e) {
+									e.printStackTrace();
+								}
+
+							}
+						} else {
+							System.out.print("ES EL QUE ESTA A CARGO");
+							solicitud.add(nombre);
+							solicitud.add(apellido);
+						}
+
+						
+						solicitud.add("prestacion");
+						solicitud.add(""+rsACargo.getInt("id_prestacion"));
+						solicitud.add(rsACargo.getString("fecha"));
+						solicitudes.add(solicitud);
+					}
+
+				} catch (
+
+				SQLException e) {
+					e.printStackTrace();
+				}
 
 		return solicitudes;
 	}
@@ -664,12 +697,12 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		 * (2) -> nombre del tipo dela solicitud reintegro/prestacion
 		 * (3) -> id_solicitud
 		 */
-
+		String tipoSolicitud =solicitud.get(2);
+		String id_solicitud = solicitud.get(3);
+		String tabla = "Solicitud_"+tipoSolicitud;
 		if(!salida) {
-			String sql2= "DELETE FROM Solicitud WHERE id_solicitud="+solicitud.get(3)+";";
-			//String sql3= "DELETE FROM plan WHERE nro_plan="+id+";";
+			String sql2 = "DELETE FROM "+ tabla +" WHERE id_"+tipoSolicitud+"="+id_solicitud+";";
 			this.actualizacion(sql2);
-			//this.actualizacion(sql3);
 			salida = true;
 		} else {
 			salida = false;
@@ -695,49 +728,52 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		
 		String nombre = solicitud.get(0);
 		String apellido = solicitud.get(1);
-		String prestacion = solicitud.get(2).toUpperCase();
+		String tipoSolicitud = solicitud.get(2).toUpperCase();
 		String idSolicitud = solicitud.get(3);
 		String servicio = "";
 		String toReturn = "";
 		String extra = "";
-		
-		String sqlSolicitud = "SELECT nro_servicio FROM Solicitud WHERE id_solicitud ='"+idSolicitud+"';";
-		ResultSet rs = this.consulta(sqlSolicitud);
-		try {
-			if (rs.next()) {
-				String sqlServicio = "SELECT nombre FROM Servicio WHERE nro_servicio ='"+rs.getInt("nro_servicio")+"';";
-				ResultSet rsServicio = this.consulta(sqlServicio);
-				if(rsServicio.next()) {
-					servicio = rsServicio.getString("nombre");
+		String tabla = "Solicitud_"+solicitud.get(2);
+				
+		if (tipoSolicitud.compareTo("REINTEGRO") == 0) {
+			String sqlSolicitud = "SELECT nro_servicio FROM Solicitud_reintegro WHERE id_reintegro ="+idSolicitud+";";
+			ResultSet rs = this.consulta(sqlSolicitud);
+			try {
+				if (rs.next()) {
+					String sqlServicio = "SELECT nombre FROM Servicio WHERE nro_servicio ='"+rs.getInt("nro_servicio")+"';";
+					ResultSet rsServicio = this.consulta(sqlServicio);
+					if(rsServicio.next()) {
+						servicio = "Servicio: "+rsServicio.getString("nombre");
+					}
 				}
-			}
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		
-		if (prestacion.compareTo("REINTEGRO") == 0) {
-			extra = "CBU: ";
-			for(int i= 0; i < 16;i++) {				
-				Random r3 = new Random();				
-				extra += r3.nextInt(10);
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
+				
+			extra = "CBU "+solicitud.get(4);
 		}else {//PRESTACION	
-			String dia="Fecha: ",mes="";
-			Random r3 = new Random();
-			int intDia = r3.nextInt(28) + 1;
-			int intMes = r3.nextInt(12) + 1;
-			
-			dia += ""+intDia+"/";
-			mes = dia+ intMes +"/";
-			extra = mes+"2023";
+			String sqlSolicitud = "SELECT nro_profesional FROM Solicitud_prestacion WHERE id_prestacion ="+idSolicitud+";";
+			ResultSet rs = this.consulta(sqlSolicitud);
+			try {
+				if (rs.next()) {
+					String sqlProfesional = "SELECT nombre FROM Profesional WHERE nro_profesional ='"+rs.getInt("nro_profesional")+"';";
+					ResultSet rsProfesional = this.consulta(sqlProfesional);
+					if(rsProfesional.next()) {
+						servicio = "Profesional: "+rsProfesional.getString("nombre");
+					}
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			extra = "Fecha: "+solicitud.get(4);
 			
 		}
 		
 		
-		toReturn = prestacion+"\nCliente: "+nombre+" "+apellido+"\n"
-										+"Servicio : "+servicio+"\n"
+		toReturn = tipoSolicitud+"\nCliente: "+nombre+" "+apellido+"\n"
+										+""+servicio+"\n"
 										+""+extra+"\n";
 		
 		
