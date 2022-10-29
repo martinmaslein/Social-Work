@@ -46,12 +46,9 @@ public class PanelSolicitarReintegro extends JPanel {
 		btnVolver.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					panelABMSolicitudes.setVisible(true);
-					setVisible(false);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				panelABMSolicitudes.setVisible(true);
+				setVisible(false);
+				
 			}
 		});
 		add(btnVolver);

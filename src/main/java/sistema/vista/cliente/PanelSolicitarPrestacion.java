@@ -3,6 +3,10 @@ package sistema.vista.cliente;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Vector;
 
 import javax.swing.ComboBoxModel;
@@ -15,6 +19,8 @@ import javax.swing.border.EmptyBorder;
 
 import sistema.controlador.ControladorCliente;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -26,6 +32,7 @@ public class PanelSolicitarPrestacion extends JPanel {
 	private JComboBox comboBox;
 	
 	private ControladorCliente controlador;
+	private PanelABMSolicitudes panelABMSolicitudes;
 
 	/**
 	 * Create the panel.
@@ -39,6 +46,7 @@ public class PanelSolicitarPrestacion extends JPanel {
 		setBackground(new Color(224, 241, 238));
 		
 		this.controlador=controlador;
+		this.panelABMSolicitudes=panelABMSolicitudes;
 		
 		JButton btnVolver = new JButton("");
 		btnVolver.setBounds(10, 11, 35, 31);
@@ -46,12 +54,7 @@ public class PanelSolicitarPrestacion extends JPanel {
 		btnVolver.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					panelABMSolicitudes.setVisible(true);
-					setVisible(false);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				volver();
 			}
 		});
 		add(btnVolver);
@@ -106,13 +109,62 @@ public class PanelSolicitarPrestacion extends JPanel {
 		btnConfirmar.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnConfirmar.setBackground(new Color(119, 193, 181));
 		btnConfirmar.setBounds(165, 404, 221, 25);
+		btnConfirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(validarDatos()) {
+					//TODO controlador.registrarSolicitudPrestacion();
+					JOptionPane.showMessageDialog(null, "Solicitud cargada correctamente.");
+					volver();
+				}			
+			}
+		});
 		add(btnConfirmar);
 		
 		
 		
 	}
 	
-
+	private boolean validarDatos() {
+		if(!validarFormatoFecha()) {
+			JOptionPane.showMessageDialog(this, "La fecha no tiene un formato valido (dd/mm/aaaa)", "Error en los datos ingresados", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		if(!validarFechaNoAnterior()) {
+			JOptionPane.showMessageDialog(this, "La fecha ingresada es anterior a la de hoy", "Error en los datos ingresados", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		 
+		return true;
+	}
+	
+	private boolean validarFormatoFecha() {
+	
+	    try {
+	        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+	        formatoFecha.setLenient(false);
+	        java.util.Date fecha = formatoFecha.parse(fechaTextField.getText());
+	        return true;
+	    } catch (ParseException e) {
+	        return false;
+	    }
+	}
+	private boolean validarFechaNoAnterior() {
+	    boolean correcto = true;
+	    try {
+	        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+	        java.util.Date fecha = formatoFecha.parse(fechaTextField.getText());
+	        correcto = fecha.after(Date.from(Instant.now())) ||formatoFecha.format(fecha).equals(formatoFecha.format(Date.from(Instant.now())));
+	    } catch (ParseException e) {
+	        e.printStackTrace();
+	    }
+	    return correcto;
+	}
+	
+	private void volver() {
+		panelABMSolicitudes.setVisible(true);
+		setVisible(false);
+	}
+	
 	public void refresh() {
 		Vector<String> vector = new Vector<String>(controlador.obtenerNombreFamiliares());
 		vector.add(controlador.obtenerDatosCliente().getNombre());
