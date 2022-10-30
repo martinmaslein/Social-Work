@@ -123,7 +123,7 @@ public class PanelSolicitarReintegro extends JPanel {
 
 	private boolean validarDatos() {
 		if(!validarCBU()) {
-			JOptionPane.showMessageDialog(this, "El cbu no tiene un formato valido (número de 16 digitos)", "Error en los datos ingresados", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, " CBU invalido (debe ser un número de 16 digitos)", "Error en los datos ingresados", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		return true;
@@ -132,9 +132,10 @@ public class PanelSolicitarReintegro extends JPanel {
 	private boolean validarCBU() {
 		String cbu= CBUTextField.getText();
 		boolean formatoValido=cbu.length()==16;
+		
 		int i=0;
 		while(formatoValido && i<cbu.length()) {
-			formatoValido=cbu.charAt(i)>='0' && cbu.charAt(i)<='0';
+			formatoValido=cbu.charAt(i)>='0' && cbu.charAt(i)<='9';
 			i++;
 		}
 		return formatoValido;

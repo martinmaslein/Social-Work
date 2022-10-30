@@ -842,7 +842,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 				+ "VALUES (" + clienteActual.getNroCliente() + " , '"+tipoServicio + "' , " +cbu +");";
 		else {
 			int nro_familiar= obtenerNroFamiliar(persona);
-			return "INSERT INTO Solicitud_prestacion (nro_cliente,nro_familiar,tipo_servicio,nro_cbu) "
+			return "INSERT INTO Solicitud_reintegro (nro_cliente,nro_familiar,tipo_servicio,nro_cbu) "
 					+ "VALUES (" + clienteActual.getNroCliente() + " , "+nro_familiar+" , '"+ tipoServicio + "' , '" +cbu+"');";
 		}
 	}
