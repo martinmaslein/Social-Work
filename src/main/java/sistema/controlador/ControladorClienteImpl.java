@@ -145,8 +145,8 @@ public class ControladorClienteImpl implements ControladorCliente {
 	}
 
 	@Override
-	public void registrarSolicitudReintegro() {
-		// TODO Auto-generated method stub
+	public void registrarSolicitudReintegro(int persona, String tipoServicio, String cbu) {
+		modelo.registrarSolicitudReintegro(persona,tipoServicio,cbu);
 		
 	}
 

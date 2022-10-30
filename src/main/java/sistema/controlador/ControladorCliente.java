@@ -48,6 +48,6 @@ public interface ControladorCliente extends ControladorSistema {
 
 	public void registrarSolicitudPrestacion(int persona, String fecha, String profesional);
 	
-	public void registrarSolicitudReintegro();
+	public void registrarSolicitudReintegro(int persona, String tipoServicio, String cbu);
 	
 }
