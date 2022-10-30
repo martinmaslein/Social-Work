@@ -10,14 +10,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -41,6 +44,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 	protected JButton btnModificarDatos;
 	protected JButton btnSolicitudModificacionPlan;
 	protected JButton btnSolicitudReintegro;
+	private JButton btnModificar_1_1;
 	
 	protected JPanel panelABMCliente;
 	protected JPanel panelAltaCliente;
@@ -49,15 +53,19 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 	protected JPanel panelModificarPlan;
 	protected JPanel panelSolicitudReintegroPrestacion;
 	protected JPanel panelModificarDatos;
+	protected JPanel panelModificarDatosCliente;
 	private JButton btnCerrarSesion;
 	
 	private ArrayList<String> clienteSeleccionado;
 	private JLabel lblAcciones_1;
 	private JButton btnVerMas_1;
 	private JButton btnEliminar;
-	private Component btnModificar;
+	private JButton btnModificar;
 	private JScrollPane scrollPane;
 	private JButton btnAgregarCliente;
+	JComboBox<String> comboBoxCupones;
+	private JButton btnModificar_1;
+	private JTextField textField;
 
 	public VentanaEmpleadoImpl() {
 		inicializar();
@@ -82,7 +90,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		
 		//Creo el panel abm
 		this.crearPanelABM();
-
+		this.crearPanelModificarCliente();
 		
 		btnCerrarSesion = new JButton("Cerrar Sesion");
 		btnCerrarSesion.setForeground(Color.WHITE);
@@ -98,6 +106,67 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		});
 
 		this.registrarEventos();
+	}
+
+	private void crearPanelModificarCliente() {
+		panelModificarDatosCliente = new JPanel();
+		panelModificarDatosCliente.setLayout(null);
+		panelModificarDatosCliente.setBackground(new Color(224, 241, 238));
+		frame.getContentPane().add(panelModificarDatosCliente);
+		
+		JLabel lblNewLabel_1 = new JLabel("Modificar Plan del Cliente");
+		lblNewLabel_1.setFont(new Font("Yu Gothic UI", Font.BOLD, 16));
+		lblNewLabel_1.setBounds(333, 70, 197, 42);
+		panelModificarDatosCliente.add(lblNewLabel_1);
+		
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblNombre.setBounds(333, 166, 98, 23);
+		panelModificarDatosCliente.add(lblNombre);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(426, 166, 129, 22);
+		panelModificarDatosCliente.add(textField);
+		
+		JLabel lblNuevoPlan = new JLabel("Nuevo Plan:");
+		lblNuevoPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 13));
+		lblNuevoPlan.setBounds(333, 241, 98, 23);
+		panelModificarDatosCliente.add(lblNuevoPlan);
+		
+		comboBoxCupones = new JComboBox<String>();
+		comboBoxCupones.setForeground(new Color(0, 0, 0));
+		comboBoxCupones.setFont(new Font("Yu Gothic UI", Font.BOLD, 12));
+		comboBoxCupones.setBounds(426, 235, 129, 35);
+		panelModificarDatosCliente.add(comboBoxCupones);
+		
+		btnModificar_1_1 = new JButton("Modificar");
+		btnModificar_1_1.setForeground(Color.WHITE);
+		btnModificar_1_1.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
+		btnModificar_1_1.setBorder(null);
+		btnModificar_1_1.setBackground(new Color(119, 193, 181));
+		btnModificar_1_1.setBounds(378, 353, 116, 23);
+		
+		JButton btnVolver = new JButton("");
+		btnVolver.setIcon(new ImageIcon("img\\flechi.png"));
+		btnVolver.setBorder(null);
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					panelABMCliente.setVisible(true);
+					panelModificarDatosCliente.setVisible(false);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnVolver.setBounds(10, 11, 35, 31);
+		panelModificarDatosCliente.add(btnVolver);
+		
+		panelModificarDatosCliente.add(btnModificar_1_1);
+		
+		
+		
 	}
 
 	private Component crearPanelABM() {
@@ -129,13 +198,13 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 
 		btnModificar = new JButton("Modificar");
 		btnModificar.setBounds(618, 345, 129, 34);
-	//	btnModificar.addActionListener(this.modifcarFamiliar());
+		btnModificar.addActionListener(this.modifcarDatosCliente());
 		panelABMCliente.add(btnModificar);
 		
 		btnAgregarCliente = new JButton("Agregar Cliente");
 		btnAgregarCliente.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnAgregarCliente.setBounds(604, 57, 155, 48);
-	//	btnAgregarCliente.addActionListener(this.cargarFamiliar());
+		btnAgregarCliente.addActionListener(this.listenerAltaCliente());
 		panelABMCliente.add(btnAgregarCliente);
 
 		// ABM
@@ -165,6 +234,21 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		
 		return panelABMCliente;
 		
+	}
+
+	private ActionListener modifcarDatosCliente() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (clienteSeleccionado != null) {
+					panelABMCliente.setVisible(false);
+					panelModificarDatosCliente.setVisible(true);
+					cargarPlanes();
+
+				} else
+					JOptionPane.showMessageDialog(null, "Seleccione un familiar para modificar");
+			}
+		};
 	}
 
 	private ActionListener verMas() {
@@ -253,6 +337,8 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 			public void actionPerformed(ActionEvent e) {
 				panelPpal.setVisible(false);
 				panelABMCliente.setVisible(true);	
+				
+				//TODO
 			}
 		};
 	}
@@ -264,7 +350,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 				VentanaRegistro registrarse = new VentanaRegistroImpl(este);
 				try {
 					registrarse.eliminarVolver();
-					panelPpal.setVisible(false);
+					panelABMCliente.setVisible(false);
 					panelAltaCliente = registrarse.getPanelRegistro();				
 					frame.getContentPane().add(panelAltaCliente);
 					panelAltaCliente.setVisible(true);
@@ -277,8 +363,9 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 					btnVolver3.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							try {
+								cargarABMClientes();
 								panelAltaCliente.setVisible(false);
-								panelPpal.setVisible(true);
+								panelABMCliente.setVisible(true);
 							} catch (Exception e1) {
 								e1.printStackTrace();
 							}
@@ -459,6 +546,26 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		this.cargarABMClientes();
 	}
 
+	private void cargarPlanes() {
+		
+		textField.setText(clienteSeleccionado.get(0));
+		textField.setEditable(false);
+		System.out.println(clienteSeleccionado.get(3));
+		
+		ArrayList<String> planes = controlador.getPlanes();
+		for(int i = 0; i < planes.size(); i++) {
+			if(!clienteSeleccionado.get(3).equals(planes.get(i)))
+				comboBoxCupones.addItem(planes.get(i));
+		}
+		btnModificar_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				controlador.actualizarPlanCliente(clienteSeleccionado.get(0), comboBoxCupones.getSelectedItem().toString());
+				JOptionPane.showMessageDialog(null, "Plan modificado correctamente");
+			}
+		});
+	}
+
 	private void cargarABMClientes() {
 		final ArrayList<ArrayList<String>> clientes = controlador.obtenerInfoClientes();
 
@@ -473,7 +580,6 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 			String apellido = cliente.get(1);
 			String dni = cliente.get(2);
 			String plan = cliente.get(3);
-			System.out.println("asad"+plan);
 
 			data[i][0] = nombre + " " + apellido;
 			data[i][1] = dni;
@@ -485,6 +591,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		final JTable table = new JTable(tableModel);
 		table.setRowHeight(33);
 		scrollPane.setViewportView(table);
+		
 
 		table.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -509,5 +616,4 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		});
 		
 	}
-
 }

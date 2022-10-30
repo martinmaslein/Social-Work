@@ -868,4 +868,16 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return null;
 	}
 
+	@Override
+	public ArrayList<String> getPlanesTotales() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void actualizarPlanCliente(String string, String string2) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

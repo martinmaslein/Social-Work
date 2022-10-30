@@ -581,4 +581,38 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 		return plan;
 	}
 
+	@Override
+	public ArrayList<String> getPlanesTotales() {
+
+		String sql = "SELECT * FROM PLAN;";
+		ResultSet rs = this.consulta(sql);
+		ArrayList<String> plan= new ArrayList<String>();
+		try {
+			while (rs.next())
+				plan.add(rs.getString("nombre"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		return plan;
+	}
+
+	@Override
+	public void actualizarPlanCliente(String string, String string2) {
+		
+		String sql = "SELECT * FROM Plan WHERE nombre='"+string2+"';";
+		ResultSet rs = this.consulta(sql);
+		int nroPlan = 0;
+		try {
+			if (rs.next())
+				nroPlan = rs.getInt("nro_plan");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		String query = "UPDATE Cliente SET " + "nro_plan = " + nroPlan + " WHERE nombre= '" + string + "';";
+		this.actualizacion(query);
+		
+	}
+
 }

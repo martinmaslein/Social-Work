@@ -105,4 +105,16 @@ public class ControladorEmpleadoImpl implements ControladorEmpleado {
 		return modelo.obtenerInfoClientes();
 	}
 
+	@Override
+	public ArrayList<String> getPlanes() {
+		
+		return modelo.getPlanesTotales();
+	}
+
+	@Override
+	public void actualizarPlanCliente(String string,String string2) {
+		modelo.actualizarPlanCliente(string, string2);
+		
+	}
+
 }

@@ -35,4 +35,8 @@ public interface ControladorEmpleado extends ControladorSistema {
 
 	public ArrayList<ArrayList<String>> obtenerInfoClientes();
 
+	public ArrayList<String> getPlanes();
+
+	public void actualizarPlanCliente(String string, String string2);
+
 }

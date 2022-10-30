@@ -79,4 +79,8 @@ public interface ModeloUsuario extends Modelo {
 
 	public ArrayList<ArrayList<String>> obtenerInfoClientes();
 
+	public ArrayList<String> getPlanesTotales();
+
+	public void actualizarPlanCliente(String string, String string2);
+
 }
