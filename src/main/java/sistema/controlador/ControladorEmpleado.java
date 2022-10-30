@@ -19,12 +19,16 @@ public interface ControladorEmpleado extends ControladorSistema {
 
 	public List<Pair<String, String>> cargarClientesTabla();
 	
-	public void aprobarCambio(String nombre, String apellido) throws Exception;
+	public void aprobarCambioPlan(String nombre, String apellido) throws Exception;
 
 	public void aprobarPago(String nombre, String apellido);
 
 	public void desaprobarCambio(String string, String string2);
 	
 	public ArrayList<ArrayList<String>> obtenerSolicitudes();
+
+	public void aprobarSolicitud(ArrayList<String> solicitudSeleccionada);
+
+	public void desaprobarSolicitud(ArrayList<String> solicitud);
 
 }

@@ -509,7 +509,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	@Override
-	public void aprobarCambio(String nombre, String apellido) {
+	public void aprobarCambioPlan(String nombre, String apellido) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -540,6 +540,18 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 
 	@Override
 	public void desaprobarCambio(String nombre, String apellido) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void aprobarSolicitud(ArrayList<String> dni) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void desaprobarSolicitud(ArrayList<String> solicitud) {
 		// TODO Auto-generated method stub
 		
 	}
