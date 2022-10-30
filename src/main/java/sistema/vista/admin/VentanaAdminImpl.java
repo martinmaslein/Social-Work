@@ -91,7 +91,7 @@ public class VentanaAdminImpl extends JFrame implements VentanaAdmin {
 		this.frame = new JFrame();
 		this.frame.setTitle("Administrador");
 		this.frame.setBounds(100, 100, 813, 616);
-		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.frameLayout = new CardLayout();
 		this.frame.getContentPane().setLayout(this.frameLayout);
