@@ -322,12 +322,56 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 
 	@Override
 	public String informacionSolicitud(ArrayList<String> solicitud) {
-		// TODO Auto-generated method stub
-		return null;
+		// nombre(0), apellido(1), dni(2), "reintegro"(3),id_reintegro(4), cbu(5)
+		// nombre(0), apellido(1), dni(2), "prestacion"(3),id_prestacion(4), fecha(5)
+		String nombre = solicitud.get(0);
+		String apellido = solicitud.get(1);
+		String tipoSolicitud = solicitud.get(3).toUpperCase();
+		String idSolicitud = solicitud.get(4);
+		String servicio = "";
+		String toReturn = "";
+		String extra = "";
+		String tabla = "Solicitud_" + solicitud.get(3);
+
+		if (tipoSolicitud.compareTo("REINTEGRO") == 0) {
+			String sqlSolicitud = "SELECT * FROM Solicitud_reintegro WHERE id_reintegro =" + idSolicitud + ";";
+			ResultSet rs = this.consulta(sqlSolicitud);
+			try {
+				if (rs.next()) {
+					servicio = "Servicio: " + rs.getString("tipo_servicio");
+
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			extra = "CBU " + solicitud.get(5);
+		} else {// PRESTACION
+			String sqlSolicitud = "SELECT profesional FROM Solicitud_prestacion WHERE id_prestacion =" + idSolicitud
+					+ ";";
+			ResultSet rs = this.consulta(sqlSolicitud);
+			try {
+				if (rs.next()) {
+					servicio = "Profesional: " + rs.getString("profesional");
+
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			extra = "Fecha: " + solicitud.get(5);
+
+		}
+
+		toReturn = tipoSolicitud + "\nCliente: " + nombre + " " + apellido + "\n" + "" + servicio + "\n" + "" + extra
+				+ "\n";
+
+		return toReturn;
 	}
 
 	@Override
-	public void desaprobarCambio(String nombre, String apellido) {
+	public void desaprobarCambioPlan(String nombre, String apellido) {
 		String sqlCliente = "SELECT * FROM Cliente WHERE nombre = '" + nombre + "' AND apellido = '" + apellido + "';"; // solicitudes
 		String sqlSolicitud, sqlDelete;
 		ResultSet rsCliente = this.consulta(sqlCliente);
@@ -473,7 +517,7 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 		String tabla = "Solicitud_" + tipo;
 		String id = solicitud.get(4);
 
-		String  sqlDelete;
+		String sqlDelete;
 		sqlDelete = "DELETE FROM " + tabla + " WHERE id_" + tipo + " = " + id;
 		actualizacion(sqlDelete);
 	}
@@ -481,15 +525,15 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 	@Override
 	public void desaprobarSolicitud(ArrayList<String> solicitud) {
 		// nombre(0), apellido(1), dni(2), "reintegro"(3),id_reintegro(4), cbu(5)
-				// nombre(0), apellido(1), dni(2), "prestacion"(3),id_prestacion(4), fecha(5)
-				String tipo = solicitud.get(3);
-				String tabla = "Solicitud_" + tipo;
-				String id = solicitud.get(4);
+		// nombre(0), apellido(1), dni(2), "prestacion"(3),id_prestacion(4), fecha(5)
+		String tipo = solicitud.get(3);
+		String tabla = "Solicitud_" + tipo;
+		String id = solicitud.get(4);
 
-				String  sqlDelete;
-				sqlDelete = "DELETE FROM " + tabla + " WHERE id_" + tipo + " = " + id;
-				actualizacion(sqlDelete);
-		
+		String sqlDelete;
+		sqlDelete = "DELETE FROM " + tabla + " WHERE id_" + tipo + " = " + id;
+		actualizacion(sqlDelete);
+
 	}
 
 }

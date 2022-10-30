@@ -539,7 +539,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	@Override
-	public void desaprobarCambio(String nombre, String apellido) {
+	public void desaprobarCambioPlan(String nombre, String apellido) {
 		// TODO Auto-generated method stub
 		
 	}

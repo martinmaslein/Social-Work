@@ -76,7 +76,7 @@ public class ControladorEmpleadoImpl implements ControladorEmpleado {
 
 	@Override
 	public void desaprobarCambio(String nombre, String apellido) {
-		modelo.desaprobarCambio(nombre,apellido);
+		modelo.desaprobarCambioPlan(nombre,apellido);
 		
 	}
 
@@ -93,6 +93,11 @@ public class ControladorEmpleadoImpl implements ControladorEmpleado {
 	@Override
 	public void desaprobarSolicitud(ArrayList<String> solicitud) {
 		modelo.desaprobarSolicitud(solicitud);		
+	}
+
+	@Override
+	public String informacionSolicitud(ArrayList<String> solicitudSeleccionada) {
+		return modelo.informacionSolicitud(solicitudSeleccionada);
 	}
 
 }

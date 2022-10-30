@@ -129,9 +129,17 @@ public class PanelSolicitudReintegroPrestacion extends JPanel {
 		add(btnDesaprobar);
 
 		JButton btnVerMas = new JButton("Ver mas");
-		btnVerMas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+		btnVerMas.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				boolean toReturn;
+				if (solicitudSeleccionada != null) {
+					if (solicitudSeleccionada.get(0) != null) {
+						String info = controlador.informacionSolicitud(solicitudSeleccionada);
+						JOptionPane.showMessageDialog(null, info);
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar una solicitud para ver más.");
+				}
 
 			}
 		});

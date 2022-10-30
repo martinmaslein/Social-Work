@@ -200,4 +200,4 @@ INSERT INTO Solicitud_reintegro VALUES (1,1,NULL,"Kinesiologo",5934587463215559)
 INSERT INTO Solicitud_reintegro VALUES (2,1,2,"Dentista",5934587463215559);
 
 #--Solicitud_prestacion(id_prestacion,nro_cliente, nro_familiar, profesional,fecha)
-INSERT INTO Solicitud_prestacion VALUES (2,1,1,"Dr. Julian Figeroa ","29/11/2022");
+INSERT INTO Solicitud_prestacion VALUES (2,1,1,"Dr. Julian Figueroa ","29/11/2022");

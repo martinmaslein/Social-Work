@@ -31,4 +31,6 @@ public interface ControladorEmpleado extends ControladorSistema {
 
 	public void desaprobarSolicitud(ArrayList<String> solicitud);
 
+	public String informacionSolicitud(ArrayList<String> solicitudSeleccionada);
+
 }

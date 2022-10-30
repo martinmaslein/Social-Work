@@ -71,7 +71,7 @@ public interface ModeloUsuario extends Modelo {
 	
 	public String informacionSolicitud(ArrayList<String> solicitud);
 
-	public void desaprobarCambio(String nombre, String apellido);
+	public void desaprobarCambioPlan(String nombre, String apellido);
 
 	public void aprobarSolicitud(ArrayList<String> solicitud);
 
