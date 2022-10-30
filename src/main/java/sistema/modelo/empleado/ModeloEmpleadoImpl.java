@@ -254,7 +254,7 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	@Override
-	public void aprobarCambio(String nombre, String apellido) throws Exception {
+	public void aprobarCambioPlan(String nombre, String apellido) throws Exception {
 		String sqlCliente = "SELECT * FROM Cliente WHERE nombre = '" + nombre + "' AND apellido = '" + apellido + "';"; // solicitudes
 		String sqlSolicitud, sqlDelete;
 		ResultSet rsCliente = this.consulta(sqlCliente);
@@ -463,6 +463,33 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 		}
 
 		return solicitudes;
+	}
+
+	@Override
+	public void aprobarSolicitud(ArrayList<String> solicitud) {
+		// nombre(0), apellido(1), dni(2), "reintegro"(3),id_reintegro(4), cbu(5)
+		// nombre(0), apellido(1), dni(2), "prestacion"(3),id_prestacion(4), fecha(5)
+		String tipo = solicitud.get(3);
+		String tabla = "Solicitud_" + tipo;
+		String id = solicitud.get(4);
+
+		String  sqlDelete;
+		sqlDelete = "DELETE FROM " + tabla + " WHERE id_" + tipo + " = " + id;
+		actualizacion(sqlDelete);
+	}
+
+	@Override
+	public void desaprobarSolicitud(ArrayList<String> solicitud) {
+		// nombre(0), apellido(1), dni(2), "reintegro"(3),id_reintegro(4), cbu(5)
+				// nombre(0), apellido(1), dni(2), "prestacion"(3),id_prestacion(4), fecha(5)
+				String tipo = solicitud.get(3);
+				String tabla = "Solicitud_" + tipo;
+				String id = solicitud.get(4);
+
+				String  sqlDelete;
+				sqlDelete = "DELETE FROM " + tabla + " WHERE id_" + tipo + " = " + id;
+				actualizacion(sqlDelete);
+		
 	}
 
 }

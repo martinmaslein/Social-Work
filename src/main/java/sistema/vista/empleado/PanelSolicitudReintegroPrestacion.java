@@ -17,6 +17,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import sistema.controlador.ControladorEmpleado;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PanelSolicitudReintegroPrestacion extends JPanel {
 
@@ -56,6 +58,8 @@ public class PanelSolicitudReintegroPrestacion extends JPanel {
 		btnAprobar = new JButton("Aprobar");
 		btnAprobar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				// nombre(0), apellido(1), dni(2), "reintegro"(3),id_reintegro(4), cbu(5)
+				// nombre(0), apellido(1), dni(2), "prestacion"(3),id_prestacion(4), fecha(5)
 				if (solicitudSeleccionada != null) {
 					if (solicitudSeleccionada.get(1) != null) {
 
@@ -65,7 +69,7 @@ public class PanelSolicitudReintegroPrestacion extends JPanel {
 
 						if (select == JOptionPane.OK_OPTION) {
 							try {
-								controlador.aprobarCambio(solicitudSeleccionada.get(1), solicitudSeleccionada.get(0));
+								controlador.aprobarSolicitud(solicitudSeleccionada);
 								JOptionPane.showMessageDialog(null, "Solicitud aprobada correctamente.");
 								cargarSolicitudes();
 							} catch (Exception e1) {
@@ -101,8 +105,7 @@ public class PanelSolicitudReintegroPrestacion extends JPanel {
 
 						if (select == JOptionPane.OK_OPTION) {
 							try {
-								controlador.desaprobarCambio(solicitudSeleccionada.get(1),
-										solicitudSeleccionada.get(0));
+								controlador.desaprobarSolicitud(solicitudSeleccionada);
 								JOptionPane.showMessageDialog(null, "Solicitud desaprobada correctamente.");
 								cargarSolicitudes();
 							} catch (Exception e1) {
@@ -124,8 +127,14 @@ public class PanelSolicitudReintegroPrestacion extends JPanel {
 		btnDesaprobar.setBackground(new Color(119, 193, 181));
 		btnDesaprobar.setBounds(504, 222, 100, 23);
 		add(btnDesaprobar);
-		
+
 		JButton btnVerMas = new JButton("Ver mas");
+		btnVerMas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+			}
+		});
 		btnVerMas.setForeground(Color.WHITE);
 		btnVerMas.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
 		btnVerMas.setBorder(null);
@@ -148,7 +157,7 @@ public class PanelSolicitudReintegroPrestacion extends JPanel {
 			String dni = solicitud.get(2);
 			String tipo_solicitud = solicitud.get(3);
 
-			data[i][0] = nombre + ", " + apellido;
+			data[i][0] = apellido + ", " + nombre;
 			data[i][1] = dni;
 			data[i][2] = tipo_solicitud;
 
@@ -169,12 +178,14 @@ public class PanelSolicitudReintegroPrestacion extends JPanel {
 				Object selectedObject = (Object) table.getModel().getValueAt(row, col);
 
 				String nomAp = selectedObject.toString();
-				String[] partes = nomAp.split(" ");
-				String nombre = partes[0];
+				String[] partes = nomAp.split(", ");
+				String apellido = partes[0];
+				String nombre = partes[1];
 				System.out.println(nombre);
+				System.out.println(apellido);
 
 				for (ArrayList<String> solicitud : solicitudes) {
-					if (nombre.equals(solicitud.get(1) + "," + solicitud.get(1))) {
+					if (nombre.equals(solicitud.get(0)) && apellido.equalsIgnoreCase(solicitud.get(1))) {
 						solicitudSeleccionada = solicitud;
 						break;
 					} else {

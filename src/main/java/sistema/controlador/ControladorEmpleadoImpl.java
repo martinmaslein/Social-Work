@@ -64,8 +64,8 @@ public class ControladorEmpleadoImpl implements ControladorEmpleado {
 	
 
 	@Override
-	public void aprobarCambio(String nombre, String apellido) throws Exception {
-		modelo.aprobarCambio(nombre,apellido);
+	public void aprobarCambioPlan(String nombre, String apellido) throws Exception {
+		modelo.aprobarCambioPlan(nombre,apellido);
 		
 	}
 
@@ -83,6 +83,16 @@ public class ControladorEmpleadoImpl implements ControladorEmpleado {
 	@Override
 	public ArrayList<ArrayList<String>> obtenerSolicitudes() {
 		return modelo.obtenerSolicitudesABM();
+	}
+
+	@Override
+	public void aprobarSolicitud(ArrayList<String> solicitud) {
+		modelo.aprobarSolicitud(solicitud);		
+	}
+
+	@Override
+	public void desaprobarSolicitud(ArrayList<String> solicitud) {
+		modelo.desaprobarSolicitud(solicitud);		
 	}
 
 }

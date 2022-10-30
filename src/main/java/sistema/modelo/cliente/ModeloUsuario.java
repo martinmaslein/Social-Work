@@ -57,7 +57,7 @@ public interface ModeloUsuario extends Modelo {
 
 	public List<Pair<String, String>> cargarClientesTabla();
 	
-	public void aprobarCambio(String nombre, String apellido) throws Exception;
+	public void aprobarCambioPlan(String nombre, String apellido) throws Exception;
 
 	public void aprobarPago(String nombre, String apellido);
 	
@@ -72,5 +72,9 @@ public interface ModeloUsuario extends Modelo {
 	public String informacionSolicitud(ArrayList<String> solicitud);
 
 	public void desaprobarCambio(String nombre, String apellido);
+
+	public void aprobarSolicitud(ArrayList<String> solicitud);
+
+	public void desaprobarSolicitud(ArrayList<String> solicitud);
 
 }

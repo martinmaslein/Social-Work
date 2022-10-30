@@ -72,9 +72,9 @@ public class PanelSolicitudModificarPlan extends JPanel {
 						
 						if (select == JOptionPane.OK_OPTION) {
 							try {
-								controlador.aprobarCambio(nombre [1], nombre[0]);
+								controlador.aprobarCambioPlan(nombre [1], nombre[0]);
 							
-								controlador.aprobarCambio(solicitudSeleccionada.getKey(),
+								controlador.aprobarCambioPlan(solicitudSeleccionada.getKey(),
 										solicitudSeleccionada.getValue());
 								JOptionPane.showMessageDialog(null, "Solicitud aprobada correctamente.");
 								cargarSolicitudes();

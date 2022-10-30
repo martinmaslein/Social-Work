@@ -453,7 +453,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	@Override
-	public void aprobarCambio(String nombre, String apellido) {
+	public void aprobarCambioPlan(String nombre, String apellido) {
 		// TODO Auto-generated method stub
 
 	}
@@ -853,6 +853,18 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 			return "INSERT INTO Solicitud_reintegro (nro_cliente,nro_familiar,tipo_servicio,nro_cbu) "
 					+ "VALUES (" + clienteActual.getNroCliente() + " , "+nro_familiar+" , '"+ tipoServicio + "' , '" +cbu+"');";
 		}
+	}
+
+	@Override
+	public void aprobarSolicitud(ArrayList<String> solicitud) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void desaprobarSolicitud(ArrayList<String> solicitud) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
