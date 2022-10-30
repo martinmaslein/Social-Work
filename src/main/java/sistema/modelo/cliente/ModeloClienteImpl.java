@@ -772,10 +772,87 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		return toReturn;
 	}
 
+
 	@Override
 	public void desaprobarCambio(String nombre, String apellido) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+
+	public void registrarSolicitudPrestacion(int persona, String fecha, String profesional) {
+		String sql = armarSqlRegistrarSolicitudPrestacion(persona,fecha,profesional);
+		this.actualizacion(sql);
+		
+	}
+
+	private String armarSqlRegistrarSolicitudPrestacion(int persona, String fecha, String profesional) {
+		String queryFamiliar = "SELECT count(*) FROM Familiar WHERE nro_cliente = '" +clienteActual.getNroCliente() + "';";
+		ResultSet rs = this.consulta(queryFamiliar);
+		int familiares=0;
+		try {
+			if(rs.next())
+				familiares=rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if(persona==familiares)//el servicio lo recibe el mismo afiliado
+			
+			return "INSERT INTO Solicitud_prestacion (nro_cliente,profesional,fecha) "
+				+ "VALUES (" + clienteActual.getNroCliente() + " , '"+ profesional + "' , " +fecha +");";
+		else {
+			int nro_familiar= obtenerNroFamiliar(persona);
+			return "INSERT INTO Solicitud_prestacion (nro_cliente,nro_familiar,profesional,fecha) "
+					+ "VALUES (" + clienteActual.getNroCliente() + " , "+nro_familiar+" , '"+ profesional + "' , '" +fecha +"');";
+		}
+	}
+
+	private int obtenerNroFamiliar(int persona) {
+		//System.out.println("obtener numero familiar "+persona);
+		String queryFamiliar = "SELECT * FROM Familiar WHERE nro_cliente = '" +clienteActual.getNroCliente() + " ORDER BY nro_familiar ASC' ;";
+		ResultSet rs = this.consulta(queryFamiliar);
+		int i=0;
+		int nroFamiliar = 0;
+		try {
+			while(rs.next() && i<=persona) {
+				nroFamiliar=rs.getInt("nro_familiar");
+				i++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(nroFamiliar);
+		return nroFamiliar;
+	}
+	
+	
+
+	public void registrarSolicitudReintegro(int persona, String tipoServicio, String cbu) {
+		String sql = armarSqlRegistrarSolicitudReintegro(persona,tipoServicio,cbu);
+		this.actualizacion(sql);
+		
+	}
+
+	private String armarSqlRegistrarSolicitudReintegro(int persona, String tipoServicio, String cbu) {
+		String queryFamiliar = "SELECT count(*) FROM Familiar WHERE nro_cliente = '" +clienteActual.getNroCliente() + "';";
+		ResultSet rs = this.consulta(queryFamiliar);
+		int familiares=0;
+		try {
+			if(rs.next())
+				familiares=rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if(persona==familiares)//el servicio lo recibe el mismo afiliado
+			
+			return "INSERT INTO Solicitud_reintegro (nro_cliente,tipo_servicio,nro_cbu) "
+				+ "VALUES (" + clienteActual.getNroCliente() + " , '"+tipoServicio + "' , " +cbu +");";
+		else {
+			int nro_familiar= obtenerNroFamiliar(persona);
+			return "INSERT INTO Solicitud_reintegro (nro_cliente,nro_familiar,tipo_servicio,nro_cbu) "
+					+ "VALUES (" + clienteActual.getNroCliente() + " , "+nro_familiar+" , '"+ tipoServicio + "' , '" +cbu+"');";
+		}
 	}
 
 }

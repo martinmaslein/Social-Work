@@ -53,7 +53,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		this.frame = new JFrame();
 		this.frame.setTitle("Empleado");
 		this.frame.setBounds(100, 100, 650, 515);
-		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.frameLayout = new CardLayout();
 		this.frame.getContentPane().setLayout(this.frameLayout);

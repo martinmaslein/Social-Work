@@ -139,12 +139,16 @@ public class ControladorClienteImpl implements ControladorCliente {
 	}
 
 	@Override
-	public void abrirSolicitudPrestacion() {
+	public void registrarSolicitudPrestacion(int persona, String fecha, String profesional) {
+		modelo.registrarSolicitudPrestacion(persona,fecha,profesional);
 		
 	}
 
 	@Override
-	public void abrirSolicitudReintegro() {
+	public void registrarSolicitudReintegro(int persona, String tipoServicio, String cbu) {
+		modelo.registrarSolicitudReintegro(persona,tipoServicio,cbu);
 		
 	}
+
+	
 }

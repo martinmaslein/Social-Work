@@ -90,14 +90,12 @@ CREATE TABLE IF NOT EXISTS Solicitud_reintegro(
     id_reintegro INT UNSIGNED NOT NULL AUTO_INCREMENT,
     nro_cliente INT UNSIGNED,
     nro_familiar INT UNSIGNED,
-    nro_servicio INT UNSIGNED,
+    tipo_servicio VARCHAR(128),
     nro_cbu VARCHAR(16),
     CONSTRAINT pk_Reintegro PRIMARY KEY(id_reintegro),
     FOREIGN KEY (nro_cliente) REFERENCES Cliente(nro_cliente)
         ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (nro_familiar) REFERENCES Familiar(nro_familiar)
-       ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (nro_servicio) REFERENCES Servicio(nro_servicio)
        ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=INNODB;
 
@@ -197,9 +195,9 @@ INSERT INTO Administrador VALUES (1,"admin",md5('admin'));
 INSERT INTO Solicitud VALUES (1,1,2);
 INSERT INTO Solicitud VALUES (2,2,1);
 
-#---Solicitud_reintegro(id_reintegro,nro_cliente, nro_familiar,nro_servicio, nro_cbu )
-INSERT INTO Solicitud_reintegro VALUES (1,1,NULL,3,5934587463215559);
-INSERT INTO Solicitud_reintegro VALUES (2,1,2,1,5934587463215559);
+#---Solicitud_reintegro(id_reintegro,nro_cliente, nro_familiar,tipo_servicio, nro_cbu )
+INSERT INTO Solicitud_reintegro VALUES (1,1,NULL,"Kinesiologo",5934587463215559);
+INSERT INTO Solicitud_reintegro VALUES (2,1,2,"Dentista",5934587463215559);
 
 #--Solicitud_prestacion(id_prestacion,nro_cliente, nro_familiar, profesional,fecha)
 INSERT INTO Solicitud_prestacion VALUES (2,1,1,"Dr. Julian Figeroa ","29/11/2022");

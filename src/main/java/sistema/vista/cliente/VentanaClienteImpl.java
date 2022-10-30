@@ -112,7 +112,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		this.frame = new JFrame();
 		this.frame.setTitle("Cliente");
 		this.frame.setBounds(100, 100, 852, 575);
-		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.frameLayout = new CardLayout();
 		this.frame.getContentPane().setLayout(this.frameLayout);

@@ -40,7 +40,7 @@ public class PanelSolicitarPrestacion extends JPanel {
 	 * @param controlador 
 	 * @param panelABMSolicitudes 
 	 */
-	public PanelSolicitarPrestacion(ControladorCliente controlador, JFrame frame, final PanelABMSolicitudes panelABMSolicitudes) {
+	public PanelSolicitarPrestacion(final ControladorCliente controlador, JFrame frame, final PanelABMSolicitudes panelABMSolicitudes) {
 		super();
 		setLayout(null);
 		setBackground(new Color(224, 241, 238));
@@ -90,7 +90,7 @@ public class PanelSolicitarPrestacion extends JPanel {
 		Vector<String> vector = new Vector<String>(controlador.obtenerNombreFamiliares());
 		vector.add(controlador.obtenerDatosCliente().getNombre());
 		DefaultComboBoxModel<String> dcm = new DefaultComboBoxModel<String>(vector);
-		JComboBox<String> comboBox = new JComboBox<String>(dcm);
+		final JComboBox<String> comboBox = new JComboBox<String>(dcm);
 		comboBox.setBounds(277, 164, 213, 31);
 		add(comboBox);
 		
@@ -112,7 +112,7 @@ public class PanelSolicitarPrestacion extends JPanel {
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(validarDatos()) {
-					//TODO controlador.registrarSolicitudPrestacion();
+					controlador.registrarSolicitudPrestacion(comboBox.getSelectedIndex(), fechaTextField.getText(), profesionalTextField.getText());
 					JOptionPane.showMessageDialog(null, "Solicitud cargada correctamente.");
 					volver();
 				}			
