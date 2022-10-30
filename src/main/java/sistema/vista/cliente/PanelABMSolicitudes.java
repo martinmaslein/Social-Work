@@ -171,7 +171,7 @@ public class PanelABMSolicitudes extends JPanel {
 		add(panel_1);
 	}
 
-	private void cargarABMSolicitudes() {
+	public void cargarABMSolicitudes() {
 		final ArrayList<ArrayList<String>> solicitudes = controlador.obtenerSolicitudesABM();
 
 		String columna[] = { "Nombre", "	Tipo" };

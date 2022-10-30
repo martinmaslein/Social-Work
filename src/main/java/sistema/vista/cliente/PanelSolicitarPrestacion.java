@@ -161,6 +161,7 @@ public class PanelSolicitarPrestacion extends JPanel {
 	}
 	
 	private void volver() {
+		panelABMSolicitudes.cargarABMSolicitudes();
 		panelABMSolicitudes.setVisible(true);
 		setVisible(false);
 	}
