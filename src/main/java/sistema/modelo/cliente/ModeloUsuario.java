@@ -51,7 +51,7 @@ public interface ModeloUsuario extends Modelo {
 
 	public String[] obtenerServicios();
 	
-	public List<Pair<String, String>> obtenerSolicitudes();
+	public List<Pair<String, String>> obtenerSolicitudesCambioPlan();
 	
 	public ArrayList<ArrayList<String>> obtenerSolicitudesABM();
 
@@ -70,5 +70,7 @@ public interface ModeloUsuario extends Modelo {
 	public boolean modificarPlan(String nombre, String text, String text2, JTable table_1);
 	
 	public String informacionSolicitud(ArrayList<String> solicitud);
+
+	public void desaprobarCambio(String nombre, String apellido);
 
 }

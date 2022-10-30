@@ -447,7 +447,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	@Override
-	public List<Pair<String, String>> obtenerSolicitudes() {
+	public List<Pair<String, String>> obtenerSolicitudesCambioPlan() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -773,6 +773,14 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 
+	@Override
+	public void desaprobarCambio(String nombre, String apellido) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 	public void registrarSolicitudPrestacion(int persona, String fecha, String profesional) {
 		String sql = armarSqlRegistrarSolicitudPrestacion(persona,fecha,profesional);
 		this.actualizacion(sql);
@@ -846,7 +854,5 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 					+ "VALUES (" + clienteActual.getNroCliente() + " , "+nro_familiar+" , '"+ tipoServicio + "' , '" +cbu+"');";
 		}
 	}
-
-	
 
 }

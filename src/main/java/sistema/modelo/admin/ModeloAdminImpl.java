@@ -496,7 +496,7 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	@Override
-	public List<javafx.util.Pair<String, String>> obtenerSolicitudes() {
+	public List<javafx.util.Pair<String, String>> obtenerSolicitudesCambioPlan() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -536,5 +536,11 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 	public String informacionSolicitud(ArrayList<String> solicitud) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void desaprobarCambio(String nombre, String apellido) {
+		// TODO Auto-generated method stub
+		
 	}
 }

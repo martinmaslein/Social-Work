@@ -39,7 +39,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 	protected JPanel panelPagoCliente;
 	protected JPanel panelSolicitudModificacionPlan;
 	protected JPanel panelModificarPlan;
-	protected JPanel panelSolicitudReintegro;
+	protected JPanel panelSolicitudReintegroPrestacion;
 	protected JPanel panelModificarDatos;
 	private JButton btnCerrarSesion;
 
@@ -121,14 +121,6 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		panelPpal.add(btnConfirmarPago);
 
 		btnSolicitudModificacionPlan = new JButton();
-		btnSolicitudModificacionPlan.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
 		btnSolicitudModificacionPlan.setText("<html>Confirmar solicitudes<br> de modificacion de plan</html>");
 		btnSolicitudModificacionPlan.setBorder(null);
 		btnSolicitudModificacionPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 16));
@@ -139,22 +131,6 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		panelPpal.add(btnSolicitudModificacionPlan);
 
 		btnSolicitudReintegro = new JButton("<html>Solicitudes de<br>reintegro/prestaciones</html>");
-		btnSolicitudReintegro.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		btnSolicitudReintegro.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
 		btnSolicitudReintegro.setBorder(null);
 		btnSolicitudReintegro.setFont(new Font("Yu Gothic UI", Font.BOLD, 17));
 		btnSolicitudReintegro.setForeground(new Color(255, 255, 255));
@@ -299,13 +275,10 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelPpal.setVisible(false);
-				panelSolicitudReintegro = new JPanel();
-				panelSolicitudReintegro.setBackground(new Color(224, 241, 238));
-				panelSolicitudReintegro.setLayout(null);
-				panelSolicitudReintegro.setVisible(false);
-				frame.getContentPane().add(panelSolicitudReintegro);
-				panelSolicitudReintegro.setVisible(true);
-
+				panelSolicitudReintegroPrestacion = new PanelSolicitudReintegroPrestacion(controlador);
+				frame.getContentPane().add(panelSolicitudReintegroPrestacion);
+				panelSolicitudReintegroPrestacion.setVisible(true);
+				
 				JButton btnVolver3 = new JButton("");
 				btnVolver3.setBounds(10, 11, 35, 31);
 				btnVolver3.setIcon(new ImageIcon("img\\flechi.png"));
@@ -314,13 +287,13 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 					public void actionPerformed(ActionEvent e) {
 						try {
 							panelPpal.setVisible(true);
-							panelSolicitudReintegro.setVisible(false);
+							panelSolicitudReintegroPrestacion.setVisible(false);
 						} catch (Exception e1) {
 							e1.printStackTrace();
 						}
 					}
 				});
-				panelSolicitudReintegro.add(btnVolver3);
+				panelSolicitudReintegroPrestacion.add(btnVolver3);
 			}
 		};
 	}
