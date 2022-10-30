@@ -219,7 +219,7 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	// #---Solicitud(id_solicitud,nro_cliente,nro_plan INT UNSIGNED)
-	public List<Pair<String, String>> obtenerSolicitudes() {
+	public List<Pair<String, String>> obtenerSolicitudesCambioPlan() {
 		List<Pair<String, String>> solicitudes = new ArrayList<Pair<String, String>>();
 		Pair<String, String> solicitud;
 		String sql = "SELECT * FROM Solicitud"; // obtengo todas las solicitudes
@@ -284,7 +284,7 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 
 	@Override
 	public void aprobarPago(String nombre, String apellido) {
-		String sqlCliente = "SELECT * FROM Cliente WHERE nombre = '" + nombre + "' AND apellido = '" + apellido + "';"; 
+		String sqlCliente = "SELECT * FROM Cliente WHERE nombre = '" + nombre + "' AND apellido = '" + apellido + "';";
 		ResultSet rsCliente = this.consulta(sqlCliente);
 		try {
 			while (rsCliente.next()) {
@@ -301,21 +301,19 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 
 	@Override
 	public boolean eliminarPlan(sistema.utilidades.Pair<String, Integer> planSeleccionado) {
-		return true;}
-	public ArrayList<ArrayList<String>> obtenerSolicitudesABM() {
-		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 	@Override
 	public boolean eliminarSolicitud(ArrayList<String> solicitud) {
 		return false;
 	}
+
 	public String informacionPlan(String nombre) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public boolean modificarPlan(String nombre, String text, String text2, JTable table_1) {
 		// TODO Auto-generated method stub
@@ -326,6 +324,145 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 	public String informacionSolicitud(ArrayList<String> solicitud) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void desaprobarCambio(String nombre, String apellido) {
+		String sqlCliente = "SELECT * FROM Cliente WHERE nombre = '" + nombre + "' AND apellido = '" + apellido + "';"; // solicitudes
+		String sqlSolicitud, sqlDelete;
+		ResultSet rsCliente = this.consulta(sqlCliente);
+		ResultSet rsSolicitud;
+		try {
+			while (rsCliente.next()) {
+				sqlSolicitud = "SELECT * FROM Solicitud WHERE nro_cliente = " + rsCliente.getInt("nro_cliente") + ";";
+				System.out.println(sqlSolicitud);
+				rsSolicitud = this.consulta(sqlSolicitud);
+
+				if (rsSolicitud.next()) {
+					sqlDelete = "DELETE FROM Solicitud WHERE id_solicitud = " + rsSolicitud.getInt("id_solicitud");
+					actualizacion(sqlDelete);
+				}
+
+			}
+
+			rsCliente.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public ArrayList<ArrayList<String>> obtenerSolicitudesABM() {
+		ArrayList<ArrayList<String>> solicitudes = new ArrayList<ArrayList<String>>();
+		ResultSet rsACargo, rsFamiliar, rsCliente;
+
+		// OBTENGO TODOS LOS REINTEGROS
+		String sqlACargo = "SELECT * FROM Solicitud_reintegro ;";
+		System.out.println(sqlACargo);
+		rsACargo = this.consulta(sqlACargo);
+
+		try {
+			while (rsACargo.next()) {
+				ArrayList<String> solicitud = new ArrayList<String>();
+				if (rsACargo.getInt("nro_familiar") > 0) {// SI ES PARA UN FAMILIAR
+					String sqlFamiliar = "SELECT * FROM Familiar WHERE nro_familiar=" + rsACargo.getInt("nro_familiar")
+							+ ";";
+					rsFamiliar = this.consulta(sqlFamiliar);
+					if (rsFamiliar.next()) {
+						try {
+							solicitud.add(rsFamiliar.getString("nombre"));
+							solicitud.add(rsFamiliar.getString("apellido"));
+							solicitud.add(rsFamiliar.getString("dni"));
+
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+
+					}
+				} else {
+					String sqlCliente = "SELECT * FROM Cliente WHERE nro_cliente=" + rsACargo.getInt("nro_cliente")
+							+ ";";
+					rsCliente = this.consulta(sqlCliente);
+					if (rsCliente.next()) {
+						try {
+							solicitud.add(rsCliente.getString("nombre"));
+							solicitud.add(rsCliente.getString("apellido"));
+							solicitud.add(rsCliente.getString("nro_doc"));
+
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+
+					}
+
+				}
+
+				solicitud.add("reintegro");
+				solicitud.add("" + rsACargo.getInt("id_reintegro"));
+				solicitud.add(rsACargo.getString("nro_cbu"));
+				solicitudes.add(solicitud);
+				// nombre(0), apellido(1), dni(2), "reintegro"(3),id_reintegro(4), cbu(5)
+			}
+
+		} catch (
+
+		SQLException e) {
+			e.printStackTrace();
+		}
+
+		// OBTENGO TODOS LAS PRESTACIONES
+		sqlACargo = "SELECT * FROM Solicitud_prestacion;";
+		System.out.println(sqlACargo);
+		rsACargo = this.consulta(sqlACargo);
+
+		try {
+			while (rsACargo.next()) {
+				ArrayList<String> solicitud = new ArrayList<String>();
+				if (rsACargo.getInt("nro_familiar") > 0) {// SI ES PARA UN FAMILIAR
+					String sqlFamiliar = "SELECT * FROM Familiar WHERE nro_familiar=" + rsACargo.getInt("nro_familiar")
+							+ ";";
+					rsFamiliar = this.consulta(sqlFamiliar);
+					if (rsFamiliar.next()) {
+						try {
+							solicitud.add(rsFamiliar.getString("nombre"));
+							solicitud.add(rsFamiliar.getString("apellido"));
+							solicitud.add(rsFamiliar.getString("dni"));
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+
+					}
+				} else {// ES QUIEN ESTA A CARGO
+					String sqlCliente = "SELECT * FROM Cliente WHERE nro_cliente=" + rsACargo.getInt("nro_cliente")
+							+ ";";
+					rsCliente = this.consulta(sqlCliente);
+					if (rsCliente.next()) {
+						try {
+							solicitud.add(rsCliente.getString("nombre"));
+							solicitud.add(rsCliente.getString("apellido"));
+							solicitud.add(rsCliente.getString("nro_doc"));
+
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+
+					}
+				}
+
+				solicitud.add("prestacion");
+				solicitud.add("" + rsACargo.getInt("id_prestacion"));
+				solicitud.add(rsACargo.getString("fecha"));
+				solicitudes.add(solicitud);
+				// nombre(0), apellido(1), dni(2), "prestacion"(3),id_prestacion(4), fecha(5)
+			}
+
+		} catch (
+
+		SQLException e) {
+			e.printStackTrace();
+		}
+
+		return solicitudes;
 	}
 
 }

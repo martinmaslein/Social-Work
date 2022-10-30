@@ -447,7 +447,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	@Override
-	public List<Pair<String, String>> obtenerSolicitudes() {
+	public List<Pair<String, String>> obtenerSolicitudesCambioPlan() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -770,6 +770,12 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 				+ "\n";
 
 		return toReturn;
+	}
+
+	@Override
+	public void desaprobarCambio(String nombre, String apellido) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

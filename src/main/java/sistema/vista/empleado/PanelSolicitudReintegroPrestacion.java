@@ -3,8 +3,6 @@ package sistema.vista.empleado;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -19,27 +17,26 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import sistema.controlador.ControladorEmpleado;
-import sistema.utilidades.Pair;
 
-public class PanelSolicitudModificarPlan extends JPanel {
+public class PanelSolicitudReintegroPrestacion extends JPanel {
 
 	private JLabel titulo;
 	private JButton btnAprobar;
 	private JTable tabla;
 	private ControladorEmpleado controlador;
 	private JScrollPane scrollPane;
-	private javafx.util.Pair<String, String> solicitudSeleccionada;
-	private PanelSolicitudModificarPlan panel = this;
+	private ArrayList<String> solicitudSeleccionada;
+	private PanelSolicitudReintegroPrestacion panel = this;
 
-	public PanelSolicitudModificarPlan(final ControladorEmpleado controlador) {
+	public PanelSolicitudReintegroPrestacion(final ControladorEmpleado controlador) {
 		super();
-		this.controlador = controlador;
 		setBackground(new Color(224, 241, 238));
 		setLayout(null);
+		this.controlador = controlador;
 
-		titulo = new JLabel("Confirmar solicitud de cambio");
+		titulo = new JLabel("Solicitudes");
 		titulo.setFont(new Font("Yu Gothic UI", Font.BOLD, 20));
-		titulo.setBounds(190, 49, 328, 20);
+		titulo.setBounds(70, 32, 328, 20);
 		add(titulo);
 
 		scrollPane = new JScrollPane();
@@ -47,7 +44,7 @@ public class PanelSolicitudModificarPlan extends JPanel {
 		scrollPane.setBorder(null);
 		scrollPane.setBackground(new Color(224, 241, 238));
 		scrollPane.setMinimumSize(new Dimension(27, 27));
-		scrollPane.setBounds(129, 94, 421, 219);
+		scrollPane.setBounds(56, 95, 421, 219);
 		add(scrollPane);
 
 		tabla = new JTable();
@@ -60,22 +57,15 @@ public class PanelSolicitudModificarPlan extends JPanel {
 		btnAprobar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (solicitudSeleccionada != null) {
-					if (solicitudSeleccionada.getKey() != null) {
+					if (solicitudSeleccionada.get(1) != null) {
 
 						int select = JOptionPane.showConfirmDialog(panel, "¿Desea aprobar la solcitud seleccionada?",
 								"Aprobar solicitud", JOptionPane.CANCEL_OPTION);
 						System.out.println(select);
 
-						String nombre[] = new String[2];
-						String n = (String) solicitudSeleccionada.getKey();
-						nombre = n.split(",");								
-						
 						if (select == JOptionPane.OK_OPTION) {
 							try {
-								controlador.aprobarCambio(nombre [1], nombre[0]);
-							
-								controlador.aprobarCambio(solicitudSeleccionada.getKey(),
-										solicitudSeleccionada.getValue());
+								controlador.aprobarCambio(solicitudSeleccionada.get(1), solicitudSeleccionada.get(0));
 								JOptionPane.showMessageDialog(null, "Solicitud aprobada correctamente.");
 								cargarSolicitudes();
 							} catch (Exception e1) {
@@ -92,31 +82,27 @@ public class PanelSolicitudModificarPlan extends JPanel {
 			}
 		});
 
-		btnAprobar.setBounds(227, 350, 100, 23);
+		btnAprobar.setBounds(504, 188, 100, 23);
 		btnAprobar.setBorder(null);
 		btnAprobar.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
 		btnAprobar.setForeground(new Color(255, 255, 255));
 		btnAprobar.setBackground(new Color(119, 193, 181));
 		add(btnAprobar);
-		
+
 		JButton btnDesaprobar = new JButton("Desaprobar");
 		btnDesaprobar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (solicitudSeleccionada != null) {
-					if (solicitudSeleccionada.getKey() != null) {
+					if (solicitudSeleccionada.get(1) != null) {
 
 						int select = JOptionPane.showConfirmDialog(panel, "¿Desea desaprobar la solcitud seleccionada?",
 								"Desaprobar solicitud", JOptionPane.CANCEL_OPTION);
 						System.out.println(select);
 
-						String nombre[] = new String[2];
-						String n = (String) solicitudSeleccionada.getKey();
-						nombre = n.split(",");								
-						
 						if (select == JOptionPane.OK_OPTION) {
 							try {
-								controlador.desaprobarCambio(nombre [1], nombre[0]);
-							
+								controlador.desaprobarCambio(solicitudSeleccionada.get(1),
+										solicitudSeleccionada.get(0));
 								JOptionPane.showMessageDialog(null, "Solicitud desaprobada correctamente.");
 								cargarSolicitudes();
 							} catch (Exception e1) {
@@ -136,25 +122,35 @@ public class PanelSolicitudModificarPlan extends JPanel {
 		btnDesaprobar.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
 		btnDesaprobar.setBorder(null);
 		btnDesaprobar.setBackground(new Color(119, 193, 181));
-		btnDesaprobar.setBounds(354, 350, 100, 23);
+		btnDesaprobar.setBounds(504, 222, 100, 23);
 		add(btnDesaprobar);
+		
+		JButton btnVerMas = new JButton("Ver mas");
+		btnVerMas.setForeground(Color.WHITE);
+		btnVerMas.setFont(new Font("Yu Gothic UI", Font.BOLD, 14));
+		btnVerMas.setBorder(null);
+		btnVerMas.setBackground(new Color(119, 193, 181));
+		btnVerMas.setBounds(504, 154, 100, 23);
+		add(btnVerMas);
 	}
 
 	public void cargarSolicitudes() {
-		final List<javafx.util.Pair<String, String>> solicitudes = controlador.obtenerSolicitudesCambioPlan();
+		final ArrayList<ArrayList<String>> solicitudes = controlador.obtenerSolicitudes();
+		String columna[] = { "Nombre", "DNI", "Tipo solicitud" };
 
-		String columna[] = { "Nombre", "Plan solicitado" };
-
-		String data[][] = { { "", "" }, { "", "" }, { "", "" }, { "", "" }, { "", "" } };
+		String data[][] = { { "", "", "" }, { "", "", "" }, { "", "", "" }, { "", "", "" }, { "", "", "" } };
 
 		int i = 0;
-		for (javafx.util.Pair<String, String> solicitud : solicitudes) {
+		for (ArrayList<String> solicitud : solicitudes) {
+			// nombre(0), apellido(1), dni(2), "prestacion"(3),id_prestacion(4), fecha(5)
+			String nombre = solicitud.get(0);
+			String apellido = solicitud.get(1);
+			String dni = solicitud.get(2);
+			String tipo_solicitud = solicitud.get(3);
 
-			String nombre = solicitud.getKey();
-			String plan = solicitud.getValue();
-
-			data[i][0] = nombre;
-			data[i][1] = plan;
+			data[i][0] = nombre + ", " + apellido;
+			data[i][1] = dni;
+			data[i][2] = tipo_solicitud;
 
 			i = i + 1;
 		}
@@ -177,12 +173,11 @@ public class PanelSolicitudModificarPlan extends JPanel {
 				String nombre = partes[0];
 				System.out.println(nombre);
 
-				for (javafx.util.Pair<String, String> solicitud : solicitudes) {
-					System.out.println(solicitud.getKey());
-					if (nombre.equals(solicitud.getKey())) {
+				for (ArrayList<String> solicitud : solicitudes) {
+					if (nombre.equals(solicitud.get(1) + "," + solicitud.get(1))) {
 						solicitudSeleccionada = solicitud;
 						break;
-					}else {
+					} else {
 						solicitudSeleccionada = null;
 					}
 

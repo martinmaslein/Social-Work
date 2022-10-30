@@ -53,8 +53,8 @@ public class ControladorEmpleadoImpl implements ControladorEmpleado {
 
 	@Override
 
-	public List<Pair<String, String>> obtenerSolicitudes() {
-		return modelo.obtenerSolicitudes();
+	public List<Pair<String, String>> obtenerSolicitudesCambioPlan() {
+		return modelo.obtenerSolicitudesCambioPlan();
 	}
 	
 	public List<Pair<String, String>> cargarClientesTabla() {
@@ -72,6 +72,17 @@ public class ControladorEmpleadoImpl implements ControladorEmpleado {
 	@Override
 	public void aprobarPago(String nombre, String apellido) {
 		modelo.aprobarPago(nombre,apellido);
+	}
+
+	@Override
+	public void desaprobarCambio(String nombre, String apellido) {
+		modelo.desaprobarCambio(nombre,apellido);
+		
+	}
+
+	@Override
+	public ArrayList<ArrayList<String>> obtenerSolicitudes() {
+		return modelo.obtenerSolicitudesABM();
 	}
 
 }

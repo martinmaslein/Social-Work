@@ -215,6 +215,8 @@ public class PanelABMSolicitudes extends JPanel {
 					if (nombre.equals(solicitud.get(0))) {
 						solicitudSeleccionada = solicitud;
 						break;
+					} else {
+						solicitudSeleccionada = null;
 					}
 
 				}

@@ -134,8 +134,11 @@ DROP USER 'empleado'@'%';
 CREATE USER 'empleado'@'%' IDENTIFIED BY 'empleado';
 GRANT SELECT ON sistema.empleado TO 'empleado'@'%';
 GRANT SELECT,UPDATE,INSERT ON sistema.empleado TO 'empleado'@'%'; 
-GRANT SELECT,UPDATE,INSERT ON sistema.cliente TO 'empleado'@'%';  
+GRANT SELECT,UPDATE,INSERT ON sistema.cliente TO 'empleado'@'%'; 
+GRANT SELECT,UPDATE,INSERT ON sistema.familiar TO 'empleado'@'%';
 GRANT SELECT,UPDATE,INSERT,DELETE ON sistema.solicitud TO 'empleado'@'%';
+GRANT DELETE, SELECT,UPDATE,INSERT ON sistema.Solicitud_reintegro TO 'empleado'@'%'; 
+GRANT DELETE, SELECT,UPDATE,INSERT ON sistema.Solicitud_prestacion TO 'empleado'@'%';
 GRANT SELECT,UPDATE,INSERT ON sistema.Plan TO 'empleado'@'%';
 
 DROP USER 'cliente'@'%';

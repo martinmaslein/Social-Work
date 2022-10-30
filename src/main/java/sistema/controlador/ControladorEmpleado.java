@@ -15,12 +15,16 @@ public interface ControladorEmpleado extends ControladorSistema {
 	
 	public boolean modificarPlan(String dni, String plan) throws Exception;
 	
-	public List<Pair<String, String>> obtenerSolicitudes();
+	public List<Pair<String, String>> obtenerSolicitudesCambioPlan();
 
 	public List<Pair<String, String>> cargarClientesTabla();
 	
 	public void aprobarCambio(String nombre, String apellido) throws Exception;
 
 	public void aprobarPago(String nombre, String apellido);
+
+	public void desaprobarCambio(String string, String string2);
+	
+	public ArrayList<ArrayList<String>> obtenerSolicitudes();
 
 }
