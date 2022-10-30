@@ -31,11 +31,10 @@ public class PanelABMSolicitudes extends JPanel {
 	private JScrollPane scrollPane;
 	private ArrayList<String> solicitudSeleccionada;
 	private PanelABMSolicitudes panel = this;
-	private JPanel panelVerMas;
 	private JFrame frame;
-	
+
 	protected PanelSolicitarReintegro panelSolicitarReintegro;
-	protected PanelSolicitarPrestacion panelSolicitarPrestacion; 
+	protected PanelSolicitarPrestacion panelSolicitarPrestacion;
 
 	public PanelABMSolicitudes(final ControladorCliente controlador, JFrame frame) {
 		super();
@@ -44,20 +43,18 @@ public class PanelABMSolicitudes extends JPanel {
 		setLayout(null);
 		craerBotonesPanelABMSolicitudes();
 		cargarABMSolicitudes();
-		
+
 		this.frame = frame;
 		inicializarPaneles();
 
 	}
 
-	
 	private void inicializarPaneles() {
-		
+
 		panelSolicitarPrestacion = new PanelSolicitarPrestacion(controlador, frame, this);
-		panelSolicitarReintegro = new PanelSolicitarReintegro(controlador, frame,this);
+		panelSolicitarReintegro = new PanelSolicitarReintegro(controlador, frame, this);
 	}
-	
-	
+
 	private void craerBotonesPanelABMSolicitudes() {
 		// Labels y Botones
 		JLabel lblSolicitudes = new JLabel("Solicitudes");
@@ -71,7 +68,7 @@ public class PanelABMSolicitudes extends JPanel {
 		btnVerMas.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnVerMas.setForeground(new Color(255, 255, 255));
 		btnVerMas.setBackground(new Color(119, 193, 181));
-		
+
 		btnVerMas.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				boolean toReturn;
@@ -131,15 +128,13 @@ public class PanelABMSolicitudes extends JPanel {
 		btnSolicitarReintegro.setForeground(new Color(255, 255, 255));
 		btnSolicitarReintegro.setBackground(new Color(119, 193, 181));
 		btnSolicitarReintegro.setBounds(526, 51, 221, 25);
-		btnSolicitarReintegro.addActionListener(
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						setVisible(false);
-						panelSolicitarReintegro.refresh();
-						panelSolicitarReintegro.setVisible(true);
-					}
-				}
-		);
+		btnSolicitarReintegro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				panelSolicitarReintegro.refresh();
+				panelSolicitarReintegro.setVisible(true);
+			}
+		});
 		add(btnSolicitarReintegro);
 
 		btnSolicitarPrestacion = new JButton("+ Solicitar prestación");
@@ -147,15 +142,13 @@ public class PanelABMSolicitudes extends JPanel {
 		btnSolicitarPrestacion.setForeground(new Color(255, 255, 255));
 		btnSolicitarPrestacion.setBackground(new Color(119, 193, 181));
 		btnSolicitarPrestacion.setBounds(291, 51, 221, 25);
-		btnSolicitarPrestacion.addActionListener(
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						setVisible(false);
-						panelSolicitarPrestacion.refresh();
-						panelSolicitarPrestacion.setVisible(true);
-					}
-				}
-		);
+		btnSolicitarPrestacion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				panelSolicitarPrestacion.refresh();
+				panelSolicitarPrestacion.setVisible(true);
+			}
+		});
 		add(btnSolicitarPrestacion);
 
 		lblAcciones = new JLabel("Acciones");
