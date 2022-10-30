@@ -75,12 +75,6 @@ CREATE TABLE IF NOT EXISTS Servicio(
     CONSTRAINT pk_Servicio PRIMARY KEY(nro_servicio)
 )ENGINE=INNODB;
 
-CREATE TABLE IF NOT EXISTS Profesional(
-    nro_profesional INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    nombre CHAR(32),
-    CONSTRAINT pk_Profesional PRIMARY KEY(nro_profesional)
-)ENGINE=INNODB;
-
 CREATE TABLE IF NOT EXISTS Servicio_plan(
     id_servicio_plan INT UNSIGNED NOT NULL AUTO_INCREMENT,
     nro_servicio INT UNSIGNED,
@@ -111,14 +105,12 @@ CREATE TABLE IF NOT EXISTS Solicitud_prestacion(
     id_prestacion INT UNSIGNED NOT NULL AUTO_INCREMENT,
     nro_cliente INT UNSIGNED,
     nro_familiar INT UNSIGNED,
-    nro_profesional INT UNSIGNED,
+    profesional VARCHAR(128) NOT NULL,
     fecha VARCHAR(128) NOT NULL,
     CONSTRAINT pk_Prestacion PRIMARY KEY(id_prestacion),
     FOREIGN KEY (nro_cliente) REFERENCES Cliente(nro_cliente)
         ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (nro_familiar) REFERENCES Familiar(nro_familiar)
-       ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (nro_profesional) REFERENCES Profesional(nro_profesional)
        ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=INNODB;
 
@@ -152,7 +144,6 @@ GRANT SELECT ON sistema.cliente TO 'cliente'@'%';
 GRANT SELECT,UPDATE,INSERT ON sistema.cliente TO 'cliente'@'%'; 
 GRANT SELECT,UPDATE,INSERT ON sistema.plan TO 'cliente'@'%'; 
 GRANT SELECT,UPDATE,INSERT ON sistema.familiar TO 'cliente'@'%';
-GRANT DELETE, SELECT,UPDATE,INSERT ON sistema.Profesional TO 'cliente'@'%'; 
 GRANT DELETE, SELECT,UPDATE,INSERT ON sistema.servicio TO 'cliente'@'%';
 GRANT DELETE, SELECT,UPDATE,INSERT ON sistema.Solicitud_reintegro TO 'cliente'@'%'; 
 GRANT DELETE, SELECT,UPDATE,INSERT ON sistema.Solicitud_prestacion TO 'cliente'@'%';  
@@ -190,10 +181,6 @@ INSERT INTO Servicio VALUES (1,"Dentista");
 INSERT INTO Servicio VALUES (2,"Oftalmologo");
 INSERT INTO Servicio VALUES (3,"Kinesiologo");
 
-#-----Profesional (nro_profesional,nombre)
-INSERT INTO Profesional VALUES (1,"Gonzalez, Martin");
-INSERT INTO Profesional VALUES (2,"Gutierrez, Macarena");
-INSERT INTO Profesional VALUES (3,"Castillo, Florencia");
 
 #----servicio_plan (id_servicio_plan, nro_servicio, nro_plan)
 INSERT INTO Servicio_plan VALUES (1,1,1);
@@ -211,5 +198,5 @@ INSERT INTO Solicitud VALUES (2,2,1);
 INSERT INTO Solicitud_reintegro VALUES (1,1,NULL,3,5934587463215559);
 INSERT INTO Solicitud_reintegro VALUES (2,1,2,1,5934587463215559);
 
-#--Solicitud_prestacion(id_prestacion,nro_cliente, nro_familiar, nro_profesional,fecha)
-INSERT INTO Solicitud_prestacion VALUES (2,1,1,3,"29/11/2022");
+#--Solicitud_prestacion(id_prestacion,nro_cliente, nro_familiar, profesional,fecha)
+INSERT INTO Solicitud_prestacion VALUES (2,1,1,"Dr. Julian Figeroa ","29/11/2022");
