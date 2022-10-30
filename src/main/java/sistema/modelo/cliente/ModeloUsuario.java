@@ -77,4 +77,6 @@ public interface ModeloUsuario extends Modelo {
 
 	public void desaprobarSolicitud(ArrayList<String> solicitud);
 
+	public ArrayList<ArrayList<String>> obtenerInfoClientes();
+
 }

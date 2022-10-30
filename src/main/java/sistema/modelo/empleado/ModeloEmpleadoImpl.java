@@ -536,4 +536,49 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 
 	}
 
+	@Override
+	public ArrayList<ArrayList<String>> obtenerInfoClientes() {
+		ArrayList<ArrayList<String>> nombreClientes = new ArrayList<ArrayList<String>>();
+		String plan = "";
+
+		// Obtener nombre Familiares
+		String sql = "SELECT * FROM Cliente;";
+		ResultSet rs = this.consulta(sql);
+
+		try {
+			while (rs.next()) {
+				ArrayList<String> cliente = new ArrayList<String>();
+				cliente.add(rs.getString("nombre"));
+				cliente.add(rs.getString("apellido"));
+				cliente.add(rs.getString("nro_doc"));
+				cliente.add(obtenerPlan(rs.getInt("nro_plan")));
+				cliente.add(rs.getString("fecha_nac"));
+				cliente.add(rs.getString("direccion"));
+				cliente.add(rs.getString("telefono"));
+				cliente.add(rs.getString("correo"));
+
+				nombreClientes.add(cliente);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return nombreClientes;
+	}
+
+	private String obtenerPlan(int nroDoc) {
+		
+		String sqlPlan = "SELECT nombre FROM Plan WHERE nro_plan=" + nroDoc + ";";
+		ResultSet rs = this.consulta(sqlPlan);
+		String plan="";
+		try {
+			if (rs.next())
+				plan = rs.getString("nombre");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return plan;
+	}
+
 }

@@ -996,7 +996,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private void cargarABMFamiliares() {
 		final ArrayList<ArrayList<String>> familiares = controlador.obtenerInfoFamiliares();
 
-		String columna[] = { "Nombre", "DNI", "Pan" };
+		String columna[] = { "Nombre", "DNI", "Plan" };
 
 		String data[][] = { { "", "", "" }, { "", "", "" }, { "", "", "" }, { "", "", "" }, { "", "", "" } };
 

@@ -4,17 +4,24 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
 import sistema.controlador.ControladorEmpleado;
 import sistema.vista.registro.VentanaRegistro;
 import sistema.vista.registro.VentanaRegistroImpl;
@@ -34,7 +41,8 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 	protected JButton btnModificarDatos;
 	protected JButton btnSolicitudModificacionPlan;
 	protected JButton btnSolicitudReintegro;
-
+	
+	protected JPanel panelABMCliente;
 	protected JPanel panelAltaCliente;
 	protected JPanel panelPagoCliente;
 	protected JPanel panelSolicitudModificacionPlan;
@@ -42,6 +50,14 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 	protected JPanel panelSolicitudReintegroPrestacion;
 	protected JPanel panelModificarDatos;
 	private JButton btnCerrarSesion;
+	
+	private ArrayList<String> clienteSeleccionado;
+	private JLabel lblAcciones_1;
+	private JButton btnVerMas_1;
+	private JButton btnEliminar;
+	private Component btnModificar;
+	private JScrollPane scrollPane;
+	private JButton btnAgregarCliente;
 
 	public VentanaEmpleadoImpl() {
 		inicializar();
@@ -52,7 +68,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 
 		this.frame = new JFrame();
 		this.frame.setTitle("Empleado");
-		this.frame.setBounds(100, 100, 650, 515);
+		this.frame.setBounds(100, 100, 852, 575);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.frameLayout = new CardLayout();
@@ -64,12 +80,16 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 
 		this.frame.getContentPane().add(this.crearPanelPrincipal());
 		
+		//Creo el panel abm
+		this.crearPanelABM();
+
+		
 		btnCerrarSesion = new JButton("Cerrar Sesion");
 		btnCerrarSesion.setForeground(Color.WHITE);
 		btnCerrarSesion.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnCerrarSesion.setBorder(null);
 		btnCerrarSesion.setBackground(new Color(119, 193, 181));
-		btnCerrarSesion.setBounds(489, 11, 137, 23);
+		btnCerrarSesion.setBounds(569, 11, 137, 23);
 		panelPpal.add(btnCerrarSesion);
 		btnCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -78,6 +98,90 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		});
 
 		this.registrarEventos();
+	}
+
+	private Component crearPanelABM() {
+		panelABMCliente = new JPanel();
+		panelABMCliente.setBackground(new Color(224, 241, 238));
+		panelABMCliente.setLayout(null);
+		frame.getContentPane().add(panelABMCliente);
+		
+		// Labels y Botones
+		JLabel lblFamiliares = new JLabel("Clientes");
+		lblFamiliares.setFont(new Font("Yu Gothic UI", Font.BOLD, 24));
+		lblFamiliares.setBounds(80, 66, 129, 23);
+		panelABMCliente.add(lblFamiliares);
+
+		lblAcciones_1 = new JLabel("Acciones");
+		lblAcciones_1.setFont(new Font("Yu Gothic UI", Font.BOLD, 24));
+		lblAcciones_1.setBounds(618, 150, 129, 23);
+		panelABMCliente.add(lblAcciones_1);
+
+		btnVerMas_1 = new JButton("Ver Mas");
+		btnVerMas_1.setBounds(618, 209, 129, 34);
+		btnVerMas_1.addActionListener(this.verMas());
+		panelABMCliente.add(btnVerMas_1);
+
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(618, 278, 129, 34);
+	//	btnEliminar.addActionListener(this.eliminarFamiliar());
+		panelABMCliente.add(btnEliminar);
+
+		btnModificar = new JButton("Modificar");
+		btnModificar.setBounds(618, 345, 129, 34);
+	//	btnModificar.addActionListener(this.modifcarFamiliar());
+		panelABMCliente.add(btnModificar);
+		
+		btnAgregarCliente = new JButton("Agregar Cliente");
+		btnAgregarCliente.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnAgregarCliente.setBounds(604, 57, 155, 48);
+	//	btnAgregarCliente.addActionListener(this.cargarFamiliar());
+		panelABMCliente.add(btnAgregarCliente);
+
+		// ABM
+		scrollPane = new JScrollPane();
+		scrollPane.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
+		scrollPane.setBorder(null);
+		scrollPane.setBackground(new Color(224, 241, 238));
+		scrollPane.setMinimumSize(new Dimension(27, 27));
+		scrollPane.setBounds(33, 188, 488, 219);
+		panelABMCliente.add(scrollPane);
+		
+		JButton btnVolver = new JButton("");
+		btnVolver.setIcon(new ImageIcon("img\\flechi.png"));
+		btnVolver.setBorder(null);
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					panelPpal.setVisible(true);
+					panelABMCliente.setVisible(false);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnVolver.setBounds(10, 11, 35, 31);
+		panelABMCliente.add(btnVolver);
+		
+		return panelABMCliente;
+		
+	}
+
+	private ActionListener verMas() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String mensaje = "";
+				if (clienteSeleccionado != null)
+					mensaje += " Nombre: " + clienteSeleccionado.get(0) + " " + clienteSeleccionado.get(1) + "\n"
+							+ " DNI: " + clienteSeleccionado.get(2) + "\n" + " Plan: " + clienteSeleccionado.get(3)
+							+ "\n" + " Fecha_nac: " + clienteSeleccionado.get(4) + "\n" + " Direccion: "
+							+ clienteSeleccionado.get(5) + "\n" + " Telefono: " + clienteSeleccionado.get(6)
+							+ "\n" +" Email: "+clienteSeleccionado.get(7);
+				else
+					mensaje += "Seleccione el nombre de un familiar";
+				JOptionPane.showMessageDialog(null, mensaje);
+			}
+		};
 	}
 
 	private void registrarEventos() {
@@ -91,24 +195,16 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 
 		JLabel lblNewLabel = new JLabel("Empleado");
 		lblNewLabel.setFont(new Font("Yu Gothic UI", Font.BOLD, 30));
-		lblNewLabel.setBounds(247, 44, 165, 40);
+		lblNewLabel.setBounds(327, 44, 165, 40);
 		panelPpal.add(lblNewLabel);
 
 		btnAltaCliente = new JButton("Clientes");
-		btnAltaCliente.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
 		btnAltaCliente.setBorder(null);
 		btnAltaCliente.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnAltaCliente.setForeground(new Color(255, 255, 255));
 		btnAltaCliente.setBackground(new Color(119, 193, 181));
-		btnAltaCliente.setBounds(233, 156, 179, 23);
-		btnAltaCliente.addActionListener(this.listenerAltaCliente());
+		btnAltaCliente.setBounds(313, 156, 179, 23);
+		btnAltaCliente.addActionListener(this.verABMCliente());
 		panelPpal.add(btnAltaCliente);
 
 		btnConfirmarPago = new JButton("Confirmar pagos");
@@ -116,7 +212,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		btnConfirmarPago.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnConfirmarPago.setForeground(new Color(255, 255, 255));
 		btnConfirmarPago.setBackground(new Color(119, 193, 181));
-		btnConfirmarPago.setBounds(233, 190, 179, 23);
+		btnConfirmarPago.setBounds(313, 190, 179, 23);
 		btnConfirmarPago.addActionListener(this.listenerPagoCliente());
 		panelPpal.add(btnConfirmarPago);
 
@@ -126,7 +222,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		btnSolicitudModificacionPlan.setFont(new Font("Yu Gothic UI", Font.BOLD, 16));
 		btnSolicitudModificacionPlan.setForeground(new Color(255, 255, 255));
 		btnSolicitudModificacionPlan.setBackground(new Color(119, 193, 181));
-		btnSolicitudModificacionPlan.setBounds(233, 224, 179, 73);
+		btnSolicitudModificacionPlan.setBounds(313, 224, 179, 73);
 		btnSolicitudModificacionPlan.addActionListener(this.listenerSolicitudModificacionPlan());
 		panelPpal.add(btnSolicitudModificacionPlan);
 
@@ -135,7 +231,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		btnSolicitudReintegro.setFont(new Font("Yu Gothic UI", Font.BOLD, 17));
 		btnSolicitudReintegro.setForeground(new Color(255, 255, 255));
 		btnSolicitudReintegro.setBackground(new Color(119, 193, 181));
-		btnSolicitudReintegro.setBounds(233, 311, 179, 54);
+		btnSolicitudReintegro.setBounds(313, 311, 179, 54);
 		btnSolicitudReintegro.addActionListener(this.listenerSolicitudReintegro());
 		panelPpal.add(btnSolicitudReintegro);
 
@@ -144,12 +240,21 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		btnModificarDatos.setFont(new Font("Yu Gothic UI", Font.BOLD, 18));
 		btnModificarDatos.setForeground(new Color(255, 255, 255));
 		btnModificarDatos.setBackground(new Color(119, 193, 181));
-		btnModificarDatos.setBounds(233, 122, 179, 23);
+		btnModificarDatos.setBounds(313, 122, 179, 23);
 		btnModificarDatos.addActionListener(this.listenerModificarDatos());
 		panelPpal.add(btnModificarDatos);
 
 		panelPpal.setVisible(true);
 		return panelPpal;
+	}
+
+	private ActionListener verABMCliente() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelPpal.setVisible(false);
+				panelABMCliente.setVisible(true);	
+			}
+		};
 	}
 
 	protected ActionListener listenerAltaCliente() {
@@ -350,6 +455,59 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 
 	public void registrarControlador(ControladorEmpleado controlador) {
 		this.controlador = controlador;
+		
+		this.cargarABMClientes();
+	}
+
+	private void cargarABMClientes() {
+		final ArrayList<ArrayList<String>> clientes = controlador.obtenerInfoClientes();
+
+		String columna[] = { "Nombre", "DNI", "Plan" };
+
+		String data[][] = { { "", "", "" }, { "", "", "" }, { "", "", "" }, { "", "", "" }, { "", "", "" } };
+
+		int i = 0;
+		for (ArrayList<String> cliente : clientes) {
+
+			String nombre = cliente.get(0);
+			String apellido = cliente.get(1);
+			String dni = cliente.get(2);
+			String plan = cliente.get(3);
+			System.out.println("asad"+plan);
+
+			data[i][0] = nombre + " " + apellido;
+			data[i][1] = dni;
+			data[i][2] = plan;
+
+			i = i + 1;
+		}
+		DefaultTableModel tableModel = new DefaultTableModel(data, columna);
+		final JTable table = new JTable(tableModel);
+		table.setRowHeight(33);
+		scrollPane.setViewportView(table);
+
+		table.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+
+				int row = table.rowAtPoint(evt.getPoint());
+				int col = table.columnAtPoint(evt.getPoint());
+
+				Object selectedObject = (Object) table.getModel().getValueAt(row, col);
+
+				String nomAp = selectedObject.toString();
+				String[] partes = nomAp.split(" ");
+				String nombre = partes[0];
+
+				for (ArrayList<String> cliente : clientes) {
+					if (nombre.equals(cliente.get(0))) {
+						clienteSeleccionado = cliente;
+						break;
+					}
+				}
+
+			}
+		});
+		
 	}
 
 }

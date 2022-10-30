@@ -33,4 +33,6 @@ public interface ControladorEmpleado extends ControladorSistema {
 
 	public String informacionSolicitud(ArrayList<String> solicitudSeleccionada);
 
+	public ArrayList<ArrayList<String>> obtenerInfoClientes();
+
 }

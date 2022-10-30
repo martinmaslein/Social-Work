@@ -100,4 +100,9 @@ public class ControladorEmpleadoImpl implements ControladorEmpleado {
 		return modelo.informacionSolicitud(solicitudSeleccionada);
 	}
 
+	@Override
+	public ArrayList<ArrayList<String>> obtenerInfoClientes() {
+		return modelo.obtenerInfoClientes();
+	}
+
 }

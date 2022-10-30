@@ -862,4 +862,10 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
 	}
 
+	@Override
+	public ArrayList<ArrayList<String>> obtenerInfoClientes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
