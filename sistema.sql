@@ -61,6 +61,7 @@ CREATE TABLE IF NOT EXISTS Familiar(
     fecha_nac VARCHAR(128) NOT NULL,
     direccion VARCHAR(128) NOT NULL,
     telefono VARCHAR(128) NOT NULL,
+    correo VARCHAR(128) NOT NULL,
     dni VARCHAR(128) NOT NULL,
     CONSTRAINT pk_Familiar PRIMARY KEY(nro_familiar),
 
@@ -171,11 +172,11 @@ INSERT INTO Cliente VALUES (4,'cliente4',md5('contraseña4'),"Torres","Sofia","1
 INSERT INTO Cliente VALUES (5,'cliente5',md5('contraseña5'),"Rodriguez","Matias","1970/12/12","Gorriti 302","0116578635","matirod78@gmail.com",26783645,1,0);
 
 #------ Familiar (nro_familiar,nro_cliente,apellido, nombre, fecha_nac, direccion, telefono, dni) --------------------#
-INSERT INTO Familiar VALUES (1,1,"Lopez","Joan","1990/08/11","Gorriti 501",2916663748, 43593848);
-INSERT INTO Familiar VALUES (2,1,"Lopez","Valentina","1970/05/12","San Juan 200",2916663748, 32374264);
-INSERT INTO Familiar VALUES (3,2,"Perez","Teresa","2000/04/09","Alem 3800",2916663748, 19046111);
-INSERT INTO Familiar VALUES (4,3,"Arena","Manuel","2001/01/05","Zapiola 50",2916663748, 33174510);
-INSERT INTO Familiar VALUES (5,4,"Torres","Nicolas","2002/12/04","Sarmiento 101",2916663748, 21763670);
+INSERT INTO Familiar VALUES (1,1,"Lopez","Joan","1990/08/11","Gorriti 501",2916663748,"joanlopez@gmail.com", 43593848);
+INSERT INTO Familiar VALUES (2,1,"Lopez","Valentina","1970/05/12","San Juan 200",2916663748,"valenlopez@gmail.com", 32374264);
+INSERT INTO Familiar VALUES (3,2,"Perez","Teresa","2000/04/09","Alem 3800",2916663748,"teresaperez@gmail.com", 19046111);
+INSERT INTO Familiar VALUES (4,3,"Arena","Manuel","2001/01/05","Zapiola 50",2916663748,"manuelarena@gmail.com", 33174510);
+INSERT INTO Familiar VALUES (5,4,"Torres","Nicolas","2002/12/04","Sarmiento 101",2916663748,"nicolastorres@gmail.com", 21763670);
 
 #-----Servicio (nro_servicio,nombre)
 INSERT INTO Servicio VALUES (1,"Dentista");

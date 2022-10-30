@@ -835,7 +835,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 					mensaje += " Nombre: " + familiarSeleccionado.get(0) + " " + familiarSeleccionado.get(1) + "\n"
 							+ " DNI: " + familiarSeleccionado.get(2) + "\n" + " Plan: " + familiarSeleccionado.get(3)
 							+ "\n" + " Fecha_nac: " + familiarSeleccionado.get(4) + "\n" + " Direccion: "
-							+ familiarSeleccionado.get(5) + "\n" + " Telefono: " + familiarSeleccionado.get(6);
+							+ familiarSeleccionado.get(5) + "\n" + " Telefono: " + familiarSeleccionado.get(6)
+							+ "\n" +" Email: "+familiarSeleccionado.get(7);
 				else
 					mensaje += "Seleccione el nombre de un familiar";
 				JOptionPane.showMessageDialog(null, mensaje);

@@ -504,6 +504,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 				familiar.add(rs.getString("fecha_nac"));
 				familiar.add(rs.getString("direccion"));
 				familiar.add(rs.getString("telefono"));
+				familiar.add(rs.getString("correo"));
 
 				nombreFamiliares.add(familiar);
 			}
