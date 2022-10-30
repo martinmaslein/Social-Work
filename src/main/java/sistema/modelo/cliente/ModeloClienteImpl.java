@@ -555,7 +555,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		// OBTENGO TODOS LOS REINTEGROS
 		String sqlACargo = "SELECT * FROM Solicitud_reintegro WHERE nro_cliente = '" + id + "';";
 		System.out.println(sqlACargo);
@@ -583,9 +583,8 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 					solicitud.add(apellido);
 				}
 
-				
 				solicitud.add("reintegro");
-				solicitud.add(""+rsACargo.getInt("id_reintegro"));
+				solicitud.add("" + rsACargo.getInt("id_reintegro"));
 				solicitud.add(rsACargo.getString("nro_cbu"));
 				solicitudes.add(solicitud);
 			}
@@ -595,47 +594,45 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		// OBTENGO TODOS LAS PRESTACIONES
-				sqlACargo = "SELECT * FROM Solicitud_prestacion WHERE nro_cliente = '" + id + "';";
-				System.out.println(sqlACargo);
-				rsACargo = this.consulta(sqlACargo);
+		sqlACargo = "SELECT * FROM Solicitud_prestacion WHERE nro_cliente = '" + id + "';";
+		System.out.println(sqlACargo);
+		rsACargo = this.consulta(sqlACargo);
 
-				try {
-					while (rsACargo.next()) {
-						ArrayList<String> solicitud = new ArrayList<String>();
-						if (rsACargo.getInt("nro_familiar") > 0) {// SI ES PARA UN FAMILIAR
-							String sqlFamiliar = "SELECT * FROM Familiar WHERE nro_familiar=" + rsACargo.getInt("nro_familiar")
-									+ ";";
-							rsFamiliar = this.consulta(sqlFamiliar);
-							if (rsFamiliar.next()) {
-								try {
-									solicitud.add(rsFamiliar.getString("nombre"));
-									solicitud.add(rsFamiliar.getString("apellido"));
-								} catch (SQLException e) {
-									e.printStackTrace();
-								}
-
-							}
-						} else {
-							System.out.print("ES EL QUE ESTA A CARGO");
-							solicitud.add(nombre);
-							solicitud.add(apellido);
+		try {
+			while (rsACargo.next()) {
+				ArrayList<String> solicitud = new ArrayList<String>();
+				if (rsACargo.getInt("nro_familiar") > 0) {// SI ES PARA UN FAMILIAR
+					String sqlFamiliar = "SELECT * FROM Familiar WHERE nro_familiar=" + rsACargo.getInt("nro_familiar")
+							+ ";";
+					rsFamiliar = this.consulta(sqlFamiliar);
+					if (rsFamiliar.next()) {
+						try {
+							solicitud.add(rsFamiliar.getString("nombre"));
+							solicitud.add(rsFamiliar.getString("apellido"));
+						} catch (SQLException e) {
+							e.printStackTrace();
 						}
 
-						
-						solicitud.add("prestacion");
-						solicitud.add(""+rsACargo.getInt("id_prestacion"));
-						solicitud.add(rsACargo.getString("fecha"));
-						solicitudes.add(solicitud);
 					}
-
-				} catch (
-
-				SQLException e) {
-					e.printStackTrace();
+				} else {
+					System.out.print("ES EL QUE ESTA A CARGO");
+					solicitud.add(nombre);
+					solicitud.add(apellido);
 				}
+
+				solicitud.add("prestacion");
+				solicitud.add("" + rsACargo.getInt("id_prestacion"));
+				solicitud.add(rsACargo.getString("fecha"));
+				solicitudes.add(solicitud);
+			}
+
+		} catch (
+
+		SQLException e) {
+			e.printStackTrace();
+		}
 
 		return solicitudes;
 	}
@@ -691,24 +688,22 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 
 	public boolean eliminarSolicitud(ArrayList<String> solicitud) {
 		boolean salida = false;
-		/*FORMATO ARRAY solicitud
-		 * (0) -> nombre
-		 * (1) -> apellido
-		 * (2) -> nombre del tipo dela solicitud reintegro/prestacion
-		 * (3) -> id_solicitud
+		/*
+		 * FORMATO ARRAY solicitud (0) -> nombre (1) -> apellido (2) -> nombre del tipo
+		 * dela solicitud reintegro/prestacion (3) -> id_solicitud
 		 */
-		String tipoSolicitud =solicitud.get(2);
+		String tipoSolicitud = solicitud.get(2);
 		String id_solicitud = solicitud.get(3);
-		String tabla = "Solicitud_"+tipoSolicitud;
-		if(!salida) {
-			String sql2 = "DELETE FROM "+ tabla +" WHERE id_"+tipoSolicitud+"="+id_solicitud+";";
+		String tabla = "Solicitud_" + tipoSolicitud;
+		if (!salida) {
+			String sql2 = "DELETE FROM " + tabla + " WHERE id_" + tipoSolicitud + "=" + id_solicitud + ";";
 			this.actualizacion(sql2);
 			salida = true;
 		} else {
 			salida = false;
 		}
-		
-		System.out.println("salida final = "+salida);
+
+		System.out.println("salida final = " + salida);
 		return salida;
 	}
 
@@ -725,7 +720,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	public String informacionSolicitud(ArrayList<String> solicitud) {
-		
+
 		String nombre = solicitud.get(0);
 		String apellido = solicitud.get(1);
 		String tipoSolicitud = solicitud.get(2).toUpperCase();
@@ -733,52 +728,50 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		String servicio = "";
 		String toReturn = "";
 		String extra = "";
-		String tabla = "Solicitud_"+solicitud.get(2);
-				
+		String tabla = "Solicitud_" + solicitud.get(2);
+
 		if (tipoSolicitud.compareTo("REINTEGRO") == 0) {
-			String sqlSolicitud = "SELECT nro_servicio FROM Solicitud_reintegro WHERE id_reintegro ="+idSolicitud+";";
+			String sqlSolicitud = "SELECT nro_servicio FROM Solicitud_reintegro WHERE id_reintegro =" + idSolicitud
+					+ ";";
 			ResultSet rs = this.consulta(sqlSolicitud);
 			try {
 				if (rs.next()) {
-					String sqlServicio = "SELECT nombre FROM Servicio WHERE nro_servicio ='"+rs.getInt("nro_servicio")+"';";
+					String sqlServicio = "SELECT nombre FROM Servicio WHERE nro_servicio ='" + rs.getInt("nro_servicio")
+							+ "';";
 					ResultSet rsServicio = this.consulta(sqlServicio);
-					if(rsServicio.next()) {
-						servicio = "Servicio: "+rsServicio.getString("nombre");
+					if (rsServicio.next()) {
+						servicio = "Servicio: " + rsServicio.getString("nombre");
 					}
 				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-				
-			extra = "CBU "+solicitud.get(4);
-		}else {//PRESTACION	
-			String sqlSolicitud = "SELECT nro_profesional FROM Solicitud_prestacion WHERE id_prestacion ="+idSolicitud+";";
+
+			extra = "CBU " + solicitud.get(4);
+		} else {// PRESTACION
+			String sqlSolicitud = "SELECT profesional FROM Solicitud_prestacion WHERE id_prestacion =" + idSolicitud
+					+ ";";
 			ResultSet rs = this.consulta(sqlSolicitud);
 			try {
 				if (rs.next()) {
-					String sqlProfesional = "SELECT nombre FROM Profesional WHERE nro_profesional ='"+rs.getInt("nro_profesional")+"';";
-					ResultSet rsProfesional = this.consulta(sqlProfesional);
-					if(rsProfesional.next()) {
-						servicio = "Profesional: "+rsProfesional.getString("nombre");
-					}
+					servicio = "Profesional: " + rs.getString("profesional");
+
 				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			extra = "Fecha: "+solicitud.get(4);
-			
+			extra = "Fecha: " + solicitud.get(4);
+
 		}
-		
-		
-		toReturn = tipoSolicitud+"\nCliente: "+nombre+" "+apellido+"\n"
-										+""+servicio+"\n"
-										+""+extra+"\n";
-		
-		
+
+		toReturn = tipoSolicitud + "\nCliente: " + nombre + " " + apellido + "\n" + "" + servicio + "\n" + "" + extra
+				+ "\n";
+
 		return toReturn;
 	}
+
 
 	public void registrarSolicitudPrestacion(int persona, String fecha, String profesional) {
 		String sql = armarSqlRegistrarSolicitudPrestacion(persona,fecha,profesional);
@@ -824,7 +817,5 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		System.out.println(nroFamiliar);
 		return nroFamiliar;
 	}
-
-	
 
 }
