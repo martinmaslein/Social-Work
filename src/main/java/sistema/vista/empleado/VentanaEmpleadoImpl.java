@@ -193,7 +193,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setBounds(618, 278, 129, 34);
-	//	btnEliminar.addActionListener(this.eliminarFamiliar());
+		btnEliminar.addActionListener(this.eliminarCliente());
 		panelABMCliente.add(btnEliminar);
 
 		btnModificar = new JButton("Modificar");
@@ -236,6 +236,29 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		
 	}
 
+	private ActionListener eliminarCliente() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(clienteSeleccionado.get(0) == null)
+					JOptionPane.showMessageDialog(null, "Seleccione un cliente para eliminar");
+				else {
+					String[] botones = { "Confirmar", "Cancelar" };
+					int opciones = JOptionPane.showConfirmDialog(null, " Desea eliminar al cliente?", "Eliminar",
+							JOptionPane.OK_CANCEL_OPTION);
+	
+					boolean eliminado = false;
+					if (opciones == 0) {
+						eliminado = controlador.eliminarCliente(clienteSeleccionado.get(0));
+						JOptionPane.showMessageDialog(null, "Cliente Eliminado");
+						cargarABMClientes();
+					} else if (opciones == 2)
+						JOptionPane.showMessageDialog(null, "Proceso cancelado");
+				}
+			}
+		};
+	}
+
 	private ActionListener modifcarDatosCliente() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -246,7 +269,7 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 					cargarPlanes();
 
 				} else
-					JOptionPane.showMessageDialog(null, "Seleccione un familiar para modificar");
+					JOptionPane.showMessageDialog(null, "Seleccione un cliente para modificar");
 			}
 		};
 	}
@@ -550,7 +573,10 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		
 		textField.setText(clienteSeleccionado.get(0));
 		textField.setEditable(false);
-		System.out.println(clienteSeleccionado.get(3));
+
+		for(int i = 0; i < comboBoxCupones.getItemCount(); i++){
+			comboBoxCupones.removeItemAt(0);
+			}
 		
 		ArrayList<String> planes = controlador.getPlanes();
 		for(int i = 0; i < planes.size(); i++) {

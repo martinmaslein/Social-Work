@@ -573,4 +573,10 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public boolean eliminarCliente(String string) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

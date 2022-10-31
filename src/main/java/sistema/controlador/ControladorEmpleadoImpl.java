@@ -117,4 +117,10 @@ public class ControladorEmpleadoImpl implements ControladorEmpleado {
 		
 	}
 
+	@Override
+	public boolean eliminarCliente(String string) {
+		
+		return modelo.eliminarCliente(string);
+	}
+
 }

@@ -615,4 +615,12 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 		
 	}
 
+	@Override
+	public boolean eliminarCliente(String nombre) {
+		String sql = "DELETE FROM Cliente WHERE nombre='" + nombre + "'";
+		this.actualizacion(sql);
+
+		return true;
+	}
+
 }

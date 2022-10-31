@@ -880,4 +880,10 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		
 	}
 
+	@Override
+	public boolean eliminarCliente(String string) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

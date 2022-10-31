@@ -83,4 +83,6 @@ public interface ModeloUsuario extends Modelo {
 
 	public void actualizarPlanCliente(String string, String string2);
 
+	public boolean eliminarCliente(String string);
+
 }

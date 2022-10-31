@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS Familiar(
 
     CONSTRAINT FK_Familiar_Cliente
     FOREIGN KEY (nro_cliente) REFERENCES Cliente(nro_cliente)
-        ON DELETE RESTRICT ON UPDATE CASCADE
+        ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS Servicio(
@@ -133,8 +133,8 @@ DROP USER 'empleado'@'%';
 CREATE USER 'empleado'@'%' IDENTIFIED BY 'empleado';
 GRANT SELECT ON sistema.empleado TO 'empleado'@'%';
 GRANT SELECT,UPDATE,INSERT ON sistema.empleado TO 'empleado'@'%'; 
-GRANT SELECT,UPDATE,INSERT ON sistema.cliente TO 'empleado'@'%'; 
-GRANT SELECT,UPDATE,INSERT ON sistema.familiar TO 'empleado'@'%';
+GRANT DELETE,SELECT,UPDATE,INSERT ON sistema.cliente TO 'empleado'@'%'; 
+GRANT DELETE,SELECT,UPDATE,INSERT ON sistema.familiar TO 'empleado'@'%';
 GRANT SELECT,UPDATE,INSERT,DELETE ON sistema.solicitud TO 'empleado'@'%';
 GRANT DELETE, SELECT,UPDATE,INSERT ON sistema.Solicitud_reintegro TO 'empleado'@'%'; 
 GRANT DELETE, SELECT,UPDATE,INSERT ON sistema.Solicitud_prestacion TO 'empleado'@'%';
@@ -171,7 +171,7 @@ INSERT INTO Cliente VALUES (3,'cliente3',md5('contraseña3'),"Arena","Camila","1
 INSERT INTO Cliente VALUES (4,'cliente4',md5('contraseña4'),"Torres","Sofia","1986/05/09","Terrada 50","2916735489","sofitorres@gmail.com",45678936,2,0);
 INSERT INTO Cliente VALUES (5,'cliente5',md5('contraseña5'),"Rodriguez","Matias","1970/12/12","Gorriti 302","0116578635","matirod78@gmail.com",26783645,1,0);
 
-#------ Familiar (nro_familiar,nro_cliente,apellido, nombre, fecha_nac, direccion, telefono, dni) --------------------#
+#------ Familiar (nro_familiar,nro_cliente,apellido, nombre, fecha_nac, direccion, telefono, correo, dni) --------------------#
 INSERT INTO Familiar VALUES (1,1,"Lopez","Joan","1990/08/11","Gorriti 501",2916663748,"joanlopez@gmail.com", 43593848);
 INSERT INTO Familiar VALUES (2,1,"Lopez","Valentina","1970/05/12","San Juan 200",2916663748,"valenlopez@gmail.com", 32374264);
 INSERT INTO Familiar VALUES (3,2,"Perez","Teresa","2000/04/09","Alem 3800",2916663748,"teresaperez@gmail.com", 19046111);
