@@ -380,7 +380,8 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		nombreFamiliares.add(clienteActual.getNombre());
+		
 		// Obtener nombre Familiares
 		String queryFamiliar = "SELECT * FROM Familiar WHERE nro_cliente = '" + id + "';";
 		rs = this.consulta(queryFamiliar);

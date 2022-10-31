@@ -652,7 +652,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 				else if (plan == 2)
 					monto = 2500;
 
-				for (int i = 0; i < cant; i++) {
+				mensaje += " " +nombresFamiliares.get(0) +" = $" + monto + "\n";
+				for (int i = 1; i < cant; i++) {
 					mensaje += " " + nombresFamiliares.get(i) + " = $" + monto + "\n";
 				}
 				mensaje += " Total = " + monto * cant;
