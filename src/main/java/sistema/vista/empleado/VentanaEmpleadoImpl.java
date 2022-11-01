@@ -146,6 +146,14 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 		btnModificar_1_1.setBorder(null);
 		btnModificar_1_1.setBackground(new Color(119, 193, 181));
 		btnModificar_1_1.setBounds(378, 353, 116, 23);
+		btnModificar_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				controlador.actualizarPlanCliente(clienteSeleccionado.get(0), comboBoxCupones.getSelectedItem().toString());
+				JOptionPane.showMessageDialog(null, "Plan modificado correctamente");
+				cargarABMClientes();
+			}
+		});
 		
 		JButton btnVolver = new JButton("");
 		btnVolver.setIcon(new ImageIcon("img\\flechi.png"));
@@ -583,13 +591,6 @@ public class VentanaEmpleadoImpl extends JFrame implements VentanaEmpleado {
 			if(!clienteSeleccionado.get(3).equals(planes.get(i)))
 				comboBoxCupones.addItem(planes.get(i));
 		}
-		btnModificar_1_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-				controlador.actualizarPlanCliente(clienteSeleccionado.get(0), comboBoxCupones.getSelectedItem().toString());
-				JOptionPane.showMessageDialog(null, "Plan modificado correctamente");
-			}
-		});
 	}
 
 	private void cargarABMClientes() {
