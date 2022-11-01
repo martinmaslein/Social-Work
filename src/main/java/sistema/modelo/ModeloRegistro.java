@@ -30,7 +30,7 @@ public class ModeloRegistro extends ModeloImpl {
 			String usuario = nuevoCliente.getNombreUsuario();
 			String contrasena = nuevoCliente.getContrasena();
 			
-			String sql = "INSERT INTO Cliente (username, password, apellido,nombre,fecha_nac,direccion,telefono,correo,nro_doc,nro_plan) VALUES ('" +usuario +"', md5('"+contrasena+"'),'"+apellido+"', '"+nombre+"', '"+fechaNac+"','"+direccion+"', "+telefono+", '"+correo+"',"+dni+","+nro_plan+");";
+			String sql = "INSERT INTO Cliente (username, password, apellido,nombre,fecha_nac,direccion,telefono,correo,nro_doc,nro_plan, cupon) VALUES ('" +usuario +"', md5('"+contrasena+"'),'"+apellido+"', '"+nombre+"', '"+fechaNac+"','"+direccion+"', "+telefono+", '"+correo+"',"+dni+","+nro_plan+","+0+");";
 			salida = true;
 			this.actualizacion(sql);
 		} else {
