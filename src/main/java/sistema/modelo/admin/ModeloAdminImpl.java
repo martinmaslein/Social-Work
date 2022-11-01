@@ -555,4 +555,28 @@ public class ModeloAdminImpl extends ModeloImpl implements ModeloUsuario {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public ArrayList<ArrayList<String>> obtenerInfoClientes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<String> getPlanesTotales() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void actualizarPlanCliente(String string, String string2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean eliminarCliente(String string) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

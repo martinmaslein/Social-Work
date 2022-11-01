@@ -380,7 +380,8 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		nombreFamiliares.add(clienteActual.getNombre());
+		
 		// Obtener nombre Familiares
 		String queryFamiliar = "SELECT * FROM Familiar WHERE nro_cliente = '" + id + "';";
 		rs = this.consulta(queryFamiliar);
@@ -504,6 +505,7 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 				familiar.add(rs.getString("fecha_nac"));
 				familiar.add(rs.getString("direccion"));
 				familiar.add(rs.getString("telefono"));
+				familiar.add(rs.getString("correo"));
 
 				nombreFamiliares.add(familiar);
 			}
@@ -859,6 +861,30 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	public void desaprobarSolicitud(ArrayList<String> solicitud) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public ArrayList<ArrayList<String>> obtenerInfoClientes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<String> getPlanesTotales() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void actualizarPlanCliente(String string, String string2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean eliminarCliente(String string) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

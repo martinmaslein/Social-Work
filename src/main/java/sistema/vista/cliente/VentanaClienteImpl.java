@@ -652,7 +652,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 				else if (plan == 2)
 					monto = 2500;
 
-				for (int i = 0; i < cant; i++) {
+				mensaje += " " +nombresFamiliares.get(0) +" = $" + monto + "\n";
+				for (int i = 1; i < cant; i++) {
 					mensaje += " " + nombresFamiliares.get(i) + " = $" + monto + "\n";
 				}
 				mensaje += " Total = " + monto * cant;
@@ -835,7 +836,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 					mensaje += " Nombre: " + familiarSeleccionado.get(0) + " " + familiarSeleccionado.get(1) + "\n"
 							+ " DNI: " + familiarSeleccionado.get(2) + "\n" + " Plan: " + familiarSeleccionado.get(3)
 							+ "\n" + " Fecha_nac: " + familiarSeleccionado.get(4) + "\n" + " Direccion: "
-							+ familiarSeleccionado.get(5) + "\n" + " Telefono: " + familiarSeleccionado.get(6);
+							+ familiarSeleccionado.get(5) + "\n" + " Telefono: " + familiarSeleccionado.get(6)
+							+ "\n" +" Email: "+familiarSeleccionado.get(7);
 				else
 					mensaje += "Seleccione el nombre de un familiar";
 				JOptionPane.showMessageDialog(null, mensaje);
@@ -995,7 +997,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private void cargarABMFamiliares() {
 		final ArrayList<ArrayList<String>> familiares = controlador.obtenerInfoFamiliares();
 
-		String columna[] = { "Nombre", "DNI", "Pan" };
+		String columna[] = { "Nombre", "DNI", "Plan" };
 
 		String data[][] = { { "", "", "" }, { "", "", "" }, { "", "", "" }, { "", "", "" }, { "", "", "" } };
 

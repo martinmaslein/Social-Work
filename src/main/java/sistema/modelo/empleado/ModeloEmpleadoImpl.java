@@ -536,4 +536,91 @@ public class ModeloEmpleadoImpl extends ModeloImpl implements ModeloUsuario {
 
 	}
 
+	@Override
+	public ArrayList<ArrayList<String>> obtenerInfoClientes() {
+		ArrayList<ArrayList<String>> nombreClientes = new ArrayList<ArrayList<String>>();
+		String plan = "";
+
+		// Obtener nombre Familiares
+		String sql = "SELECT * FROM Cliente;";
+		ResultSet rs = this.consulta(sql);
+
+		try {
+			while (rs.next()) {
+				ArrayList<String> cliente = new ArrayList<String>();
+				cliente.add(rs.getString("nombre"));
+				cliente.add(rs.getString("apellido"));
+				cliente.add(rs.getString("nro_doc"));
+				cliente.add(obtenerPlan(rs.getInt("nro_plan")));
+				cliente.add(rs.getString("fecha_nac"));
+				cliente.add(rs.getString("direccion"));
+				cliente.add(rs.getString("telefono"));
+				cliente.add(rs.getString("correo"));
+
+				nombreClientes.add(cliente);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return nombreClientes;
+	}
+
+	private String obtenerPlan(int nroDoc) {
+		
+		String sqlPlan = "SELECT nombre FROM Plan WHERE nro_plan=" + nroDoc + ";";
+		ResultSet rs = this.consulta(sqlPlan);
+		String plan="";
+		try {
+			if (rs.next())
+				plan = rs.getString("nombre");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return plan;
+	}
+
+	@Override
+	public ArrayList<String> getPlanesTotales() {
+
+		String sql = "SELECT * FROM PLAN;";
+		ResultSet rs = this.consulta(sql);
+		ArrayList<String> plan= new ArrayList<String>();
+		try {
+			while (rs.next())
+				plan.add(rs.getString("nombre"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		return plan;
+	}
+
+	@Override
+	public void actualizarPlanCliente(String string, String string2) {
+		
+		String sql = "SELECT * FROM Plan WHERE nombre='"+string2+"';";
+		ResultSet rs = this.consulta(sql);
+		int nroPlan = 0;
+		try {
+			if (rs.next())
+				nroPlan = rs.getInt("nro_plan");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		String query = "UPDATE Cliente SET " + "nro_plan = " + nroPlan + " WHERE nombre= '" + string + "';";
+		this.actualizacion(query);
+		
+	}
+
+	@Override
+	public boolean eliminarCliente(String nombre) {
+		String sql = "DELETE FROM Cliente WHERE nombre='" + nombre + "'";
+		this.actualizacion(sql);
+
+		return true;
+	}
+
 }

@@ -77,4 +77,12 @@ public interface ModeloUsuario extends Modelo {
 
 	public void desaprobarSolicitud(ArrayList<String> solicitud);
 
+	public ArrayList<ArrayList<String>> obtenerInfoClientes();
+
+	public ArrayList<String> getPlanesTotales();
+
+	public void actualizarPlanCliente(String string, String string2);
+
+	public boolean eliminarCliente(String string);
+
 }
