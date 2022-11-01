@@ -205,14 +205,15 @@ public class PanelABMSolicitudes extends JPanel {
 				int col = table.columnAtPoint(evt.getPoint());
 
 				Object selectedObject = (Object) table.getModel().getValueAt(row, col);
-
+				Object selectedObjectTipo = (Object) table.getModel().getValueAt(row, col+1);
+				Object tipo = selectedObjectTipo.toString();
 				String nomAp = selectedObject.toString();
 				String[] partes = nomAp.split(" ");
 				String nombre = partes[0];
 				System.out.println(nombre);
 
 				for (ArrayList<String> solicitud : solicitudes) {
-					if (nombre.equals(solicitud.get(0))) {
+					if (nombre.equals(solicitud.get(0)) && tipo.equals(solicitud.get(2))) {
 						solicitudSeleccionada = solicitud;
 						break;
 					} else {
