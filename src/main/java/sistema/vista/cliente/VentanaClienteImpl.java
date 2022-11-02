@@ -718,6 +718,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 							campoFechaNac.setText("");
 							campoEmail.setText("");
 							campoDNI.setText("");
+							
+							cargarABMFamiliares();
 						}
 					} else {
 						JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
