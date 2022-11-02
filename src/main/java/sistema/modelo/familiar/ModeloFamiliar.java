@@ -23,5 +23,13 @@ public interface ModeloFamiliar extends Modelo {
 	public String getDireccion();
 
 	public void setDireccion(String direccion);
+	
+	public String getEmail();
+	
+	public void setEmail(String email);
+	
+	public String getDNI();
+	
+	public void setDNI(String dni);
 }
 

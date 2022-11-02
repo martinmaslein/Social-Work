@@ -97,6 +97,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
+	private JTextField campoEmail;
+	private JTextField campoDNI;
 
 	public VentanaClienteImpl(String username, String password) {
 		inicializar();
@@ -388,6 +390,24 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		campoTelefono.setColumns(10);
 		campoTelefono.setBounds(236, 281, 191, 20);
 		panelCargarFamiliar.add(campoTelefono);
+		
+		JLabel lblEmail = new JLabel("Email");
+		lblEmail.setBounds(137, 329, 89, 14);
+		panelCargarFamiliar.add(lblEmail);
+		
+		campoEmail = new JTextField();
+		campoEmail.setColumns(10);
+		campoEmail.setBounds(236, 326, 191, 20);
+		panelCargarFamiliar.add(campoEmail);
+		
+		JLabel lblDni = new JLabel("DNI");
+		lblDni.setBounds(137, 372, 89, 14);
+		panelCargarFamiliar.add(lblDni);
+		
+		campoDNI = new JTextField();
+		campoDNI.setColumns(10);
+		campoDNI.setBounds(236, 369, 191, 20);
+		panelCargarFamiliar.add(campoDNI);
 
 		JLabel labelNombre = new JLabel("Nombre");
 		labelNombre.setBounds(137, 105, 69, 14);
@@ -410,7 +430,7 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		panelCargarFamiliar.add(labelTelefono);
 
 		JButton btnCargarFamiliar = new JButton("Cargar familiar");
-		btnCargarFamiliar.setBounds(236, 340, 131, 30);
+		btnCargarFamiliar.setBounds(236, 413, 131, 30);
 		panelCargarFamiliar.add(btnCargarFamiliar);
 		btnCargarFamiliar.setBorder(null);
 		btnCargarFamiliar.setForeground(new Color(255, 255, 255));
@@ -696,6 +716,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 							campodireccion.setText("");
 							campoTelefono.setText("");
 							campoFechaNac.setText("");
+							campoEmail.setText("");
+							campoDNI.setText("");
 						}
 					} else {
 						JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
@@ -716,6 +738,8 @@ public class VentanaClienteImpl extends JFrame implements VentanaCliente {
 		nuevoFamiliar.setFechaNacimiento(campoFechaNac.getText());
 		nuevoFamiliar.setDireccion(campodireccion.getText());
 		nuevoFamiliar.setTelefono(campoTelefono.getText());
+		nuevoFamiliar.setEmail(campoEmail.getText());
+		nuevoFamiliar.setDNI(campoDNI.getText());
 		return nuevoFamiliar;
 	}
 

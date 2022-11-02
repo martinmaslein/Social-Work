@@ -8,6 +8,8 @@ public class ModeloFamiliarImpl implements ModeloFamiliar {
 	protected String direccion;
 	protected String fechaNac;
 	protected String telefono;
+	protected String email;
+	protected String dni;
 	
 	public ModeloFamiliarImpl() {
 		this.nombre = "";
@@ -15,6 +17,8 @@ public class ModeloFamiliarImpl implements ModeloFamiliar {
 		this.direccion = "";
 		this.fechaNac = "";
 		this.telefono = "";
+		this.email = "";
+		this.dni = "";
 	}
 	
 	@Override
@@ -89,6 +93,30 @@ public class ModeloFamiliarImpl implements ModeloFamiliar {
 	@Override
 	public void actualizacion(String sql) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getEmail() {
+		// TODO Auto-generated method stub
+		return email;
+	}
+
+	@Override
+	public void setEmail(String email) {
+		this.email = email;
+		
+	}
+
+	@Override
+	public String getDNI() {
+		// TODO Auto-generated method stub
+		return dni;
+	}
+
+	@Override
+	public void setDNI(String dni) {
+		this.dni = dni;
 		
 	}
 
