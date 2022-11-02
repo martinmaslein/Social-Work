@@ -88,7 +88,6 @@ public class PanelSolicitarPrestacion extends JPanel {
 		
 		
 		Vector<String> vector = new Vector<String>(controlador.obtenerNombreFamiliares());
-		vector.add(controlador.obtenerDatosCliente().getNombre());
 		DefaultComboBoxModel<String> dcm = new DefaultComboBoxModel<String>(vector);
 		final JComboBox<String> comboBox = new JComboBox<String>(dcm);
 		comboBox.setBounds(277, 164, 213, 31);

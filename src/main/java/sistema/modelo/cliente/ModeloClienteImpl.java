@@ -781,22 +781,11 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	private String armarSqlRegistrarSolicitudPrestacion(int persona, String fecha, String profesional) {
-		String queryFamiliar = "SELECT count(*) FROM Familiar WHERE nro_cliente = '" + clienteActual.getNroCliente()
-				+ "';";
-		ResultSet rs = this.consulta(queryFamiliar);
-		int familiares = 0;
-		try {
-			if (rs.next())
-				familiares = rs.getInt(1);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		if (persona == familiares)// el servicio lo recibe el mismo afiliado
-
+		if (persona == 0)// el servicio lo recibe el mismo afiliado
 			return "INSERT INTO Solicitud_prestacion (nro_cliente,profesional,fecha) " + "VALUES ("
 					+ clienteActual.getNroCliente() + " , '" + profesional + "' , " + fecha + ");";
 		else {
-			int nro_familiar = obtenerNroFamiliar(persona);
+			int nro_familiar = obtenerNroFamiliar(persona-1);
 			return "INSERT INTO Solicitud_prestacion (nro_cliente,nro_familiar,profesional,fecha) " + "VALUES ("
 					+ clienteActual.getNroCliente() + " , " + nro_familiar + " , '" + profesional + "' , '" + fecha
 					+ "');";
@@ -829,22 +818,13 @@ public class ModeloClienteImpl extends ModeloImpl implements ModeloUsuario {
 	}
 
 	private String armarSqlRegistrarSolicitudReintegro(int persona, String tipoServicio, String cbu) {
-		String queryFamiliar = "SELECT count(*) FROM Familiar WHERE nro_cliente = '" + clienteActual.getNroCliente()
-				+ "';";
-		ResultSet rs = this.consulta(queryFamiliar);
-		int familiares = 0;
-		try {
-			if (rs.next())
-				familiares = rs.getInt(1);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		if (persona == familiares)// el servicio lo recibe el mismo afiliado
+		
+		if (persona == 0)// el servicio lo recibe el mismo afiliado
 
 			return "INSERT INTO Solicitud_reintegro (nro_cliente,tipo_servicio,nro_cbu) " + "VALUES ("
 					+ clienteActual.getNroCliente() + " , '" + tipoServicio + "' , " + cbu + ");";
 		else {
-			int nro_familiar = obtenerNroFamiliar(persona);
+			int nro_familiar = obtenerNroFamiliar(persona-1);
 			return "INSERT INTO Solicitud_reintegro (nro_cliente,nro_familiar,tipo_servicio,nro_cbu) " + "VALUES ("
 					+ clienteActual.getNroCliente() + " , " + nro_familiar + " , '" + tipoServicio + "' , '" + cbu
 					+ "');";
